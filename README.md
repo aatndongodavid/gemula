@@ -1,6 +1,6 @@
-# DATAIKÔS
+# GEMULA
 
-DATAIKÔS est une plateforme web innovante dédiée à la prise de rendez-vous pour des services spécialisés en Data Science, Intelligence Artificielle et Informatique. Développée par des étudiants pour des étudiants et professionnels, la plateforme permet de réserver facilement des créneaux de consultation, de mentorat et de services techniques.
+GEMULA est une plateforme web innovante dédiée à la prise de rendez-vous pour des services spécialisés en Data Science, Intelligence Artificielle et Informatique. Développée par des étudiants pour des étudiants et professionnels, la plateforme permet de réserver facilement des créneaux de consultation, de mentorat et de services techniques.
 
 ## Aperçu
 
@@ -22,8 +22,8 @@ Ces instructions sont générales — ajustez-les en fonction du framework utili
 
 1. Cloner le dépôt :
 
-   git clone https://github.com/monsieurMechant200/website.git
-   cd website
+   git clone https://github.com/aatndongodavid/gemula.git
+   cd gemula
 
 2. Créer un environnement virtuel et installer les dépendances :
 
