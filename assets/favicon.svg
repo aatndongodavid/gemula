@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 120 90" role="img" aria-labelledby="title desc">
+  <title id="title">Gemula</title>
+  <desc id="desc">Symbole Gemula en damier orange et blanc</desc>
+  <rect width="120" height="90" rx="12" fill="#FFFFFF"/>
+  <g>
+    <rect x="4" y="4" width="26" height="26" rx="2" fill="#F5791C"/>
+    <rect x="30" y="4" width="26" height="26" rx="2" fill="#FFFFFF"/>
+    <rect x="56" y="4" width="26" height="26" rx="2" fill="#F5791C"/>
+    <rect x="82" y="4" width="26" height="26" rx="2" fill="#FFFFFF"/>
+
+    <rect x="4" y="30" width="26" height="26" rx="2" fill="#FFFFFF"/>
+    <rect x="30" y="30" width="26" height="26" rx="2" fill="#F5791C"/>
+    <rect x="56" y="30" width="26" height="26" rx="2" fill="#FFFFFF"/>
+    <rect x="82" y="30" width="26" height="26" rx="2" fill="#F5791C"/>
+
+    <rect x="4" y="56" width="26" height="26" rx="2" fill="#F5791C"/>
+    <rect x="30" y="56" width="26" height="26" rx="2" fill="#FFFFFF"/>
+    <rect x="56" y="56" width="26" height="26" rx="2" fill="#F5791C"/>
+    <rect x="82" y="56" width="26" height="26" rx="2" fill="#FFFFFF"/>
+  </g>
+</svg>
