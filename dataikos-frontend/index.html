@@ -1,1995 +1,442 @@
-<!DOCTYPE html>
+<!doctype html>
 <html lang="fr">
 <head>
-<meta charset="UTF-8">
-<meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>DATAIKOS — Distributed Intelligence. Engineered.</title>
-<link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;700;900&display=swap" rel="stylesheet">
-<style>
-  :root {
-    --teal-ink: #04342C;
-    --teal-core: #0A5C4A;
-    --teal-vivid: #17A27A;
-    --amber: #F5A623;
-    --sand: #F5F0E8;
-    --white: #FFFFFF;
-    --grey-light: #E8E8E8;
-    --black: #0D0D0D;
-  }
-
-  *, *::before, *::after { margin: 0; padding: 0; box-sizing: border-box; }
-
-  html { scroll-behavior: smooth; }
-
-  body {
-    font-family: 'Inter', 'Helvetica Neue', Helvetica, sans-serif;
-    background: var(--teal-ink);
-    color: var(--white);
-    overflow-x: hidden;
-  }
-
-  /* ═══════════════════════════════════════
-     BACKGROUND ANIMATED — ambiance eau profonde
-  ═══════════════════════════════════════ */
-  .bg-canvas {
-    position: fixed;
-    inset: 0;
-    z-index: 0;
-    overflow: hidden;
-    pointer-events: none;
-  }
-
-  .bg-canvas canvas {
-    width: 100%;
-    height: 100%;
-  }
-
-  .bg-blobs {
-    position: absolute;
-    inset: 0;
-  }
-
-  .blob {
-    position: absolute;
-    border-radius: 50%;
-    filter: blur(80px);
-    opacity: 0.18;
-    animation: blobFloat linear infinite;
-  }
-
-  .blob-1 {
-    width: 700px; height: 700px;
-    background: radial-gradient(circle, #17A27A, #04342C);
-    top: -15%; left: -10%;
-    animation-duration: 22s;
-    animation-delay: 0s;
-  }
-  .blob-2 {
-    width: 500px; height: 500px;
-    background: radial-gradient(circle, #0A5C4A, #17A27A);
-    bottom: -10%; right: -5%;
-    animation-duration: 28s;
-    animation-delay: -8s;
-  }
-  .blob-3 {
-    width: 400px; height: 400px;
-    background: radial-gradient(circle, #F5A623 0%, transparent 70%);
-    top: 40%; left: 55%;
-    opacity: 0.08;
-    animation-duration: 18s;
-    animation-delay: -14s;
-  }
-  .blob-4 {
-    width: 600px; height: 300px;
-    background: radial-gradient(ellipse, #17A27A, transparent);
-    top: 60%; left: 20%;
-    opacity: 0.12;
-    animation-duration: 35s;
-    animation-delay: -5s;
-  }
-
-  @keyframes blobFloat {
-    0%   { transform: translate(0, 0) scale(1) rotate(0deg); }
-    25%  { transform: translate(30px, -40px) scale(1.05) rotate(5deg); }
-    50%  { transform: translate(-20px, 30px) scale(0.97) rotate(-3deg); }
-    75%  { transform: translate(40px, 20px) scale(1.03) rotate(4deg); }
-    100% { transform: translate(0, 0) scale(1) rotate(0deg); }
-  }
-
-  /* Water ripple grid lines */
-  .water-grid {
-    position: absolute;
-    inset: 0;
-    background-image:
-      linear-gradient(rgba(23,162,122,0.04) 1px, transparent 1px),
-      linear-gradient(90deg, rgba(23,162,122,0.04) 1px, transparent 1px);
-    background-size: 60px 60px;
-    animation: gridShift 20s ease-in-out infinite alternate;
-  }
-
-  @keyframes gridShift {
-    0%   { transform: perspective(800px) rotateX(0deg) translateY(0); }
-    100% { transform: perspective(800px) rotateX(2deg) translateY(-10px); }
-  }
-
-  /* ═══════════════════════════════════════
-     GLASS MIXIN — style eau
-  ═══════════════════════════════════════ */
-  .glass {
-    background: rgba(10, 92, 74, 0.12);
-    backdrop-filter: blur(24px) saturate(160%) brightness(110%);
-    -webkit-backdrop-filter: blur(24px) saturate(160%) brightness(110%);
-    border: 0.5px solid rgba(23, 162, 122, 0.25);
-    border-radius: 16px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .glass::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      135deg,
-      rgba(255,255,255,0.07) 0%,
-      rgba(23,162,122,0.04) 40%,
-      rgba(255,255,255,0.02) 100%
-    );
-    pointer-events: none;
-    border-radius: inherit;
-  }
-
-  .glass-dark {
-    background: rgba(4, 52, 44, 0.45);
-    backdrop-filter: blur(32px) saturate(180%);
-    -webkit-backdrop-filter: blur(32px) saturate(180%);
-    border: 0.5px solid rgba(23, 162, 122, 0.2);
-    border-radius: 16px;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .glass-dark::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: linear-gradient(
-      160deg,
-      rgba(255,255,255,0.05) 0%,
-      transparent 60%
-    );
-    pointer-events: none;
-  }
-
-  /* Reflet eau en haut des cards */
-  .glass::after, .glass-dark::after {
-    content: '';
-    position: absolute;
-    top: 0; left: 10%; right: 10%;
-    height: 1px;
-    background: linear-gradient(90deg, transparent, rgba(255,255,255,0.3), transparent);
-    pointer-events: none;
-  }
-
-  /* ═══════════════════════════════════════
-     LAYOUT
-  ═══════════════════════════════════════ */
-  .container {
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 32px;
-    position: relative;
-    z-index: 1;
-  }
-
-  section {
-    position: relative;
-    z-index: 1;
-  }
-
-  /* ═══════════════════════════════════════
-     NAVBAR
-  ═══════════════════════════════════════ */
-  nav {
-    position: fixed;
-    top: 0; left: 0; right: 0;
-    z-index: 100;
-    padding: 16px 0;
-    transition: all 0.3s ease;
-  }
-
-  nav.scrolled {
-    background: rgba(4, 52, 44, 0.55);
-    backdrop-filter: blur(28px) saturate(200%);
-    -webkit-backdrop-filter: blur(28px) saturate(200%);
-    border-bottom: 0.5px solid rgba(23,162,122,0.2);
-    padding: 12px 0;
-  }
-
-  .nav-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    max-width: 1200px;
-    margin: 0 auto;
-    padding: 0 32px;
-  }
-
-  .logo-wrap {
-    display: flex;
-    align-items: center;
-    gap: 12px;
-    text-decoration: none;
-  }
-
-  .logo-wrap img {
-    height: 40px;
-    width: auto;
-    display: block;
-  }
-
-  .logo-text {
-    font-size: 20px;
-    font-weight: 900;
-    letter-spacing: 3px;
-    color: var(--white);
-    font-family: 'Inter', Helvetica, sans-serif;
-  }
-
-  .logo-text span { color: var(--amber); }
-
-  nav ul {
-    list-style: none;
-    display: flex;
-    gap: 36px;
-  }
-
-  nav ul a {
-    color: rgba(255,255,255,0.75);
-    text-decoration: none;
-    font-size: 13px;
-    font-weight: 600;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    transition: color 0.2s;
-    position: relative;
-  }
-
-  nav ul a::after {
-    content: '';
-    position: absolute;
-    bottom: -4px; left: 0; right: 0;
-    height: 1px;
-    background: var(--amber);
-    transform: scaleX(0);
-    transition: transform 0.2s;
-  }
-
-  nav ul a:hover { color: var(--white); }
-  nav ul a:hover::after { transform: scaleX(1); }
-
-  .nav-cta {
-    background: var(--amber);
-    color: var(--teal-ink) !important;
-    padding: 10px 24px;
-    border-radius: 8px;
-    font-weight: 700 !important;
-    letter-spacing: 1px;
-    transition: all 0.2s !important;
-  }
-
-  .nav-cta:hover {
-    background: #ffc04d !important;
-    color: var(--teal-ink) !important;
-    transform: translateY(-1px);
-  }
-
-  .nav-cta::after { display: none !important; }
-
-  /* Hamburger */
-  .hamburger {
-    display: none;
-    flex-direction: column;
-    gap: 5px;
-    cursor: pointer;
-    padding: 4px;
-  }
-
-  .hamburger span {
-    display: block;
-    width: 24px; height: 2px;
-    background: var(--white);
-    border-radius: 2px;
-    transition: all 0.3s;
-  }
-
-  .mobile-menu {
-    display: none;
-    position: fixed;
-    inset: 0;
-    z-index: 99;
-    background: rgba(4, 52, 44, 0.97);
-    backdrop-filter: blur(40px);
-    flex-direction: column;
-    align-items: center;
-    justify-content: center;
-    gap: 40px;
-  }
-
-  .mobile-menu.open { display: flex; }
-
-  .mobile-menu a {
-    color: var(--white);
-    text-decoration: none;
-    font-size: 28px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    transition: color 0.2s;
-  }
-
-  .mobile-menu a:hover { color: var(--amber); }
-
-  .mobile-close {
-    position: absolute;
-    top: 24px; right: 32px;
-    font-size: 32px;
-    cursor: pointer;
-    color: var(--white);
-    background: none;
-    border: none;
-  }
-
-  /* ═══════════════════════════════════════
-     HERO
-  ═══════════════════════════════════════ */
-  #hero {
-    min-height: 100vh;
-    display: flex;
-    align-items: center;
-    padding: 120px 0 80px;
-  }
-
-  .hero-content {
-    max-width: 780px;
-  }
-
-  .hero-badge {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    padding: 8px 18px;
-    border-radius: 100px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 32px;
-    background: rgba(245,166,35,0.1);
-    border: 0.5px solid rgba(245,166,35,0.3);
-  }
-
-  .hero-badge .dot {
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--amber);
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  @keyframes pulse {
-    0%, 100% { opacity: 1; transform: scale(1); }
-    50% { opacity: 0.4; transform: scale(1.4); }
-  }
-
-  .hero-title {
-    font-size: clamp(48px, 7vw, 88px);
-    font-weight: 900;
-    line-height: 1.0;
-    letter-spacing: -2px;
-    margin-bottom: 8px;
-    color: var(--white);
-  }
-
-  .hero-title .accent {
-    color: var(--teal-vivid);
-    display: block;
-  }
-
-  .hero-tagline {
-    font-size: clamp(16px, 2vw, 22px);
-    color: rgba(255,255,255,0.55);
-    font-style: italic;
-    font-weight: 400;
-    margin-bottom: 28px;
-    letter-spacing: 0.5px;
-  }
-
-  .hero-desc {
-    font-size: 16px;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.65);
-    max-width: 560px;
-    margin-bottom: 48px;
-  }
-
-  .hero-actions {
-    display: flex;
-    gap: 16px;
-    flex-wrap: wrap;
-  }
-
-  .btn-primary {
-    background: var(--amber);
-    color: var(--teal-ink);
-    padding: 14px 36px;
-    border-radius: 8px;
-    font-weight: 700;
-    font-size: 14px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: none;
-    cursor: pointer;
-    transition: all 0.2s;
-    position: relative;
-    overflow: hidden;
-  }
-
-  .btn-primary::before {
-    content: '';
-    position: absolute;
-    inset: 0;
-    background: rgba(255,255,255,0.15);
-    opacity: 0;
-    transition: opacity 0.2s;
-  }
-
-  .btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 32px rgba(245,166,35,0.35); }
-  .btn-primary:hover::before { opacity: 1; }
-
-  .btn-outline {
-    background: transparent;
-    color: var(--white);
-    padding: 14px 36px;
-    border-radius: 8px;
-    font-weight: 600;
-    font-size: 14px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    text-decoration: none;
-    border: 0.5px solid rgba(255,255,255,0.3);
-    cursor: pointer;
-    transition: all 0.2s;
-    backdrop-filter: blur(10px);
-  }
-
-  .btn-outline:hover {
-    background: rgba(255,255,255,0.08);
-    border-color: rgba(255,255,255,0.6);
-    transform: translateY(-2px);
-  }
-
-  .hero-stats {
-    display: flex;
-    gap: 48px;
-    margin-top: 64px;
-    padding-top: 40px;
-    border-top: 0.5px solid rgba(23,162,122,0.2);
-  }
-
-  .stat-item {}
-
-  .stat-num {
-    font-size: 36px;
-    font-weight: 900;
-    color: var(--amber);
-    letter-spacing: -1px;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .stat-label {
-    font-size: 11px;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.45);
-    font-weight: 600;
-  }
-
-  /* Hero visual right */
-  .hero-visual {
-    position: absolute;
-    right: -40px;
-    top: 50%;
-    transform: translateY(-50%);
-    width: 520px;
-    height: 520px;
-    pointer-events: none;
-  }
-
-  .hero-flex {
-    display: flex;
-    align-items: center;
-    gap: 80px;
-    width: 100%;
-  }
-
-  .hero-right {
-    flex-shrink: 0;
-    position: relative;
-    width: 420px;
-    height: 420px;
-  }
-
-  /* Hexagonal node animation */
-  .hex-ring {
-    position: absolute;
-    inset: 0;
-    animation: hexRotate 30s linear infinite;
-  }
-
-  @keyframes hexRotate {
-    from { transform: rotate(0deg); }
-    to { transform: rotate(360deg); }
-  }
-
-  .hex-ring-2 {
-    animation-duration: 20s;
-    animation-direction: reverse;
-  }
-
-  /* ═══════════════════════════════════════
-     SECTION TITLES
-  ═══════════════════════════════════════ */
-  .section-header {
-    text-align: center;
-    margin-bottom: 64px;
-  }
-
-  .section-label {
-    display: inline-block;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 3px;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 16px;
-    padding: 6px 16px;
-    border: 0.5px solid rgba(245,166,35,0.3);
-    border-radius: 100px;
-    background: rgba(245,166,35,0.06);
-  }
-
-  .section-title {
-    font-size: clamp(32px, 4vw, 52px);
-    font-weight: 900;
-    letter-spacing: -1px;
-    line-height: 1.1;
-    color: var(--white);
-    margin-bottom: 16px;
-  }
-
-  .section-title .teal { color: var(--teal-vivid); }
-
-  .section-sub {
-    font-size: 16px;
-    color: rgba(255,255,255,0.5);
-    max-width: 520px;
-    margin: 0 auto;
-    line-height: 1.6;
-  }
-
-  /* ═══════════════════════════════════════
-     SECTION: À PROPOS
-  ═══════════════════════════════════════ */
-  #about {
-    padding: 120px 0;
-  }
-
-  .about-grid {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 48px;
-    align-items: center;
-  }
-
-  .about-card {
-    padding: 48px;
-  }
-
-  .about-card h3 {
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--amber);
-    margin-bottom: 20px;
-  }
-
-  .about-card p {
-    font-size: 15px;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.65);
-    margin-bottom: 16px;
-  }
-
-  .about-card .quote {
-    font-size: 20px;
-    font-weight: 700;
-    font-style: italic;
-    color: var(--white);
-    border-left: 3px solid var(--amber);
-    padding-left: 20px;
-    margin: 28px 0;
-    line-height: 1.4;
-  }
-
-  .pillar-list {
-    display: flex;
-    flex-direction: column;
-    gap: 16px;
-  }
-
-  .pillar-item {
-    display: flex;
-    align-items: flex-start;
-    gap: 16px;
-    padding: 20px 24px;
-    border-radius: 12px;
-    background: rgba(23,162,122,0.06);
-    border: 0.5px solid rgba(23,162,122,0.15);
-    transition: all 0.3s;
-  }
-
-  .pillar-item:hover {
-    background: rgba(23,162,122,0.12);
-    border-color: rgba(23,162,122,0.35);
-    transform: translateX(4px);
-  }
-
-  .pillar-icon {
-    width: 36px; height: 36px;
-    background: var(--amber);
-    border-radius: 8px;
-    flex-shrink: 0;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    font-size: 16px;
-  }
-
-  .pillar-text h4 {
-    font-size: 13px;
-    font-weight: 700;
-    color: var(--white);
-    letter-spacing: 0.5px;
-    margin-bottom: 4px;
-  }
-
-  .pillar-text p {
-    font-size: 12px;
-    color: rgba(255,255,255,0.5);
-    line-height: 1.5;
-    margin: 0;
-  }
-
-  /* ═══════════════════════════════════════
-     SECTION: EXPERTISES
-  ═══════════════════════════════════════ */
-  #expertise {
-    padding: 120px 0;
-  }
-
-  .expertise-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-bottom: 48px;
-  }
-
-  .expertise-card {
-    padding: 40px 32px;
-    transition: all 0.3s;
-    cursor: default;
-  }
-
-  .expertise-card:hover {
-    transform: translateY(-6px);
-    border-color: rgba(23,162,122,0.5) !important;
-    background: rgba(10, 92, 74, 0.2) !important;
-  }
-
-  .expertise-icon {
-    width: 52px; height: 52px;
-    border-radius: 12px;
-    background: linear-gradient(135deg, var(--teal-core), var(--teal-vivid));
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    margin-bottom: 24px;
-    position: relative;
-  }
-
-  .expertise-icon .amber-dot {
-    position: absolute;
-    width: 8px; height: 8px;
-    border-radius: 50%;
-    background: var(--amber);
-    top: -3px; right: -3px;
-  }
-
-  .expertise-card h3 {
-    font-size: 18px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 12px;
-    letter-spacing: -0.3px;
-  }
-
-  .expertise-card p {
-    font-size: 14px;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.55);
-  }
-
-  .expertise-tag {
-    display: inline-block;
-    margin-top: 20px;
-    font-size: 10px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--teal-vivid);
-    padding: 4px 12px;
-    border: 0.5px solid rgba(23,162,122,0.3);
-    border-radius: 100px;
-  }
-
-  /* ═══════════════════════════════════════
-     SECTION: PRODUITS
-  ═══════════════════════════════════════ */
-  #products {
-    padding: 120px 0;
-  }
-
-  .product-hero {
-    padding: 64px;
-    margin-bottom: 40px;
-  }
-
-  .product-hero-inner {
-    display: grid;
-    grid-template-columns: 1fr auto;
-    gap: 64px;
-    align-items: center;
-  }
-
-  .product-badge-amber {
-    display: inline-flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    color: var(--teal-ink);
-    background: var(--amber);
-    padding: 6px 16px;
-    border-radius: 100px;
-    margin-bottom: 20px;
-  }
-
-  .product-title {
-    font-size: 52px;
-    font-weight: 900;
-    color: var(--amber);
-    letter-spacing: -1px;
-    line-height: 1;
-    margin-bottom: 4px;
-  }
-
-  .product-sub {
-    font-size: 14px;
-    color: rgba(255,255,255,0.45);
-    letter-spacing: 2px;
-    margin-bottom: 24px;
-    text-transform: uppercase;
-  }
-
-  .product-desc {
-    font-size: 15px;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.6);
-    max-width: 480px;
-    margin-bottom: 32px;
-  }
-
-  /* PCB Visual */
-  .pcb-visual {
-    width: 220px;
-    height: 220px;
-    border-radius: 16px;
-    background: #001a14;
-    border: 1px solid rgba(23,162,122,0.3);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    position: relative;
-    overflow: hidden;
-    flex-shrink: 0;
-  }
-
-  .pcb-lines {
-    position: absolute;
-    inset: 0;
-    opacity: 0.15;
-  }
-
-  .pcb-lines line {
-    stroke: #17A27A;
-    stroke-width: 1;
-  }
-
-  .pcb-core {
-    position: relative;
-    z-index: 2;
-  }
-
-  .led-pulse {
-    position: absolute;
-    bottom: 20px; right: 20px;
-    width: 10px; height: 10px;
-    border-radius: 50%;
-    background: var(--amber);
-    animation: ledBlink 1.5s ease-in-out infinite;
-  }
-
-  @keyframes ledBlink {
-    0%, 100% { opacity: 1; box-shadow: 0 0 8px var(--amber), 0 0 20px rgba(245,166,35,0.4); }
-    50% { opacity: 0.3; box-shadow: none; }
-  }
-
-  .spec-grid {
-    display: grid;
-    grid-template-columns: repeat(4, 1fr);
-    gap: 16px;
-  }
-
-  .spec-card {
-    padding: 24px 20px;
-    text-align: center;
-  }
-
-  .spec-card .spec-icon { font-size: 20px; margin-bottom: 10px; }
-  .spec-card .spec-name {
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: var(--teal-vivid);
-    margin-bottom: 6px;
-  }
-  .spec-card .spec-val {
-    font-size: 13px;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.4;
-  }
-
-  /* ═══════════════════════════════════════
-     SECTION: VISION
-  ═══════════════════════════════════════ */
-  #vision {
-    padding: 120px 0;
-  }
-
-  .vision-wrap {
-    padding: 80px 64px;
-    text-align: center;
-  }
-
-  .vision-main {
-    font-size: clamp(28px, 4vw, 48px);
-    font-weight: 900;
-    line-height: 1.2;
-    letter-spacing: -1px;
-    color: var(--white);
-    max-width: 700px;
-    margin: 0 auto 32px;
-  }
-
-  .vision-main .amber { color: var(--amber); }
-  .vision-main .teal { color: var(--teal-vivid); }
-
-  .vision-grid {
-    display: grid;
-    grid-template-columns: repeat(3, 1fr);
-    gap: 24px;
-    margin-top: 64px;
-  }
-
-  .vision-card {
-    padding: 36px 28px;
-    text-align: left;
-  }
-
-  .vision-num {
-    font-size: 48px;
-    font-weight: 900;
-    color: rgba(23,162,122,0.2);
-    line-height: 1;
-    margin-bottom: 12px;
-    letter-spacing: -2px;
-  }
-
-  .vision-card h4 {
-    font-size: 16px;
-    font-weight: 700;
-    color: var(--white);
-    margin-bottom: 10px;
-  }
-
-  .vision-card p {
-    font-size: 13px;
-    line-height: 1.7;
-    color: rgba(255,255,255,0.5);
-  }
-
-  /* ═══════════════════════════════════════
-     SECTION: ÉQUIPE / COLLECTIF
-  ═══════════════════════════════════════ */
-  #team {
-    padding: 120px 0;
-  }
-
-  .team-statement {
-    padding: 48px 56px;
-    max-width: 760px;
-    margin: 0 auto 64px;
-    text-align: center;
-  }
-
-  .team-statement p {
-    font-size: 18px;
-    line-height: 1.8;
-    color: rgba(255,255,255,0.7);
-  }
-
-  .team-statement strong { color: var(--white); }
-
-  .skills-grid {
-    display: grid;
-    grid-template-columns: repeat(2, 1fr);
-    gap: 24px;
-  }
-
-  .skill-track {
-    padding: 28px 32px;
-  }
-
-  .skill-name {
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    margin-bottom: 12px;
-  }
-
-  .skill-name span:first-child {
-    font-size: 13px;
-    font-weight: 600;
-    color: rgba(255,255,255,0.8);
-    letter-spacing: 0.5px;
-  }
-
-  .skill-name span:last-child {
-    font-size: 11px;
-    color: var(--amber);
-    font-weight: 700;
-  }
-
-  .skill-bar {
-    height: 3px;
-    background: rgba(255,255,255,0.08);
-    border-radius: 100px;
-    overflow: hidden;
-  }
-
-  .skill-fill {
-    height: 100%;
-    border-radius: 100px;
-    background: linear-gradient(90deg, var(--teal-vivid), var(--amber));
-    width: 0;
-    transition: width 1.5s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  /* ═══════════════════════════════════════
-     SECTION: CONTACT
-  ═══════════════════════════════════════ */
-  #contact {
-    padding: 120px 0 160px;
-  }
-
-  .contact-grid {
-    display: grid;
-    grid-template-columns: 1fr 1.3fr;
-    gap: 48px;
-    align-items: start;
-  }
-
-  .contact-info {
-    padding: 48px;
-  }
-
-  .contact-info h3 {
-    font-size: 28px;
-    font-weight: 900;
-    color: var(--white);
-    margin-bottom: 16px;
-    letter-spacing: -0.5px;
-  }
-
-  .contact-info p {
-    font-size: 14px;
-    color: rgba(255,255,255,0.55);
-    line-height: 1.7;
-    margin-bottom: 36px;
-  }
-
-  .contact-detail {
-    display: flex;
-    flex-direction: column;
-    gap: 20px;
-  }
-
-  .contact-item {
-    display: flex;
-    align-items: center;
-    gap: 16px;
-  }
-
-  .contact-item-icon {
-    width: 40px; height: 40px;
-    border-radius: 10px;
-    background: rgba(245,166,35,0.12);
-    border: 0.5px solid rgba(245,166,35,0.25);
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    flex-shrink: 0;
-    font-size: 16px;
-  }
-
-  .contact-item-text {
-    font-size: 13px;
-    color: rgba(255,255,255,0.6);
-    line-height: 1.4;
-  }
-
-  .contact-item-text strong {
-    display: block;
-    color: var(--white);
-    font-size: 14px;
-    margin-bottom: 2px;
-  }
-
-  /* Form */
-  .contact-form {
-    padding: 48px;
-  }
-
-  .form-row {
-    display: grid;
-    grid-template-columns: 1fr 1fr;
-    gap: 16px;
-    margin-bottom: 16px;
-  }
-
-  .form-group {
-    margin-bottom: 16px;
-  }
-
-  .form-group label {
-    display: block;
-    font-size: 11px;
-    font-weight: 700;
-    letter-spacing: 1.5px;
-    text-transform: uppercase;
-    color: rgba(255,255,255,0.5);
-    margin-bottom: 8px;
-  }
-
-  .form-group input,
-  .form-group textarea,
-  .form-group select {
-    width: 100%;
-    padding: 14px 18px;
-    background: rgba(255,255,255,0.04);
-    border: 0.5px solid rgba(23,162,122,0.2);
-    border-radius: 8px;
-    color: var(--white);
-    font-size: 14px;
-    font-family: 'Inter', Helvetica, sans-serif;
-    outline: none;
-    transition: all 0.2s;
-    backdrop-filter: blur(10px);
-  }
-
-  .form-group input:focus,
-  .form-group textarea:focus,
-  .form-group select:focus {
-    border-color: var(--teal-vivid);
-    background: rgba(23,162,122,0.06);
-    box-shadow: 0 0 0 3px rgba(23,162,122,0.1);
-  }
-
-  .form-group input::placeholder,
-  .form-group textarea::placeholder {
-    color: rgba(255,255,255,0.2);
-  }
-
-  .form-group select option { background: var(--teal-ink); color: var(--white); }
-
-  .form-group textarea {
-    min-height: 120px;
-    resize: vertical;
-  }
-
-  .form-submit {
-    width: 100%;
-    padding: 16px;
-    font-size: 13px;
-    font-weight: 700;
-    letter-spacing: 2px;
-    text-transform: uppercase;
-    background: var(--amber);
-    color: var(--teal-ink);
-    border: none;
-    border-radius: 8px;
-    cursor: pointer;
-    transition: all 0.2s;
-    margin-top: 8px;
-  }
-
-  .form-submit:hover {
-    background: #ffc04d;
-    transform: translateY(-2px);
-    box-shadow: 0 8px 32px rgba(245,166,35,0.35);
-  }
-
-  /* ═══════════════════════════════════════
-     FOOTER
-  ═══════════════════════════════════════ */
-  footer {
-    position: relative;
-    z-index: 1;
-    border-top: 0.5px solid rgba(23,162,122,0.15);
-    padding: 48px 0 32px;
-    background: rgba(4,52,44,0.3);
-    backdrop-filter: blur(20px);
-  }
-
-  .footer-inner {
-    display: flex;
-    align-items: center;
-    justify-content: space-between;
-    flex-wrap: wrap;
-    gap: 24px;
-  }
-
-  .footer-brand {
-    display: flex;
-    flex-direction: column;
-    gap: 8px;
-  }
-
-  .footer-brand .logo-wrap img {
-    height: 28px;
-    width: auto;
-  }
-
-  .footer-tagline {
-    font-size: 12px;
-    color: rgba(255,255,255,0.35);
-    font-style: italic;
-    letter-spacing: 0.5px;
-  }
-
-  .footer-links {
-    display: flex;
-    gap: 32px;
-  }
-
-  .footer-links a {
-    font-size: 12px;
-    color: rgba(255,255,255,0.4);
-    text-decoration: none;
-    letter-spacing: 1px;
-    text-transform: uppercase;
-    font-weight: 600;
-    transition: color 0.2s;
-  }
-
-  .footer-links a:hover { color: var(--amber); }
-
-  .footer-copy {
-    font-size: 11px;
-    color: rgba(255,255,255,0.25);
-    letter-spacing: 0.5px;
-  }
-
-  .footer-geo {
-    display: flex;
-    align-items: center;
-    gap: 8px;
-    font-size: 11px;
-    color: rgba(255,255,255,0.3);
-    letter-spacing: 1px;
-  }
-
-  .footer-geo::before {
-    content: '';
-    width: 6px; height: 6px;
-    border-radius: 50%;
-    background: var(--teal-vivid);
-    animation: pulse 2s ease-in-out infinite;
-  }
-
-  /* ═══════════════════════════════════════
-     SCROLL ANIMATIONS
-  ═══════════════════════════════════════ */
-  .fade-up {
-    opacity: 0;
-    transform: translateY(40px);
-    transition: all 0.8s cubic-bezier(0.4, 0, 0.2, 1);
-  }
-
-  .fade-up.visible {
-    opacity: 1;
-    transform: translateY(0);
-  }
-
-  .fade-up:nth-child(2) { transition-delay: 0.1s; }
-  .fade-up:nth-child(3) { transition-delay: 0.2s; }
-  .fade-up:nth-child(4) { transition-delay: 0.3s; }
-
-  /* ═══════════════════════════════════════
-     RESPONSIVE
-  ═══════════════════════════════════════ */
-  @media (max-width: 900px) {
-    nav ul, .nav-cta { display: none; }
-    .hamburger { display: flex; }
-
-    .hero-flex { flex-direction: column; gap: 40px; }
-    .hero-right { width: 280px; height: 280px; }
-    .about-grid { grid-template-columns: 1fr; }
-    .expertise-grid { grid-template-columns: 1fr; }
-    .spec-grid { grid-template-columns: repeat(2, 1fr); }
-    .vision-grid { grid-template-columns: 1fr; }
-    .skills-grid { grid-template-columns: 1fr; }
-    .contact-grid { grid-template-columns: 1fr; }
-    .form-row { grid-template-columns: 1fr; }
-    .footer-inner { flex-direction: column; align-items: flex-start; }
-    .footer-links { flex-wrap: wrap; gap: 16px; }
-    .hero-stats { flex-wrap: wrap; gap: 24px; }
-    .product-hero-inner { grid-template-columns: 1fr; }
-    .product-hero { padding: 40px; }
-    .contact-info, .contact-form { padding: 32px; }
-    .about-card { padding: 32px; }
-    .vision-wrap { padding: 48px 32px; }
-  }
-
-  @media (max-width: 600px) {
-    .container { padding: 0 20px; }
-    .hero-title { font-size: 40px; }
-    .nav-inner { padding: 0 20px; }
-  }
-</style>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1.0" />
+<title>Gemula, Là où le talent devient un impact.</title>
+<meta name="description" content="Gemula est un collectif étudiant tourné vers la technologie, la donnée, l’intelligence artificielle, le design et l’innovation. Basé à Douala, nous transformons les idées et les talents en projets concrets." />
+
+<link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet">
+<link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
+<link rel="stylesheet" href="css/style.css" />
 </head>
 <body>
 
-<!-- BACKGROUND -->
-<div class="bg-canvas">
-  <div class="bg-blobs">
-    <div class="blob blob-1"></div>
-    <div class="blob blob-2"></div>
-    <div class="blob blob-3"></div>
-    <div class="blob blob-4"></div>
-  </div>
-  <div class="water-grid"></div>
+<!-- Loader / intro flag reveal -->
+<div id="intro-loader" aria-hidden="true">
+  <div class="intro-flag" id="intro-flag"></div>
 </div>
 
-<!-- MOBILE MENU -->
-<div class="mobile-menu" id="mobileMenu">
-  <button class="mobile-close" onclick="toggleMenu()">✕</button>
-  <a href="#hero" onclick="toggleMenu()">Accueil</a>
-  <a href="#about" onclick="toggleMenu()">À Propos</a>
-  <a href="#expertise" onclick="toggleMenu()">Expertises</a>
-  <a href="#products" onclick="toggleMenu()">Produits</a>
-  <a href="#vision" onclick="toggleMenu()">Vision</a>
-  <a href="#contact" onclick="toggleMenu()">Contact</a>
-</div>
-
-<!-- NAVBAR -->
-<nav id="navbar">
+<!-- ===== NAVBAR ===== -->
+<header class="nav" id="nav">
   <div class="nav-inner">
-    <a href="#hero" class="logo-wrap">
-      <!-- Logo sur fond blanc (dataikos logo 2.png) pour la navbar sombre -->
-      <img src="dataikos logo 2.png" alt="DATAIKOS" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 80%22%3E%3Crect width=%2280%22 height=%2280%22 fill=%22%2317A27A%22/%3E%3Ctext x=%2240%22 y=%2250%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2212%22%3ELOGO%3C/text%3E%3C/svg%3E';">
-      <span class="logo-text">DATA<span>I</span>KOS</span>
+    <a href="#top" class="brand" id="brand-home">
+      <span class="flagmark" id="nav-flag" aria-hidden="true"></span>
+      <span class="wordmark">Gemula</span>
     </a>
 
-    <ul>
-      <li><a href="#about">À Propos</a></li>
-      <li><a href="#expertise">Expertises</a></li>
-      <li><a href="#products">Produits</a></li>
-      <li><a href="#vision">Vision</a></li>
-      <li><a href="#contact" class="nav-cta">Contact</a></li>
-    </ul>
+    <nav class="nav-links" id="nav-links">
+      <a href="#vision" data-nav>Vision</a>
+      <a href="#expertise" data-nav>Expertise</a>
+      <a href="#projets" data-nav>Projets</a>
+      <a href="#vibeshield" data-nav>Signature</a>
+      <a href="#talent" data-nav>Talent</a>
+    </nav>
 
-    <div class="hamburger" onclick="toggleMenu()">
+    <a href="#contact" class="btn btn-primary nav-cta">Discutons</a>
+
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
       <span></span><span></span><span></span>
-    </div>
+    </button>
   </div>
-</nav>
 
-<!-- ════════════════════════════════════════
-     HERO
-════════════════════════════════════════ -->
-<section id="hero">
-  <div class="container">
-    <div class="hero-flex">
-      <div class="hero-content">
-        <div class="hero-badge">
-          <span class="dot"></span>
-          Douala · Cameroun · World
-        </div>
+  <div class="mobile-panel" id="mobile-panel">
+    <a href="#vision" data-nav>Vision</a>
+    <a href="#expertise" data-nav>Expertise</a>
+    <a href="#projets" data-nav>Projets</a>
+    <a href="#vibeshield" data-nav>Signature</a>
+    <a href="#talent" data-nav>Talent</a>
+    <a href="#contact" data-nav>Contact</a>
+  </div>
+</header>
 
-        <h1 class="hero-title">
-          Distributed
-          <span class="accent">Intelligence.</span>
-        </h1>
-        <p class="hero-tagline">"Engineered."</p>
+<main id="top">
 
-        <p class="hero-desc">
-          DATAIKOS est un collectif d'étudiants ingénieurs et chercheurs spécialisés dans l'IA distribuée, l'Edge Computing et l'IoT industriel. Fondé à Douala, opérant aux standards de la Silicon Valley.
+  <!-- ===== HERO ===== -->
+  <section class="hero" id="hero">
+    <div class="hero-grid" aria-hidden="true"></div>
+    <div class="hero-glow" aria-hidden="true"></div>
+
+    <div class="hero-inner container stagger">
+      <div class="eyebrow stagger-item">
+        <span class="dot"></span>
+        Collectif étudiant · Douala · Cameroun · World
+      </div>
+
+      <h1 class="hero-title stagger-item">
+        Là où le <span class="accent">talent</span> devient un <span class="accent">impact</span>.
+      </h1>
+
+      <p class="hero-sub stagger-item">
+        Gemula est un collectif étudiant qui réunit des profils passionnés par la Data, l'IA, le développement,
+        le design et l'innovation. Nous créons un espace où les talents peuvent apprendre, collaborer,
+        expérimenter et transformer leurs idées en réalisations concrètes.
+      </p>
+
+      <div class="hero-actions stagger-item">
+        <a href="#projets" class="btn btn-primary">
+          Voir nos projets
+          <span class="material-symbols-outlined">arrow_forward</span>
+        </a>
+        <a href="#vision" class="btn btn-ghost">Notre vision</a>
+      </div>
+
+<!--      <div class="hero-signature stagger-item">« At home in Silicon Valley and Douala. »</div> -->
+    </div>
+
+    <div class="hero-flag-visual" id="hero-flag" aria-hidden="true"></div>
+
+    <div class="scroll-cue" aria-hidden="true">
+      <span class="material-symbols-outlined">expand_more</span>
+    </div>
+  </section>
+
+  <!-- ===== VISION / POSITIONNEMENT ===== -->
+  <section class="section section-light" id="vision">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">01 · Notre vision</span>
+        <h2>Qui sommes-nous ?</h2>
+        <p class="lede">
+          Gemula est un collectif d'étudiants passionnés par les technologies numériques. Nous réunissons des
+          compétences complémentaires pour apprendre ensemble, construire des projets et partager
+          les connaissances au sein d'une communauté ambitieuse et ouverte.
         </p>
+      </div>
 
-        <div class="hero-actions">
-          <a href="#expertise" class="btn-primary">Découvrir</a>
-          <a href="#contact" class="btn-outline">Nous contacter</a>
+      <div class="position-grid reveal">
+        <div class="position-card">
+          <span class="material-symbols-outlined">public</span>
+          <h4>Géographie</h4>
+          <p>Douala · Cameroun · Ouvert sur le monde</p>
         </div>
-
-        <div class="hero-stats">
-          <div class="stat-item">
-            <div class="stat-num">3+</div>
-            <div class="stat-label">Domaines tech</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">∞</div>
-            <div class="stat-label">Impact Afrique</div>
-          </div>
-          <div class="stat-item">
-            <div class="stat-num">01</div>
-            <div class="stat-label">Produit Signature</div>
-          </div>
+        <div class="position-card">
+          <span class="material-symbols-outlined">hub</span>
+          <h4>Secteur</h4>
+          <p>Data · IA · Développement · Design · Innovation</p>
+        </div>
+        <div class="position-card">
+          <span class="material-symbols-outlined">groups</span>
+          <h4>Cible</h4>
+          <p>Étudiants · Créateurs · Porteurs de projets</p>
+        </div>
+        <div class="position-card position-card-accent">
+          <span class="material-symbols-outlined">bolt</span>
+          <h4>Ton de marque</h4>
+          <p>Curieux · Créatif · Ambitieux</p>
         </div>
       </div>
 
-      <!-- Hexagonal Visual -->
-      <div class="hero-right">
-        <svg viewBox="0 0 420 420" fill="none" xmlns="http://www.w3.org/2000/svg" style="width:100%;height:100%;">
-          <defs>
-            <radialGradient id="glowGrad" cx="50%" cy="50%" r="50%">
-              <stop offset="0%" stop-color="#F5A623" stop-opacity="0.3"/>
-              <stop offset="100%" stop-color="#F5A623" stop-opacity="0"/>
-            </radialGradient>
-            <filter id="blur4">
-              <feGaussianBlur stdDeviation="4"/>
-            </filter>
-          </defs>
-
-          <!-- Outer glow -->
-          <circle cx="210" cy="210" r="180" fill="url(#glowGrad)" filter="url(#blur4)" opacity="0.4">
-            <animate attributeName="r" values="170;185;170" dur="4s" repeatCount="indefinite"/>
-            <animate attributeName="opacity" values="0.3;0.5;0.3" dur="4s" repeatCount="indefinite"/>
-          </circle>
-
-          <!-- Rotating hex rings -->
-          <g style="transform-origin:210px 210px; animation: hexRotate 30s linear infinite">
-            <polygon points="210,40 350,125 350,295 210,380 70,295 70,125" fill="none" stroke="rgba(23,162,122,0.15)" stroke-width="1"/>
-          </g>
-          <g style="transform-origin:210px 210px; animation: hexRotate 20s linear infinite reverse">
-            <polygon points="210,80 320,142 320,278 210,340 100,278 100,142" fill="none" stroke="rgba(23,162,122,0.1)" stroke-width="0.5" stroke-dasharray="6 4"/>
-          </g>
-
-          <!-- Inner hex -->
-          <polygon points="210,110 300,160 300,260 210,310 120,260 120,160" fill="rgba(10,92,74,0.2)" stroke="rgba(23,162,122,0.3)" stroke-width="1"/>
-
-          <!-- Triskele arms large -->
-          <path d="M210 210 L270 130 L295 155 L235 220 Z" fill="#17A27A" opacity="0.7"/>
-          <path d="M210 210 L130 160 L118 188 L190 220 Z" fill="#0A5C4A" opacity="0.9"/>
-          <path d="M210 210 L210 300 L238 292 L222 218 Z" fill="#17A27A" opacity="0.6"/>
-
-          <!-- Center node amber pulsing -->
-          <rect x="196" y="196" width="28" height="28" rx="4" fill="#F5A623">
-            <animate attributeName="opacity" values="1;0.6;1" dur="1.5s" repeatCount="indefinite"/>
-          </rect>
-          <!-- Node glow -->
-          <rect x="188" y="188" width="44" height="44" rx="8" fill="#F5A623" opacity="0.15" filter="url(#blur4)">
-            <animate attributeName="opacity" values="0.15;0.35;0.15" dur="1.5s" repeatCount="indefinite"/>
-          </rect>
-
-          <!-- Data nodes orbiting -->
-          <circle cx="210" cy="100" r="5" fill="#17A27A" opacity="0.7">
-            <animateTransform attributeName="transform" type="rotate" from="0 210 210" to="360 210 210" dur="12s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="310" cy="260" r="4" fill="#F5A623" opacity="0.6">
-            <animateTransform attributeName="transform" type="rotate" from="120 210 210" to="480 210 210" dur="16s" repeatCount="indefinite"/>
-          </circle>
-          <circle cx="110" cy="160" r="3" fill="#17A27A" opacity="0.5">
-            <animateTransform attributeName="transform" type="rotate" from="240 210 210" to="600 210 210" dur="20s" repeatCount="indefinite"/>
-          </circle>
-
-          <!-- Connection lines -->
-          <line x1="210" y1="100" x2="210" y2="196" stroke="rgba(23,162,122,0.2)" stroke-width="0.5" stroke-dasharray="4 4"/>
-          <line x1="310" y1="260" x2="224" y2="210" stroke="rgba(245,166,35,0.15)" stroke-width="0.5" stroke-dasharray="4 4"/>
-          <line x1="110" y1="160" x2="196" y2="202" stroke="rgba(23,162,122,0.15)" stroke-width="0.5" stroke-dasharray="4 4"/>
-        </svg>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     À PROPOS
-════════════════════════════════════════ -->
-<section id="about">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-label">Qui sommes-nous</span>
-      <h2 class="section-title">At home in <span class="teal">Silicon Valley</span> and Douala.</h2>
-    </div>
-
-    <div class="about-grid">
-      <div class="glass-dark about-card fade-up">
-        <h3>Notre Mission</h3>
-        <div class="quote">"We don't follow the future. We build it."</div>
-        <p>DATAIKOS est un collectif d'étudiants polytechniciens et chercheurs fondé au cœur de l'Afrique, opérant avec les exigences d'une deeptech mondiale.</p>
-        <p>Notre différenciateur : une vision Afro-tech futuriste et crédible, ancrée dans les réalités du continent africain tout en portant une ambition planétaire.</p>
-      </div>
-
-      <div class="pillar-list fade-up">
-        <div class="pillar-item">
-          <div class="pillar-icon">⚡</div>
-          <div class="pillar-text">
-            <h4>Intelligence Distribuée</h4>
-            <p>Traitement au plus près des données, parfois dans le cloud — toujours optimal.</p>
+      <div class="pillars reveal">
+        <div class="pillar">
+          <span class="pillar-index">01</span>
+          <div>
+            <h4>Le talent au centre</h4>
+            <p>Chaque projet est porté par une expertise identifiable, jamais anonyme.</p>
           </div>
         </div>
-        <div class="pillar-item">
-          <div class="pillar-icon">🔬</div>
-          <div class="pillar-text">
-            <h4>Ingénierie de Précision</h4>
+        <div class="pillar">
+          <span class="pillar-index">02</span>
+          <div>
+            <h4>Intelligence distribuée</h4>
+            <p>Traitement au plus près de la donnée, parfois dans le cloud, toujours pensé pour la latence réelle du terrain.</p>
+          </div>
+        </div>
+        <div class="pillar">
+          <span class="pillar-index">03</span>
+          <div>
+            <h4>Ingénierie de précision</h4>
             <p>Chaque pixel, chaque ligne de code, chaque circuit reflète l'excellence.</p>
           </div>
         </div>
-        <div class="pillar-item">
-          <div class="pillar-icon">🌍</div>
-          <div class="pillar-text">
-            <h4>Ancrage Africain, Ambition Mondiale</h4>
-            <p>Douala comme point de départ. Le monde comme terrain de jeu.</p>
+        <div class="pillar">
+          <span class="pillar-index">04</span>
+          <div>
+            <h4>Ancrage africain, ambition mondiale</h4>
+            <p>« At home in Silicon Valley and Douala. »</p>
           </div>
         </div>
-        <div class="pillar-item">
-          <div class="pillar-icon">🔗</div>
-          <div class="pillar-text">
-            <h4>Cohérence Totale</h4>
-            <p>Du PCB à l'interface utilisateur, la marque est un système unifié.</p>
-          </div>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     EXPERTISES
-════════════════════════════════════════ -->
-<section id="expertise">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-label">Nos Expertises</span>
-      <h2 class="section-title">Edge AI · IoT · <span class="teal">Infrastructure</span></h2>
-      <p class="section-sub">De l'intelligence embarquée aux solutions cloud, nous couvrons l'intégralité du stack technologique.</p>
-    </div>
-
-    <div class="expertise-grid">
-      <div class="glass expertise-card fade-up">
-        <div class="expertise-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M12 2L2 7L12 12L22 7L12 2Z" stroke="#17A27A" stroke-width="1.5" stroke-linejoin="round"/>
-            <path d="M2 17L12 22L22 17" stroke="#17A27A" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M2 12L12 17L22 12" stroke="#17A27A" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <div class="amber-dot"></div>
-        </div>
-        <h3>Edge AI</h3>
-        <p>Modèles d'IA déployés directement sur les appareils périphériques. Latence minimale, privacy maximale, intelligence locale.</p>
-        <span class="expertise-tag">ML · TinyML · Inference</span>
-      </div>
-
-      <div class="glass expertise-card fade-up">
-        <div class="expertise-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <rect x="3" y="3" width="7" height="7" rx="1" stroke="#17A27A" stroke-width="1.5"/>
-            <rect x="14" y="3" width="7" height="7" rx="1" stroke="#17A27A" stroke-width="1.5"/>
-            <rect x="3" y="14" width="7" height="7" rx="1" stroke="#17A27A" stroke-width="1.5"/>
-            <circle cx="17.5" cy="17.5" r="3.5" stroke="#F5A623" stroke-width="1.5"/>
-            <path d="M10 6.5H14M6.5 10V14M17.5 10V14" stroke="#17A27A" stroke-width="1.5" stroke-linecap="round"/>
-          </svg>
-          <div class="amber-dot"></div>
-        </div>
-        <h3>IoT Industriel</h3>
-        <p>Architecture d'objets connectés pour l'industrie et les smart cities. Protocoles sécurisés, scalabilité by design.</p>
-        <span class="expertise-tag">ESP32 · STM32 · MQTT</span>
-      </div>
-
-      <div class="glass expertise-card fade-up">
-        <div class="expertise-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <path d="M3 9L12 3L21 9V21H15V15H9V21H3V9Z" stroke="#17A27A" stroke-width="1.5" stroke-linejoin="round"/>
-            <circle cx="12" cy="11" r="2" fill="#F5A623"/>
-          </svg>
-          <div class="amber-dot"></div>
-        </div>
-        <h3>Infrastructure Tech</h3>
-        <p>Conception et déploiement d'infrastructures robustes. Du PCB à l'API, nous orchestrons chaque couche du système.</p>
-        <span class="expertise-tag">FastAPI · Cloud · DevOps</span>
-      </div>
-
-      <div class="glass expertise-card fade-up">
-        <div class="expertise-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <circle cx="12" cy="12" r="3" fill="#F5A623"/>
-            <path d="M12 3C12 3 15 7 15 12C15 17 12 21 12 21" stroke="#17A27A" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M12 3C12 3 9 7 9 12C9 17 12 21 12 21" stroke="#17A27A" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M3 12H21" stroke="#17A27A" stroke-width="1.5" stroke-linecap="round"/>
-            <circle cx="12" cy="12" r="9" stroke="rgba(23,162,122,0.3)" stroke-width="1"/>
-          </svg>
-          <div class="amber-dot"></div>
-        </div>
-        <h3>Solutions AI</h3>
-        <p>Développement de modèles NLP, vision par ordinateur et systèmes prédictifs adaptés aux réalités africaines.</p>
-        <span class="expertise-tag">Python · TensorFlow · NLP</span>
-      </div>
-
-      <div class="glass expertise-card fade-up">
-        <div class="expertise-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <rect x="2" y="3" width="20" height="14" rx="2" stroke="#17A27A" stroke-width="1.5"/>
-            <path d="M8 21H16M12 17V21" stroke="#17A27A" stroke-width="1.5" stroke-linecap="round"/>
-            <path d="M7 8L10 11L14 7L17 10" stroke="#F5A623" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"/>
-          </svg>
-          <div class="amber-dot"></div>
-        </div>
-        <h3>Data Science</h3>
-        <p>Analyse, modélisation et visualisation de données. Transformation de la donnée brute en intelligence actionnable.</p>
-        <span class="expertise-tag">Pandas · Power BI · SQL</span>
-      </div>
-
-      <div class="glass expertise-card fade-up">
-        <div class="expertise-icon">
-          <svg width="24" height="24" viewBox="0 0 24 24" fill="none">
-            <polygon points="12,2 22,20 2,20" fill="none" stroke="#17A27A" stroke-width="1.5" stroke-linejoin="round"/>
-            <line x1="12" y1="9" x2="12" y2="13" stroke="#F5A623" stroke-width="2" stroke-linecap="round"/>
-            <circle cx="12" cy="16" r="1" fill="#F5A623"/>
-          </svg>
-          <div class="amber-dot"></div>
-        </div>
-        <h3>Smart Cities</h3>
-        <p>Systèmes intelligents pour les villes africaines de demain. Gestion des ressources, mobilité, sécurité urbaine.</p>
-        <span class="expertise-tag">Sensors · Analytics · Urban</span>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     PRODUITS
-════════════════════════════════════════ -->
-<section id="products">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-label">Produit Signature</span>
-      <h2 class="section-title">VIBE SHIELD <span class="teal">by DATAIKOS</span></h2>
-    </div>
-
-    <div class="glass-dark product-hero fade-up">
-      <div class="product-hero-inner">
-        <div>
-          <div class="product-badge-amber">⬡ Produit Signature</div>
-          <div class="product-title">VIBE SHIELD</div>
-          <div class="product-sub">by DATAIKOS</div>
-          <p class="product-desc">
-            Notre produit hardware signature : un shield intelligent basé sur ESP32/STM32 intégrant l'IA embarquée. Conçu pour l'industrie, pensé pour l'Afrique, construit pour le monde.
-          </p>
-          <a href="#contact" class="btn-primary">En savoir plus</a>
-        </div>
-
-        <!-- PCB Visual -->
-        <div class="pcb-visual">
-          <svg class="pcb-lines" viewBox="0 0 220 220" fill="none">
-            <!-- PCB traces -->
-            <line x1="20" y1="40" x2="90" y2="40" stroke="#17A27A" stroke-width="1.5"/>
-            <line x1="90" y1="40" x2="90" y2="80" stroke="#17A27A" stroke-width="1.5"/>
-            <line x1="20" y1="80" x2="60" y2="80" stroke="#17A27A" stroke-width="1"/>
-            <line x1="60" y1="80" x2="60" y2="110" stroke="#17A27A" stroke-width="1"/>
-            <line x1="130" y1="40" x2="200" y2="40" stroke="#17A27A" stroke-width="1.5"/>
-            <line x1="200" y1="40" x2="200" y2="90" stroke="#17A27A" stroke-width="1.5"/>
-            <line x1="160" y1="90" x2="200" y2="90" stroke="#17A27A" stroke-width="1"/>
-            <line x1="20" y1="140" x2="80" y2="140" stroke="#17A27A" stroke-width="1.5"/>
-            <line x1="80" y1="140" x2="80" y2="180" stroke="#17A27A" stroke-width="1"/>
-            <line x1="80" y1="180" x2="140" y2="180" stroke="#17A27A" stroke-width="1.5"/>
-            <line x1="140" y1="150" x2="200" y2="150" stroke="#17A27A" stroke-width="1"/>
-            <line x1="140" y1="150" x2="140" y2="180" stroke="#17A27A" stroke-width="1"/>
-            <!-- Vias -->
-            <circle cx="90" cy="40" r="4" fill="none" stroke="#17A27A" stroke-width="1.5"/>
-            <circle cx="200" cy="90" r="4" fill="none" stroke="#17A27A" stroke-width="1.5"/>
-            <circle cx="80" cy="180" r="4" fill="none" stroke="#17A27A" stroke-width="1.5"/>
-            <!-- IC chip outline -->
-            <rect x="95" y="90" width="70" height="50" rx="4" fill="none" stroke="#17A27A" stroke-width="1.5"/>
-            <text x="130" y="118" fill="#17A27A" font-size="7" text-anchor="middle" font-family="monospace">ESP32</text>
-            <!-- Pads -->
-            <rect x="85" y="97" width="10" height="5" rx="1" fill="rgba(23,162,122,0.5)"/>
-            <rect x="85" y="107" width="10" height="5" rx="1" fill="rgba(23,162,122,0.5)"/>
-            <rect x="85" y="117" width="10" height="5" rx="1" fill="rgba(23,162,122,0.5)"/>
-            <rect x="165" y="97" width="10" height="5" rx="1" fill="rgba(23,162,122,0.5)"/>
-            <rect x="165" y="107" width="10" height="5" rx="1" fill="rgba(23,162,122,0.5)"/>
-          </svg>
-
-          <div class="pcb-core">
-            <svg viewBox="0 0 60 60" width="60" height="60" fill="none">
-              <path d="M30 6L52 18L52 42L30 54L8 42L8 18Z" fill="rgba(23,162,122,0.3)" stroke="rgba(23,162,122,0.6)" stroke-width="1"/>
-              <path d="M30 30 L42 20 L46 24 L34 32 Z" fill="#17A27A" opacity="0.8"/>
-              <path d="M30 30 L18 22 L16 28 L26 32 Z" fill="#0A5C4A"/>
-              <path d="M30 30 L30 44 L36 42 L32 32 Z" fill="#17A27A" opacity="0.7"/>
-              <rect x="26" y="26" width="8" height="8" rx="1" fill="#F5A623"/>
-            </svg>
-          </div>
-
-          <div class="led-pulse"></div>
-        </div>
-      </div>
-    </div>
-
-    <!-- Specs -->
-    <div class="spec-grid fade-up">
-      <div class="glass spec-card">
-        <div class="spec-icon">🔧</div>
-        <div class="spec-name">Microcontrôleur</div>
-        <div class="spec-val">ESP32 / STM32</div>
-      </div>
-      <div class="glass spec-card">
-        <div class="spec-icon">🤖</div>
-        <div class="spec-name">IA embarquée</div>
-        <div class="spec-val">TinyML on-device</div>
-      </div>
-      <div class="glass spec-card">
-        <div class="spec-icon">📡</div>
-        <div class="spec-name">Connectivité</div>
-        <div class="spec-val">WiFi · BLE · MQTT</div>
-      </div>
-      <div class="glass spec-card">
-        <div class="spec-icon">⬡</div>
-        <div class="spec-name">Design</div>
-        <div class="spec-val">PCB Teal Ink · LED Amber</div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     VISION
-════════════════════════════════════════ -->
-<section id="vision">
-  <div class="container">
-    <div class="glass-dark vision-wrap fade-up">
-      <span class="section-label">Notre Vision</span>
-      <p class="vision-main" style="margin-top:24px">
-        <span class="amber">"We don't follow</span><br>
-        the future.<br>
-        <span class="teal">We build it."</span>
-      </p>
-      <p style="color:rgba(255,255,255,0.45); font-size:14px; letter-spacing:1px;">DATAIKOS · Douala · Cameroun · World</p>
-
-      <div class="vision-grid">
-        <div class="glass vision-card fade-up">
-          <div class="vision-num">01</div>
-          <h4>Afrique d'abord</h4>
-          <p>Nous résolvons les défis africains avec des solutions de classe mondiale. L'impact local est notre boussole.</p>
-        </div>
-        <div class="glass vision-card fade-up">
-          <div class="vision-num">02</div>
-          <h4>Standards Silicon Valley</h4>
-          <p>Nos processus, notre code, notre design, tout atteint les standards des meilleures deeptech mondiales.</p>
-        </div>
-        <div class="glass vision-card fade-up">
-          <div class="vision-num">03</div>
-          <h4>Système Unifié</h4>
-          <p>Du PCB à l'interface, du hardware au SaaS — chaque couche de DATAIKOS parle le même langage.</p>
-        </div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     COLLECTIF
-════════════════════════════════════════ -->
-<section id="team">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-label">Le Collectif</span>
-      <h2 class="section-title">Ingénieurs. <span class="teal">Chercheurs.</span> Builders.</h2>
-    </div>
-
-    <div class="glass-dark team-statement fade-up">
-      <p>
-        DATAIKOS n'est pas une startup. C'est un <strong>collectif d'étudiants polytechniciens et chercheurs</strong> qui construisent le futur technologique africain avec les exigences et la rigueur des meilleures institutions mondiales.
-      </p>
-    </div>
-
-    <div class="skills-grid">
-      <div class="glass skill-track fade-up">
-        <div class="skill-name"><span>Intelligence Artificielle</span><span>95%</span></div>
-        <div class="skill-bar"><div class="skill-fill" data-width="95"></div></div>
-      </div>
-      <div class="glass skill-track fade-up">
-        <div class="skill-name"><span>Edge Computing</span><span>90%</span></div>
-        <div class="skill-bar"><div class="skill-fill" data-width="90"></div></div>
-      </div>
-      <div class="glass skill-track fade-up">
-        <div class="skill-name"><span>IoT & Hardware</span><span>88%</span></div>
-        <div class="skill-bar"><div class="skill-fill" data-width="88"></div></div>
-      </div>
-      <div class="glass skill-track fade-up">
-        <div class="skill-name"><span>Data Science</span><span>92%</span></div>
-        <div class="skill-bar"><div class="skill-fill" data-width="92"></div></div>
-      </div>
-      <div class="glass skill-track fade-up">
-        <div class="skill-name"><span>Développement Web/API</span><span>85%</span></div>
-        <div class="skill-bar"><div class="skill-fill" data-width="85"></div></div>
-      </div>
-      <div class="glass skill-track fade-up">
-        <div class="skill-name"><span>Infrastructure Cloud</span><span>80%</span></div>
-        <div class="skill-bar"><div class="skill-fill" data-width="80"></div></div>
-      </div>
-    </div>
-  </div>
-</section>
-
-<!-- ════════════════════════════════════════
-     CONTACT
-════════════════════════════════════════ -->
-<section id="contact">
-  <div class="container">
-    <div class="section-header fade-up">
-      <span class="section-label">Contact</span>
-      <h2 class="section-title">Construisons <span class="teal">ensemble.</span></h2>
-      <p class="section-sub">Un projet, une collaboration, une idée à développer ? Nous sommes prêts.</p>
-    </div>
-
-    <div class="contact-grid">
-      <div class="glass-dark contact-info fade-up">
-        <h3>DATAIKOS</h3>
-        <p>Collectif d'étudiants ingénieurs et chercheurs. Basés à Douala, connectés au monde.</p>
-
-        <div class="contact-detail">
-          <div class="contact-item">
-            <div class="contact-item-icon">📍</div>
-            <div class="contact-item-text">
-              <strong>Localisation</strong>
-              Douala, Cameroun · World
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-item-icon">✉️</div>
-            <div class="contact-item-text">
-              <strong>Email</strong>
-              meilleurd2001@gmail.com
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-item-icon">🌐</div>
-            <div class="contact-item-text">
-              <strong>Web</strong>
-              dataikos.com
-            </div>
-          </div>
-          <div class="contact-item">
-            <div class="contact-item-icon">⚡</div>
-            <div class="contact-item-text">
-              <strong>Secteurs</strong>
-              Industrie · Smart Cities · Entreprises
-            </div>
-          </div>
-        </div>
-
-        <div style="margin-top:40px; padding-top:32px;">
-          <p style="font-size:11px; letter-spacing:1.5px; text-transform:uppercase; color:rgba(255,255,255,0.3); margin-bottom:16px; font-weight:700;">Suivez-nous</p>
-          <div style="display:flex; gap:12px;">
-            <a href="https://www.linkedin.com/in/david-meilleur-aat-ndongo-bb43b0314" target="_blank" style="width:36px;height:36px;border-radius:8px;background:rgba(23,162,122,0.1);border:0.5px solid rgba(23,162,122,0.2);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);text-decoration:none;font-size:14px;transition:all 0.2s;" onmouseover="this.style.background='rgba(245,166,35,0.15)';this.style.borderColor='rgba(245,166,35,0.4)'" onmouseout="this.style.background='rgba(23,162,122,0.1)';this.style.borderColor='rgba(23,162,122,0.2)'">in</a>
-            <a href="#" style="width:36px;height:36px;border-radius:8px;background:rgba(23,162,122,0.1);border:0.5px solid rgba(23,162,122,0.2);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);text-decoration:none;font-size:14px;transition:all 0.2s;" onmouseover="this.style.background='rgba(245,166,35,0.15)';this.style.borderColor='rgba(245,166,35,0.4)'" onmouseout="this.style.background='rgba(23,162,122,0.1)';this.style.borderColor='rgba(23,162,122,0.2)'">𝕏</a>
-            <a href="#" style="width:36px;height:36px;border-radius:8px;background:rgba(23,162,122,0.1);border:0.5px solid rgba(23,162,122,0.2);display:flex;align-items:center;justify-content:center;color:rgba(255,255,255,0.6);text-decoration:none;font-size:14px;transition:all 0.2s;" onmouseover="this.style.background='rgba(245,166,35,0.15)';this.style.borderColor='rgba(245,166,35,0.4)'" onmouseout="this.style.background='rgba(23,162,122,0.1)';this.style.borderColor='rgba(23,162,122,0.2)'">▶</a>
+        <div class="pillar">
+          <span class="pillar-index">05</span>
+          <div>
+            <h4>Cohérence totale</h4>
+            <p>Du PCB à l'interface, la marque et le produit forment un système unifié.</p>
           </div>
         </div>
       </div>
+    </div>
+  </section>
 
-      <div class="glass contact-form fade-up">
-        <div class="form-row">
-          <div class="form-group">
-            <label>Prénom</label>
-            <input type="text" placeholder="Jean">
-          </div>
-          <div class="form-group">
-            <label>Nom</label>
-            <input type="text" placeholder="Dupont">
-          </div>
-        </div>
-        <div class="form-group">
-          <label>Email</label>
-          <input type="email" placeholder="jean@example.com">
-        </div>
-        <div class="form-group">
-          <label>Sujet</label>
-          <select>
-            <option value="">Sélectionner un sujet</option>
-            <option>Collaboration technique</option>
-            <option>VIBE SHIELD - Produit</option>
-            <option>Data Science / IA</option>
-            <option>Smart Cities / IoT</option>
-            <option>Partenariat</option>
-            <option>Autre</option>
-          </select>
-        </div>
-        <div class="form-group">
-          <label>Message</label>
-          <textarea placeholder="Décrivez votre projet ou votre demande..."></textarea>
-        </div>
-        <button class="form-submit">Envoyer le message →</button>
+  <!-- ===== EXPERTISE ===== -->
+  <section class="section section-dark" id="expertise">
+    <div class="precision-grid" aria-hidden="true"></div>
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">02 · Expertise</span>
+        <h2>Plusieurs talents, une même énergie.</h2>
+        <p class="lede">
+          De la donnée à l'interface, Gemula rassemble des compétences complémentaires pour explorer, prototyper
+          et construire des solutions numériques utiles.
+        </p>
+      </div>
+
+      <div class="expertise-grid reveal">
+        <article class="expertise-card">
+          <div class="expertise-icon"><span class="material-symbols-outlined">memory</span></div>
+          <h3>Data &amp; IA</h3>
+          <p>Exploration de données, machine learning, IA générative et automatisation pour transformer
+          des données et des idées en prototypes utiles.</p>
+          <ul class="tag-list"><li>Python</li><li>Machine Learning</li><li>GenAI</li><li>Analyse</li></ul>
+        </article>
+
+        <article class="expertise-card">
+          <div class="expertise-icon"><span class="material-symbols-outlined">sensors</span></div>
+          <h3>Développement</h3>
+          <p>Applications web, outils logiciels et APIs conçus avec une approche simple, moderne et
+          orientée expérience utilisateur.</p>
+          <ul class="tag-list"><li>Web</li><li>APIs</li><li>Python</li><li>JavaScript</li></ul>
+        </article>
+
+        <article class="expertise-card">
+          <div class="expertise-icon"><span class="material-symbols-outlined">terminal</span></div>
+          <h3>Design &amp; Création</h3>
+          <p>Identités visuelles, interfaces et contenus numériques pour donner aux projets une présence
+          claire, élégante et mémorable.</p>
+          <ul class="tag-list"><li>UI/UX</li><li>Branding</li><li>Figma</li><li>Création</li></ul>
+        </article>
       </div>
     </div>
-  </div>
-</section>
+  </section>
 
-<!-- ════════════════════════════════════════
-     FOOTER
-════════════════════════════════════════ -->
-<footer>
-  <div class="container">
-    <div class="footer-inner">
-      <div class="footer-brand">
-        <a href="#hero" class="logo-wrap" style="text-decoration:none">
-          <!-- Logo sur fond vert (dataikos logo 1.png) pour le footer -->
-          <img src="dataikos logo 1.png" alt="DATAIKOS" style="height:28px; width:auto;" onerror="this.onerror=null; this.src='data:image/svg+xml,%3Csvg xmlns=%22http://www.w3.org/2000/svg%22 viewBox=%220 0 80 80%22%3E%3Crect width=%2280%22 height=%2280%22 fill=%22%2317A27A%22/%3E%3Ctext x=%2240%22 y=%2250%22 text-anchor=%22middle%22 fill=%22white%22 font-size=%2212%22%3ELOGO%3C/text%3E%3C/svg%3E';">
-          <span style="font-size:16px;font-weight:900;letter-spacing:3px;color:var(--white); margin-left:8px;">DATAIKOS</span>
+  <!-- ===== PROJETS ===== -->
+  <section class="section section-light" id="projets">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">03 · Projets</span>
+        <h2>Des solutions concrètes, portées par le talent.</h2>
+        <p class="lede">
+          Une sélection de concepts et de prototypes fictifs qui illustrent les types de projets que Gemula souhaite explorer.
+        </p>
+      </div>
+
+      <div class="filters reveal" id="filters">
+        <button class="filter-btn is-active" data-filter="tous">Tous</button>
+        <button class="filter-btn" data-filter="data-ia">Data &amp; IA</button>
+        <button class="filter-btn" data-filter="web-api">Web &amp; APIs</button>
+        <button class="filter-btn" data-filter="desktop">Desktop &amp; Automatisation</button>
+        <button class="filter-btn" data-filter="embarque">Embarqué</button>
+        <button class="filter-btn" data-filter="outils">Outils</button>
+      </div>
+
+      <div class="projects-grid reveal" id="projects-grid">
+
+        <article class="project-card" data-cat="data-ia">
+          <div class="project-top"><span class="project-cat">Data &amp; IA</span><span class="material-symbols-outlined project-icon">insights</span></div>
+          <h3>Pulse</h3>
+          <p class="project-tagline">Concept · Intelligence urbaine</p>
+          <p>Tableau de bord expérimental pour explorer des indicateurs urbains et faire émerger des tendances à partir de données publiques.</p>
+          <ul class="tag-list small"><li>Python</li><li>Data Viz</li><li>IA</li></ul>
+        </article>
+
+        <article class="project-card" data-cat="web-api">
+          <div class="project-top"><span class="project-cat">Web &amp; APIs</span><span class="material-symbols-outlined project-icon">school</span></div>
+          <h3>Campus+</h3>
+          <p class="project-tagline">Concept · Vie étudiante</p>
+          <p>Prototype d'une plateforme qui centralise ressources, événements, communautés et opportunités pour les étudiants.</p>
+          <ul class="tag-list small"><li>Web</li><li>API</li><li>UX</li></ul>
+        </article>
+
+        <article class="project-card" data-cat="data-ia outils">
+          <div class="project-top"><span class="project-cat">IA</span><span class="material-symbols-outlined project-icon">auto_awesome</span></div>
+          <h3>Mentor AI</h3>
+          <p class="project-tagline">Concept · Apprentissage</p>
+          <p>Assistant expérimental qui aide les étudiants à structurer leurs objectifs, ressources et parcours d'apprentissage.</p>
+          <ul class="tag-list small"><li>LLM</li><li>RAG</li><li>Education</li></ul>
+        </article>
+
+        <article class="project-card" data-cat="desktop outils">
+          <div class="project-top"><span class="project-cat">Outils</span><span class="material-symbols-outlined project-icon">dashboard</span></div>
+          <h3>Gemula Board</h3>
+          <p class="project-tagline">Concept · Collaboration</p>
+          <p>Espace interne pour suivre les idées, les équipes, les prototypes et les prochaines étapes des projets du collectif.</p>
+          <ul class="tag-list small"><li>Productivity</li><li>Dashboard</li><li>Collaboration</li></ul>
+        </article>
+
+        <article class="project-card" data-cat="embarque data-ia">
+          <div class="project-top"><span class="project-cat">Embarqué</span><span class="material-symbols-outlined project-icon">sensors</span></div>
+          <h3>Terra Sense</h3>
+          <p class="project-tagline">Concept · IoT</p>
+          <p>Prototype étudiant de capteurs connectés destiné à collecter des données environnementales et à les visualiser simplement.</p>
+          <ul class="tag-list small"><li>IoT</li><li>ESP32</li><li>Sensors</li></ul>
+        </article>
+
+        <article class="project-card" data-cat="web-api">
+          <div class="project-top"><span class="project-cat">Web</span><span class="material-symbols-outlined project-icon">storefront</span></div>
+          <h3>Localink</h3>
+          <p class="project-tagline">Concept · Économie locale</p>
+          <p>Prototype de vitrine numérique permettant à de petites activités de présenter leurs produits et services en ligne.</p>
+          <ul class="tag-list small"><li>Web</li><li>Marketplace</li><li>UX</li></ul>
+        </article>
+
+        <article class="project-card" data-cat="outils">
+          <div class="project-top"><span class="project-cat">Création</span><span class="material-symbols-outlined project-icon">palette</span></div>
+          <h3>Studio 01</h3>
+          <p class="project-tagline">Concept · Design</p>
+          <p>Laboratoire créatif consacré aux identités visuelles, interfaces et expériences numériques des projets Gemula.</p>
+          <ul class="tag-list small"><li>Figma</li><li>UI/UX</li><li>Branding</li></ul>
+        </article>
+
+        <article class="project-card" data-cat="data-ia">
+          <div class="project-top"><span class="project-cat">Data</span><span class="material-symbols-outlined project-icon">query_stats</span></div>
+          <h3>Signal</h3>
+          <p class="project-tagline">Concept · Analyse</p>
+          <p>Mini-laboratoire d'expérimentation autour de la visualisation, de la détection de tendances et de la prise de décision.</p>
+          <ul class="tag-list small"><li>Analytics</li><li>Python</li><li>Visualisation</li></ul>
+        </article>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== VIBE SHIELD SPOTLIGHT ===== -->
+  <section class="section section-dark section-product" id="vibeshield">
+    <div class="precision-grid" aria-hidden="true"></div>
+    <div class="container product-layout">
+      <div class="product-copy reveal">
+        <span class="kicker">Concept signature</span>
+        <h2>VIBE SHIELD <span class="accent">by Gemula</span></h2>
+        <p class="lede">
+          Concept de dispositif portable imaginé par Gemula pour explorer le croisement entre capteurs,
+          intelligence embarquée et expérience utilisateur. Il s'agit pour le moment d'une piste
+          expérimentale destinée à illustrer notre démarche de prototypage.
+        </p>
+        <div class="hw-specs">
+          <div class="hw-spec">
+            <span class="material-symbols-outlined">memory</span>
+            <div><strong>Prototype embarqué</strong><span>Architecture pensée pour l’expérimentation</span></div>
+          </div>
+          <div class="hw-spec">
+            <span class="material-symbols-outlined">flare</span>
+            <div><strong>Interaction</strong><span>Retour visuel minimaliste</span></div>
+          </div>
+          <div class="hw-spec">
+            <span class="material-symbols-outlined">border_style</span>
+            <div><strong>Design Gemula</strong><span>Sobre, compact et reconnaissable</span></div>
+          </div>
+        </div>
+      </div>
+      <div class="product-visual reveal" aria-hidden="true">
+        <div class="device-mock">
+          <div class="device-led"></div>
+          <div class="device-flag" id="device-flag"></div>
+          <span class="device-label">VIBE SHIELD</span>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ===== TALENT ===== -->
+  <section class="section section-light" id="talent">
+    <div class="container">
+      <div class="section-head reveal">
+        <span class="kicker">04 · Le talent</span>
+        <h2>Les talents derrière Gemula.</h2>
+        <p class="lede">Une communauté de profils complémentaires. Découvrez quelques membres du collectif.</p>
+      </div>
+
+      <div class="talent-grid reveal">
+        <article class="talent-mini">
+          <span class="talent-number">01</span>
+          <div class="talent-avatar" aria-hidden="true">PE</div>
+          <div class="talent-content"><h3>Mbonjo Etia</h3><p class="talent-role">Data &amp; IA</p><div class="talent-links"><a href="#" aria-label="LinkedIn d'Amélie M.">LinkedIn <span>↗</span></a><a href="#" aria-label="Portfolio d'Amélie M.">Portfolio <span>↗</span></a></div></div>
+        </article>
+        <article class="talent-mini">
+          <span class="talent-number">02</span>
+          <div class="talent-avatar" aria-hidden="true">EN</div>
+          <div class="talent-content"><h3>Eba Ngolong</h3><p class="talent-role">Développement</p><div class="talent-links"><a href="#" aria-label="LinkedIn de Yann K.">LinkedIn <span>↗</span></a><a href="#" aria-label="Portfolio de Yann K.">Portfolio <span>↗</span></a></div></div>
+        </article>
+        <article class="talent-mini">
+          <span class="talent-number">03</span>
+          <div class="talent-avatar" aria-hidden="true">SN</div>
+          <div class="talent-content"><h3>Sarah N.</h3><p class="talent-role">UI/UX Design</p><div class="talent-links"><a href="#" aria-label="LinkedIn de Sarah N.">LinkedIn <span>↗</span></a><a href="#" aria-label="Portfolio de Sarah N.">Portfolio <span>↗</span></a></div></div>
+        </article>
+        <article class="talent-mini">
+          <span class="talent-number">04</span>
+          <div class="talent-avatar" aria-hidden="true">MK</div>
+          <div class="talent-content"><h3>Marc K.</h3><p class="talent-role">Data Analytics</p><div class="talent-links"><a href="#" aria-label="LinkedIn de Marc K.">LinkedIn <span>↗</span></a><a href="#" aria-label="Portfolio de Marc K.">Portfolio <span>↗</span></a></div></div>
+        </article>
+        <article class="talent-mini">
+          <span class="talent-number">05</span>
+          <div class="talent-avatar" aria-hidden="true">LN</div>
+          <div class="talent-content"><h3>Loïc N.</h3><p class="talent-role">Software</p><div class="talent-links"><a href="#" aria-label="LinkedIn de Loïc N.">LinkedIn <span>↗</span></a><a href="#" aria-label="Portfolio de Loïc N.">Portfolio <span>↗</span></a></div></div>
+        </article>
+        <article class="talent-mini">
+          <span class="talent-number">06</span>
+          <div class="talent-avatar" aria-hidden="true">ED</div>
+          <div class="talent-content"><h3>Esther D.</h3><p class="talent-role">Product Design</p><div class="talent-links"><a href="#" aria-label="LinkedIn d'Esther D.">LinkedIn <span>↗</span></a><a href="#" aria-label="Portfolio d'Esther D.">Portfolio <span>↗</span></a></div></div>
+        </article>
+        <article class="talent-mini talent-featured">
+          <span class="talent-number">07</span>
+          <div class="talent-avatar" aria-hidden="true">AN</div>
+          <div class="talent-content"><h3>Aat Ndongo</h3><p class="talent-role">IA &amp; Gestion de projets</p><div class="talent-links"><a href="https://www.linkedin.com/in/david-meilleur-aat-ndongo" aria-label="LinkedIn de David">LinkedIn <span>↗</span></a><a href="https://davidaatportfolio.netlify.app/" aria-label="Portfolio de David">Portfolio <span>↗</span></a></div></div>
+        </article>
+      </div>
+<!--      <div class="talent-note reveal">Profils présentés à titre de démonstration · la communauté Gemula est en construction.</div> -->
+    </div>
+  </section>
+
+  <!-- ===== CONTACT ===== -->
+  <section class="section section-dark" id="contact">
+    <div class="hero-glow" aria-hidden="true"></div>
+    <div class="container contact-layout reveal">
+      <div>
+        <span class="kicker">05 · Contact</span>
+        <h2>Construisons votre prochaine ligne d'arrivée.</h2>
+        <p class="lede">
+          Une idée, un projet ou simplement envie de collaborer ? Parlons-en.
+        </p>
+        <a href="mailto:meilleurd2001@gmail.com" class="btn btn-primary btn-lg">
+          Contactez-nous
+          <span class="material-symbols-outlined">mail</span>
         </a>
-        <span class="footer-tagline">"Distributed Intelligence. Engineered."</span>
       </div>
+      <div class="contact-links">
+        <a href="https://www.linkedin.com/in/david-meilleur-aat-ndongo" target="_blank" rel="noopener">
+          <span class="material-symbols-outlined">link</span> LinkedIn
+        </a>
+<!--        <a href="https://github.com/aatndongodavid" target="_blank" rel="noopener">
+          <span class="material-symbols-outlined">code</span> GitHub
+        </a> -->
+        <a href="mailto:meilleurd2001@gmail.com">
+          <span class="material-symbols-outlined">forward_to_inbox</span> Email
+        </a>
+        <div class="contact-location">
+          <span class="material-symbols-outlined">location_on</span> Douala · Cameroun · World
+        </div>
+      </div>
+    </div>
+  </section>
 
-      <div class="footer-links">
-        <a href="#about">À Propos</a>
-        <a href="#expertise">Expertises</a>
-        <a href="#products">Produits</a>
-        <a href="#vision">Vision</a>
-        <a href="#contact">Contact</a>
-      </div>
+</main>
 
-      <div style="display:flex;flex-direction:column;align-items:flex-end;gap:8px;">
-        <div class="footer-geo">Douala - Cameroun</div>
-        <div class="footer-copy">© 2026 DATAIKOS — Tous droits réservés</div>
-      </div>
+<!-- ===== FOOTER ===== -->
+<footer class="footer">
+  <div class="container footer-inner">
+    <a href="#top" class="brand">
+      <span class="flagmark flagmark-sm" id="footer-flag" aria-hidden="true"></span>
+      <span class="wordmark">Gemula</span>
+    </a>
+    <p class="footer-tagline">« Là où le talent devient un impact. »</p>
+    <div class="footer-meta">
+      <span>© 2026 Gemula</span>
+      <span>Douala · Cameroun · World</span>
     </div>
   </div>
 </footer>
 
-<script>
-// ── Navbar scroll ──
-const navbar = document.getElementById('navbar');
-window.addEventListener('scroll', () => {
-  navbar.classList.toggle('scrolled', window.scrollY > 60);
-});
-
-// ── Mobile menu ──
-function toggleMenu() {
-  document.getElementById('mobileMenu').classList.toggle('open');
-}
-
-// ── Scroll animations ──
-const observer = new IntersectionObserver((entries) => {
-  entries.forEach(el => {
-    if (el.isIntersecting) {
-      el.target.classList.add('visible');
-      // Skill bars
-      el.target.querySelectorAll('.skill-fill').forEach(bar => {
-        bar.style.width = bar.dataset.width + '%';
-      });
-    }
-  });
-}, { threshold: 0.15 });
-
-document.querySelectorAll('.fade-up').forEach(el => observer.observe(el));
-
-// Also trigger skill bars if already visible
-document.querySelectorAll('.skill-fill').forEach(bar => {
-  const rect = bar.getBoundingClientRect();
-  if (rect.top < window.innerHeight) {
-    bar.style.width = bar.dataset.width + '%';
-  }
-});
-
-// ── Smooth anchor scroll ──
-document.querySelectorAll('a[href^="#"]').forEach(a => {
-  a.addEventListener('click', e => {
-    const target = document.querySelector(a.getAttribute('href'));
-    if (target) {
-      e.preventDefault();
-      target.scrollIntoView({ behavior: 'smooth', block: 'start' });
-    }
-  });
-});
-
-// ── Form submit ──
-document.querySelector('.form-submit').addEventListener('click', function() {
-  this.textContent = '✓ Message envoyé !';
-  this.style.background = '#17A27A';
-  this.style.color = 'white';
-  setTimeout(() => {
-    this.textContent = 'Envoyer le message →';
-    this.style.background = '';
-    this.style.color = '';
-  }, 3000);
-});
-
-// ── Water wave cursor effect ──
-const canvas = document.createElement('canvas');
-canvas.style.cssText = 'position:fixed;inset:0;z-index:0;pointer-events:none;opacity:0.06;';
-document.querySelector('.bg-canvas').appendChild(canvas);
-
-const ctx = canvas.getContext('2d');
-let W, H;
-
-function resize() {
-  W = canvas.width = window.innerWidth;
-  H = canvas.height = window.innerHeight;
-}
-resize();
-window.addEventListener('resize', resize);
-
-const waves = [];
-document.addEventListener('mousemove', (e) => {
-  if (Math.random() > 0.85) {
-    waves.push({ x: e.clientX, y: e.clientY, r: 0, opacity: 1 });
-  }
-});
-
-function drawWaves() {
-  ctx.clearRect(0, 0, W, H);
-  for (let i = waves.length - 1; i >= 0; i--) {
-    const w = waves[i];
-    w.r += 2;
-    w.opacity -= 0.02;
-    if (w.opacity <= 0) { waves.splice(i, 1); continue; }
-    ctx.beginPath();
-    ctx.arc(w.x, w.y, w.r, 0, Math.PI * 2);
-    ctx.strokeStyle = `rgba(23, 162, 122, ${w.opacity})`;
-    ctx.lineWidth = 0.5;
-    ctx.stroke();
-  }
-  requestAnimationFrame(drawWaves);
-}
-drawWaves();
-</script>
-
+<script src="js/main.js"></script>
 </body>
 </html>
