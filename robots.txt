@@ -1,0 +1,11 @@
+# robots.txt pour Gemula
+# Permet à tous les moteurs de recherche d'indexer le site
+
+User-agent: *
+Allow: /
+
+# Délai d'exploration (conseillé pour les hébergements mutualisés)
+Crawl-delay: 1
+
+# Lien vers le plan du site
+Sitemap: https://gemula.com/sitemap.xml
