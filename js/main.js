@@ -5,7 +5,6 @@
 
   /* -----------------------------------------------------------
      Checkerboard pattern generator
-     4 cols x 3 rows, alternating orange / white like the Gemula flag
   ----------------------------------------------------------- */
   var PATTERN = [
     1, 0, 1, 0,
@@ -28,11 +27,123 @@
   buildFlag(document.getElementById("nav-flag"), "i");
   buildFlag(document.getElementById("footer-flag"), "i");
   buildFlag(document.getElementById("hero-flag"), "i");
-  buildFlag(document.getElementById("device-flag"), "i");
   buildFlag(document.getElementById("intro-flag"), "span");
 
   /* -----------------------------------------------------------
-     Intro loader — squares ignite one by one, then fade out
+     Initialize tsParticles
+  ----------------------------------------------------------- */
+  function initParticles() {
+    if (prefersReducedMotion || typeof tsParticles !== 'function') return;
+
+    var particlesContainer = document.getElementById('tsparticles');
+    if (!particlesContainer) return;
+
+    tsParticles.load({
+      id: "tsparticles",
+      options: {
+        fullScreen: false,
+        particles: {
+          number: {
+            value: 60,
+            density: {
+              enable: true,
+              value_area: 800
+            }
+          },
+          color: {
+            value: ["#F5791C", "#C85A0F", "#FF9A3C"],
+            animation: {
+              enable: true,
+              speed: 5,
+              sync: false
+            }
+          },
+          shape: {
+            type: "circle",
+            stroke: {
+              width: 0
+            }
+          },
+          opacity: {
+            value: 0.3,
+            random: true,
+            anim: {
+              enable: true,
+              speed: 0.5,
+              opacity_min: 0.1,
+              sync: false
+            }
+          },
+          size: {
+            value: 3,
+            random: true,
+            anim: {
+              enable: true,
+              speed: 2,
+              size_min: 0.1,
+              sync: false
+            }
+          },
+          line_linked: {
+            enable: true,
+            distance: 150,
+            color: "#F5791C",
+            opacity: 0.2,
+            width: 1
+          },
+          move: {
+            enable: true,
+            speed: 1,
+            direction: "none",
+            random: true,
+            straight: false,
+            out_mode: "out",
+            bounce: false,
+            attract: {
+              enable: true,
+              rotateX: 600,
+              rotateY: 1200
+            }
+          }
+        },
+        interactivity: {
+          detect_on: "canvas",
+          events: {
+            onhover: {
+              enable: true,
+              mode: "grab"
+            },
+            onclick: {
+              enable: true,
+              mode: "push"
+            },
+            resize: true
+          },
+          modes: {
+            grab: {
+              distance: 140,
+              line_linked: {
+                opacity: 1
+              }
+            },
+            push: {
+              particles_nb: 4
+            }
+          }
+        },
+        retina_detect: true
+      }
+    });
+  }
+
+  if (document.readyState === 'complete') {
+    initParticles();
+  } else {
+    document.addEventListener('DOMContentLoaded', initParticles);
+  }
+
+  /* -----------------------------------------------------------
+     Intro loader
   ----------------------------------------------------------- */
   (function introSequence() {
     var loader = document.getElementById("intro-loader");
@@ -61,7 +172,7 @@
   })();
 
   /* -----------------------------------------------------------
-     Nav — shrink on scroll + active link (scrollspy)
+     Nav — shrink on scroll + scrollspy
   ----------------------------------------------------------- */
   var nav = document.getElementById("nav");
   var navLinks = document.querySelectorAll("[data-nav]");
@@ -157,7 +268,7 @@
   });
 
   /* -----------------------------------------------------------
-     Smooth-scroll offset correction for fixed nav
+     Smooth-scroll offset correction
   ----------------------------------------------------------- */
   document.querySelectorAll('a[href^="#"]').forEach(function (a) {
     a.addEventListener("click", function (e) {
@@ -171,4 +282,5 @@
       window.scrollTo({ top: top, behavior: prefersReducedMotion ? "auto" : "smooth" });
     });
   });
+
 })();
