@@ -2,148 +2,412 @@
 <html lang="fr">
 <head>
   <meta charset="UTF-8" />
-  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
-  <!-- SEO de base -->
-  <title>Gemula · Collectif étudiant Data &amp; IA · Douala · Cameroun</title>
-  <meta name="description" content="Gemula est un collectif étudiant basé à Douala (Cameroun) qui réunit des talents en Data, IA, développement web, design et innovation. Découvrez nos projets, notre équipe et notre vision." />
-  <meta name="robots" content="index, follow" />
-  <link rel="canonical" href="https://gemula.com/" />
+  <!-- ============================================ -->
+  <!-- SEO DE BASE - OPTIMISÉ                      -->
+  <!-- ============================================ -->
+  <title>Gemula · Collectif Étudiant Data & IA à Douala, Cameroun | Projets & Talents</title>
+  <meta name="description" content="Gemula est un collectif étudiant basé à Douala (Cameroun) réunissant des talents en Data Science, Intelligence Artificielle, développement web, design et innovation. Découvrez nos projets concrets, notre équipe pluridisciplinaire et notre vision ambitieuse." />
+  <meta name="keywords" content="Gemula, collectif étudiant, Douala, Cameroun, Data Science, Intelligence Artificielle, IA, développement web, design, innovation, machine learning, Python, projets étudiants, talent africain, tech Cameroun" />
+  <meta name="author" content="Gemula - Collectif étudiant Data & IA" />
+  <meta name="robots" content="index, follow, max-snippet:-1, max-image-preview:large, max-video-preview:-1" />
+  <meta name="googlebot" content="index, follow" />
+  <meta name="bingbot" content="index, follow" />
+  <meta name="language" content="fr" />
+  <meta name="geo.region" content="CM-LT" />
+  <meta name="geo.placename" content="Douala" />
+  <meta name="geo.position" content="4.0511;9.7679" />
+  <meta name="ICBM" content="4.0511, 9.7679" />
+  <meta name="theme-color" content="#0B0F1A" />
+  <link rel="canonical" href="https://gemula.org/" />
 
-  <!-- Open Graph / Facebook -->
+  <!-- Sitemap & Robots (bonne pratique à référencer) -->
+  <link rel="sitemap" type="application/xml" href="https://gemula.org/sitemap.xml" />
+  <link rel="alternate" hreflang="fr" href="https://gemula.org/" />
+  <link rel="alternate" hreflang="en" href="https://gemula.org/en/" />
+  <link rel="alternate" hreflang="x-default" href="https://gemula.org/" />
+
+  <!-- PWA / Manifest -->
+  <link rel="manifest" href="https://gemula.org/manifest.json" />
+
+  <!-- ============================================ -->
+  <!-- OPEN GRAPH - OPTIMISÉ                       -->
+  <!-- ============================================ -->
   <meta property="og:type" content="website" />
-  <meta property="og:url" content="https://gemula.com/" />
-  <meta property="og:title" content="Gemula · Là où le talent devient un impact" />
-  <meta property="og:description" content="Gemula est un collectif étudiant basé à Douala qui allie Data, IA, développement et design pour transformer les idées en projets concrets." />
-  <meta property="og:image" content="https://gemula.com/assets/og-image.jpg" />
+  <meta property="og:url" content="https://gemula.org/" />
+  <meta property="og:title" content="Gemula · Collectif Étudiant Data & IA à Douala, Cameroun" />
+  <meta property="og:description" content="Là où le talent devient un impact. Découvrez les projets et les talents de Gemula, collectif étudiant en Data, IA, développement et design à Douala." />
+  <meta property="og:image" content="https://gemula.org/assets/og-image.jpg" />
+  <meta property="og:image:secure_url" content="https://gemula.org/assets/og-image.jpg" />
   <meta property="og:image:width" content="1200" />
   <meta property="og:image:height" content="630" />
+  <meta property="og:image:alt" content="Gemula - Collectif étudiant Data & IA à Douala, Cameroun" />
+  <meta property="og:image:type" content="image/jpeg" />
   <meta property="og:locale" content="fr_FR" />
+  <meta property="og:locale:alternate" content="en_US" />
   <meta property="og:site_name" content="Gemula" />
+  <meta property="og:see_also" content="https://www.linkedin.com/company/gemula" />
+  <meta property="og:see_also" content="https://twitter.com/gemula" />
 
-  <!-- Twitter Cards -->
+  <!-- ============================================ -->
+  <!-- TWITTER CARDS - OPTIMISÉ                    -->
+  <!-- ============================================ -->
   <meta name="twitter:card" content="summary_large_image" />
-  <meta name="twitter:title" content="Gemula · Collectif étudiant Data & IA" />
-  <meta name="twitter:description" content="Découvrez les projets et les talents de Gemula, collectif étudiant basé à Douala, Cameroun." />
-  <meta name="twitter:image" content="https://gemula.com/assets/og-image.jpg" />
+  <meta name="twitter:url" content="https://gemula.org/" />
+  <meta name="twitter:title" content="Gemula · Collectif Étudiant Data & IA à Douala" />
+  <meta name="twitter:description" content="Découvrez les projets et les talents de Gemula, collectif étudiant basé à Douala, Cameroun. Data, IA, développement, design." />
+  <meta name="twitter:image" content="https://gemula.org/assets/og-image.jpg" />
+  <meta name="twitter:image:alt" content="Gemula - Là où le talent devient un impact" />
+  <meta name="twitter:site" content="@gemula" />
+  <meta name="twitter:creator" content="@gemula" />
 
-  <!-- Favicon -->
+  <!-- ============================================ -->
+  <!-- FAVICON & ICÔNES                            -->
+  <!-- ============================================ -->
   <link rel="icon" type="image/svg+xml" href="assets/favicon.svg" />
-  <link rel="apple-touch-icon" href="assets/apple-touch-icon.png" />
+  <link rel="icon" type="image/png" sizes="32x32" href="assets/favicon-32x32.png" />
+  <link rel="icon" type="image/png" sizes="16x16" href="assets/favicon-16x16.png" />
+  <link rel="apple-touch-icon" sizes="180x180" href="assets/apple-touch-icon.png" />
+  <link rel="mask-icon" href="assets/safari-pinned-tab.svg" color="#0B0F1A" />
+  <meta name="msapplication-TileColor" content="#0B0F1A" />
+  <meta name="msapplication-TileImage" content="assets/mstile-144x144.png" />
 
-  <!-- Polices -->
+  <!-- ============================================ -->
+  <!-- POLICES - AVEC PRÉCHARGEMENT                -->
+  <!-- ============================================ -->
   <link rel="preconnect" href="https://fonts.googleapis.com" />
   <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800;900&display=swap" />
   <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800;900&display=swap" rel="stylesheet" />
+  <link rel="preload" as="style" href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" />
   <link href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0" rel="stylesheet" />
 
-  <!-- tsParticles -->
+  <!-- ============================================ -->
+  <!-- tsParticles - AVEC PRELOAD                  -->
+  <!-- ============================================ -->
+  <link rel="preload" as="script" href="https://cdn.jsdelivr.net/npm/tsparticles@2.12.2/tsparticles.bundle.min.js" />
   <script src="https://cdn.jsdelivr.net/npm/tsparticles@2.12.2/tsparticles.bundle.min.js" defer></script>
 
   <!-- CSS -->
   <link rel="stylesheet" href="css/style.css" />
 
-  <!-- JSON-LD : Organisation -->
+  <!-- ============================================ -->
+  <!-- JSON-LD : ORGANISATION - OPTIMISÉ           -->
+  <!-- ============================================ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "Organization",
+    "@id": "https://gemula.org/#organization",
     "name": "Gemula",
-    "url": "https://gemula.com/",
-    "logo": "https://gemula.com/assets/logo.png",
-    "description": "Collectif étudiant basé à Douala (Cameroun) spécialisé en Data, IA, développement web, design et innovation.",
+    "alternateName": "Gemula Collectif",
+    "url": "https://gemula.org/",
+    "logo": {
+      "@type": "ImageObject",
+      "url": "https://gemula.org/assets/logo.png",
+      "width": 512,
+      "height": 512,
+      "caption": "Logo de Gemula"
+    },
+    "description": "Collectif étudiant basé à Douala (Cameroun) spécialisé en Data Science, Intelligence Artificielle, développement web, design et innovation.",
+    "foundingDate": "2024",
     "address": {
       "@type": "PostalAddress",
       "addressLocality": "Douala",
+      "addressRegion": "Littoral",
       "addressCountry": "CM"
+    },
+    "contactPoint": {
+      "@type": "ContactPoint",
+      "contactType": "customer service",
+      "email": "meilleurd2001@gmail.com",
+      "availableLanguage": ["fr", "en"]
     },
     "sameAs": [
       "https://www.linkedin.com/company/gemula",
-      "https://twitter.com/gemula"
-    ]
+      "https://twitter.com/gemula",
+      "https://github.com/gemula"
+    ],
+    "knowsAbout": [
+      "Data Science",
+      "Intelligence Artificielle",
+      "Machine Learning",
+      "Développement Web",
+      "Design",
+      "Innovation",
+      "Python",
+      "Deep Learning"
+    ],
+    "areaServed": "Cameroun"
   }
   </script>
 
-  <!-- JSON-LD : Site web -->
+  <!-- ============================================ -->
+  <!-- JSON-LD : SITE WEB - OPTIMISÉ               -->
+  <!-- ============================================ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "WebSite",
-    "url": "https://gemula.com/",
+    "@id": "https://gemula.org/#website",
+    "url": "https://gemula.org/",
     "name": "Gemula",
-    "description": "Collectif étudiant Data, IA, développement, design.",
+    "description": "Collectif étudiant Data, IA, développement, design à Douala, Cameroun.",
+    "publisher": {
+      "@id": "https://gemula.org/#organization"
+    },
+    "inLanguage": "fr-FR",
     "potentialAction": {
       "@type": "SearchAction",
-      "target": "https://gemula.com/search?q={search_term_string}",
+      "target": {
+        "@type": "EntryPoint",
+        "urlTemplate": "https://gemula.org/search?q={search_term_string}"
+      },
       "query-input": "required name=search_term_string"
     }
   }
   </script>
 
-  <!-- JSON-LD : Projets (ItemList) -->
+  <!-- ============================================ -->
+  <!-- JSON-LD : FIL D'ARIANE (BreadcrumbList)     -->
+  <!-- ============================================ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
-    "@type": "ItemList",
-    "name": "Projets Gemula",
-    "description": "Liste des projets développés par le collectif Gemula.",
+    "@type": "BreadcrumbList",
     "itemListElement": [
       {
         "@type": "ListItem",
         "position": 1,
-        "name": "Dames game rl",
-        "description": "Jeu de Dames avec IA utilisant un Deep Q-Network, développé en Python avec PyQt5 et Pygame."
+        "name": "Accueil",
+        "item": "https://gemula.org/"
       },
       {
         "@type": "ListItem",
         "position": 2,
-        "name": "Gemula_Mailer",
-        "description": "Plateforme d'envoi de messages personnalisés en masse."
+        "name": "Vision",
+        "item": "https://gemula.org/#vision"
       },
       {
         "@type": "ListItem",
         "position": 3,
-        "name": "Gemula_learn",
-        "description": "Outil d'analyse stratégique pour transformer une idée en dossier bancable."
+        "name": "Expertise",
+        "item": "https://gemula.org/#expertise"
       },
       {
         "@type": "ListItem",
         "position": 4,
-        "name": "Gemula_Atlas",
-        "description": "ERP complet avec analytique prédictive (ARIMA/SARIMAX) et narration IA."
+        "name": "Projets",
+        "item": "https://gemula.org/#projets"
       },
       {
         "@type": "ListItem",
         "position": 5,
-        "name": "SOCOOCA_PK",
-        "description": "Plateforme de traçabilité pour les producteurs de cacao et d'huile de palme au Cameroun."
-      },
-      {
-        "@type": "ListItem",
-        "position": 6,
-        "name": "Projet_eneo",
-        "description": "Outil d'aide à la décision pour le réseau électrique camerounais basé sur l'analyse de données."
+        "name": "Talent",
+        "item": "https://gemula.org/#talent"
       }
     ]
   }
   </script>
 
-  <!-- JSON-LD : Membres (Person) -->
+  <!-- ============================================ -->
+  <!-- JSON-LD : PROJETS (ItemList) - OPTIMISÉ     -->
+  <!-- ============================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "ItemList",
+    "name": "Projets Gemula",
+    "description": "Liste des projets développés par le collectif Gemula à Douala, Cameroun.",
+    "url": "https://gemula.org/#projets",
+    "itemListElement": [
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Dames game rl",
+          "description": "Jeu de Dames avec IA utilisant un Deep Q-Network, développé en Python avec PyQt5 et Pygame.",
+          "applicationCategory": "GameApplication",
+          "operatingSystem": "Windows, macOS, Linux",
+          "programmingLanguage": "Python",
+          "offers": { "@type": "Offer", "price": "0", "priceCurrency": "XAF" }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Gemula_Mailer",
+          "description": "Plateforme d'envoi de messages personnalisés en masse avec automatisation.",
+          "applicationCategory": "CommunicationApplication",
+          "programmingLanguage": "Python, JavaScript"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Gemula_learn",
+          "description": "Outil d'analyse stratégique pour transformer une idée en dossier bancable professionnel.",
+          "applicationCategory": "BusinessApplication",
+          "programmingLanguage": "Python"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Gemula_Atlas",
+          "description": "ERP complet avec analytique prédictive (ARIMA/SARIMAX) et narration IA.",
+          "applicationCategory": "BusinessApplication",
+          "programmingLanguage": "Python"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "SOCOOCA_PK",
+          "description": "Plateforme de traçabilité pour les producteurs de cacao et d'huile de palme au Cameroun.",
+          "applicationCategory": "BusinessApplication",
+          "programmingLanguage": "Python"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "item": {
+          "@type": "SoftwareApplication",
+          "name": "Projet_eneo",
+          "description": "Outil d'aide à la décision pour le réseau électrique camerounais basé sur l'analyse de données.",
+          "applicationCategory": "BusinessApplication",
+          "programmingLanguage": "Python"
+        }
+      }
+    ]
+  }
+  </script>
+
+  <!-- ============================================ -->
+  <!-- JSON-LD : MEMBRES (Person) - OPTIMISÉ       -->
+  <!-- ============================================ -->
   <script type="application/ld+json">
   {
     "@context": "https://schema.org",
     "@type": "ItemList",
     "name": "Membres de Gemula",
+    "description": "Les talents et membres du collectif Gemula à Douala, Cameroun.",
+    "url": "https://gemula.org/#talent",
     "itemListElement": [
-      {"@type":"ListItem","position":1,"item":{"@type":"Person","name":"KWARISSA Lada Lydia","jobTitle":"Data Analyst & Excel Avancé"}},
-      {"@type":"ListItem","position":2,"item":{"@type":"Person","name":"Garga Ali Faysal","jobTitle":"Data Analyst"}},
-      {"@type":"ListItem","position":3,"item":{"@type":"Person","name":"Kpoumie Amza","jobTitle":"Développeur Web & Power BI"}},
-      {"@type":"ListItem","position":4,"item":{"@type":"Person","name":"EBA Ngolong Jeanne Chantal","jobTitle":"Développeur Mobile & Data Scientist"}},
-      {"@type":"ListItem","position":5,"item":{"@type":"Person","name":"Mbonjo Etia Patrick Thomas","jobTitle":"AI Solutions & Data Engineer"}},
-      {"@type":"ListItem","position":6,"item":{"@type":"Person","name":"Aat Ndongo David Meilleur","jobTitle":"Lead Founder"}},
-      {"@type":"ListItem","position":7,"item":{"@type":"Person","name":"MANGUELLE MAKON Cathia Lucie","jobTitle":"Électrotechnicienne"}},
-      {"@type":"ListItem","position":8,"item":{"@type":"Person","name":"BAGNEKI OKALA Fortuna Valery","jobTitle":"Électrotechnicienne"}}
+      {
+        "@type": "ListItem",
+        "position": 1,
+        "item": {
+          "@type": "Person",
+          "name": "KWARISSA Lada Lydia",
+          "jobTitle": "Data Analyst & Excel Avancé",
+          "affiliation": "Gemula",
+          "worksFor": { "@id": "https://gemula.org/#organization" }
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 2,
+        "item": {
+          "@type": "Person",
+          "name": "Garga Ali Faysal",
+          "jobTitle": "Data Analyst",
+          "affiliation": "Gemula"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 3,
+        "item": {
+          "@type": "Person",
+          "name": "Kpoumie Amza",
+          "jobTitle": "Développeur Web & Power BI",
+          "affiliation": "Gemula"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 4,
+        "item": {
+          "@type": "Person",
+          "name": "EBA Ngolong Jeanne Chantal",
+          "jobTitle": "Développeur Mobile & Data Scientist",
+          "affiliation": "Gemula"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 5,
+        "item": {
+          "@type": "Person",
+          "name": "Mbonjo Etia Patrick Thomas",
+          "jobTitle": "AI Solutions & Data Engineer",
+          "affiliation": "Gemula"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 6,
+        "item": {
+          "@type": "Person",
+          "name": "Aat Ndongo David Meilleur",
+          "jobTitle": "Lead Founder",
+          "affiliation": "Gemula",
+          "url": "https://www.linkedin.com/in/david-meilleur-aat-ndongo",
+          "sameAs": "https://www.linkedin.com/in/david-meilleur-aat-ndongo"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 7,
+        "item": {
+          "@type": "Person",
+          "name": "MANGUELLE MAKON Cathia Lucie",
+          "jobTitle": "Électrotechnicienne",
+          "affiliation": "Gemula"
+        }
+      },
+      {
+        "@type": "ListItem",
+        "position": 8,
+        "item": {
+          "@type": "Person",
+          "name": "BAGNEKI OKALA Fortuna Valery",
+          "jobTitle": "Électrotechnicienne",
+          "affiliation": "Gemula"
+        }
+      }
     ]
+  }
+  </script>
+
+  <!-- ============================================ -->
+  <!-- JSON-LD : FONDATEUR (Person détaillée)      -->
+  <!-- ============================================ -->
+  <script type="application/ld+json">
+  {
+    "@context": "https://schema.org",
+    "@type": "Person",
+    "name": "Aat Ndongo David Meilleur",
+    "jobTitle": "Lead Founder",
+    "affiliation": "Gemula",
+    "url": "https://www.linkedin.com/in/david-meilleur-aat-ndongo",
+    "sameAs": "https://www.linkedin.com/in/david-meilleur-aat-ndongo",
+    "worksFor": {
+      "@id": "https://gemula.org/#organization"
+    },
+    "knowsAbout": ["Data Science", "Intelligence Artificielle", "Leadership"]
   }
   </script>
 
@@ -161,21 +425,21 @@
 <!-- ===== NAVBAR ===== -->
 <header class="nav" id="nav" role="banner">
   <div class="nav-inner">
-    <a href="#top" class="brand" id="brand-home" aria-label="Gemula - Accueil">
+    <a href="#top" class="brand" id="brand-home" aria-label="Gemula - Accueil" title="Gemula - Accueil">
       <span class="flagmark" id="nav-flag" aria-hidden="true"></span>
       <span class="wordmark">Gemula</span>
     </a>
 
     <nav class="nav-links" id="nav-links" role="navigation" aria-label="Navigation principale">
-      <a href="#vision" data-nav>Vision</a>
-      <a href="#expertise" data-nav>Expertise</a>
-      <a href="#projets" data-nav>Projets</a>
-      <a href="#talent" data-nav>Talent</a>
+      <a href="#vision" data-nav title="Découvrir notre vision">Vision</a>
+      <a href="#expertise" data-nav title="Nos domaines d'expertise">Expertise</a>
+      <a href="#projets" data-nav title="Voir nos projets">Projets</a>
+      <a href="#talent" data-nav title="Rencontrer l'équipe">Talent</a>
     </nav>
 
-    <a href="#contact" class="btn btn-primary nav-cta">Discutons</a>
+    <a href="#contact" class="btn btn-primary nav-cta" title="Contactez-nous">Discutons</a>
 
-    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false">
+    <button class="burger" id="burger" aria-label="Ouvrir le menu" aria-expanded="false" title="Menu de navigation">
       <span></span><span></span><span></span>
     </button>
   </div>
@@ -207,15 +471,15 @@
       </h1>
 
       <p class="hero-sub stagger-item">
-        Gemula est un collectif étudiant basé à Douala (Cameroun) qui réunit des profils passionnés par la <strong>Data</strong>, l'<strong>Intelligence Artificielle</strong>, le <strong>développement web</strong>, le <strong>design</strong> et l'<strong>innovation</strong>. Nous créons un espace où les talents peuvent apprendre, collaborer, expérimenter et transformer leurs idées en réalisations concrètes.
+        Gemula est un collectif étudiant basé à <strong>Douala (Cameroun)</strong> qui réunit des profils passionnés par la <strong>Data</strong>, l'<strong>Intelligence Artificielle</strong>, le <strong>développement web</strong>, le <strong>design</strong> et l'<strong>innovation</strong>. Nous créons un espace où les talents peuvent apprendre, collaborer, expérimenter et transformer leurs idées en réalisations concrètes.
       </p>
 
       <div class="hero-actions stagger-item">
-        <a href="#projets" class="btn btn-primary">
+        <a href="#projets" class="btn btn-primary" title="Découvrir nos projets">
           Voir nos projets
           <span class="material-symbols-outlined" aria-hidden="true">arrow_forward</span>
         </a>
-        <a href="#vision" class="btn btn-ghost">Notre vision</a>
+        <a href="#vision" class="btn btn-ghost" title="En savoir plus sur Gemula">Notre vision</a>
       </div>
     </div>
 
@@ -226,7 +490,7 @@
     </div>
   </section>
 
-  <!-- ===== VISION / POSITIONNEMENT (refonte style Expertise) ===== -->
+  <!-- ===== VISION / POSITIONNEMENT ===== -->
   <section class="section section-white" id="vision" aria-labelledby="vision-title">
     <div class="container">
       <div class="section-head reveal">
@@ -370,13 +634,13 @@
       </div>
 
       <div class="filters reveal" id="filters" role="tablist" aria-label="Filtres des projets">
-        <button class="filter-btn is-active" data-filter="tous" role="tab" aria-selected="true">Tous</button>
-        <button class="filter-btn" data-filter="jeu-ia" role="tab" aria-selected="false">Jeu &amp; IA</button>
-        <button class="filter-btn" data-filter="communication" role="tab" aria-selected="false">Communication</button>
-        <button class="filter-btn" data-filter="strategie" role="tab" aria-selected="false">Stratégie</button>
-        <button class="filter-btn" data-filter="gestion" role="tab" aria-selected="false">Gestion</button>
-        <button class="filter-btn" data-filter="agriculture" role="tab" aria-selected="false">Agriculture</button>
-        <button class="filter-btn" data-filter="energie" role="tab" aria-selected="false">Énergie</button>
+        <button class="filter-btn is-active" data-filter="tous" role="tab" aria-selected="true" title="Afficher tous les projets">Tous</button>
+        <button class="filter-btn" data-filter="jeu-ia" role="tab" aria-selected="false" title="Jeux et Intelligence Artificielle">Jeu &amp; IA</button>
+        <button class="filter-btn" data-filter="communication" role="tab" aria-selected="false" title="Communication et automatisation">Communication</button>
+        <button class="filter-btn" data-filter="strategie" role="tab" aria-selected="false" title="Stratégie et analyse">Stratégie</button>
+        <button class="filter-btn" data-filter="gestion" role="tab" aria-selected="false" title="Gestion et ERP">Gestion</button>
+        <button class="filter-btn" data-filter="agriculture" role="tab" aria-selected="false" title="Agriculture et traçabilité">Agriculture</button>
+        <button class="filter-btn" data-filter="energie" role="tab" aria-selected="false" title="Énergie et optimisation">Énergie</button>
       </div>
 
       <div class="projects-grid reveal magic-bento" id="projects-grid">
@@ -419,8 +683,8 @@
             <span class="material-symbols-outlined project-icon glow-icon" aria-hidden="true">analytics</span>
           </div>
           <h3>Gemula_learn</h3>
-          <p class="project-tagline">De l’idée au dossier bancable</p>
-          <p>Outil d’analyse stratégique pour ingénieurs, chercheurs, consultants et incubateurs. Structurez, chiffrez, simulez et exportez votre projet en un dossier professionnel prêt à présenter.</p>
+          <p class="project-tagline">De l'idée au dossier bancable</p>
+          <p>Outil d'analyse stratégique pour ingénieurs, chercheurs, consultants et incubateurs. Structurez, chiffrez, simulez et exportez votre projet en un dossier professionnel prêt à présenter.</p>
           <ul class="tag-list small">
             <li>Analyse</li>
             <li>Simulation</li>
@@ -499,8 +763,8 @@
             <h3>KWARISSA Lada Lydia</h3>
             <p class="talent-role">Data Analyst &amp; Excel Avancé</p>
             <div class="talent-links">
-              <a href="#" aria-label="LinkedIn de KWARISSA Lada Lydia" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-              <a href="#" aria-label="Portfolio de KWARISSA Lada Lydia" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="LinkedIn de KWARISSA Lada Lydia" rel="noopener" title="Profil LinkedIn de KWARISSA Lada Lydia">LinkedIn <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="Portfolio de KWARISSA Lada Lydia" rel="noopener" title="Portfolio de KWARISSA Lada Lydia">Portfolio <span aria-hidden="true">↗</span></a>
             </div>
           </div>
         </article>
@@ -511,8 +775,8 @@
             <h3>Garga Ali Faysal</h3>
             <p class="talent-role">Data Analyst</p>
             <div class="talent-links">
-              <a href="#" aria-label="LinkedIn de Garga Ali Faysal" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-              <a href="#" aria-label="Portfolio de Garga Ali Faysal" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="LinkedIn de Garga Ali Faysal" rel="noopener" title="Profil LinkedIn de Garga Ali Faysal">LinkedIn <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="Portfolio de Garga Ali Faysal" rel="noopener" title="Portfolio de Garga Ali Faysal">Portfolio <span aria-hidden="true">↗</span></a>
             </div>
           </div>
         </article>
@@ -523,8 +787,8 @@
             <h3>Kpoumie Amza</h3>
             <p class="talent-role">Développeur Web &amp; Power BI</p>
             <div class="talent-links">
-              <a href="#" aria-label="LinkedIn de Kpoumie Amza" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-              <a href="#" aria-label="Portfolio de Kpoumie Amza" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="LinkedIn de Kpoumie Amza" rel="noopener" title="Profil LinkedIn de Kpoumie Amza">LinkedIn <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="Portfolio de Kpoumie Amza" rel="noopener" title="Portfolio de Kpoumie Amza">Portfolio <span aria-hidden="true">↗</span></a>
             </div>
           </div>
         </article>
@@ -535,8 +799,8 @@
             <h3>EBA Ngolong Jeanne Chantal</h3>
             <p class="talent-role">Développeur Mobile &amp; Data Scientist</p>
             <div class="talent-links">
-              <a href="#" aria-label="LinkedIn de EBA Ngolong Jeanne Chantal" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-              <a href="#" aria-label="Portfolio de EBA Ngolong Jeanne Chantal" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="LinkedIn de EBA Ngolong Jeanne Chantal" rel="noopener" title="Profil LinkedIn de EBA Ngolong Jeanne Chantal">LinkedIn <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="Portfolio de EBA Ngolong Jeanne Chantal" rel="noopener" title="Portfolio de EBA Ngolong Jeanne Chantal">Portfolio <span aria-hidden="true">↗</span></a>
             </div>
           </div>
         </article>
@@ -547,8 +811,8 @@
             <h3>Mbonjo Etia Patrick Thomas</h3>
             <p class="talent-role">AI Solutions &amp; Data Engineer</p>
             <div class="talent-links">
-              <a href="#" aria-label="LinkedIn de Mbonjo Etia Patrick Thomas" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-              <a href="#" aria-label="Portfolio de Mbonjo Etia Patrick Thomas" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="LinkedIn de Mbonjo Etia Patrick Thomas" rel="noopener" title="Profil LinkedIn de Mbonjo Etia Patrick Thomas">LinkedIn <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="Portfolio de Mbonjo Etia Patrick Thomas" rel="noopener" title="Portfolio de Mbonjo Etia Patrick Thomas">Portfolio <span aria-hidden="true">↗</span></a>
             </div>
           </div>
         </article>
@@ -559,8 +823,8 @@
             <h3>Aat Ndongo David Meilleur</h3>
             <p class="talent-role">Lead Founder</p>
             <div class="talent-links">
-              <a href="#" aria-label="https://www.linkedun.com/in/david-meilleur-aat-ndongo" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-              <a href="#" aria-label="Portfolio de Aat Ndongo David Meilleur" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
+              <a href="https://www.linkedin.com/in/david-meilleur-aat-ndongo" target="_blank" rel="noopener" aria-label="LinkedIn de Aat Ndongo David Meilleur" title="Profil LinkedIn de Aat Ndongo David Meilleur">LinkedIn <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="Portfolio de Aat Ndongo David Meilleur" rel="noopener" title="Portfolio de Aat Ndongo David Meilleur">Portfolio <span aria-hidden="true">↗</span></a>
             </div>
           </div>
         </article>
@@ -571,8 +835,8 @@
             <h3>MANGUELLE MAKON Cathia Lucie</h3>
             <p class="talent-role">Électrotechnicienne</p>
             <div class="talent-links">
-              <a href="#" aria-label="LinkedIn de MANGUELLE MAKON Cathia Lucie" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-              <a href="#" aria-label="Portfolio de MANGUELLE MAKON Cathia Lucie" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="LinkedIn de MANGUELLE MAKON Cathia Lucie" rel="noopener" title="Profil LinkedIn de MANGUELLE MAKON Cathia Lucie">LinkedIn <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="Portfolio de MANGUELLE MAKON Cathia Lucie" rel="noopener" title="Portfolio de MANGUELLE MAKON Cathia Lucie">Portfolio <span aria-hidden="true">↗</span></a>
             </div>
           </div>
         </article>
@@ -583,8 +847,8 @@
             <h3>BAGNEKI OKALA Fortuna Valery</h3>
             <p class="talent-role">Électrotechnicienne</p>
             <div class="talent-links">
-              <a href="#" aria-label="LinkedIn de BAGNEKI OKALA Fortuna Valery" rel="noopener">LinkedIn <span aria-hidden="true">↗</span></a>
-              <a href="#" aria-label="Portfolio de BAGNEKI OKALA Fortuna Valery" rel="noopener">Portfolio <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="LinkedIn de BAGNEKI OKALA Fortuna Valery" rel="noopener" title="Profil LinkedIn de BAGNEKI OKALA Fortuna Valery">LinkedIn <span aria-hidden="true">↗</span></a>
+              <a href="#" aria-label="Portfolio de BAGNEKI OKALA Fortuna Valery" rel="noopener" title="Portfolio de BAGNEKI OKALA Fortuna Valery">Portfolio <span aria-hidden="true">↗</span></a>
             </div>
           </div>
         </article>
@@ -601,16 +865,16 @@
         <p class="lede">
           Une idée, un projet ou simplement envie de collaborer ? Parlons-en.
         </p>
-        <a href="mailto:meilleurd2001@gmail.com" class="btn btn-primary btn-lg">
+        <a href="mailto:meilleurd2001@gmail.com" class="btn btn-primary btn-lg" title="Envoyer un email à Gemula">
           Contactez-nous
           <span class="material-symbols-outlined" aria-hidden="true">mail</span>
         </a>
       </div>
       <div class="contact-links">
-        <a href="https://www.linkedin.com/in/david-meilleur-aat-ndongo" target="_blank" rel="noopener">
+        <a href="https://www.linkedin.com/in/david-meilleur-aat-ndongo" target="_blank" rel="noopener" title="Page LinkedIn de Gemula">
           <span class="material-symbols-outlined glow-icon" aria-hidden="true">link</span> LinkedIn
         </a>
-        <a href="mailto:meilleurd2001@gmail.com">
+        <a href="mailto:meilleurd2001@gmail.com" title="Envoyer un email">
           <span class="material-symbols-outlined glow-icon" aria-hidden="true">forward_to_inbox</span> Email
         </a>
         <div class="contact-location">
@@ -625,7 +889,7 @@
 <!-- ===== FOOTER ===== -->
 <footer class="footer" role="contentinfo">
   <div class="container footer-inner">
-    <a href="#top" class="brand" aria-label="Retour en haut">
+    <a href="#top" class="brand" aria-label="Retour en haut de page" title="Retour en haut">
       <span class="flagmark flagmark-sm" id="footer-flag" aria-hidden="true"></span>
       <span class="wordmark">Gemula</span>
     </a>
