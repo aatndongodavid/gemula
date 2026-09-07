@@ -1,0 +1,851 @@
+<!DOCTYPE html>
+<html lang="fr">
+<head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <title>David Meilleur · Data, AI & IT Engineer</title>
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link href="https://fonts.googleapis.com/css2?family=Syne:wght@400;600;700;800&family=DM+Sans:wght@300;400;500;600;700&display=swap" rel="stylesheet" />
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.4.0/css/all.min.css" />
+    <style>
+        /* =========================================================
+           GEMULA ORANGE PALETTE
+           ========================================================= */
+        :root {
+            --bg-inner: #F5791C;      /* orange Gemula */
+            --bg-mid: #C85A0F;
+            --bg-outer: #8A3A07;
+            --surface: rgba(255,255,255,0.06);
+            --border: rgba(255,255,255,0.15);
+            --primary: #F5791C;
+            --primary-light: #FF9A3C;
+            --accent: #FFB87A;
+            --text: #f1f5f9;
+            --muted: #cbd5e1;
+            --radius: 16px;
+            --primary-gradient: linear-gradient(135deg, #F5791C, #FF9A3C);
+        }
+
+        * { margin: 0; padding: 0; box-sizing: border-box; }
+
+        body {
+            background: radial-gradient(circle at center, var(--bg-inner) 0%, var(--bg-mid) 50%, var(--bg-outer) 100%);
+            color: var(--text);
+            font-family: 'DM Sans', sans-serif;
+            overflow-x: hidden;
+            transition: background 1.2s ease;
+        }
+
+        /* Navigation */
+        #navbar {
+            position: fixed;
+            top: 20px;
+            left: 50%;
+            transform: translateX(-50%);
+            z-index: 1000;
+            background: rgba(200, 90, 15, 0.6);
+            backdrop-filter: blur(20px);
+            border: 1px solid var(--border);
+            border-radius: 50px;
+            padding: 10px 20px;
+            display: flex;
+            gap: 8px;
+            box-shadow: 0 8px 30px rgba(0,0,0,0.3);
+        }
+        #navbar a {
+            color: var(--muted);
+            text-decoration: none;
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            font-size: 0.85rem;
+            padding: 8px 16px;
+            border-radius: 30px;
+            transition: all 0.4s ease;
+        }
+        #navbar a:hover, #navbar a.active {
+            color: #fff;
+            background: rgba(245, 121, 28, 0.25);
+        }
+        #navbar a.active {
+            background: rgba(245, 121, 28, 0.35);
+            color: var(--accent);
+        }
+
+        @media (max-width: 768px) {
+            #navbar { gap: 4px; padding: 8px 12px; }
+            #navbar a { font-size: 0.7rem; padding: 6px 12px; }
+        }
+
+        /* Floating Elements */
+        .floating-elements {
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            pointer-events: none;
+            z-index: 0;
+        }
+        .float-shape {
+            position: absolute;
+            border-radius: 50%;
+            background: radial-gradient(circle, rgba(245, 121, 28, 0.25) 0%, transparent 70%);
+            filter: blur(1px);
+            transition: transform 0.2s ease-out;
+            animation: floatBob 12s ease-in-out infinite;
+        }
+        @keyframes floatBob {
+            0%, 100% { transform: translateY(0) rotate(0deg); }
+            50% { transform: translateY(-40px) rotate(15deg); }
+        }
+
+        /* Sections */
+        section {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 120px 5% 80px;
+            position: relative;
+            z-index: 1;
+        }
+
+        .section-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2rem, 5vw, 3rem);
+            font-weight: 800;
+            margin-bottom: 12px;
+            color: #fff;
+        }
+        .section-title span {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .section-sub {
+            color: var(--muted);
+            font-size: 1.1rem;
+            margin-bottom: 50px;
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(40px);
+            transition: opacity 1.2s ease, transform 1.2s ease;
+        }
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* Hero */
+        #hero {
+            min-height: 100vh;
+            display: flex;
+            align-items: center;
+            gap: 60px;
+            padding-top: 140px;
+        }
+        .hero-left { flex: 1; }
+        .hero-badge {
+            display: inline-block;
+            background: rgba(245, 121, 28, 0.15);
+            border: 1px solid rgba(245, 121, 28, 0.3);
+            color: var(--primary-light);
+            padding: 6px 16px;
+            border-radius: 30px;
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 0.5px;
+            margin-bottom: 20px;
+        }
+        .hero-title {
+            font-family: 'Syne', sans-serif;
+            font-size: clamp(2.5rem, 6vw, 4rem);
+            font-weight: 800;
+            line-height: 1.1;
+            margin-bottom: 16px;
+            color: #fff;
+        }
+        .hero-title .highlight {
+            background: var(--primary-gradient);
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+        }
+        .hero-sub {
+            font-size: 1.2rem;
+            color: var(--primary-light);
+            margin-bottom: 20px;
+        }
+        .hero-tagline {
+            color: var(--muted);
+            font-style: italic;
+            border-left: 3px solid var(--primary);
+            padding-left: 20px;
+            margin-bottom: 40px;
+            line-height: 1.6;
+        }
+        .btn-group { display: flex; gap: 16px; flex-wrap: wrap; }
+        .btn {
+            padding: 14px 28px;
+            border-radius: 40px;
+            font-weight: 700;
+            font-family: 'Syne', sans-serif;
+            text-decoration: none;
+            display: inline-flex;
+            align-items: center;
+            gap: 8px;
+            transition: all 0.4s ease;
+            font-size: 0.9rem;
+        }
+        .btn-primary {
+            background: var(--primary-gradient);
+            color: #fff;
+            box-shadow: 0 4px 20px rgba(245, 121, 28, 0.4);
+        }
+        .btn-primary:hover {
+            transform: translateY(-3px);
+            box-shadow: 0 8px 30px rgba(245, 121, 28, 0.6);
+        }
+        .btn-outline {
+            background: transparent;
+            border: 1px solid rgba(255,255,255,0.2);
+            color: #fff;
+        }
+        .btn-outline:hover {
+            border-color: var(--primary);
+            background: rgba(245, 121, 28, 0.15);
+        }
+        .hero-right {
+            width: 300px;
+            height: 300px;
+            flex-shrink: 0;
+            border-radius: 50%;
+            background: var(--primary-gradient);
+            padding: 5px;
+            transition: transform 0.2s ease-out;
+        }
+        .hero-right .img-wrap {
+            width: 100%;
+            height: 100%;
+            border-radius: 50%;
+            overflow: hidden;
+            background: #8A3A07;
+        }
+        .hero-right img {
+            width: 100%;
+            height: 100%;
+            object-fit: cover;
+        }
+
+        @media (max-width: 900px) {
+            #hero { flex-direction: column; text-align: center; padding-top: 130px; }
+            .hero-right { width: 220px; height: 220px; }
+        }
+
+        /* Glass cards */
+        .glass-card {
+            background: var(--surface);
+            backdrop-filter: blur(12px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px;
+            transition: all 0.4s ease;
+        }
+        .glass-card:hover {
+            border-color: rgba(245, 121, 28, 0.4);
+            box-shadow: 0 10px 30px rgba(0,0,0,0.4);
+        }
+
+        /* Profile cards */
+        .profile-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fit, minmax(280px, 1fr));
+            gap: 24px;
+            margin: 40px 0 60px;
+        }
+        .profile-card {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 28px 20px;
+            text-align: center;
+            transition: all 0.4s ease;
+        }
+        .profile-card:hover {
+            border-color: var(--primary);
+            transform: translateY(-6px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+        .profile-card i {
+            font-size: 2.5rem;
+            color: var(--primary);
+            margin-bottom: 16px;
+            display: inline-block;
+        }
+        .profile-card h3 {
+            font-family: 'Syne', sans-serif;
+            font-size: 1.2rem;
+            color: #fff;
+            margin-bottom: 8px;
+        }
+        .profile-card p {
+            color: var(--muted);
+            font-size: 0.9rem;
+            line-height: 1.5;
+        }
+
+        /* Timeline */
+        .timeline {
+            border-left: 2px solid rgba(245, 121, 28, 0.3);
+            margin: 40px 0;
+            padding-left: 30px;
+        }
+        .timeline-item {
+            position: relative;
+            margin-bottom: 40px;
+        }
+        .timeline-item::before {
+            content: '';
+            position: absolute;
+            left: -10px; top: 5px;
+            width: 18px; height: 18px;
+            background: var(--primary-gradient);
+            border-radius: 50%;
+            box-shadow: 0 0 12px var(--primary);
+        }
+        .timeline-date { font-family: 'Syne', sans-serif; color: var(--primary-light); font-weight: 700; }
+        .timeline-title { font-size: 1.2rem; font-weight: 700; color: #fff; }
+        .timeline-org { color: var(--accent); font-weight: 500; margin-bottom: 6px; }
+        .timeline-desc { color: var(--muted); font-size: 0.9rem; line-height: 1.5; }
+
+        /* Skills tags with shimmer */
+        .skill-group { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 12px; }
+        .skill-tag {
+            position: relative; overflow: hidden;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border);
+            color: var(--text);
+            padding: 8px 18px;
+            border-radius: 30px;
+            font-size: 0.85rem;
+            transition: 0.4s ease;
+        }
+        .skill-tag::after {
+            content: '';
+            position: absolute; top: 0; left: -100%;
+            width: 100%; height: 100%;
+            background: linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent);
+            animation: shimmer 5s infinite;
+        }
+        @keyframes shimmer {
+            0% { left: -100%; }
+            100% { left: 100%; }
+        }
+        .skill-tag:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(245, 121, 28, 0.1);
+        }
+
+        /* Project filters & grid */
+        .project-filters { display: flex; flex-wrap: wrap; gap: 10px; margin-bottom: 40px; }
+        .filter-btn {
+            background: transparent;
+            border: 1px solid var(--border);
+            color: var(--muted);
+            font-family: 'Syne', sans-serif;
+            font-weight: 600;
+            padding: 8px 20px;
+            border-radius: 30px;
+            cursor: pointer;
+            transition: all 0.4s ease;
+            font-size: 0.85rem;
+        }
+        .filter-btn.active, .filter-btn:hover {
+            border-color: var(--primary);
+            color: var(--primary);
+            background: rgba(245, 121, 28, 0.1);
+        }
+        .projects-grid {
+            display: grid;
+            grid-template-columns: repeat(auto-fill, minmax(280px, 1fr));
+            gap: 24px;
+        }
+        .project-card {
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: var(--radius);
+            padding: 16px;
+            transition: all 0.4s ease;
+            display: flex;
+            flex-direction: column;
+        }
+        .project-card:hover {
+            border-color: rgba(245, 121, 28, 0.5);
+            transform: translateY(-4px);
+            box-shadow: 0 12px 30px rgba(0,0,0,0.3);
+        }
+        .project-thumb img { width: 100%; height: 160px; object-fit: cover; border-radius: 12px; display:block; margin-bottom:12px; }
+        .project-icon { font-size: 1.6rem; margin-bottom: 8px; color: var(--primary); }
+        .project-title { font-family: 'Syne', sans-serif; font-size: 1.05rem; font-weight: 700; margin-bottom: 6px; color: #fff; }
+        .project-tags { display: flex; flex-wrap: wrap; gap: 6px; margin-bottom: 12px; }
+        .project-tag {
+            background: rgba(245, 121, 28, 0.15);
+            color: var(--primary-light);
+            padding: 3px 10px;
+            border-radius: 6px;
+            font-size: 0.7rem;
+            font-weight: 500;
+        }
+        .project-desc { color: var(--muted); font-size: 0.85rem; line-height: 1.4; flex: 1; }
+        .project-links { margin-top: 12px; display: flex; gap: 10px; flex-wrap:wrap; }
+        .project-links a { display: inline-flex; align-items: center; gap: 6px; background: rgba(245, 121, 28, 0.1); border: 1px solid rgba(245, 121, 28, 0.2); color: var(--primary-light); padding: 6px 12px; border-radius: 8px; font-size: 0.75rem; font-weight: 600; text-decoration: none; transition: all 0.3s ease; }
+        .project-links a:hover { background: rgba(245, 121, 28, 0.25); }
+
+        .detail-btn { background: transparent; border: 1px solid var(--border); color: var(--muted); padding: 8px 12px; border-radius: 8px; cursor:pointer; transition: 0.3s; }
+        .detail-btn:hover { border-color: var(--primary); color: var(--primary); }
+
+        /* CV section with 3 buttons */
+        .cv-buttons {
+            display: flex;
+            flex-wrap: wrap;
+            justify-content: center;
+            gap: 20px;
+            margin: 30px 0 20px;
+        }
+        .cv-btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 12px;
+            padding: 16px 28px;
+            border-radius: 40px;
+            font-family: 'Syne', sans-serif;
+            font-weight: 700;
+            font-size: 0.9rem;
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            color: #fff;
+            text-decoration: none;
+            transition: all 0.4s ease;
+            min-width: 200px;
+            justify-content: center;
+        }
+        .cv-btn i { font-size: 1.4rem; color: var(--primary); }
+        .cv-btn:hover {
+            border-color: var(--primary);
+            transform: translateY(-3px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.3);
+            background: rgba(245, 121, 28, 0.1);
+        }
+
+        /* Contact icons */
+        .icon-grid { display: flex; justify-content: center; gap: 30px; flex-wrap: wrap; margin-top: 20px; }
+        .icon-card {
+            width: 90px; height: 90px;
+            background: var(--surface);
+            backdrop-filter: blur(10px);
+            border: 1px solid var(--border);
+            border-radius: 20px;
+            display: flex; flex-direction: column;
+            align-items: center; justify-content: center;
+            color: var(--muted);
+            text-decoration: none;
+            transition: all 0.4s ease;
+            font-size: 0.7rem; font-weight: 700;
+            text-transform: uppercase; letter-spacing: 1px;
+        }
+        .icon-card i { font-size: 1.8rem; margin-bottom: 8px; transition: 0.4s ease; }
+        .icon-card:hover {
+            border-color: var(--icolor);
+            color: #fff;
+            transform: translateY(-5px);
+            box-shadow: 0 10px 20px rgba(0,0,0,0.4);
+        }
+        .icon-card:hover i { color: var(--icolor); filter: drop-shadow(0 0 6px var(--icolor)); }
+
+        footer {
+            text-align: center; padding: 40px;
+            border-top: 1px solid var(--border);
+            color: var(--muted); font-size: 0.9rem;
+        }
+
+        /* Modals */
+        .modal-overlay {
+            position: fixed; inset: 0;
+            background: rgba(0,0,0,0.6);
+            backdrop-filter: blur(10px);
+            z-index: 2000;
+            display: flex; align-items: center; justify-content: center;
+            opacity: 0; pointer-events: none; transition: 0.4s ease;
+        }
+        .modal-overlay.open { opacity: 1; pointer-events: all; }
+        .modal {
+            background: #8A3A07;
+            border: 1px solid var(--border);
+            border-radius: 24px; padding: 24px;
+            max-width: 900px; width: 95%;
+            max-height: 85vh; overflow-y: auto;
+            position: relative;
+            box-shadow: 0 20px 50px rgba(0,0,0,0.5);
+            transform: scale(0.95);
+            transition: transform 0.4s ease;
+        }
+        .modal-overlay.open .modal { transform: scale(1); }
+        .modal-close {
+            position: absolute; top: 12px; right: 12px;
+            background: rgba(255,255,255,0.05);
+            border: 1px solid var(--border); color: var(--text);
+            width: 36px; height: 36px; border-radius: 50%;
+            cursor: pointer; display:flex; align-items:center; justify-content:center;
+        }
+        .project-modal-header { display:flex; gap:18px; align-items:flex-start; }
+        .project-modal-thumb { width: 320px; flex-shrink:0; }
+        .project-modal-thumb img { width:100%; height:200px; object-fit:cover; border-radius:12px; }
+        .project-modal-body { flex:1; }
+        @media (max-width:900px){ .project-modal-header{flex-direction:column} .project-modal-thumb{width:100%} }
+    </style>
+</head>
+<body>
+    <!-- Floating decorative elements -->
+    <div class="floating-elements" id="floatingElements"></div>
+
+    <nav id="navbar">
+        <a href="#hero" class="active" data-section="hero">Accueil</a>
+        <a href="#apropos" data-section="apropos">Parcours</a>
+        <a href="#profils" data-section="profils">Profils</a>
+        <a href="#projets" data-section="projets">Projets</a>
+        <a href="#cv" data-section="cv">CV</a>
+        <a href="#contact" data-section="contact">Contact</a>
+    </nav>
+
+    <!-- Hero -->
+    <section id="hero">
+        <div class="hero-left fade-in">
+            <div class="hero-badge"><i class="fas fa-brain"></i> Data · AI · Software</div>
+            <h1 class="hero-title">AAT NDONGO<br><span class="highlight">David Meilleur</span></h1>
+            <p class="hero-sub">Data Scientist · AI Engineer · Software & IT Engineer</p>
+            <p class="hero-tagline">
+                “ De la donnée à l’intelligence, du code à l’infrastructure, je construis des solutions robustes et innovantes. ”
+            </p>
+            <div class="btn-group">
+                <a href="#profils" class="btn btn-primary"><i class="fas fa-address-card"></i> Découvrir mes profils</a>
+                <a href="#contact" class="btn btn-outline"><i class="fas fa-paper-plane"></i> Me contacter</a>
+            </div>
+        </div>
+        <div class="hero-right fade-in" id="heroProfile">
+            <div class="img-wrap">
+                <img src="images/pp.jpg" alt="David Meilleur" onerror="this.style.display='none';this.nextElementSibling.style.display='flex';" />
+                <div style="display:none; width:100%; height:100%; align-items:center; justify-content:center; font-size:3rem; color:var(--primary);"><i class="fas fa-user-astronaut"></i></div>
+            </div>
+        </div>
+    </section>
+
+    <!-- Parcours & Expérience -->
+    <section id="apropos">
+        <div class="fade-in">
+            <h2 class="section-title"><span>Parcours</span> & Vision</h2>
+            <p class="section-sub">Ingénieur polyvalent, je maîtrise les trois piliers de la tech : Data Science, Intelligence Artificielle et Ingénierie Logicielle / IT.</p>
+        </div>
+        <div class="timeline fade-in">
+            <div class="timeline-item">
+                <div class="timeline-date">Avril 2026 - Présent</div>
+                <div class="timeline-title">Founder & Lead</div>
+                <div class="timeline-org">DATAIKÔS</div>
+                <div class="timeline-desc">Pilotage de projets de bout en bout, coordination d'une équipe de 11 personnes, modélisation et systèmes embarqués.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Mars 2025 - Août 2025</div>
+                <div class="timeline-title">Graphic Designer & Monteur Vidéo</div>
+                <div class="timeline-org">FAST TRAVEL SERVICES</div>
+                <div class="timeline-desc">Création d'identités visuelles, montage vidéo, supports de communication print et web, gestion des réseaux sociaux.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Janvier 2024 - Septembre 2024</div>
+                <div class="timeline-title">Customer Relationship Specialist</div>
+                <div class="timeline-org">INTELCIA, Douala</div>
+                <div class="timeline-desc">Gestion de la relation client, assistance technique, conformité RGPD.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Mai 2023 - Juin 2023</div>
+                <div class="timeline-title">Infographe & Community Manager (stage)</div>
+                <div class="timeline-org">VISTA LANGUAGE CENTER</div>
+                <div class="timeline-desc">Identité visuelle, charte graphique, gestion des réseaux sociaux.</div>
+            </div>
+            <div class="timeline-item">
+                <div class="timeline-date">Janvier 2020 - Avril 2020</div>
+                <div class="timeline-title">Maintenance Informatique (stage)</div>
+                <div class="timeline-org">VILLAGE DE L'INFORMATIQUE, Yaoundé</div>
+                <div class="timeline-desc">Diagnostic, dépannage et configuration de parcs informatiques.</div>
+            </div>
+        </div>
+
+        <div class="fade-in" style="margin-top: 60px;">
+            <h3 style="font-family:'Syne',sans-serif; color:var(--primary-light); margin-bottom: 20px;">Formation</h3>
+            <div class="glass-card" style="margin-bottom: 20px;">
+                <p style="color:#fff;"><strong>Master Data Science & Intelligence Artificielle</strong> - ENSPD, Douala (2026-2028)</p>
+                <p style="color:var(--muted); font-size:0.9rem;">Parcours en cours</p>
+            </div>
+            <div class="glass-card" style="margin-bottom: 20px;">
+                <p style="color:#fff;"><strong>Licence en Data Science & IA</strong> - ENSPD, Douala (2025-2026)</p>
+            </div>
+            <div class="glass-card" style="margin-bottom: 20px;">
+                <p style="color:#fff;"><strong>Licence Technologique / DUT Génie Électrique & Informatique Industrielle</strong> - IUT Douala (2020-2023)</p>
+            </div>
+            <div class="glass-card">
+                <p style="color:#fff;"><strong>Baccalauréat TI</strong> - Lycée Classique d'Edéa (2019)</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Profils : 3 cartes -->
+    <section id="profils">
+        <div class="fade-in">
+            <h2 class="section-title"><span>Mes 3 profils</span> d’expertise</h2>
+            <p class="section-sub">Trois métiers complémentaires, une même exigence d’excellence.</p>
+        </div>
+        <div class="profile-grid fade-in">
+            <div class="profile-card">
+                <i class="fas fa-chart-line"></i>
+                <h3>Data Scientist</h3>
+                <p>Analyse, modélisation prédictive, séries temporelles, statistiques avancées. Python, Pandas, scikit-learn, TensorFlow.</p>
+            </div>
+            <div class="profile-card">
+                <i class="fas fa-robot"></i>
+                <h3>AI Engineer</h3>
+                <p>Deep Learning, NLP, Computer Vision, déploiement de modèles, MLOps, optimisation et monitoring.</p>
+            </div>
+            <div class="profile-card">
+                <i class="fas fa-code"></i>
+                <h3>Software & IT Engineer</h3>
+                <p>Développement backend (FastAPI, Flask), bases de données, Docker, Linux, automatisation et infrastructures.</p>
+            </div>
+        </div>
+    </section>
+
+    <!-- Projets classés par type (filtres existants) -->
+    <section id="projets">
+        <div class="fade-in">
+            <h2 class="section-title"><span>Projets</span> récents</h2>
+            <p class="section-sub">Des solutions concrètes, organisées par domaine.</p>
+        </div>
+        <div class="project-filters fade-in">
+            <button class="filter-btn active" data-filter="all">Tous</button>
+            <button class="filter-btn" data-filter="ai">Data & IA</button>
+            <button class="filter-btn" data-filter="web">Web & APIs</button>
+            <button class="filter-btn" data-filter="desktop">Desktop & Automatisation</button>
+            <button class="filter-btn" data-filter="embedded">Embarqué</button>
+            <button class="filter-btn" data-filter="tools">Outils</button>
+        </div>
+        <div class="projects-grid fade-in" id="projectsGrid"></div>
+    </section>
+
+    <!-- CV avec 3 boutons -->
+    <section id="cv" style="text-align:center;">
+        <div class="fade-in">
+            <h2 class="section-title"><span>Curriculum</span> Vitæ</h2>
+            <p class="section-sub">Téléchargez le CV correspondant à votre besoin.</p>
+        </div>
+        <div class="glass-card fade-in" style="max-width: 800px; margin: 0 auto;">
+            <div style="font-size: 3rem; color: var(--primary); margin-bottom: 20px;"><i class="fas fa-file-pdf"></i></div>
+            <h3 style="font-family:'Syne',sans-serif; font-size:1.5rem;">David Meilleur</h3>
+            <p style="color:var(--muted); margin:20px 0;">Data Scientist · AI Engineer · Software & IT Engineer</p>
+            <div class="cv-buttons">
+                <a href="documents/CV_Data_Scientist_AAT_NDONGO.pdf" download class="cv-btn"><i class="fas fa-chart-line"></i> Data Scientist</a>
+                <a href="documents/CV_AI_Engineer_AAT_NDONGO.pdf" download class="cv-btn"><i class="fas fa-robot"></i> AI Engineer</a>
+                <a href="documents/CV_Software_IT_Engineer_AAT_NDONGO.pdf" download class="cv-btn"><i class="fas fa-code"></i> Software & IT</a>
+            </div>
+        </div>
+    </section>
+
+    <!-- Contact -->
+    <section id="contact" style="text-align:center;">
+        <div class="fade-in">
+            <h2 class="section-title"><span>Contact</span></h2>
+            <p class="section-sub">Discutons de vos projets ou collaborations.</p>
+        </div>
+        <div class="icon-grid fade-in">
+            <a href="https://facebook.com/daid.Aat.58" target="_blank" class="icon-card" style="--icolor:#1877f2;">
+                <i class="fab fa-facebook-f"></i><span>Facebook</span>
+            </a>
+            <a href="https://www.tiktok.com/@demsattitude?_r=1&_t=ZS-97QbnaYyrio" target="_blank" class="icon-card" style="--icolor:#69c9d0;">
+                <i class="fab fa-tiktok"></i><span>TikTok</span>
+            </a>
+            <a href="https://www.linkedin.com/in/david-meilleur-aat-ndongo" target="_blank" class="icon-card" style="--icolor:#0a66c2;">
+                <i class="fab fa-linkedin-in"></i><span>LinkedIn</span>
+            </a>
+            <a href="https://github.com/aatndongodavid" target="_blank" class="icon-card" style="--icolor:#f0f6fc;">
+                <i class="fab fa-github"></i><span>GitHub</span>
+            </a>
+            <a href="mailto:meilleurd2001@gmail.com" class="icon-card" style="--icolor:#ea4335;">
+                <i class="fas fa-envelope"></i><span>Email</span>
+            </a>
+        </div>
+    </section>
+
+    <footer>
+        <p>© 2025 <span style="color:var(--primary-light);">David Meilleur</span> - Tous droits réservés</p>
+        <p style="margin-top:6px; font-size:0.8rem;"><span style="color:var(--primary-light);"><a href="index.html"><span style="color:var(--primary-light);">Design Gemula </span></a></span>· Innovation continue</p>
+    </footer>
+
+    <!-- Modale projet (inchangée mais colorée) -->
+    <div class="modal-overlay" id="projectModalOverlay">
+        <div class="modal" id="projectModal">
+            <button class="modal-close" id="projectModalClose"><i class="fas fa-times"></i></button>
+            <div class="project-modal-header">
+                <div class="project-modal-thumb" id="projectModalThumb"></div>
+                <div class="project-modal-body">
+                    <h3 id="projectModalTitle" style="color:var(--primary-light);font-family:'Syne',sans-serif;"></h3>
+                    <div id="projectModalTags" style="margin-bottom:8px;"></div>
+                    <p id="projectModalDesc" style="color:var(--muted);"></p>
+                    <div id="projectModalLinks" style="margin-top:12px;display:flex;gap:8px;flex-wrap:wrap;"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <script>
+        // Generate floating decorative shapes
+        (function() {
+            const container = document.getElementById('floatingElements');
+            const count = 16;
+            for (let i = 0; i < count; i++) {
+                const shape = document.createElement('div');
+                shape.className = 'float-shape';
+                const size = Math.random() * 40 + 10;
+                shape.style.width = size + 'px';
+                shape.style.height = size + 'px';
+                shape.style.left = Math.random() * 100 + '%';
+                shape.style.top = Math.random() * 100 + '%';
+                shape.style.animationDuration = (Math.random() * 8 + 8) + 's';
+                shape.style.animationDelay = Math.random() * 6 + 's';
+                container.appendChild(shape);
+            }
+        })();
+
+        // Scroll spy
+        const sections = document.querySelectorAll('section');
+        const navLinks = document.querySelectorAll('#navbar a');
+        window.addEventListener('scroll', () => {
+            let current = '';
+            sections.forEach(sec => {
+                const top = sec.offsetTop - 100;
+                if (window.scrollY >= top) current = sec.getAttribute('id');
+            });
+            navLinks.forEach(a => {
+                a.classList.remove('active');
+                if (a.dataset.section === current) a.classList.add('active');
+            });
+        });
+
+        // Fade-in observer
+        const observer = new IntersectionObserver((entries) => {
+            entries.forEach(e => { if (e.isIntersecting) e.target.classList.add('visible'); });
+        }, { threshold: 0.1 });
+        document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+        // Parallax
+        let mouseX = 0, mouseY = 0;
+        window.addEventListener('mousemove', (e) => {
+            mouseX = (e.clientX / window.innerWidth) - 0.5;
+            mouseY = (e.clientY / window.innerHeight) - 0.5;
+        });
+
+        function animateParallax() {
+            const shapes = document.querySelectorAll('.float-shape');
+            shapes.forEach((shape, i) => {
+                const speed = 8 + i * 0.5;
+                shape.style.transform = `translate(${mouseX * speed}px, ${mouseY * speed}px)`;
+            });
+            const heroProfile = document.getElementById('heroProfile');
+            if (heroProfile) {
+                heroProfile.style.transform = `translate(${mouseX * 10}px, ${mouseY * 10}px)`;
+            }
+            requestAnimationFrame(animateParallax);
+        }
+        animateParallax();
+
+        // Helper thumbnail
+        function thumbFor(title) {
+            return 'https://via.placeholder.com/600x360?text=' + encodeURIComponent(title);
+        }
+
+        // Projects data (identique à l'original)
+        const projects = [
+            { icon: '<i class="fas fa-gamepad"></i>', title: 'dames_game_rl', category: 'ai', tags: ['Reinforcement Learning','Python'], thumb: 'images/dames.jpeg', desc: 'Agent RL pour le jeu de dames. Voir le dépôt pour instructions.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/dames_game_rl', icon: 'fab fa-github' }] },
+            { icon: '<i class="fas fa-database"></i>', title: 'dataikos', category: 'web', tags: ['Data','Backend'], thumb: 'images/dataikos.PNG', desc: 'Presentation Dataikos et services.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/dataikos', icon: 'fab fa-github' }, { label: 'Live', href: 'https://dataikos.netlify.app', icon: 'fas fa-external-link-alt' }] },
+            { icon: '<i class="fas fa-rocket"></i>', title: 'DATAIKOSLEARN', category: 'web', tags: ['Web','Vercel','Learning'], thumb: 'images/learn.PNG', desc: 'Outil d’analyse stratégique pour ingénieurs, chercheurs, consultants et incubateurs.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/DATAIKOSLEARN', icon: 'fab fa-github' }, { label: 'Live', href: 'https://dataikoslearn.vercel.app', icon: 'fas fa-external-link-alt' }] },
+            { icon: '<i class="fas fa-chart-line"></i>', title: 'DATAIKOS_ATLAS', category: 'ai', tags: ['ARIMA','CRM','Prévisions'], thumb: 'images/interface2.PNG', desc: 'Atlas de DATAIKÔS pour CRM et prévisions (voir dépôt).', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/DATAIKOS_ATLAS', icon: 'fab fa-github' }] },
+            { icon: '<i class="fas fa-envelope-open-text"></i>', title: 'Dataikos_Mailer', category: 'web', tags: ['Email','Automation'], thumb: 'images/mail.PNG', desc: 'Plateforme d’envoi d’e-mails personnalisés à grande échelle.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/Dataikos_Mailer', icon: 'fab fa-github' }, { label: 'Live', href: 'https://dataikos-mailer-2.onrender.com/', icon: 'fas fa-external-link-alt' }] },
+            { icon: '<i class="fas fa-project-diagram"></i>', title: 'flux_forcast', category: 'ai', tags: ['Stochastic','Simulator'], thumb: 'images/dataikos logo 2.PNG', desc: 'Flux Forecast - simulateur de flux d’appels et métriques.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/flux_forcast', icon: 'fab fa-github' }] },
+            { icon: '<i class="fas fa-chalkboard-teacher"></i>', title: 'FORMATION-DATAIKOS', category: 'web', tags: ['Web','Vercel','Training'], thumb: 'images/formation.PNG', desc: 'Site de formation Excel et Prompt avec Entrainement', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/FORMATION-DATAIKOS', icon: 'fab fa-github' }, { label: 'Live', href: 'https://formation-dataikos.vercel.app', icon: 'fas fa-external-link-alt' }] },
+            { icon: '<i class="fas fa-gas-pump"></i>', title: 'Fuel_Saver', category: 'embedded', tags: ['IoT','Efficiency'], thumb: 'images/dataikos logo 2.PNG', desc: 'Jeu se servant de HJB et Dijkstra', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/Fuel_Saver', icon: 'fab fa-github' }] },
+            { icon: '<i class="fas fa-comments"></i>', title: 'GOOD-DEAL-CHAT', category: 'web', tags: ['Chat','Realtime'], thumb: 'images/magnific.PNG', desc: 'interface Ai chat en lien avec la formation Excel et prompt', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/GOOD-DEAL-CHAT', icon: 'fab fa-github' }, { label: 'Live', href: 'https://good-deal-chat.onrender.com/', icon: 'fas fa-external-link-alt' }] },
+            { icon: '<i class="fas fa-school"></i>', title: 'maternelle-connect', category: 'ai', tags: ['backend','database'], thumb: 'images/ChatGPT Image 6 août 2026, 14_36_30.PNG', desc: 'Connectivité et outils pour maternelles.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/maternelle-connect', icon: 'fab fa-github' }] },
+            { icon: '<i class="fas fa-exchange-alt"></i>', title: 'maternelle-proxy', category: 'web', tags: ['Web','Vercel','Proxy'], thumb: 'images/maternel.PNG', desc: 'Proxy / interface pour maternelle - déployé.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/maternelle-proxy', icon: 'fab fa-github' }, { label: 'Live', href: 'https://maternelle-proxy.vercel.app', icon: 'fas fa-external-link-alt' }] },
+            { icon: '<i class="fas fa-database"></i>', title: 'N-BASE', category: 'tools', tags: ['DB','Storage'], thumb: 'images/dataikos logo 2.PNG', desc: 'Projet N-BASE - stockage / traces.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/N-BASE', icon: 'fab fa-github' }] },
+            { icon: '<i class="fas fa-plug"></i>', title: 'projet_ENEO', category: 'embedded', tags: ['Hardware','Integration'], thumb: 'images/socadel.PNG', desc: 'Projet lié à ENEO - intégration systèmes.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/projet_ENEO', icon: 'fab fa-github' }, { label: 'Live', href: 'https://projeteneointerface.netlify.app/', icon: 'fas fa-external-link-alt' }] },
+            { icon: '<i class="fas fa-lock"></i>', title: 'SecEff', category: 'tools', tags: ['Security','Research'], thumb: 'images/dataikos logo 2.PNG', desc: 'Projets de sécurité informatique et efficacité.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/SecEff', icon: 'fab fa-github' }] },
+            { icon: '<i class="fas fa-handshake"></i>', title: 'SOCOOPCA', category: 'web', tags: ['Coop','Management'], thumb: 'images/socoopka.PNG', desc: 'Solution pour coopératives (SOCOOPCA).', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/SOCOOPCA', icon: 'fab fa-github' }, { label: 'Live', href: 'https://socoopca.netlify.app/', icon: 'fas fa-external-link-alt' }] },
+            { icon: '<i class="fas fa-user-graduate"></i>', title: 'student-prediction-interface', category: 'ai', tags: ['ML','FastAPI','Web'], thumb: 'images/predict.PNG', desc: 'Interface web pour prédiction de réussite étudiante.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/student-prediction-interface', icon: 'fab fa-github' }, { label: 'Live', href: 'https://student-prediction-interface.onrender.com/', icon: 'fas fa-external-link-alt' }] },
+            { icon: '<i class="fas fa-flask"></i>', title: 'Tatiana_IA', category: 'ai', tags: ['NLP','Assistant'], thumb: 'images/dataikos logo 2.PNG', desc: 'Assistant intelligent (NLP) - Tatiana IA.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/Tatiana_IA', icon: 'fab fa-github' }] },
+            { icon: '<i class="fas fa-globe"></i>', title: 'website', category: 'web', tags: ['Web','Showcase'], thumb: 'images/portfolio.PNG', desc: 'Site web / démonstration.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/website', icon: 'fab fa-github' }, { label: 'Live', href: 'https://davidaatportfolio.netlify.app/', icon: 'fas fa-external-link-alt' }] },
+            { icon: '<i class="fas fa-portrait"></i>', title: 'davidaat (Portfolio)', category: 'web', tags: ['Web','Portfolio'], thumb: 'images/portfolio.PNG', desc: 'Site personnel (ce portfolio) - dépôt source.', links: [{ label: 'GitHub', href: 'https://github.com/aatndongodavid/davidaat', icon: 'fab fa-github' }, { label: 'Live', href: 'https://davidaatportfolio.netlify.app/', icon: 'fas fa-external-link-alt' }] }
+        ];
+
+        const grid = document.getElementById('projectsGrid');
+        const filterBtns = document.querySelectorAll('.filter-btn');
+
+        function renderProjects(filter = 'all') {
+            grid.innerHTML = '';
+            const filtered = filter === 'all' ? projects : projects.filter(p => p.category === filter);
+            filtered.forEach((p, idx) => {
+                const card = document.createElement('div');
+                card.className = 'project-card fade-in';
+                const linksHTML = (p.links || []).map(l => `<a href="${l.href}" target="_blank"><i class="${l.icon}"></i>${l.label}</a>`).join('');
+                card.innerHTML = `
+                    <div class="project-thumb"><img src="${p.thumb}" alt="${p.title}" /></div>
+                    <div class="project-icon">${p.icon}</div>
+                    <div class="project-title">${p.title}</div>
+                    <div class="project-tags">${p.tags.map(t => `<span class="project-tag">${t}</span>`).join('')}</div>
+                    <div class="project-desc">${p.desc}</div>
+                    <div class="project-links">${linksHTML || '<span style="color:var(--muted);font-size:0.75rem;">Sur demande</span>'}</div>
+                    <div style="margin-top:10px; display:flex; gap:10px;">
+                        <button class="detail-btn" data-index="${idx}">Détails</button>
+                    </div>
+                `;
+                card.querySelector('.detail-btn').addEventListener('click', () => openProjectModal(idx));
+                grid.appendChild(card);
+                observer.observe(card);
+            });
+        }
+
+        filterBtns.forEach(btn => {
+            btn.addEventListener('click', () => {
+                filterBtns.forEach(b => b.classList.remove('active'));
+                btn.classList.add('active');
+                renderProjects(btn.dataset.filter);
+            });
+        });
+        renderProjects();
+
+        // Project modal
+        const projectModalOverlay = document.getElementById('projectModalOverlay');
+        const projectModalClose = document.getElementById('projectModalClose');
+        function openProjectModal(index){
+            const p = projects[index];
+            document.getElementById('projectModalThumb').innerHTML = `<img src="${p.thumb}" alt="${p.title}" />`;
+            document.getElementById('projectModalTitle').textContent = p.title;
+            document.getElementById('projectModalDesc').textContent = p.desc;
+            const tagsEl = document.getElementById('projectModalTags');
+            tagsEl.innerHTML = p.tags.map(t => `<span class="project-tag">${t}</span>`).join(' ');
+            const linksEl = document.getElementById('projectModalLinks');
+            linksEl.innerHTML = (p.links || []).map(l => `<a href="${l.href}" target="_blank" style="display:inline-flex;align-items:center;gap:8px;padding:8px 12px;border-radius:8px;background:rgba(245,121,28,0.1);border:1px solid rgba(245,121,28,0.2);color:var(--primary-light);text-decoration:none;font-weight:600;"><i class="${l.icon}"></i>${l.label}</a>`).join(' ');
+            projectModalOverlay.classList.add('open');
+        }
+        projectModalClose.addEventListener('click', () => projectModalOverlay.classList.remove('open'));
+        projectModalOverlay.addEventListener('click', (e) => { if (e.target === projectModalOverlay) projectModalOverlay.classList.remove('open'); });
+    </script>
+</body>
+</html>
