@@ -1,0 +1,106 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '@layouts/PageLayout.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import TalentCard from '@components/TalentCard.astro';
+import CTA from '@components/CTA.astro';
+
+const talents = (await getCollection('talents')).sort(
+  (a, b) => a.data.order - b.data.order
+);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Talents de Gemula',
+  itemListElement: talents.map((t, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Person',
+      name: t.data.name,
+      jobTitle: t.data.role,
+      affiliation: 'Gemula',
+      ...(t.data.linkedin ? { sameAs: t.data.linkedin } : {})
+    }
+  }))
+};
+---
+<PageLayout
+  title="Talents"
+  description="Les membres du collectif Gemula : data scientists, développeurs, designers, électrotechniciens. Découvrez les profils qui construisent nos projets."
+  eyebrow="Le collectif"
+  breadcrumb={[
+    { href: '/', label: 'Accueil' },
+    { label: 'Talents' }
+  ]}
+  jsonLd={jsonLd}
+>
+  <!-- Intro -->
+  <section class="container-g pb-16 md:pb-20">
+    <div class="max-w-3xl reveal">
+      <p class="text-lg md:text-xl text-gemula-grey leading-relaxed">
+        Gemula rassemble des profils complémentaires : data, IA, développement, design et ingénierie. Chaque talent est identifié, chaque contribution est visible.
+      </p>
+    </div>
+  </section>
+
+  <!-- Grille talents -->
+  <section class="container-g pb-20 md:pb-28">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {talents.map((talent) => (
+        <TalentCard talent={talent} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Rejoindre -->
+  <section class="container-g py-20 md:py-28 border-t border-gemula-black/[0.06]">
+    <SectionHeading
+      eyebrow="Rejoindre Gemula"
+      title="Vous voulez rejoindre le collectif ?"
+      description="Gemula recrute des étudiants motivés, curieux et prêts à construire des projets concrets. Nous cherchons des profils data, IA, développement, design et ingénierie."
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl">
+      {[
+        {
+          title: 'Profils techniques',
+          desc: 'Data, IA, développement web et logiciel, data engineering.'
+        },
+        {
+          title: 'Profils créatifs',
+          desc: 'Design UI/UX, branding, communication digitale, motion.'
+        },
+        {
+          title: 'Profils ingénierie',
+          desc: 'Électrotechnique, systèmes embarqués, IoT.'
+        }
+      ].map((profil) => (
+        <div class="card reveal">
+          <h3 class="font-display text-lg font-semibold mb-3">
+            {profil.title}
+          </h3>
+          <p class="text-sm text-gemula-grey leading-relaxed">
+            {profil.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+
+    <div class="mt-10">
+      <a href="/collaborer#rejoindre" class="btn-primary">
+        Candidater
+        <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>
+      </a>
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Collaboration"
+    title="Besoin d'un profil précis ?"
+    description="Nous mettons en relation entreprises et talents du collectif pour des stages, missions ou collaborations longues."
+    primaryCta={{ href: '/collaborer', label: 'Nous contacter' }}
+    dark={false}
+  />
+</PageLayout>

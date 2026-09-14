@@ -1,0 +1,48 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
+
+interface BreadcrumbItem {
+  href?: string;
+  label: string;
+}
+
+interface Props {
+  title: string;
+  description?: string;
+  eyebrow?: string;
+  breadcrumb?: BreadcrumbItem[];
+  jsonLd?: object | object[];
+  image?: string;
+}
+
+const {
+  title,
+  description,
+  eyebrow,
+  breadcrumb,
+  jsonLd,
+  image
+} = Astro.props;
+---
+<BaseLayout title={`${title} · Gemula`} description={description} image={image} jsonLd={jsonLd}>
+  <section class="container-g pt-12 md:pt-20 pb-12 md:pb-16">
+    {breadcrumb && breadcrumb.length > 0 && (
+      <Breadcrumb items={breadcrumb} class="mb-10" />
+    )}
+
+    <div class="max-w-3xl">
+      {eyebrow && <span class="eyebrow mb-5 block">{eyebrow}</span>}
+      <h1 class="font-display text-display-sm md:text-display-md font-bold tracking-tightest text-balance">
+        {title}
+      </h1>
+      {description && (
+        <p class="mt-6 text-lg md:text-xl text-gemula-grey leading-relaxed">
+          {description}
+        </p>
+      )}
+    </div>
+  </section>
+
+  <slot />
+</BaseLayout>

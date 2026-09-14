@@ -1,0 +1,56 @@
+---
+interface Props {
+  eyebrow?: string;
+  title: string;
+  description?: string;
+  primaryCta: { href: string; label: string };
+  secondaryCta?: { href: string; label: string };
+  dark?: boolean;
+}
+
+const {
+  eyebrow = 'Collaborer',
+  title,
+  description,
+  primaryCta,
+  secondaryCta,
+  dark = true
+} = Astro.props;
+
+const wrapperClass = dark
+  ? 'bg-gemula-black text-white'
+  : 'bg-white border border-gemula-black/[0.08] text-gemula-black';
+
+const descClass = dark ? 'text-white/70' : 'text-gemula-grey';
+const eyebrowClass = dark ? 'text-gemula-orange' : 'text-gemula-orange';
+const secondaryClass = dark ? 'btn-ghost-light' : 'btn-ghost';
+---
+<section class="container-g py-20 md:py-28">
+  <div class={`rounded-3xl ${wrapperClass} px-8 py-14 md:px-16 md:py-20 reveal`}>
+    <div class="max-w-3xl">
+      <span class={`eyebrow ${eyebrowClass}`}>{eyebrow}</span>
+
+      <h2 class="font-display text-display-sm md:text-display-md font-bold tracking-tightest mt-5 leading-tight text-balance">
+        {title}
+      </h2>
+
+      {description && (
+        <p class={`mt-6 text-base md:text-lg leading-relaxed ${descClass} max-w-2xl`}>
+          {description}
+        </p>
+      )}
+
+      <div class="mt-10 flex flex-wrap gap-3">
+        <a href={primaryCta.href} class="btn-primary">
+          {primaryCta.label}
+          <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>
+        </a>
+        {secondaryCta && (
+          <a href={secondaryCta.href} class={secondaryClass}>
+            {secondaryCta.label}
+          </a>
+        )}
+      </div>
+    </div>
+  </div>
+</section>

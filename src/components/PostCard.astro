@@ -1,0 +1,58 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  post: CollectionEntry<'journal'>;
+}
+
+const { post } = Astro.props;
+const { data, slug } = post;
+
+const dateFormatter = new Intl.DateTimeFormat('fr-FR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+});
+
+const categoryLabels: Record<string, string> = {
+  'vie-du-collectif': 'Vie du collectif',
+  'projets': 'Projets',
+  'stages': 'Stages',
+  'competitions': 'Compétitions',
+  'certifications': 'Certifications',
+  'evenements': 'Événements',
+  'recherche': 'Recherche',
+  'publications': 'Publications'
+};
+---
+<article class="card card-hover reveal h-full flex flex-col">
+  <div class="flex items-center justify-between gap-3 mb-4">
+    <span class="tag text-[0.7rem]">
+      {categoryLabels[data.category] ?? data.category}
+    </span>
+    <time class="text-xs text-gemula-grey" datetime={data.publishedAt.toISOString()}>
+      {dateFormatter.format(data.publishedAt)}
+    </time>
+  </div>
+
+  <h3 class="font-display text-lg font-semibold leading-snug mb-3">
+    <a href={`/journal/${slug}`} class="hover:text-gemula-orange transition-colors">
+      {data.title}
+    </a>
+  </h3>
+
+  <p class="text-sm text-gemula-grey leading-relaxed flex-grow mb-5">
+    {data.excerpt}
+  </p>
+
+  <div class="flex items-center justify-between mt-auto pt-4 border-t border-gemula-black/[0.06]">
+    <span class="text-xs text-gemula-grey">Par {data.author}</span>
+    <a
+      href={`/journal/${slug}`}
+      class="text-sm font-medium text-gemula-black hover:text-gemula-orange transition-colors inline-flex items-center gap-1"
+    >
+      Lire
+      <span class="material-symbols-outlined text-[1em]" aria-hidden="true">arrow_forward</span>
+    </a>
+  </div>
+</article>

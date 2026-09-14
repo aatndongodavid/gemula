@@ -1,0 +1,100 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import PageLayout from '@layouts/PageLayout.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import ExpertiseCard from '@components/ExpertiseCard.astro';
+import CTA from '@components/CTA.astro';
+import expertiseData from '@data/expertise.json';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'ItemList',
+  name: 'Domaines d\'expertise de Gemula',
+  itemListElement: expertiseData.domains.map((d, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    item: {
+      '@type': 'Service',
+      name: d.title,
+      description: d.description
+    }
+  }))
+};
+---
+<PageLayout
+  title="Expertise"
+  description="Data Science & IA, développement logiciel, data engineering, design et innovation. Les cinq domaines maîtrisés par le collectif Gemula."
+  eyebrow="Ce que nous maîtrisons"
+  breadcrumb={[
+    { href: '/', label: 'Accueil' },
+    { label: 'Expertise' }
+  ]}
+  jsonLd={jsonLd}
+>
+  <!-- Introduction -->
+  <section class="container-g pb-16 md:pb-20">
+    <div class="max-w-3xl reveal">
+      <p class="text-lg md:text-xl text-gemula-grey leading-relaxed">
+        Gemula rassemble des compétences complémentaires qui couvrent l'ensemble du cycle d'un projet numérique : de la donnée brute à l'interface utilisateur, du prototype à la mise en production.
+      </p>
+    </div>
+  </section>
+
+  <!-- Grille principale -->
+  <section class="container-g pb-20 md:pb-28">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {expertiseData.domains.map((domain) => (
+        <ExpertiseCard domain={domain} />
+      ))}
+    </div>
+  </section>
+
+  <!-- Approche -->
+  <section class="container-g py-20 md:py-28 border-t border-gemula-black/[0.06]">
+    <SectionHeading
+      eyebrow="Notre approche"
+      title="Comment nous travaillons."
+      description="Chaque projet suit un même fil conducteur : comprendre le problème réel, construire une solution utilisable, mesurer son impact."
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-3 gap-8">
+      {[
+        {
+          number: '01',
+          title: 'Comprendre',
+          desc: 'Nous partons du terrain. Entretiens, données existantes, contexte métier. Aucune solution générique.'
+        },
+        {
+          number: '02',
+          title: 'Construire',
+          desc: 'Prototype rapide, itérations courtes, livrables concrets. Les utilisateurs voient le produit évoluer.'
+        },
+        {
+          number: '03',
+          title: 'Mesurer',
+          desc: 'Chaque projet est documenté, testé et évalué. Les résultats sont rendus visibles et vérifiables.'
+        }
+      ].map((step) => (
+        <div class="reveal">
+          <span class="text-xs font-semibold tracking-kicker text-gemula-orange">
+            {step.number}
+          </span>
+          <h3 class="font-display text-xl font-semibold mt-3 mb-3">
+            {step.title}
+          </h3>
+          <p class="text-sm text-gemula-grey leading-relaxed">
+            {step.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Un besoin précis ?"
+    title="Parlons de votre projet."
+    description="Une idée, un problème métier, un projet de recherche : nous vous aidons à le transformer en solution concrète."
+    primaryCta={{ href: '/collaborer', label: 'Nous contacter' }}
+    secondaryCta={{ href: '/projet', label: 'Voir un projet phare' }}
+  />
+</PageLayout>

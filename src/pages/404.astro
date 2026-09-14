@@ -1,0 +1,37 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Flag from '@components/Flag.astro';
+---
+<BaseLayout
+  title="Page introuvable · Gemula"
+  description="La page que vous cherchez n'existe pas ou a été déplacée."
+>
+  <section class="container-g py-24 md:py-40 text-center">
+    <div class="flex justify-center mb-10 reveal">
+      <Flag size="lg" class="scale-150" />
+    </div>
+
+    <span class="eyebrow block mb-6 reveal">Erreur 404</span>
+
+    <h1 class="font-display text-display-sm md:text-display-md font-bold tracking-tightest mb-6 reveal">
+      Cette page est introuvable.
+    </h1>
+
+    <p class="text-lg text-gemula-grey leading-relaxed max-w-xl mx-auto mb-10 reveal">
+      La page que vous cherchez a peut-être été déplacée, renommée, ou n'a jamais existé.
+    </p>
+
+    <div class="flex flex-wrap justify-center gap-3 reveal">
+      <a href="/" class="btn-primary">
+        Retour à l'accueil
+        <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">home</span>
+      </a>
+      <a href="/projet" class="btn-ghost">
+        Voir le projet phare
+      </a>
+      <a href="/collaborer" class="btn-ghost">
+        Nous contacter
+      </a>
+    </div>
+  </section>
+</BaseLayout>

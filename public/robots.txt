@@ -1,0 +1,23 @@
+# Gemula — robots.txt
+# https://gemula.org
+
+User-agent: *
+Allow: /
+Disallow: /404
+
+# Sitemap généré automatiquement par Astro
+Sitemap: https://gemula.org/sitemap-index.xml
+
+# Bots spécifiques
+User-agent: Googlebot
+Allow: /
+
+User-agent: Bingbot
+Allow: /
+
+# IA crawlers (si vous voulez bloquer, décommenter)
+# User-agent: GPTBot
+# Disallow: /
+
+# User-agent: CCBot
+# Disallow: /

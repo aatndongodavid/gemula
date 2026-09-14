@@ -1,0 +1,240 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import PageLayout from '@layouts/PageLayout.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import EventCard from '@components/EventCard.astro';
+import CTA from '@components/CTA.astro';
+
+export async function getStaticPaths() {
+  const evenements = await getCollection('evenements');
+  return evenements.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'evenements'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await entry.render();
+
+const dateFormatter = new Intl.DateTimeFormat('fr-FR', {
+  weekday: 'long',
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+});
+
+const formatLabel: Record<string, string> = {
+  presentiel: 'Présentiel',
+  'en-ligne': 'En ligne',
+  hybride: 'Hybride'
+};
+
+const statusLabel: Record<string, string> = {
+  'a-venir': 'À venir',
+  'en-cours': 'En cours',
+  passe: 'Événement passé'
+};
+
+const domainLabel: Record<string, string> = {
+  mathematiques: 'Mathématiques',
+  statistiques: 'Statistiques',
+  informatique: 'Informatique',
+  'ia-data': 'IA & Data'
+};
+
+const start = dateFormatter.format(data.startDate);
+const end = data.endDate ? dateFormatter.format(data.endDate) : null;
+const dateDisplay = end && end !== start ? `${start} → ${end}` : start;
+
+const deadline = data.registrationDeadline
+  ? dateFormatter.format(data.registrationDeadline)
+  : null;
+
+const verified = dateFormatter.format(data.verifiedAt);
+
+// Autres événements à suggérer
+const autres = (await getCollection('evenements'))
+  .filter((e) => e.slug !== entry.slug)
+  .sort((a, b) => b.data.startDate.getTime() - a.data.startDate.getTime())
+  .slice(0, 3);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: data.title,
+  description: data.subtitle ?? data.why ?? '',
+  startDate: data.startDate.toISOString(),
+  endDate: (data.endDate ?? data.startDate).toISOString(),
+  eventAttendanceMode:
+    data.format === 'en-ligne'
+      ? 'https://schema.org/OnlineEventAttendanceMode'
+      : data.format === 'hybride'
+        ? 'https://schema.org/MixedEventAttendanceMode'
+        : 'https://schema.org/OfflineEventAttendanceMode',
+  location: {
+    '@type': 'Place',
+    name: data.city,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: data.city,
+      addressCountry: data.country
+    }
+  },
+  organizer: {
+    '@type': 'Organization',
+    name: data.organizer
+  },
+  url: data.url,
+  eventStatus:
+    data.status === 'passe'
+      ? 'https://schema.org/EventScheduled'
+      : 'https://schema.org/EventScheduled'
+};
+---
+<PageLayout
+  title={data.title}
+  description={data.subtitle ?? data.why ?? `Événement scientifique au Cameroun : ${data.title}`}
+  eyebrow={statusLabel[data.status] ?? 'Événement'}
+  breadcrumb={[
+    { href: '/', label: 'Accueil' },
+    { href: '/agenda-scientifique', label: 'Agenda scientifique' },
+    { label: data.title }
+  ]}
+  jsonLd={jsonLd}
+>
+  <!-- Header -->
+  <section class="container-g pb-12">
+    <div class="max-w-3xl">
+      {data.subtitle && (
+        <p class="text-lg md:text-xl text-gemula-grey leading-relaxed reveal">
+          {data.subtitle}
+        </p>
+      )}
+
+      <div class="mt-8 flex flex-wrap gap-2 reveal">
+        {data.domains.map((domain) => (
+          <span class="tag">{domainLabel[domain] ?? domain}</span>
+        ))}
+        <span class="tag">{formatLabel[data.format] ?? data.format}</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- Infos clés -->
+  <section class="container-g pb-16">
+    <div class="rounded-3xl border border-gemula-black/[0.08] bg-white p-8 md:p-10 reveal">
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
+        <div>
+          <span class="eyebrow block mb-2">Dates</span>
+          <p class="text-sm text-gemula-black leading-relaxed font-medium">
+            {dateDisplay}
+          </p>
+        </div>
+
+        <div>
+          <span class="eyebrow block mb-2">Lieu</span>
+          <p class="text-sm text-gemula-black leading-relaxed font-medium">
+            {data.city} · {data.country}
+          </p>
+        </div>
+
+        <div>
+          <span class="eyebrow block mb-2">Organisé par</span>
+          <p class="text-sm text-gemula-black leading-relaxed font-medium">
+            {data.organizer}
+          </p>
+        </div>
+
+        {deadline ? (
+          <div>
+            <span class="eyebrow block mb-2">Inscription avant</span>
+            <p class="text-sm text-gemula-black leading-relaxed font-medium">
+              {deadline}
+            </p>
+          </div>
+        ) : (
+          <div>
+            <span class="eyebrow block mb-2">Format</span>
+            <p class="text-sm text-gemula-black leading-relaxed font-medium">
+              {formatLabel[data.format]}
+            </p>
+          </div>
+        )}
+      </div>
+
+      <div class="mt-8 pt-8 border-t border-gemula-black/[0.06] flex flex-wrap items-center gap-4">
+        <a
+          href={data.url}
+          target="_blank"
+          rel="noopener"
+          class="btn-primary text-sm py-2.5 px-5"
+        >
+          Site officiel
+          <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">open_in_new</span>
+        </a>
+        <p class="text-xs text-gemula-grey">
+          Source : {data.source} · Vérifié le {verified}
+        </p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Pourquoi cet événement -->
+  {data.why && (
+    <section class="container-g pb-16">
+      <div class="max-w-3xl reveal">
+        <span class="eyebrow block mb-4">Pourquoi cet événement ?</span>
+        <p class="text-lg text-gemula-black leading-relaxed">
+          {data.why}
+        </p>
+      </div>
+    </section>
+  )}
+
+  <!-- Contenu Markdown -->
+  <section class="container-g pb-16 border-t border-gemula-black/[0.06] pt-16">
+    <div class="max-w-3xl reveal">
+      <div class="prose-gemula">
+        <Content />
+      </div>
+    </div>
+  </section>
+
+  <!-- Note de transparence -->
+  <section class="container-g pb-16">
+    <div class="max-w-3xl rounded-2xl border border-gemula-black/[0.08] bg-white/60 p-6">
+      <p class="text-xs text-gemula-grey leading-relaxed">
+        <strong class="text-gemula-black">Note de transparence.</strong> Gemula recense cet événement à titre informatif. Les dates et modalités peuvent évoluer ; consultez la source officielle avant de vous inscrire.
+      </p>
+    </div>
+  </section>
+
+  <!-- Autres événements -->
+  {autres.length > 0 && (
+    <section class="container-g py-16 border-t border-gemula-black/[0.06]">
+      <SectionHeading
+        eyebrow="Autres rendez-vous"
+        title="À découvrir aussi."
+        link={{ href: '/agenda-scientifique', label: 'Tout l\'agenda' }}
+      />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {autres.map((event) => (
+          <EventCard event={event} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <CTA
+    eyebrow="Vous organisez un événement ?"
+    title="Faites-le référencer sur l'agenda Gemula."
+    description="Nous relayons les rendez-vous scientifiques qui font avancer la recherche au Cameroun."
+    primaryCta={{ href: '/collaborer', label: 'Nous contacter' }}
+    dark={false}
+  />
+</PageLayout>

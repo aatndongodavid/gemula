@@ -1,0 +1,34 @@
+---
+interface Props {
+  size?: 'sm' | 'md' | 'lg';
+  variant?: 'dark' | 'light';
+  class?: string;
+}
+
+const { size = 'md', variant = 'dark', class: className = '' } = Astro.props;
+
+const pattern = [
+  1,0,1,0,
+  0,1,0,1,
+  1,0,1,0
+];
+
+const sizes = {
+  sm: 20,
+  md: 30,
+  lg: 60
+};
+const width = sizes[size];
+---
+<span
+  class={`gemula-flag ${variant === 'light' ? 'gemula-flag--light' : ''} ${className}`}
+  style={`width: ${width}px`}
+  aria-hidden="true"
+>
+  {pattern.map((on, i) => (
+    <i
+      class={on ? 'on' : 'off'}
+      style={`--col: ${i % 4}`}
+    />
+  ))}
+</span>

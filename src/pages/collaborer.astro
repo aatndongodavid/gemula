@@ -1,0 +1,284 @@
+---
+import PageLayout from '@layouts/PageLayout.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import site from '@data/site.json';
+
+const services = [
+  {
+    title: 'Projet étudiant',
+    desc: 'Un projet encadré par le collectif, avec des étudiants motivés et un livrable concret.'
+  },
+  {
+    title: 'Prototype / MVP',
+    desc: 'Un prototype fonctionnel pour tester une idée rapidement avant un investissement lourd.'
+  },
+  {
+    title: 'Data Analysis',
+    desc: 'Analyse de vos données existantes, tableaux de bord, indicateurs et recommandations.'
+  },
+  {
+    title: 'Intelligence artificielle',
+    desc: 'Modèles prédictifs, automatisation, IA générative appliquée à vos cas d\'usage.'
+  },
+  {
+    title: 'Développement logiciel',
+    desc: 'Applications desktop, web, APIs, outils métier sur mesure.'
+  },
+  {
+    title: 'Design & UI/UX',
+    desc: 'Interfaces, identités visuelles, systèmes de design et expérience utilisateur.'
+  },
+  {
+    title: 'Automatisation',
+    desc: 'Scripts, workflows, intégrations et processus répétitifs transformés en outils.'
+  },
+  {
+    title: 'Communication digitale',
+    desc: 'Présence en ligne, contenus, supports visuels et communication de projet.'
+  }
+];
+---
+<PageLayout
+  title="Collaborer"
+  description="Entreprises, institutions, chercheurs et porteurs de projets : Gemula vous aide à transformer un problème en solution concrète."
+  eyebrow="Travaillons ensemble"
+  breadcrumb={[
+    { href: '/', label: 'Accueil' },
+    { label: 'Collaborer' }
+  ]}
+>
+  <!-- Intro -->
+  <section class="container-g pb-16">
+    <div class="max-w-3xl reveal">
+      <p class="font-display text-2xl md:text-3xl font-semibold leading-snug tracking-tightest text-balance">
+        Vous avez un problème ?<br />
+        Gemula peut le transformer en solution.
+      </p>
+      <p class="mt-8 text-lg text-gemula-grey leading-relaxed">
+        Nous collaborons avec des entreprises, des institutions, des chercheurs et des porteurs de projets. Chaque collaboration donne lieu à un livrable concret, documenté et mesurable.
+      </p>
+    </div>
+  </section>
+
+  <!-- Services -->
+  <section class="container-g py-16 md:py-20 border-t border-gemula-black/[0.06]">
+    <SectionHeading
+      eyebrow="Ce que nous faisons"
+      title="Huit façons de collaborer."
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
+      {services.map((service) => (
+        <div class="card card-hover reveal">
+          <h3 class="font-display text-base font-semibold mb-3">
+            {service.title}
+          </h3>
+          <p class="text-sm text-gemula-grey leading-relaxed">
+            {service.desc}
+          </p>
+        </div>
+      ))}
+    </div>
+  </section>
+
+  <!-- Formulaire -->
+  <section id="formulaire" class="container-g py-16 md:py-20 border-t border-gemula-black/[0.06]">
+    <SectionHeading
+      eyebrow="Proposer un projet"
+      title="Décrivez votre besoin."
+      description="Remplissez ce formulaire. Nous vous répondons sous 48 heures ouvrées."
+    />
+
+    <form
+      id="contact-form"
+      class="max-w-2xl space-y-6 reveal"
+      novalidate
+    >
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        <div>
+          <label for="nom" class="block text-sm font-medium mb-2">
+            Nom complet <span class="text-gemula-orange">*</span>
+          </label>
+          <input
+            type="text"
+            id="nom"
+            name="nom"
+            required
+            class="w-full rounded-xl border border-gemula-black/15 bg-white px-4 py-3 text-sm focus:border-gemula-orange focus:outline-none focus:ring-2 focus:ring-gemula-orange/20 transition"
+          />
+        </div>
+
+        <div>
+          <label for="email" class="block text-sm font-medium mb-2">
+            Email <span class="text-gemula-orange">*</span>
+          </label>
+          <input
+            type="email"
+            id="email"
+            name="email"
+            required
+            class="w-full rounded-xl border border-gemula-black/15 bg-white px-4 py-3 text-sm focus:border-gemula-orange focus:outline-none focus:ring-2 focus:ring-gemula-orange/20 transition"
+          />
+        </div>
+      </div>
+
+      <div>
+        <label for="organisation" class="block text-sm font-medium mb-2">
+          Organisation
+        </label>
+        <input
+          type="text"
+          id="organisation"
+          name="organisation"
+          class="w-full rounded-xl border border-gemula-black/15 bg-white px-4 py-3 text-sm focus:border-gemula-orange focus:outline-none focus:ring-2 focus:ring-gemula-orange/20 transition"
+        />
+      </div>
+
+      <div>
+        <label for="type" class="block text-sm font-medium mb-2">
+          Type de collaboration <span class="text-gemula-orange">*</span>
+        </label>
+        <select
+          id="type"
+          name="type"
+          required
+          class="w-full rounded-xl border border-gemula-black/15 bg-white px-4 py-3 text-sm focus:border-gemula-orange focus:outline-none focus:ring-2 focus:ring-gemula-orange/20 transition"
+        >
+          <option value="">— Choisir —</option>
+          {services.map((s) => (
+            <option value={s.title}>{s.title}</option>
+          ))}
+        </select>
+      </div>
+
+      <div>
+        <label for="message" class="block text-sm font-medium mb-2">
+          Décrivez votre besoin <span class="text-gemula-orange">*</span>
+        </label>
+        <textarea
+          id="message"
+          name="message"
+          rows="6"
+          required
+          class="w-full rounded-xl border border-gemula-black/15 bg-white px-4 py-3 text-sm focus:border-gemula-orange focus:outline-none focus:ring-2 focus:ring-gemula-orange/20 transition resize-y"
+        ></textarea>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4">
+        <button type="submit" class="btn-primary">
+          Envoyer
+          <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">send</span>
+        </button>
+        <p class="text-xs text-gemula-grey">
+          Ou écrivez-nous directement à{' '}
+          <a href={`mailto:${site.email}`} class="text-gemula-orange hover:underline">
+            {site.email}
+          </a>
+        </p>
+      </div>
+
+      <p id="form-status" class="text-sm text-gemula-grey hidden"></p>
+    </form>
+  </section>
+
+  <!-- Rejoindre Gemula -->
+  <section id="rejoindre" class="container-g py-16 md:py-20 border-t border-gemula-black/[0.06]">
+    <SectionHeading
+      eyebrow="Rejoindre Gemula"
+      title="Vous êtes étudiant et motivé ?"
+      description="Gemula recrute en continu des étudiants qui veulent apprendre, construire et publier. Nous cherchons des profils techniques, créatifs et ingénieurs."
+    />
+
+    <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-3xl">
+      <div class="reveal">
+        <h3 class="font-display text-lg font-semibold mb-4">
+          Ce que nous offrons
+        </h3>
+        <ul class="space-y-3 text-sm text-gemula-grey leading-relaxed">
+          <li class="flex gap-3">
+            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            Des projets concrets qui enrichissent votre portfolio
+          </li>
+          <li class="flex gap-3">
+            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            Un encadrement par des pairs et par le lead du collectif
+          </li>
+          <li class="flex gap-3">
+            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            Une visibilité via le journal et les événements
+          </li>
+          <li class="flex gap-3">
+            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            Un réseau actif au Cameroun et à l'international
+          </li>
+        </ul>
+      </div>
+
+      <div class="reveal">
+        <h3 class="font-display text-lg font-semibold mb-4">
+          Ce que nous demandons
+        </h3>
+        <ul class="space-y-3 text-sm text-gemula-grey leading-relaxed">
+          <li class="flex gap-3">
+            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            Curiosité et envie d'apprendre
+          </li>
+          <li class="flex gap-3">
+            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            Capacité à travailler en équipe
+          </li>
+          <li class="flex gap-3">
+            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            Un minimum de disponibilité (5 à 10 h par semaine)
+          </li>
+          <li class="flex gap-3">
+            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            Une spécialité à apporter au collectif
+          </li>
+        </ul>
+      </div>
+    </div>
+
+    <div class="mt-10">
+      <a href={`mailto:${site.email}?subject=Candidature%20Gemula`} class="btn-primary">
+        Envoyer une candidature
+        <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>
+      </a>
+    </div>
+  </section>
+</PageLayout>
+
+<script>
+  const form = document.getElementById('contact-form') as HTMLFormElement | null;
+  const status = document.getElementById('form-status');
+
+  if (form && status) {
+    form.addEventListener('submit', (e) => {
+      e.preventDefault();
+
+      const data = new FormData(form);
+      const nom = String(data.get('nom') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const organisation = String(data.get('organisation') ?? '').trim();
+      const type = String(data.get('type') ?? '').trim();
+      const message = String(data.get('message') ?? '').trim();
+
+      if (!nom || !email || !type || !message) {
+        status.textContent = 'Merci de remplir tous les champs obligatoires.';
+        status.className = 'text-sm text-red-600';
+        return;
+      }
+
+      const subject = encodeURIComponent(`[Gemula] ${type} — ${nom}`);
+      const body = encodeURIComponent(
+        `Nom : ${nom}\nEmail : ${email}\nOrganisation : ${organisation}\nType : ${type}\n\nMessage :\n${message}`
+      );
+
+      const mailto = `mailto:meilleurd2001@gmail.com?subject=${subject}&body=${body}`;
+      window.location.href = mailto;
+
+      status.textContent = 'Votre client mail va s\'ouvrir avec le message pré-rempli.';
+      status.className = 'text-sm text-emerald-600';
+    });
+  }
+</script>

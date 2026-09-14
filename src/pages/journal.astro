@@ -1,0 +1,145 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '@layouts/PageLayout.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import PostCard from '@components/PostCard.astro';
+import CTA from '@components/CTA.astro';
+
+const articles = (await getCollection('journal', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime()
+);
+
+const categories = [
+  { value: 'vie-du-collectif', label: 'Vie du collectif' },
+  { value: 'projets', label: 'Projets' },
+  { value: 'stages', label: 'Stages' },
+  { value: 'competitions', label: 'Compétitions' },
+  { value: 'certifications', label: 'Certifications' },
+  { value: 'evenements', label: 'Événements' },
+  { value: 'recherche', label: 'Recherche' },
+  { value: 'publications', label: 'Publications' }
+];
+
+const [featured, ...rest] = articles;
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Blog',
+  name: 'Journal de Gemula',
+  description: 'Actualités, projets, stages, compétitions et vie du collectif Gemula.',
+  blogPost: articles.slice(0, 10).map((a) => ({
+    '@type': 'BlogPosting',
+    headline: a.data.title,
+    description: a.data.excerpt,
+    datePublished: a.data.publishedAt.toISOString(),
+    author: {
+      '@type': 'Person',
+      name: a.data.author
+    }
+  }))
+};
+---
+<PageLayout
+  title="Journal"
+  description="Actualités du collectif Gemula : stages, compétitions, certifications, projets, recherche et vie du collectif."
+  eyebrow="Ce que nous vivons"
+  breadcrumb={[
+    { href: '/', label: 'Accueil' },
+    { label: 'Journal' }
+  ]}
+  jsonLd={jsonLd}
+>
+  <!-- Catégories (affichage simple, non filtrant pour l'instant) -->
+  <section class="container-g pb-12">
+    <div class="flex flex-wrap gap-2 reveal">
+      <span class="tag">Toutes</span>
+      {categories.slice(0, 5).map((cat) => (
+        <span class="tag">{cat.label}</span>
+      ))}
+    </div>
+  </section>
+
+  <!-- Article à la une -->
+  {featured && (
+    <section class="container-g pb-16 md:pb-20">
+      <article class="card card-hover reveal md:p-10 grid md:grid-cols-12 gap-8 items-center">
+        <div class="md:col-span-7">
+          <div class="flex items-center gap-3 mb-5">
+            <span class="tag">
+              {categories.find((c) => c.value === featured.data.category)?.label ?? featured.data.category}
+            </span>
+            <time class="text-xs text-gemula-grey" datetime={featured.data.publishedAt.toISOString()}>
+              {new Intl.DateTimeFormat('fr-FR', { day: 'numeric', month: 'long', year: 'numeric' }).format(featured.data.publishedAt)}
+            </time>
+          </div>
+
+          <h2 class="font-display text-2xl md:text-4xl font-bold tracking-tightest leading-tight mb-4">
+            <a href={`/journal/${featured.slug}`} class="hover:text-gemula-orange transition-colors">
+              {featured.data.title}
+            </a>
+          </h2>
+
+          <p class="text-base text-gemula-grey leading-relaxed mb-6">
+            {featured.data.excerpt}
+          </p>
+
+          <div class="flex items-center justify-between">
+            <span class="text-sm text-gemula-grey">Par {featured.data.author}</span>
+            <a href={`/journal/${featured.slug}`} class="inline-flex items-center gap-2 text-sm font-medium text-gemula-black hover:text-gemula-orange transition-colors">
+              Lire l'article
+              <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>
+            </a>
+          </div>
+        </div>
+
+        <div class="md:col-span-5 aspect-[4/3] rounded-2xl overflow-hidden bg-gemula-sand">
+          {featured.data.cover ? (
+            <img
+              src={featured.data.cover}
+              alt={featured.data.title}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          ) : null}
+        </div>
+      </article>
+    </section>
+  )}
+
+  <!-- Autres articles -->
+  {rest.length > 0 && (
+    <section class="container-g pb-20 md:pb-28">
+      <SectionHeading
+        eyebrow="Tous les articles"
+        title="Le journal, au complet."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {rest.map((post) => (
+          <PostCard post={post} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  {articles.length === 0 && (
+    <section class="container-g pb-20">
+      <div class="rounded-2xl border border-dashed border-gemula-black/15 bg-white/60 p-12 text-center max-w-2xl mx-auto">
+        <h3 class="font-display text-xl font-semibold mb-3">
+          Le journal arrive bientôt.
+        </h3>
+        <p class="text-sm text-gemula-grey">
+          Nos premiers articles seront publiés prochainement.
+        </p>
+      </div>
+    </section>
+  )}
+
+  <CTA
+    eyebrow="Une actualité à partager ?"
+    title="Vous voulez apparaître dans le journal ?"
+    description="Partenaires, institutions, membres : partagez vos actualités avec le collectif."
+    primaryCta={{ href: '/collaborer', label: 'Nous écrire' }}
+    dark={false}
+  />
+</PageLayout>

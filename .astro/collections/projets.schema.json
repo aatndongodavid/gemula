@@ -1,0 +1,146 @@
+{
+  "$ref": "#/definitions/projets",
+  "definitions": {
+    "projets": {
+      "type": "object",
+      "properties": {
+        "title": {
+          "type": "string"
+        },
+        "tagline": {
+          "type": "string"
+        },
+        "category": {
+          "type": "string",
+          "enum": [
+            "data-ia",
+            "software",
+            "web",
+            "design",
+            "automatisation",
+            "agriculture",
+            "energie"
+          ]
+        },
+        "featured": {
+          "type": "boolean",
+          "default": false
+        },
+        "order": {
+          "type": "number",
+          "default": 99
+        },
+        "year": {
+          "type": "number"
+        },
+        "problem": {
+          "type": "string"
+        },
+        "context": {
+          "type": "string"
+        },
+        "solution": {
+          "type": "string"
+        },
+        "stack": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "features": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "role": {
+          "type": "string"
+        },
+        "results": {
+          "type": "string"
+        },
+        "status": {
+          "type": "string",
+          "enum": [
+            "en-cours",
+            "realise",
+            "experimental",
+            "concept"
+          ],
+          "default": "realise"
+        },
+        "links": {
+          "type": "object",
+          "properties": {
+            "demo": {
+              "anyOf": [
+                {
+                  "anyOf": [
+                    {
+                      "not": {}
+                    },
+                    {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  ]
+                },
+                {
+                  "type": "string",
+                  "const": ""
+                }
+              ]
+            },
+            "github": {
+              "anyOf": [
+                {
+                  "anyOf": [
+                    {
+                      "not": {}
+                    },
+                    {
+                      "type": "string",
+                      "format": "uri"
+                    }
+                  ]
+                },
+                {
+                  "type": "string",
+                  "const": ""
+                }
+              ]
+            }
+          },
+          "additionalProperties": false,
+          "default": {}
+        },
+        "cover": {
+          "type": "string"
+        },
+        "gallery": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "title",
+        "tagline",
+        "category",
+        "problem",
+        "context",
+        "solution"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

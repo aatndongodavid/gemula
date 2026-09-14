@@ -1,0 +1,21 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 32 32" width="32" height="32">
+  <rect width="32" height="32" fill="#F7F3EC"/>
+  <!-- Motif drapeau Gemula 4x3 dans une zone carrée -->
+  <g transform="translate(4 4)">
+    <!-- Ligne 1 : 1 0 1 0 -->
+    <rect x="0"  y="0"  width="5" height="5" fill="#F5791C"/>
+    <rect x="6"  y="0"  width="5" height="5" fill="#1B1B1B"/>
+    <rect x="12" y="0"  width="5" height="5" fill="#F5791C"/>
+    <rect x="18" y="0"  width="5" height="5" fill="#1B1B1B"/>
+    <!-- Ligne 2 : 0 1 0 1 -->
+    <rect x="0"  y="6"  width="5" height="5" fill="#1B1B1B"/>
+    <rect x="6"  y="6"  width="5" height="5" fill="#F5791C"/>
+    <rect x="12" y="6"  width="5" height="5" fill="#1B1B1B"/>
+    <rect x="18" y="6"  width="5" height="5" fill="#F5791C"/>
+    <!-- Ligne 3 : 1 0 1 0 -->
+    <rect x="0"  y="12" width="5" height="5" fill="#F5791C"/>
+    <rect x="6"  y="12" width="5" height="5" fill="#1B1B1B"/>
+    <rect x="12" y="12" width="5" height="5" fill="#F5791C"/>
+    <rect x="18" y="12" width="5" height="5" fill="#1B1B1B"/>
+  </g>
+</svg>

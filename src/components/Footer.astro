@@ -1,0 +1,76 @@
+---
+import Flag from './Flag.astro';
+import site from '@data/site.json';
+
+const year = new Date().getFullYear();
+
+const columns = [
+  {
+    title: 'Explorer',
+    links: [
+      { href: '/expertise',           label: 'Expertise' },
+      { href: '/agenda-scientifique', label: 'Agenda scientifique' },
+      { href: '/projet',              label: 'Projet phare' },
+      { href: '/talents',             label: 'Talents' }
+    ]
+  },
+  {
+    title: 'Collectif',
+    links: [
+      { href: '/journal',   label: 'Journal' },
+      { href: '/collaborer',label: 'Collaborer' },
+      { href: '/collaborer#rejoindre', label: 'Rejoindre Gemula' }
+    ]
+  },
+  {
+    title: 'Contact',
+    links: [
+      { href: `mailto:${site.email}`, label: 'Email' },
+      { href: site.social.linkedin,   label: 'LinkedIn', external: true },
+      { href: site.social.github,     label: 'GitHub',   external: true }
+    ]
+  }
+];
+---
+<footer class="bg-gemula-black text-white mt-24">
+  <div class="container-g py-16 md:py-20">
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-12 mb-16">
+      <div class="lg:col-span-1">
+        <div class="flex items-center gap-3 mb-5">
+          <Flag size="md" variant="light" />
+          <span class="font-display text-xl font-bold tracking-tightest">Gemula</span>
+        </div>
+        <p class="text-sm text-white/60 leading-relaxed max-w-xs">
+          Collectif étudiant d'innovation technologique.<br />
+          Douala · Cameroun · Ouvert sur le monde.
+        </p>
+      </div>
+
+      {columns.map((col) => (
+        <div>
+          <h3 class="text-xs uppercase tracking-kicker text-white/40 font-semibold mb-5">
+            {col.title}
+          </h3>
+          <ul class="flex flex-col gap-3">
+            {col.links.map((link) => (
+              <li>
+                <a
+                  href={link.href}
+                  class="text-sm text-white/70 hover:text-gemula-orange transition-colors"
+                  {...('external' in link && link.external ? { target: '_blank', rel: 'noopener' } : {})}
+                >
+                  {link.label}
+                </a>
+              </li>
+            ))}
+          </ul>
+        </div>
+      ))}
+    </div>
+
+    <div class="pt-8 border-t border-white/10 flex flex-col md:flex-row justify-between items-start md:items-center gap-4 text-xs text-white/40">
+      <p>© {year} {site.name} — Tous droits réservés.</p>
+      <p class="font-display italic text-white/50">{site.tagline}</p>
+    </div>
+  </div>
+</footer>

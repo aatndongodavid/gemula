@@ -1,0 +1,235 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import PageLayout from '@layouts/PageLayout.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import ProjectCard from '@components/ProjectCard.astro';
+import CTA from '@components/CTA.astro';
+import Flag from '@components/Flag.astro';
+
+export async function getStaticPaths() {
+  const projets = await getCollection('projets');
+  return projets.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'projets'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await entry.render();
+
+const autres = (await getCollection('projets'))
+  .filter((p) => p.slug !== entry.slug)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const statusLabels: Record<string, string> = {
+  'en-cours': 'En cours',
+  realise: 'Réalisé',
+  experimental: 'Expérimental',
+  concept: 'Concept'
+};
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: data.title,
+  description: data.solution,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Windows, macOS, Linux',
+  ...(data.links.github || data.links.demo
+    ? { url: data.links.demo || data.links.github }
+    : {})
+};
+---
+<PageLayout
+  title={data.title}
+  description={data.tagline}
+  eyebrow={statusLabels[data.status] ?? 'Projet'}
+  breadcrumb={[
+    { href: '/', label: 'Accueil' },
+    { href: '/projet', label: 'Projets' },
+    { label: data.title }
+  ]}
+  jsonLd={jsonLd}
+>
+  <!-- Intro -->
+  <section class="container-g pb-12">
+    <div class="max-w-3xl reveal">
+      <p class="text-lg md:text-xl text-gemula-grey leading-relaxed">
+        {data.tagline}
+      </p>
+    </div>
+  </section>
+
+  <!-- Visuel principal -->
+  <section class="container-g pb-16">
+    <div class="rounded-3xl overflow-hidden border border-gemula-black/[0.08] bg-white aspect-[16/9] reveal">
+      {data.cover ? (
+        <img
+          src={data.cover}
+          alt={`Visuel du projet ${data.title}`}
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+      ) : (
+        <div class="w-full h-full flex items-center justify-center bg-gemula-sand">
+          <Flag size="lg" />
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Problème / Contexte / Solution -->
+  <section class="container-g py-16 border-t border-gemula-black/[0.06]">
+    <div class="grid lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-4">
+        <span class="eyebrow block mb-4">Le projet</span>
+        <h2 class="font-display text-3xl md:text-4xl font-bold tracking-tightest leading-tight">
+          {data.title}
+        </h2>
+        {data.year && (
+          <p class="mt-3 text-sm text-gemula-grey">Année : {data.year}</p>
+        )}
+      </div>
+
+      <div class="lg:col-span-8 space-y-10">
+        <div class="reveal">
+          <h3 class="font-display text-lg font-semibold mb-3">Problème</h3>
+          <p class="text-base text-gemula-grey leading-relaxed">{data.problem}</p>
+        </div>
+
+        <div class="reveal">
+          <h3 class="font-display text-lg font-semibold mb-3">Contexte</h3>
+          <p class="text-base text-gemula-grey leading-relaxed">{data.context}</p>
+        </div>
+
+        <div class="reveal">
+          <h3 class="font-display text-lg font-semibold mb-3">Solution</h3>
+          <p class="text-base text-gemula-grey leading-relaxed">{data.solution}</p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fonctionnalités -->
+  {data.features.length > 0 && (
+    <section class="container-g py-16 border-t border-gemula-black/[0.06]">
+      <SectionHeading eyebrow="Fonctionnalités" title="Ce que fait le projet." />
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {data.features.map((feature) => (
+          <div class="card reveal">
+            <span class="material-symbols-outlined text-2xl text-gemula-orange mb-4" aria-hidden="true">
+              check_circle
+            </span>
+            <p class="text-sm text-gemula-black leading-relaxed">{feature}</p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Galerie -->
+  {data.gallery.length > 0 && (
+    <section class="container-g py-16 border-t border-gemula-black/[0.06]">
+      <SectionHeading eyebrow="Aperçus" title="Quelques écrans." />
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {data.gallery.map((img, i) => (
+          <div class="rounded-2xl overflow-hidden border border-gemula-black/[0.08] bg-white aspect-[4/3] reveal">
+            <img
+              src={img}
+              alt={`Aperçu ${i + 1} de ${data.title}`}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Stack + rôle + résultats + liens -->
+  <section class="container-g py-16 border-t border-gemula-black/[0.06]">
+    <div class="grid lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-5 space-y-10">
+        <div class="reveal">
+          <span class="eyebrow block mb-4">Technologies</span>
+          <ul class="flex flex-wrap gap-2">
+            {data.stack.map((tech) => (
+              <li class="tag">{tech}</li>
+            ))}
+          </ul>
+        </div>
+
+        {data.role && (
+          <div class="reveal">
+            <span class="eyebrow block mb-4">Rôle de Gemula</span>
+            <p class="text-sm text-gemula-grey leading-relaxed">{data.role}</p>
+          </div>
+        )}
+
+        {data.results && (
+          <div class="reveal">
+            <span class="eyebrow block mb-4">Résultats</span>
+            <p class="text-sm text-gemula-grey leading-relaxed">{data.results}</p>
+          </div>
+        )}
+
+        {(data.links.demo || data.links.github) && (
+          <div class="reveal">
+            <span class="eyebrow block mb-4">Liens</span>
+            <div class="flex flex-wrap gap-3">
+              {data.links.demo && (
+                <a href={data.links.demo} target="_blank" rel="noopener" class="btn-primary text-sm py-2.5 px-5">
+                  Démo
+                  <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">open_in_new</span>
+                </a>
+              )}
+              {data.links.github && (
+                <a href={data.links.github} target="_blank" rel="noopener" class="btn-ghost text-sm py-2.5 px-5">
+                  GitHub
+                  <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">open_in_new</span>
+                </a>
+              )}
+            </div>
+          </div>
+        )}
+      </div>
+
+      <!-- Contenu Markdown long -->
+      <div class="lg:col-span-7 reveal">
+        <div class="prose-gemula">
+          <Content />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Autres projets -->
+  {autres.length > 0 && (
+    <section class="container-g py-16 border-t border-gemula-black/[0.06]">
+      <SectionHeading
+        eyebrow="Autres projets"
+        title="D'autres réalisations."
+        link={{ href: '/projet', label: 'Tous les projets' }}
+      />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {autres.map((projet) => (
+          <ProjectCard project={projet} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <CTA
+    eyebrow="Ce projet vous intéresse ?"
+    title="Discutons de votre besoin."
+    description="Nous pouvons adapter ce projet à votre contexte ou construire une solution sur mesure."
+    primaryCta={{ href: '/collaborer', label: 'Nous contacter' }}
+    dark={false}
+  />
+</PageLayout>
