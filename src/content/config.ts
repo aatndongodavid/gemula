@@ -2,7 +2,7 @@ import { defineCollection, z } from 'astro:content';
 
 const projets = defineCollection({
   type: 'content',
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     tagline: z.string(),
     category: z.enum(['data-ia', 'software', 'web', 'design', 'automatisation', 'agriculture', 'energie']),
@@ -21,14 +21,14 @@ const projets = defineCollection({
       demo: z.string().url().optional().or(z.literal('')),
       github: z.string().url().optional().or(z.literal(''))
     }).default({}),
-    cover: z.string().optional(),
-    gallery: z.array(z.string()).default([])
+    cover: image().optional(),
+    gallery: z.array(image()).default([])
   })
 });
 
 const evenements = defineCollection({
   type: 'content',
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     subtitle: z.string().optional(),
     domains: z.array(z.enum(['mathematiques', 'statistiques', 'informatique', 'ia-data'])),
@@ -45,13 +45,13 @@ const evenements = defineCollection({
     verifiedAt: z.coerce.date(),
     featured: z.boolean().default(false),
     why: z.string().optional(),
-    cover: z.string().optional()
+    cover: image().optional()
   })
 });
 
 const talents = defineCollection({
   type: 'content',
-  schema: z.object({
+  schema: ({ image }) => z.object({
     name: z.string(),
     role: z.string(),
     order: z.number().default(99),
@@ -62,7 +62,7 @@ const talents = defineCollection({
     linkedin: z.string().url().optional().or(z.literal('')),
     portfolio: z.string().url().optional().or(z.literal('')),
     github: z.string().url().optional().or(z.literal('')),
-    photo: z.string().optional(),
+    photo: image().optional(),
     availability: z.string().optional(),
     location: z.string().optional()
   })
@@ -70,7 +70,7 @@ const talents = defineCollection({
 
 const journal = defineCollection({
   type: 'content',
-  schema: z.object({
+  schema: ({ image }) => z.object({
     title: z.string(),
     excerpt: z.string(),
     category: z.enum([
@@ -85,7 +85,7 @@ const journal = defineCollection({
     ]),
     publishedAt: z.coerce.date(),
     author: z.string(),
-    cover: z.string().optional(),
+    cover: image().optional(),
     tags: z.array(z.string()).default([]),
     draft: z.boolean().default(false)
   })
