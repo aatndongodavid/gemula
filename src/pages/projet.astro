@@ -1,0 +1,219 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '@layouts/PageLayout.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import ProjectCard from '@components/ProjectCard.astro';
+import CTA from '@components/CTA.astro';
+import Flag from '@components/Flag.astro';
+
+const projets = await getCollection('projets');
+const atlas = projets.find((p) => p.slug === 'atlas');
+
+if (!atlas) {
+  return Astro.redirect('/');
+}
+
+const autres = projets
+  .filter((p) => p.slug !== 'atlas')
+  .sort((a, b) => a.data.order - b.data.order);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'SoftwareApplication',
+  name: atlas.data.title,
+  description: atlas.data.solution,
+  applicationCategory: 'BusinessApplication',
+  operatingSystem: 'Windows, macOS, Linux',
+  offers: {
+    '@type': 'Offer',
+    price: '0',
+    priceCurrency: 'XAF'
+  }
+};
+---
+<PageLayout
+  title="Dataikos Atlas"
+  description="Étude de cas complète du projet phare de Gemula : un ERP local pour PME camerounaises, avec analytique prédictive et narration IA."
+  eyebrow="Projet phare"
+  breadcrumb={[
+    { href: '/', label: 'Accueil' },
+    { label: 'Projet' }
+  ]}
+  jsonLd={jsonLd}
+>
+  <!-- Intro -->
+  <section class="container-g pb-16 md:pb-20">
+    <div class="max-w-3xl reveal">
+      <p class="text-lg md:text-xl text-gemula-grey leading-relaxed">
+        {atlas.data.tagline}
+      </p>
+    </div>
+  </section>
+
+  <!-- Visuel principal -->
+  <section class="container-g pb-16">
+    <div class="rounded-3xl overflow-hidden border border-gemula-black/[0.08] bg-white aspect-[16/9] reveal">
+      {atlas.data.cover ? (
+        <img
+          src={atlas.data.cover}
+          alt={`Interface de ${atlas.data.title}`}
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+      ) : (
+        <div class="w-full h-full flex items-center justify-center bg-gemula-sand">
+          <Flag size="lg" />
+        </div>
+      )}
+    </div>
+  </section>
+
+  <!-- Problème / Contexte / Solution -->
+  <section class="container-g py-16 md:py-20 border-t border-gemula-black/[0.06]">
+    <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
+      <div class="lg:col-span-4">
+        <span class="eyebrow block mb-6">Le projet</span>
+        <h2 class="font-display text-3xl md:text-4xl font-bold tracking-tightest leading-tight">
+          Une réponse locale à un besoin universel.
+        </h2>
+      </div>
+
+      <div class="lg:col-span-8 space-y-12">
+        <div class="reveal">
+          <h3 class="font-display text-xl font-semibold mb-3">Problème</h3>
+          <p class="text-base text-gemula-grey leading-relaxed">
+            {atlas.data.problem}
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h3 class="font-display text-xl font-semibold mb-3">Contexte</h3>
+          <p class="text-base text-gemula-grey leading-relaxed">
+            {atlas.data.context}
+          </p>
+        </div>
+
+        <div class="reveal">
+          <h3 class="font-display text-xl font-semibold mb-3">Solution</h3>
+          <p class="text-base text-gemula-grey leading-relaxed">
+            {atlas.data.solution}
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Fonctionnalités -->
+  {atlas.data.features.length > 0 && (
+    <section class="container-g py-16 md:py-20 border-t border-gemula-black/[0.06]">
+      <SectionHeading
+        eyebrow="Fonctionnalités"
+        title="Ce que fait Atlas."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {atlas.data.features.map((feature) => (
+          <div class="card reveal">
+            <span class="material-symbols-outlined text-2xl text-gemula-orange mb-4" aria-hidden="true">
+              check_circle
+            </span>
+            <p class="text-sm text-gemula-black leading-relaxed">
+              {feature}
+            </p>
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Galerie -->
+  {atlas.data.gallery.length > 0 && (
+    <section class="container-g py-16 md:py-20 border-t border-gemula-black/[0.06]">
+      <SectionHeading
+        eyebrow="Aperçus"
+        title="Quelques écrans d'Atlas."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+        {atlas.data.gallery.map((img, i) => (
+          <div class="rounded-2xl overflow-hidden border border-gemula-black/[0.08] bg-white aspect-[4/3] reveal">
+            <img
+              src={img}
+              alt={`Aperçu ${i + 1} de ${atlas.data.title}`}
+              class="w-full h-full object-cover"
+              loading="lazy"
+            />
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Stack + Rôle + Résultats -->
+  <section class="container-g py-16 md:py-20 border-t border-gemula-black/[0.06]">
+    <div class="grid lg:grid-cols-12 gap-12">
+      <div class="lg:col-span-5 space-y-10">
+        <div class="reveal">
+          <span class="eyebrow block mb-4">Technologies</span>
+          <ul class="flex flex-wrap gap-2">
+            {atlas.data.stack.map((tech) => (
+              <li class="tag">{tech}</li>
+            ))}
+          </ul>
+        </div>
+
+        {atlas.data.role && (
+          <div class="reveal">
+            <span class="eyebrow block mb-4">Rôle de Gemula</span>
+            <p class="text-sm text-gemula-grey leading-relaxed">
+              {atlas.data.role}
+            </p>
+          </div>
+        )}
+
+        {atlas.data.results && (
+          <div class="reveal">
+            <span class="eyebrow block mb-4">Résultats</span>
+            <p class="text-sm text-gemula-grey leading-relaxed">
+              {atlas.data.results}
+            </p>
+          </div>
+        )}
+      </div>
+
+      <div class="lg:col-span-7 reveal">
+        <div class="prose-gemula">
+          <h2>Détails du projet</h2>
+          <p>
+            Retrouvez ci-dessous l'ensemble du contexte technique et fonctionnel d'Atlas, tel que documenté par l'équipe Gemula.
+          </p>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Autres projets -->
+  {autres.length > 0 && (
+    <section id="autres" class="container-g py-16 md:py-20 border-t border-gemula-black/[0.06]">
+      <SectionHeading
+        eyebrow="Autres réalisations"
+        title="Ce que nous construisons aussi."
+        description="D'autres projets menés par le collectif, dans l'agriculture, l'énergie, le software et l'expérimentation."
+      />
+
+      <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {autres.map((projet) => (
+          <ProjectCard project={projet} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <CTA
+    eyebrow="Ce projet vous parle ?"
+    title="Parlons de votre besoin."
+    description="Vous êtes une PME, une institution ou un porteur de projet. Nous pouvons adapter Atlas ou construire une solution sur mesure."
+    primaryCta={{ href: '/collaborer', label: 'Nous contacter' }}
+    secondaryCta={{ href: '/expertise', label: 'Voir nos expertises' }}
+  />
+</PageLayout>

@@ -1,0 +1,45 @@
+---
+interface Expertise {
+  slug: string;
+  number: string;
+  title: string;
+  icon: string;
+  description: string;
+  tags: string[];
+}
+
+interface Props {
+  domain: Expertise;
+}
+
+const { domain } = Astro.props;
+---
+<article class="card card-hover reveal h-full flex flex-col">
+  <div class="flex items-start justify-between mb-6">
+    <span class="text-xs font-semibold tracking-kicker text-gemula-orange">
+      {domain.number}
+    </span>
+    <span
+      class="material-symbols-outlined text-2xl text-gemula-orange"
+      aria-hidden="true"
+    >
+      {domain.icon}
+    </span>
+  </div>
+
+  <h3 class="font-display text-xl font-semibold mb-3">
+    {domain.title}
+  </h3>
+
+  <p class="text-sm text-gemula-grey leading-relaxed flex-grow">
+    {domain.description}
+  </p>
+
+  {domain.tags.length > 0 && (
+    <ul class="mt-6 flex flex-wrap gap-2">
+      {domain.tags.slice(0, 4).map((tag) => (
+        <li class="tag">{tag}</li>
+      ))}
+    </ul>
+  )}
+</article>

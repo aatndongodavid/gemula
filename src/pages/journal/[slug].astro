@@ -1,0 +1,141 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import PageLayout from '@layouts/PageLayout.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import PostCard from '@components/PostCard.astro';
+import CTA from '@components/CTA.astro';
+
+export async function getStaticPaths() {
+  const articles = await getCollection('journal', ({ data }) => !data.draft);
+  return articles.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'journal'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await entry.render();
+
+const categoryLabels: Record<string, string> = {
+  'vie-du-collectif': 'Vie du collectif',
+  projets: 'Projets',
+  stages: 'Stages',
+  competitions: 'Compétitions',
+  certifications: 'Certifications',
+  evenements: 'Événements',
+  recherche: 'Recherche',
+  publications: 'Publications'
+};
+
+const dateFormatter = new Intl.DateTimeFormat('fr-FR', {
+  day: 'numeric',
+  month: 'long',
+  year: 'numeric'
+});
+
+const publie = dateFormatter.format(data.publishedAt);
+
+const autres = (await getCollection('journal', ({ data }) => !data.draft))
+  .filter((a) => a.slug !== entry.slug)
+  .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
+  .slice(0, 3);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'BlogPosting',
+  headline: data.title,
+  description: data.excerpt,
+  datePublished: data.publishedAt.toISOString(),
+  author: {
+    '@type': 'Person',
+    name: data.author
+  },
+  publisher: {
+    '@type': 'Organization',
+    name: 'Gemula'
+  },
+  ...(data.cover ? { image: data.cover } : {})
+};
+---
+<PageLayout
+  title={data.title}
+  description={data.excerpt}
+  eyebrow={categoryLabels[data.category] ?? data.category}
+  breadcrumb={[
+    { href: '/', label: 'Accueil' },
+    { href: '/journal', label: 'Journal' },
+    { label: data.title }
+  ]}
+  jsonLd={jsonLd}
+>
+  <!-- Meta -->
+  <section class="container-g pb-10">
+    <div class="max-w-3xl flex flex-wrap items-center gap-4 text-sm text-gemula-grey reveal">
+      <time datetime={data.publishedAt.toISOString()}>
+        {publie}
+      </time>
+      <span aria-hidden="true">·</span>
+      <span>Par {data.author}</span>
+      {data.tags.length > 0 && (
+        <>
+          <span aria-hidden="true">·</span>
+          <ul class="flex flex-wrap gap-2">
+            {data.tags.map((tag) => (
+              <li class="tag text-[0.7rem]">{tag}</li>
+            ))}
+          </ul>
+        </>
+      )}
+    </div>
+  </section>
+
+  <!-- Cover -->
+  {data.cover && (
+    <section class="container-g pb-16">
+      <div class="rounded-3xl overflow-hidden border border-gemula-black/[0.08] bg-white aspect-[16/9] reveal">
+        <img
+          src={data.cover}
+          alt={data.title}
+          class="w-full h-full object-cover"
+          loading="eager"
+        />
+      </div>
+    </section>
+  )}
+
+  <!-- Contenu -->
+  <section class="container-g pb-20">
+    <article class="max-w-3xl mx-auto prose-gemula">
+      <Content />
+    </article>
+  </section>
+
+  <!-- Autres articles -->
+  {autres.length > 0 && (
+    <section class="container-g py-16 border-t border-gemula-black/[0.06]">
+      <SectionHeading
+        eyebrow="À lire aussi"
+        title="D'autres articles du journal."
+        link={{ href: '/journal', label: 'Tout le journal' }}
+      />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {autres.map((post) => (
+          <PostCard post={post} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <CTA
+    eyebrow="Partager une actualité"
+    title="Vous voulez apparaître dans le journal ?"
+    description="Partenaires, institutions, membres : partagez vos actualités avec le collectif."
+    primaryCta={{ href: '/collaborer', label: 'Nous écrire' }}
+    dark={false}
+  />
+</PageLayout>

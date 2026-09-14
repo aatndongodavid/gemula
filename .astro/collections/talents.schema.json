@@ -1,0 +1,117 @@
+{
+  "$ref": "#/definitions/talents",
+  "definitions": {
+    "talents": {
+      "type": "object",
+      "properties": {
+        "name": {
+          "type": "string"
+        },
+        "role": {
+          "type": "string"
+        },
+        "order": {
+          "type": "number",
+          "default": 99
+        },
+        "initials": {
+          "type": "string",
+          "maxLength": 3
+        },
+        "expertise": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "projects": {
+          "type": "array",
+          "items": {
+            "type": "string"
+          },
+          "default": []
+        },
+        "bio": {
+          "type": "string"
+        },
+        "linkedin": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "not": {}
+                },
+                {
+                  "type": "string",
+                  "format": "uri"
+                }
+              ]
+            },
+            {
+              "type": "string",
+              "const": ""
+            }
+          ]
+        },
+        "portfolio": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "not": {}
+                },
+                {
+                  "type": "string",
+                  "format": "uri"
+                }
+              ]
+            },
+            {
+              "type": "string",
+              "const": ""
+            }
+          ]
+        },
+        "github": {
+          "anyOf": [
+            {
+              "anyOf": [
+                {
+                  "not": {}
+                },
+                {
+                  "type": "string",
+                  "format": "uri"
+                }
+              ]
+            },
+            {
+              "type": "string",
+              "const": ""
+            }
+          ]
+        },
+        "photo": {
+          "type": "string"
+        },
+        "availability": {
+          "type": "string"
+        },
+        "location": {
+          "type": "string"
+        },
+        "$schema": {
+          "type": "string"
+        }
+      },
+      "required": [
+        "name",
+        "role",
+        "initials"
+      ],
+      "additionalProperties": false
+    }
+  },
+  "$schema": "http://json-schema.org/draft-07/schema#"
+}

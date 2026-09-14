@@ -1,0 +1,176 @@
+---
+import { getCollection } from 'astro:content';
+import PageLayout from '@layouts/PageLayout.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import EventCard from '@components/EventCard.astro';
+import Filters from '@components/Filters.astro';
+import CTA from '@components/CTA.astro';
+
+const evenements = await getCollection('evenements');
+
+const now = new Date();
+const sorted = evenements.sort(
+  (a, b) => a.data.startDate.getTime() - b.data.startDate.getTime()
+);
+
+const aVenir = sorted.filter((e) => e.data.startDate > now);
+const enCours = sorted.filter(
+  (e) =>
+    e.data.startDate <= now &&
+    e.data.endDate &&
+    e.data.endDate >= now
+);
+const passes = sorted
+  .filter((e) => {
+    const end = e.data.endDate ?? e.data.startDate;
+    return end < now;
+  })
+  .reverse();
+
+const total = evenements.length;
+const totalAVenir = aVenir.length + enCours.length;
+const totalPasses = passes.length;
+
+const filters = [
+  { value: 'mathematiques', label: 'Mathématiques' },
+  { value: 'statistiques', label: 'Statistiques' },
+  { value: 'informatique', label: 'Informatique' },
+  { value: 'ia-data', label: 'IA & Data' },
+  { value: 'presentiel', label: 'Présentiel' },
+  { value: 'en-ligne', label: 'En ligne' }
+];
+
+const jsonLd = aVenir.slice(0, 10).map((e) => ({
+  '@context': 'https://schema.org',
+  '@type': 'Event',
+  name: e.data.title,
+  description: e.data.subtitle ?? e.data.why ?? '',
+  startDate: e.data.startDate.toISOString(),
+  endDate: e.data.endDate?.toISOString() ?? e.data.startDate.toISOString(),
+  eventAttendanceMode:
+    e.data.format === 'en-ligne'
+      ? 'https://schema.org/OnlineEventAttendanceMode'
+      : e.data.format === 'hybride'
+        ? 'https://schema.org/MixedEventAttendanceMode'
+        : 'https://schema.org/OfflineEventAttendanceMode',
+  location: {
+    '@type': 'Place',
+    name: e.data.city,
+    address: {
+      '@type': 'PostalAddress',
+      addressLocality: e.data.city,
+      addressCountry: e.data.country
+    }
+  },
+  organizer: {
+    '@type': 'Organization',
+    name: e.data.organizer
+  },
+  url: e.data.url
+}));
+---
+<PageLayout
+  title="Agenda scientifique"
+  description="Conférences, colloques, workshops et écoles scientifiques en mathématiques, statistiques, informatique, data science et IA au Cameroun."
+  eyebrow="Veille scientifique"
+  breadcrumb={[
+    { href: '/', label: 'Accueil' },
+    { label: 'Agenda scientifique' }
+  ]}
+  jsonLd={jsonLd}
+>
+  <!-- Stats -->
+  <section class="container-g pb-12 md:pb-16">
+    <div class="grid grid-cols-3 gap-6 max-w-lg">
+      <div class="reveal">
+        <span class="font-display text-3xl md:text-4xl font-bold text-gemula-orange">
+          {total}
+        </span>
+        <p class="mt-2 text-sm text-gemula-grey">Événements recensés</p>
+      </div>
+      <div class="reveal">
+        <span class="font-display text-3xl md:text-4xl font-bold text-gemula-orange">
+          {totalAVenir}
+        </span>
+        <p class="mt-2 text-sm text-gemula-grey">À venir / en cours</p>
+      </div>
+      <div class="reveal">
+        <span class="font-display text-3xl md:text-4xl font-bold text-gemula-orange">
+          {totalPasses}
+        </span>
+        <p class="mt-2 text-sm text-gemula-grey">Archivés</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- Filtres -->
+  <section class="container-g pb-8">
+    <Filters
+      filters={filters}
+      target="agenda-prochains"
+      defaultLabel="Tous"
+    />
+    {passes.length > 0 && (
+      <Filters
+        filters={filters}
+        target="agenda-archives"
+        defaultLabel="Tous"
+        class="mt-4"
+      />
+    )}
+  </section>
+
+  <!-- En cours / À venir -->
+  {aVenir.length > 0 || enCours.length > 0 ? (
+    <section class="container-g pb-16">
+      <SectionHeading
+        eyebrow="À venir & en cours"
+        title="Les prochains rendez-vous."
+      />
+
+      <div id="agenda-prochains" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {[...enCours, ...aVenir].map((event) => (
+          <div data-cat={`${event.data.domains.join(' ')} ${event.data.format}`}>
+            <EventCard event={event} />
+          </div>
+        ))}
+      </div>
+    </section>
+  ) : null}
+
+  <!-- Archives -->
+  {passes.length > 0 && (
+    <section class="container-g py-20 md:py-28 border-t border-gemula-black/[0.06]">
+      <SectionHeading
+        eyebrow="Archives"
+        title="Événements passés."
+        description="Une trace des rendez-vous scientifiques qui ont eu lieu au Cameroun."
+      />
+
+      <div id="agenda-archives" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+        {passes.map((event) => (
+          <div data-cat={`${event.data.domains.join(' ')} ${event.data.format}`}>
+            <EventCard event={event} />
+          </div>
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Disclaimer -->
+  <section class="container-g pb-20">
+    <div class="max-w-3xl rounded-2xl border border-gemula-black/[0.08] bg-white/60 p-6">
+      <p class="text-xs text-gemula-grey leading-relaxed">
+        <strong class="text-gemula-black">Note de transparence.</strong> Gemula recense ces événements à titre informatif. Les dates et modalités peuvent évoluer ; consultez la source officielle avant de vous inscrire. Chaque fiche événement indique sa source et sa date de dernière vérification.
+      </p>
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Vous organisez un événement ?"
+    title="Faites-le référencer sur l'agenda Gemula."
+    description="Conférences, workshops, séminaires ou écoles scientifiques : nous relayons les rendez-vous qui font avancer la science au Cameroun."
+    primaryCta={{ href: '/collaborer', label: 'Nous signaler un événement' }}
+    dark={false}
+  />
+</PageLayout>

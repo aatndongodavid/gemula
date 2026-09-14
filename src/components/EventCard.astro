@@ -1,0 +1,88 @@
+---
+import type { CollectionEntry } from 'astro:content';
+
+interface Props {
+  event: CollectionEntry<'evenements'>;
+  variant?: 'default' | 'compact';
+}
+
+const { event, variant = 'default' } = Astro.props;
+const { data, slug } = event;
+
+const dateFormatter = new Intl.DateTimeFormat('fr-FR', {
+  day: 'numeric',
+  month: 'short',
+  year: 'numeric'
+});
+
+const formatLabel: Record<string, string> = {
+  presentiel: 'Présentiel',
+  'en-ligne': 'En ligne',
+  hybride: 'Hybride'
+};
+
+const statusLabel: Record<string, string> = {
+  'a-venir': 'À venir',
+  'en-cours': 'En cours',
+  'passe': 'Passé'
+};
+
+const statusColor: Record<string, string> = {
+  'a-venir': 'text-gemula-orange',
+  'en-cours': 'text-emerald-600',
+  'passe': 'text-gemula-grey'
+};
+
+const start = dateFormatter.format(data.startDate);
+const end = data.endDate ? dateFormatter.format(data.endDate) : null;
+const dateDisplay = end && end !== start ? `${start} → ${end}` : start;
+
+const isCompact = variant === 'compact';
+---
+<article class={`card card-hover reveal h-full flex flex-col ${isCompact ? 'p-5' : ''}`}>
+  <div class="flex items-center justify-between gap-3 mb-4">
+    <span class={`text-[0.7rem] font-semibold uppercase tracking-kicker ${statusColor[data.status]}`}>
+      {statusLabel[data.status]}
+    </span>
+    <span class="text-[0.7rem] uppercase tracking-kicker text-gemula-grey">
+      {formatLabel[data.format] ?? data.format}
+    </span>
+  </div>
+
+  <h3 class={`font-display font-semibold mb-2 ${isCompact ? 'text-base' : 'text-lg'}`}>
+    {data.title}
+  </h3>
+
+  {data.subtitle && !isCompact && (
+    <p class="text-sm text-gemula-grey leading-relaxed mb-4">
+      {data.subtitle}
+    </p>
+  )}
+
+  <div class="text-sm text-gemula-grey space-y-1.5 mb-5 flex-grow">
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-[1.1em] text-gemula-orange" aria-hidden="true">calendar_today</span>
+      <span>{dateDisplay}</span>
+    </div>
+    <div class="flex items-center gap-2">
+      <span class="material-symbols-outlined text-[1.1em] text-gemula-orange" aria-hidden="true">location_on</span>
+      <span>{data.city}</span>
+    </div>
+  </div>
+
+  {!isCompact && (
+    <div class="flex flex-wrap gap-2 mb-5">
+      {data.domains.map((domain) => (
+        <span class="tag">{domain.replace('-', ' ')}</span>
+      ))}
+    </div>
+  )}
+
+  <a
+    href={`/evenements/${slug}`}
+    class="inline-flex items-center gap-2 text-sm font-medium text-gemula-black hover:text-gemula-orange transition-colors mt-auto"
+  >
+    {isCompact ? 'Détails' : 'Voir les détails'}
+    <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>
+  </a>
+</article>

@@ -1,0 +1,21 @@
+---
+interface Props {
+  tags: string[];
+  variant?: 'default' | 'minimal';
+  class?: string;
+}
+
+const { tags, variant = 'default', class: className = '' } = Astro.props;
+
+const styles = {
+  default: 'inline-flex items-center rounded-full border border-gemula-black/10 bg-white px-3 py-1 text-xs font-medium text-gemula-asphalt',
+  minimal: 'inline-flex items-center rounded-full bg-gemula-black/[0.04] px-2.5 py-1 text-[0.7rem] font-medium text-gemula-grey'
+};
+---
+{tags.length > 0 && (
+  <ul class={`flex flex-wrap gap-2 ${className}`}>
+    {tags.map((tag) => (
+      <li class={styles[variant]}>{tag}</li>
+    ))}
+  </ul>
+)}

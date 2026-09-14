@@ -1,0 +1,85 @@
+---
+interface Filter {
+  value: string;
+  label: string;
+}
+
+interface Props {
+  filters: Filter[];
+  target: string;
+  defaultLabel?: string;
+  class?: string;
+}
+
+const {
+  filters,
+  target,
+  defaultLabel = 'Tous',
+  class: className = ''
+} = Astro.props;
+---
+<div class={`flex flex-wrap gap-2 ${className}`} data-filters-target={target} role="tablist">
+  <button
+    type="button"
+    class="filter-btn is-active"
+    data-filter="all"
+    role="tab"
+    aria-selected="true"
+  >
+    {defaultLabel}
+  </button>
+  {filters.map((filter) => (
+    <button
+      type="button"
+      class="filter-btn"
+      data-filter={filter.value}
+      role="tab"
+      aria-selected="false"
+    >
+      {filter.label}
+    </button>
+  ))}
+</div>
+
+<style>
+  .filter-btn {
+    @apply inline-flex items-center rounded-full border border-gemula-black/10 bg-white px-4 py-2 text-sm font-medium text-gemula-asphalt transition-all duration-200;
+  }
+  .filter-btn:hover {
+    @apply border-gemula-orange/40 text-gemula-orange;
+  }
+  .filter-btn.is-active {
+    @apply bg-gemula-black text-white border-gemula-black;
+  }
+</style>
+
+<script>
+  document.querySelectorAll<HTMLElement>('[data-filters-target]').forEach((group) => {
+    const targetId = group.dataset.filtersTarget;
+    if (!targetId) return;
+
+    const target = document.getElementById(targetId);
+    if (!target) return;
+
+    const buttons = group.querySelectorAll<HTMLButtonElement>('.filter-btn');
+    const items = target.querySelectorAll<HTMLElement>('[data-cat]');
+
+    buttons.forEach((btn) => {
+      btn.addEventListener('click', () => {
+        buttons.forEach((b) => {
+          b.classList.remove('is-active');
+          b.setAttribute('aria-selected', 'false');
+        });
+        btn.classList.add('is-active');
+        btn.setAttribute('aria-selected', 'true');
+
+        const filter = btn.dataset.filter;
+        items.forEach((item) => {
+          const cats = (item.dataset.cat || '').split(/\s+/);
+          const visible = filter === 'all' || cats.includes(filter || '');
+          item.hidden = !visible;
+        });
+      });
+    });
+  });
+</script>

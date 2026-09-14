@@ -1,0 +1,108 @@
+# =========================================================
+# Gemula — Configuration Apache pour LWS
+# =========================================================
+
+# Forcer HTTPS
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+  RewriteCond %{HTTPS} off
+  RewriteRule ^(.*)$ https://%{HTTP_HOST}%{REQUEST_URI} [L,R=301]
+</IfModule>
+
+# =========================================================
+# Redirections des anciennes URLs
+# =========================================================
+<IfModule mod_rewrite.c>
+  RewriteEngine On
+
+  # Ancien site HTML → nouveau site Astro
+  RewriteRule ^index\.html$ / [R=301,L]
+  RewriteRule ^portfoliodavid\.html$ /talents/david-aat-ndongo [R=301,L]
+
+  # Sections de l'ancien site
+  RewriteRule ^#vision$ / [R=301,L]
+  RewriteRule ^#expertise$ /expertise [R=301,L]
+  RewriteRule ^#projets$ /projet [R=301,L]
+  RewriteRule ^#talent$ /talents [R=301,L]
+  RewriteRule ^#actualites$ /journal [R=301,L]
+  RewriteRule ^#contact$ /collaborer [R=301,L]
+</IfModule>
+
+# =========================================================
+# Compression Gzip
+# =========================================================
+<IfModule mod_deflate.c>
+  AddOutputFilterByType DEFLATE text/html
+  AddOutputFilterByType DEFLATE text/plain
+  AddOutputFilterByType DEFLATE text/xml
+  AddOutputFilterByType DEFLATE text/css
+  AddOutputFilterByType DEFLATE text/javascript
+  AddOutputFilterByType DEFLATE application/javascript
+  AddOutputFilterByType DEFLATE application/json
+  AddOutputFilterByType DEFLATE application/xml
+  AddOutputFilterByType DEFLATE application/rss+xml
+  AddOutputFilterByType DEFLATE image/svg+xml
+</IfModule>
+
+# =========================================================
+# Cache navigateur
+# =========================================================
+<IfModule mod_expires.c>
+  ExpiresActive On
+
+  # Assets Astro (hashés → immutables)
+  <FilesMatch "\.(js|css|woff2|woff|ttf|otf)$">
+    ExpiresDefault "access plus 1 year"
+    Header set Cache-Control "public, max-age=31536000, immutable"
+  </FilesMatch>
+
+  # Images
+  <FilesMatch "\.(jpg|jpeg|png|gif|webp|avif|svg|ico)$">
+    ExpiresDefault "access plus 6 months"
+    Header set Cache-Control "public, max-age=15552000"
+  </FilesMatch>
+
+  # HTML (pas de cache long)
+  <FilesMatch "\.html$">
+    ExpiresDefault "access plus 1 hour"
+    Header set Cache-Control "public, max-age=3600, must-revalidate"
+  </FilesMatch>
+
+  # Fichiers de données
+  <FilesMatch "\.(xml|json|txt)$">
+    ExpiresDefault "access plus 1 day"
+  </FilesMatch>
+</IfModule>
+
+# =========================================================
+# Sécurité
+# =========================================================
+<IfModule mod_headers.c>
+  Header set X-Content-Type-Options "nosniff"
+  Header set X-Frame-Options "SAMEORIGIN"
+  Header set Referrer-Policy "strict-origin-when-cross-origin"
+  Header set Permissions-Policy "camera=(), microphone=(), geolocation=()"
+</IfModule>
+
+# Masquer les signatures serveur
+ServerSignature Off
+
+# =========================================================
+# Page 404 personnalisée
+# =========================================================
+ErrorDocument 404 /404.html
+
+# =========================================================
+# Bloquer les fichiers sensibles
+# =========================================================
+<FilesMatch "(^\.|composer\.|package\.|tsconfig\.)">
+  Require all denied
+</FilesMatch>
+
+# =========================================================
+# Types MIME supplémentaires
+# =========================================================
+AddType image/svg+xml .svg
+AddType font/woff2 .woff2
+AddType font/woff .woff
+AddType application/manifest+json .webmanifest

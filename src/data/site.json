@@ -1,0 +1,24 @@
+{
+  "name": "Gemula",
+  "tagline": "Là où le talent devient un impact.",
+  "description": "Gemula est un collectif étudiant d'innovation technologique basé à Douala, Cameroun. Data, IA, logiciel, design.",
+  "url": "https://gemula.org",
+  "email": "meilleurd2001@gmail.com",
+  "foundingYear": 2024,
+  "location": {
+    "city": "Douala",
+    "region": "Littoral",
+    "country": "Cameroun",
+    "countryCode": "CM"
+  },
+  "social": {
+    "linkedin": "https://www.linkedin.com/in/david-meilleur-aat-ndongo",
+    "github": "https://github.com/gemula",
+    "twitter": "https://twitter.com/gemula"
+  },
+  "founder": {
+    "name": "Aat Ndongo David Meilleur",
+    "linkedin": "https://www.linkedin.com/in/david-meilleur-aat-ndongo",
+    "portfolioUrl": "/portfoliodavid.html"
+  }
+}

@@ -1,0 +1,85 @@
+---
+import Nav from '@components/Nav.astro';
+import Footer from '@components/Footer.astro';
+import SEO from '@components/SEO.astro';
+import '@styles/global.css';
+
+interface Props {
+  title?: string;
+  description?: string;
+  image?: string;
+  type?: 'website' | 'article';
+  jsonLd?: object | object[];
+}
+
+const { title, description, image, type, jsonLd } = Astro.props;
+---
+<!doctype html>
+<html lang="fr">
+  <head>
+    <meta charset="UTF-8" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+
+    <link rel="preconnect" href="https://fonts.googleapis.com" />
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <link
+      rel="stylesheet"
+      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+    />
+
+    <SEO title={title} description={description} image={image} type={type} jsonLd={jsonLd} />
+  </head>
+  <body>
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-gemula-black focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:z-[100]">
+      Aller au contenu
+    </a>
+
+    <Nav />
+
+    <main id="main" class="pt-16 md:pt-20">
+      <slot />
+    </main>
+
+    <Footer />
+
+    <script>
+      // Menu mobile
+      const burger = document.getElementById('burger');
+      const panel = document.getElementById('mobile-panel');
+      if (burger && panel) {
+        burger.addEventListener('click', () => {
+          const isOpen = panel.style.maxHeight && panel.style.maxHeight !== '0px';
+          panel.style.maxHeight = isOpen ? '0px' : panel.scrollHeight + 'px';
+          burger.setAttribute('aria-expanded', String(!isOpen));
+        });
+      }
+
+      // Reveal au scroll
+      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+      const reveals = document.querySelectorAll('.reveal');
+      if (!prefersReduced && 'IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((entry) => {
+            if (entry.isIntersecting) {
+              entry.target.classList.add('in-view');
+              io.unobserve(entry.target);
+            }
+          });
+        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
+        reveals.forEach((el) => io.observe(el));
+      } else {
+        reveals.forEach((el) => el.classList.add('in-view'));
+      }
+
+      // Shrink nav on scroll
+      const nav = document.getElementById('nav');
+      if (nav) {
+        const onScroll = () => {
+          nav.classList.toggle('shadow-soft', window.scrollY > 20);
+        };
+        window.addEventListener('scroll', onScroll, { passive: true });
+        onScroll();
+      }
+    </script>
+  </body>
+</html>

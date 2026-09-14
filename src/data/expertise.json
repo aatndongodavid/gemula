@@ -1,0 +1,44 @@
+{
+  "domains": [
+    {
+      "slug": "data-ia",
+      "number": "01",
+      "title": "Data Science & IA",
+      "icon": "memory",
+      "description": "Exploration de données, machine learning, séries temporelles, IA générative. De la donnée brute à la décision.",
+      "tags": ["Python", "Machine Learning", "ARIMA", "GenAI", "Analyse"]
+    },
+    {
+      "slug": "software",
+      "number": "02",
+      "title": "Développement logiciel & Web",
+      "icon": "terminal",
+      "description": "Applications desktop, web et APIs conçues avec une approche simple, moderne et orientée expérience utilisateur.",
+      "tags": ["Python", "JavaScript", "FastAPI", "Web", "APIs"]
+    },
+    {
+      "slug": "data-engineering",
+      "number": "03",
+      "title": "Data Engineering",
+      "icon": "database",
+      "description": "Collecte, stockage, pipelines, qualité de données. SQLite, PostgreSQL, automatisation et traçabilité.",
+      "tags": ["SQL", "Pipelines", "SQLite", "PostgreSQL", "ETL"]
+    },
+    {
+      "slug": "design",
+      "number": "04",
+      "title": "Design & UI/UX",
+      "icon": "palette",
+      "description": "Identités visuelles, interfaces et systèmes de design pour donner aux projets une présence claire et mémorable.",
+      "tags": ["UI/UX", "Branding", "Figma", "Design System"]
+    },
+    {
+      "slug": "innovation",
+      "number": "05",
+      "title": "Innovation & Automatisation",
+      "icon": "bolt",
+      "description": "Prototypes, scripts, IA appliquée aux besoins métier. Nous transformons une contrainte en produit utilisable.",
+      "tags": ["Prototypage", "Automatisation", "IA appliquée", "Recherche"]
+    }
+  ]
+}

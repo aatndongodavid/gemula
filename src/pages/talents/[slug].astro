@@ -1,0 +1,163 @@
+---
+import { getCollection, type CollectionEntry } from 'astro:content';
+import PageLayout from '@layouts/PageLayout.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import ProjectCard from '@components/ProjectCard.astro';
+import TalentCard from '@components/TalentCard.astro';
+import CTA from '@components/CTA.astro';
+
+export async function getStaticPaths() {
+  const talents = await getCollection('talents');
+  return talents.map((entry) => ({
+    params: { slug: entry.slug },
+    props: { entry }
+  }));
+}
+
+interface Props {
+  entry: CollectionEntry<'talents'>;
+}
+
+const { entry } = Astro.props;
+const { data } = entry;
+const { Content } = await entry.render();
+
+// Projets liés
+const allProjets = await getCollection('projets');
+const projetsLies = allProjets.filter((p) =>
+  data.projects.includes(p.slug)
+);
+
+// Autres talents
+const autres = (await getCollection('talents'))
+  .filter((t) => t.slug !== entry.slug)
+  .sort((a, b) => a.data.order - b.data.order)
+  .slice(0, 3);
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'Person',
+  name: data.name,
+  jobTitle: data.role,
+  affiliation: {
+    '@type': 'Organization',
+    name: 'Gemula'
+  },
+  ...(data.linkedin ? { sameAs: [data.linkedin, data.github, data.portfolio].filter(Boolean) } : {})
+};
+---
+<PageLayout
+  title={data.name}
+  description={`${data.name} — ${data.role} au sein du collectif Gemula.`}
+  eyebrow={data.role}
+  breadcrumb={[
+    { href: '/', label: 'Accueil' },
+    { href: '/talents', label: 'Talents' },
+    { label: data.name }
+  ]}
+  jsonLd={jsonLd}
+>
+  <!-- Profil header -->
+  <section class="container-g pb-16">
+    <div class="grid lg:grid-cols-12 gap-10 items-start">
+      <!-- Avatar + liens -->
+      <div class="lg:col-span-4 reveal">
+        <div class="w-32 h-32 rounded-full bg-gemula-black text-gemula-orange flex items-center justify-center font-display font-bold text-3xl mb-6">
+          {data.initials}
+        </div>
+
+        <h2 class="font-display text-2xl font-bold tracking-tightest mb-2">
+          {data.name}
+        </h2>
+        <p class="text-gemula-orange font-medium mb-6">{data.role}</p>
+
+        {data.location && (
+          <div class="flex items-center gap-2 text-sm text-gemula-grey mb-6">
+            <span class="material-symbols-outlined text-[1.1em] text-gemula-orange" aria-hidden="true">
+              location_on
+            </span>
+            {data.location}
+          </div>
+        )}
+
+        <div class="flex flex-wrap gap-3">
+          {data.linkedin && (
+            <a href={data.linkedin} target="_blank" rel="noopener" class="btn-ghost text-sm py-2.5 px-5">
+              LinkedIn
+              <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">open_in_new</span>
+            </a>
+          )}
+          {data.github && (
+            <a href={data.github} target="_blank" rel="noopener" class="btn-ghost text-sm py-2.5 px-5">
+              GitHub
+              <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">open_in_new</span>
+            </a>
+          )}
+          {data.portfolio && (
+            <a href={data.portfolio} target="_blank" rel="noopener" class="btn-ghost text-sm py-2.5 px-5">
+              Portfolio
+              <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">open_in_new</span>
+            </a>
+          )}
+        </div>
+      </div>
+
+      <!-- Bio + expertise -->
+      <div class="lg:col-span-8 space-y-10">
+        {data.expertise.length > 0 && (
+          <div class="reveal">
+            <span class="eyebrow block mb-4">Expertises</span>
+            <ul class="flex flex-wrap gap-2">
+              {data.expertise.map((skill) => (
+                <li class="tag">{skill}</li>
+              ))}
+            </ul>
+          </div>
+        )}
+
+        <div class="reveal prose-gemula">
+          <Content />
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- Projets liés -->
+  {projetsLies.length > 0 && (
+    <section class="container-g py-16 border-t border-gemula-black/[0.06]">
+      <SectionHeading
+        eyebrow="Contributions"
+        title="Projets auxquels ce talent participe."
+      />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {projetsLies.map((projet) => (
+          <ProjectCard project={projet} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <!-- Autres talents -->
+  {autres.length > 0 && (
+    <section class="container-g py-16 border-t border-gemula-black/[0.06]">
+      <SectionHeading
+        eyebrow="Le collectif"
+        title="D'autres talents."
+        link={{ href: '/talents', label: 'Tous les talents' }}
+      />
+      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+        {autres.map((talent) => (
+          <TalentCard talent={talent} />
+        ))}
+      </div>
+    </section>
+  )}
+
+  <CTA
+    eyebrow="Collaboration"
+    title="Besoin d'un profil comme celui-ci ?"
+    description="Nous mettons en relation entreprises et talents du collectif pour des stages, missions ou collaborations longues."
+    primaryCta={{ href: '/collaborer', label: 'Nous contacter' }}
+    dark={false}
+  />
+</PageLayout>

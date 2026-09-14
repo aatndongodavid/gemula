@@ -1,0 +1,44 @@
+---
+interface BreadcrumbItem {
+  href?: string;
+  label: string;
+}
+
+interface Props {
+  items: BreadcrumbItem[];
+  class?: string;
+}
+
+const { items, class: className = '' } = Astro.props;
+
+const schema = {
+  '@context': 'https://schema.org',
+  '@type': 'BreadcrumbList',
+  itemListElement: items.map((item, i) => ({
+    '@type': 'ListItem',
+    position: i + 1,
+    name: item.label,
+    ...(item.href ? { item: new URL(item.href, Astro.site).toString() } : {})
+  }))
+};
+---
+<nav class={`text-sm text-gemula-grey ${className}`} aria-label="Fil d'Ariane">
+  <ol class="flex flex-wrap items-center gap-2">
+    {items.map((item, i) => (
+      <li class="flex items-center gap-2">
+        {item.href ? (
+          <a href={item.href} class="hover:text-gemula-orange transition-colors">
+            {item.label}
+          </a>
+        ) : (
+          <span class="text-gemula-black">{item.label}</span>
+        )}
+        {i < items.length - 1 && (
+          <span class="text-gemula-black/20" aria-hidden="true">/</span>
+        )}
+      </li>
+    ))}
+  </ol>
+</nav>
+
+<script type="application/ld+json" set:html={JSON.stringify(schema)} />
