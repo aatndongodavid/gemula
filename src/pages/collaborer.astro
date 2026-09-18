@@ -252,8 +252,19 @@ const services = [
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const status = document.getElementById('form-status');
 
+  // ⚠️ À remplacer par les valeurs de TON Google Form
+  const GOOGLE_FORM_ACTION_URL =
+    'https://docs.google.com/forms/d/e/1FAIpQLScOGnCs2MCGc4-_r-FKENVnrGF__dOD55k_xgT65DO-wHl1gA/formResponse';
+  const FIELD_IDS = {
+    nom: 'entry.1001238298',
+    email: 'entry.961299025',
+    organisation: 'entry.2055392478',
+    type: 'entry.138712651',
+    message: 'entry.2093983088',
+  };
+
   if (form && status) {
-    form.addEventListener('submit', (e) => {
+    form.addEventListener('submit', async (e) => {
       e.preventDefault();
 
       const data = new FormData(form);
@@ -269,16 +280,34 @@ const services = [
         return;
       }
 
-      const subject = encodeURIComponent(`[Gemula] ${type} — ${nom}`);
-      const body = encodeURIComponent(
-        `Nom : ${nom}\nEmail : ${email}\nOrganisation : ${organisation}\nType : ${type}\n\nMessage :\n${message}`
-      );
+      const payload = new URLSearchParams();
+      payload.append(FIELD_IDS.nom, nom);
+      payload.append(FIELD_IDS.email, email);
+      payload.append(FIELD_IDS.organisation, organisation);
+      payload.append(FIELD_IDS.type, type);
+      payload.append(FIELD_IDS.message, message);
 
-      const mailto = `mailto:meilleurd2001@gmail.com?subject=${subject}&body=${body}`;
-      window.location.href = mailto;
+      status.textContent = 'Envoi en cours…';
+      status.className = 'text-sm text-gemula-grey';
 
-      status.textContent = 'Votre client mail va s\'ouvrir avec le message pré-rempli.';
-      status.className = 'text-sm text-emerald-600';
+      try {
+        // Google Forms ne renvoie pas d'en-têtes CORS : on utilise "no-cors",
+        // ce qui empêche de lire la réponse mais envoie bien la requête.
+        await fetch(GOOGLE_FORM_ACTION_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: payload.toString(),
+        });
+
+        status.textContent = 'Merci, votre demande a bien été envoyée. Nous vous répondons sous 48h ouvrées.';
+        status.className = 'text-sm text-emerald-600';
+        form.reset();
+      } catch (err) {
+        status.textContent =
+          "Une erreur s'est produite. Écrivez-nous directement à contact@gemula.com si le problème persiste.";
+        status.className = 'text-sm text-red-600';
+      }
     });
   }
 </script>
