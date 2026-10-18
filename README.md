@@ -71,8 +71,8 @@ Formes de collaboration : **projet**, **formation**, **mentorat**, **événement
 ## Contact
 
 - Site : [gemula.org](https://gemula.org)
-- Email : meilleurd2001@gmail.com
-- LinkedIn : [David Meilleur Aat Ndongo](https://www.linkedin.com/company/gemula/home/)
+- Email : contact@gemula.org
+- LinkedIn : [Gemula](https://www.linkedin.com/company/gemula/home/)
 - GitHub : [github.com/aatndongodavid](https://github.com/aatndongodavid)
 
 *Nous apprenons. Nous construisons. Nous transmettons. Nous collaborons.*
