@@ -1,0 +1,253 @@
+---
+import BaseLayout from '@layouts/BaseLayout.astro';
+import site from '@data/site.json';
+
+const whatsappUrl = site.community?.whatsappUrl ?? '';
+
+const espaces = [
+  { key: 'Learn',   fr: 'Apprendre',  icon: 'school',       desc: 'Formations, ateliers et entraide.',            tile: 'bg-gemula-orange text-white' },
+  { key: 'Explore', fr: 'Découvrir',  icon: 'explore',      desc: 'Veille, conférences et opportunités.',         tile: 'bg-gemula-amber text-gemula-black' },
+  { key: 'Build',   fr: 'Contribuer', icon: 'construction', desc: 'Mini-projets et missions ponctuelles.',        tile: 'bg-gemula-ember text-white' },
+  { key: 'Connect', fr: 'Réseauter',  icon: 'groups',       desc: 'Rencontres et partage de compétences.',        tile: 'bg-gemula-gold text-gemula-black' }
+];
+
+const inputClass =
+  'w-full rounded-xl border border-gemula-black/15 bg-white px-4 py-3 text-sm focus:border-gemula-orange focus:outline-none focus:ring-2 focus:ring-gemula-orange/20 transition';
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebPage',
+  name: 'Gemula Community',
+  url: `${site.url}/communaute`,
+  inLanguage: 'fr-FR',
+  isPartOf: { '@id': `${site.url}/#organization` }
+};
+---
+<BaseLayout
+  title="Gemula Community · Gemula"
+  description="Une communauté ouverte pour apprendre, partager et participer autour de la data, de l'IA et des technologies."
+  jsonLd={jsonLd}
+>
+  <!-- HERO ORANGE -->
+  <section class="relative overflow-hidden bg-gemula-orange text-white">
+    <div class="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-gemula-gold/50" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute right-40 bottom-10 h-24 w-24 rounded-full bg-gemula-amber/60" aria-hidden="true"></div>
+    <div class="pointer-events-none absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-gemula-burnt/40" aria-hidden="true"></div>
+
+    <div class="container-g relative pt-16 md:pt-24 pb-28 md:pb-36">
+      <div class="max-w-3xl reveal">
+        <span class="inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-kicker">
+          <span class="material-symbols-outlined text-[1.2em]" aria-hidden="true">celebration</span>
+          Gemula Community
+        </span>
+        <h1 class="mt-6 font-display text-display-md md:text-display-lg font-bold tracking-tightest text-balance !text-white">
+          Apprenons, partageons, construisons ensemble.
+        </h1>
+        <p class="mt-6 text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl">
+          Une communauté ouverte à tous les passionnés de data, d'IA et de tech. Pas besoin d'intégrer l'équipe pour participer.
+        </p>
+        <div class="mt-10 flex flex-wrap gap-3">
+          <a href="#rejoindre" class="btn bg-white text-gemula-orange hover:bg-gemula-cream hover:-translate-y-0.5 shadow-soft">
+            Rejoindre la communauté
+            <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_downward</span>
+          </a>
+          <a href="#formations" class="btn-ghost-light">Voir les formations</a>
+        </div>
+      </div>
+    </div>
+
+    <svg class="absolute bottom-0 left-0 w-full h-12 md:h-16" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
+      <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,45 L1440,80 L0,80 Z" fill="#F7F3EC" />
+    </svg>
+  </section>
+
+  <!-- 4 ESPACES -->
+  <section class="container-g py-16 md:py-20">
+    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
+      {espaces.map((e) => (
+        <article class="reveal rounded-3xl bg-white border border-gemula-black/[0.06] p-7 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card">
+          <span class={`mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl ${e.tile}`}>
+            <span class="material-symbols-outlined text-3xl" aria-hidden="true">{e.icon}</span>
+          </span>
+          <h2 class="font-display text-lg font-bold">{e.key}</h2>
+          <p class="text-xs uppercase tracking-kicker text-gemula-orange font-semibold mt-1 mb-3">{e.fr}</p>
+          <p class="text-sm text-gemula-grey leading-relaxed">{e.desc}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- FORMATIONS -->
+  <section id="formations" class="container-g pb-16 md:pb-20">
+    <div class="rounded-3xl bg-gemula-cream border border-gemula-orange/20 p-8 md:p-12 reveal">
+      <div class="flex flex-wrap items-center gap-3 mb-6">
+        <h2 class="font-display text-2xl md:text-3xl font-bold tracking-tightest">Des formations gratuites.</h2>
+        <span class="rounded-full bg-gemula-orange px-3 py-1 text-xs font-semibold text-white">100 % gratuit</span>
+      </div>
+      <div class="grid md:grid-cols-2 gap-6">
+        <div class="flex gap-4">
+          <span class="material-symbols-outlined text-gemula-orange text-3xl" aria-hidden="true">lock_open</span>
+          <div>
+            <h3 class="font-display text-base font-semibold">Accès ouvert</h3>
+            <p class="mt-1 text-sm text-gemula-grey leading-relaxed">Webinaires, conférences et tutoriels : on se connecte, sans inscription.</p>
+          </div>
+        </div>
+        <div class="flex gap-4">
+          <span class="material-symbols-outlined text-gemula-orange text-3xl" aria-hidden="true">how_to_reg</span>
+          <div>
+            <h3 class="font-display text-base font-semibold">Sur inscription</h3>
+            <p class="mt-1 text-sm text-gemula-grey leading-relaxed">Ateliers pratiques à places limitées, ouverts à tous ou réservés aux membres.</p>
+          </div>
+        </div>
+      </div>
+      <p class="mt-8 text-sm text-gemula-grey">Le calendrier des prochaines sessions sera publié ici. Les membres sont prévenus en premier.</p>
+    </div>
+  </section>
+
+  <!-- REJOINDRE -->
+  <section id="rejoindre" class="container-g pb-16 md:pb-24">
+    <div class="rounded-3xl bg-gemula-orange text-white p-8 md:p-14 grid lg:grid-cols-12 gap-10 lg:gap-14 relative overflow-hidden">
+      <div class="pointer-events-none absolute -left-10 -bottom-16 h-52 w-52 rounded-full bg-gemula-gold/40" aria-hidden="true"></div>
+
+      <div class="lg:col-span-5 relative reveal">
+        <h2 class="font-display text-display-sm font-bold tracking-tightest text-balance !text-white">
+          Prêt à nous rejoindre&nbsp;?
+        </h2>
+        <p class="mt-5 text-base md:text-lg text-white/90 leading-relaxed">
+          Dites-nous qui vous êtes et ce qui vous intéresse. On s'occupe du reste.
+        </p>
+        {whatsappUrl && (
+          <a href={whatsappUrl} target="_blank" rel="noopener" class="btn-ghost-light mt-8">
+            <span class="material-symbols-outlined text-[1.2em]" aria-hidden="true">forum</span>
+            Canal WhatsApp
+          </a>
+        )}
+        <p class="mt-8 text-xs text-white/80 leading-relaxed">
+          Rejoindre la communauté n'est pas un recrutement dans l'équipe et ne garantit ni emploi, ni stage, ni place sur un projet.
+          Vous visez l'équipe ? <a href="/collaborer#rejoindre" class="underline font-semibold">C'est par ici.</a>
+        </p>
+      </div>
+
+      <div class="lg:col-span-7 relative reveal">
+        <form
+          id="community-form"
+          class="rounded-2xl bg-white text-gemula-black p-6 md:p-8 space-y-5 shadow-lift"
+          data-email={site.email}
+          novalidate
+        >
+          <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
+            <div>
+              <label for="c-nom" class="block text-sm font-medium mb-2">Nom complet <span class="text-gemula-orange">*</span></label>
+              <input type="text" id="c-nom" name="nom" required class={inputClass} />
+            </div>
+            <div>
+              <label for="c-email" class="block text-sm font-medium mb-2">Email <span class="text-gemula-orange">*</span></label>
+              <input type="email" id="c-email" name="email" required class={inputClass} />
+            </div>
+          </div>
+
+          <div>
+            <label for="c-etab" class="block text-sm font-medium mb-2">École, entreprise ou ville</label>
+            <input type="text" id="c-etab" name="organisation" class={inputClass} />
+          </div>
+
+          <fieldset>
+            <legend class="block text-sm font-medium mb-3">Ce qui vous tente</legend>
+            <div class="flex flex-wrap gap-2">
+              {espaces.map((e) => (
+                <label class="cursor-pointer">
+                  <input type="checkbox" name="interets" value={e.key} class="peer sr-only" />
+                  <span class="inline-flex items-center gap-1.5 rounded-full border border-gemula-black/15 px-4 py-2 text-sm font-medium transition peer-checked:bg-gemula-orange peer-checked:border-gemula-orange peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-gemula-orange/40 hover:border-gemula-orange">
+                    <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">{e.icon}</span>
+                    {e.fr}
+                  </span>
+                </label>
+              ))}
+            </div>
+          </fieldset>
+
+          <div>
+            <label for="c-msg" class="block text-sm font-medium mb-2">Un mot pour nous (facultatif)</label>
+            <textarea id="c-msg" name="message" rows="3" class={`${inputClass} resize-y`}></textarea>
+          </div>
+
+          <div class="flex flex-wrap items-center gap-4">
+            <button type="submit" class="btn-primary">
+              Rejoindre
+              <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">send</span>
+            </button>
+          </div>
+          <p id="community-status" class="text-sm text-gemula-grey hidden" role="status"></p>
+        </form>
+      </div>
+    </div>
+  </section>
+</BaseLayout>
+
+<script>
+  const form = document.getElementById('community-form') as HTMLFormElement | null;
+  const status = document.getElementById('community-status');
+
+  // Même Google Form que la page « Collaborer ».
+  // « type » est envoyé avec la valeur COMMUNITY_TYPE : cette option doit exister
+  // dans la liste déroulante du formulaire Google (sinon la réponse est ignorée).
+  const GOOGLE_FORM_ACTION_URL =
+    'https://docs.google.com/forms/d/e/1FAIpQLScOGnCs2MCGc4-_r-FKENVnrGF__dOD55k_xgT65DO-wHl1gA/formResponse';
+  const FIELD_IDS = {
+    nom: 'entry.1483131274',
+    email: 'entry.672292509',
+    organisation: 'entry.1220739448',
+    type: 'entry.1070537805',
+    message: 'entry.485062477'
+  };
+  const COMMUNITY_TYPE = 'Gemula Community';
+
+  if (form && status) {
+    form.addEventListener('submit', async (e) => {
+      e.preventDefault();
+
+      const data = new FormData(form);
+      const nom = String(data.get('nom') ?? '').trim();
+      const email = String(data.get('email') ?? '').trim();
+      const organisation = String(data.get('organisation') ?? '').trim();
+      const note = String(data.get('message') ?? '').trim();
+      const interets = data.getAll('interets').map(String);
+
+      if (!nom || !email || !/^\S+@\S+\.\S+$/.test(email)) {
+        status.textContent = 'Merci d’indiquer votre nom et un e-mail valide.';
+        status.className = 'text-sm text-red-600';
+        return;
+      }
+
+      const message =
+        `[Gemula Community] Intérêts : ${interets.length ? interets.join(', ') : 'non précisés'}` +
+        (note ? `\n${note}` : '');
+
+      const payload = new URLSearchParams();
+      payload.append(FIELD_IDS.nom, nom);
+      payload.append(FIELD_IDS.email, email);
+      payload.append(FIELD_IDS.organisation, organisation);
+      payload.append(FIELD_IDS.type, COMMUNITY_TYPE);
+      payload.append(FIELD_IDS.message, message);
+
+      status.textContent = 'Envoi en cours…';
+      status.className = 'text-sm text-gemula-grey';
+
+      try {
+        // Google Forms ne renvoie pas d'en-têtes CORS : "no-cors" envoie la requête sans lire la réponse.
+        await fetch(GOOGLE_FORM_ACTION_URL, {
+          method: 'POST',
+          mode: 'no-cors',
+          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
+          body: payload.toString()
+        });
+        status.textContent = 'Bienvenue dans la communauté ! Nous vous écrivons très vite.';
+        status.className = 'text-sm text-emerald-600';
+        form.reset();
+      } catch {
+        status.textContent = `Une erreur s’est produite. Écrivez-nous à ${form.dataset.email}.`;
+        status.className = 'text-sm text-red-600';
+      }
+    });
+  }
+</script>

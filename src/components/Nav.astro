@@ -7,6 +7,7 @@ const links = [
   { href: '/agenda-scientifique', label: 'Agenda scientifique' },
   { href: '/projet',              label: 'Projet' },
   { href: '/talents',             label: 'Talents' },
+  { href: '/communaute',          label: 'Communauté' },
   { href: '/journal',             label: 'Journal' },
   { href: '/collaborer',          label: 'Collaborer' }
 ];
@@ -27,7 +28,7 @@ function isActive(href: string) {
       </span>
     </a>
 
-    <nav class="hidden lg:flex items-center gap-8" aria-label="Navigation principale">
+    <nav class="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Navigation principale">
       {links.map((link) => (
         <a
           href={link.href}
