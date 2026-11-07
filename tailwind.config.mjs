@@ -5,19 +5,22 @@ export default {
     extend: {
       colors: {
         gemula: {
-          orange:    '#F5791C',
-          ember:     '#C85A0F',
-          burnt:     '#D94F00',
-          gold:      '#FF9A3C',
-          amber:     '#FBC02D',
-          black:     '#1B1B1B',
-          charcoal:  '#2A2A2A',
-          asphalt:   '#3A3A3A',
-          grey:      '#6B6B6B',
-          silver:    '#E4E0D8',
-          sand:      '#F7F3EC',
-          cream:     '#FFF8F0',
-          white:     '#FFFFFF'
+          // Couleurs de marque
+          orange:   '#F5791C', // Impact Orange : fonds, drapeau, boutons
+          ember:    '#C85A0F', // survol des fonds orange
+          accent:   '#A84A0A', // orange lisible pour du texte sur fond clair
+          gold:     '#FF9A3C',
+          amber:    '#FBC02D',
+          burnt:    '#D94F00',
+          // Neutres
+          black:    '#1B1B1B', // Track Black : texte principal
+          charcoal: '#2A2A2A',
+          asphalt:  '#3A3A3A',
+          grey:     '#55554F', // texte secondaire (contraste AA)
+          silver:   '#E4E3DE', // bordures
+          sand:     '#F5F5F2', // fonds de sections alternées
+          cream:    '#FAFAF8',
+          white:    '#FFFFFF'
         }
       },
       fontFamily: {
@@ -25,22 +28,22 @@ export default {
         sans:    ['Inter', 'system-ui', 'sans-serif']
       },
       maxWidth: {
-        content: '1240px',
-        prose:   '72ch'
+        content: '1200px',
+        prose:   '68ch'
       },
       letterSpacing: {
-        tightest: '-0.025em',
-        kicker:   '0.14em'
+        tightest: '-0.02em',
+        kicker:   '0.02em'
       },
       fontSize: {
-        'display-sm': ['clamp(2rem, 4vw, 2.75rem)',   { lineHeight: '1.1', letterSpacing: '-0.02em' }],
-        'display-md': ['clamp(2.5rem, 5.5vw, 3.75rem)',{ lineHeight: '1.05', letterSpacing: '-0.025em' }],
-        'display-lg': ['clamp(3rem, 7vw, 5rem)',       { lineHeight: '1.02', letterSpacing: '-0.03em' }]
+        'display-sm': ['clamp(1.75rem, 3.2vw, 2.25rem)', { lineHeight: '1.15', letterSpacing: '-0.015em' }],
+        'display-md': ['clamp(2.125rem, 4.4vw, 3rem)',   { lineHeight: '1.1',  letterSpacing: '-0.02em' }],
+        'display-lg': ['clamp(2.5rem, 5.6vw, 3.75rem)',  { lineHeight: '1.06', letterSpacing: '-0.025em' }]
       },
       boxShadow: {
-        soft:  '0 4px 20px rgba(27, 27, 27, 0.06)',
-        card:  '0 8px 30px rgba(27, 27, 27, 0.08)',
-        lift:  '0 16px 40px rgba(27, 27, 27, 0.10)'
+        soft: '0 1px 2px rgba(27, 27, 27, 0.05)',
+        card: '0 1px 2px rgba(27, 27, 27, 0.04), 0 8px 24px rgba(27, 27, 27, 0.06)',
+        lift: '0 12px 32px rgba(27, 27, 27, 0.10)'
       }
     }
   },

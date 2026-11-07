@@ -19,6 +19,6 @@ status: experimental
 links:
   demo: ""
   github: ""
-cover: "/images/projets/dames-game-rl.png"
+cover: ""
 gallery: []
 ---

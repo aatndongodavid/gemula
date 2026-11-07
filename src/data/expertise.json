@@ -1,43 +1,52 @@
 {
   "domains": [
     {
-      "slug": "data-ia",
+      "slug": "formation",
       "number": "01",
-      "title": "Data Science & IA",
+      "title": "Formation des équipes",
+      "icon": "school",
+      "description": "Formations pratiques aux outils de bureau, à l'IA, à la data et à l'automatisation, construites sur les fichiers et les métiers de nos clients.",
+      "tags": ["Microsoft 365", "Excel", "IA au bureau", "Power BI"],
+      "href": "/formations"
+    },
+    {
+      "slug": "data-ia",
+      "number": "02",
+      "title": "Data science et IA",
       "icon": "memory",
-      "description": "Exploration de données, machine learning, séries temporelles, IA générative. De la donnée brute à la décision.",
-      "tags": ["Python", "Machine Learning", "ARIMA", "GenAI", "Analyse"]
+      "description": "Exploration de données, machine learning, séries temporelles et IA générative, de la donnée brute à la décision.",
+      "tags": ["Python", "Machine learning", "Séries temporelles", "IA générative"]
     },
     {
       "slug": "software",
-      "number": "02",
-      "title": "Développement logiciel & Web",
+      "number": "03",
+      "title": "Développement logiciel et web",
       "icon": "terminal",
-      "description": "Applications desktop, web et APIs conçues avec une approche simple, moderne et orientée expérience utilisateur.",
-      "tags": ["Python", "JavaScript", "FastAPI", "Web", "APIs"]
+      "description": "Applications desktop, web et API conçues pour être simples à utiliser et faciles à maintenir.",
+      "tags": ["Python", "JavaScript", "FastAPI", "Web"]
     },
     {
       "slug": "data-engineering",
-      "number": "03",
-      "title": "Data Engineering",
+      "number": "04",
+      "title": "Data engineering",
       "icon": "database",
-      "description": "Collecte, stockage, pipelines, qualité de données. SQLite, PostgreSQL, automatisation et traçabilité.",
-      "tags": ["SQL", "Pipelines", "SQLite", "PostgreSQL", "ETL"]
+      "description": "Collecte, stockage, pipelines et qualité des données, avec automatisation et traçabilité.",
+      "tags": ["SQL", "Pipelines", "PostgreSQL", "ETL"]
     },
     {
       "slug": "design",
-      "number": "04",
-      "title": "Design & UI/UX",
+      "number": "05",
+      "title": "Design et UI/UX",
       "icon": "palette",
-      "description": "Identités visuelles, interfaces et systèmes de design pour donner aux projets une présence claire et mémorable.",
-      "tags": ["UI/UX", "Branding", "Figma", "Design System"]
+      "description": "Identités visuelles, interfaces et systèmes de design pour des produits clairs et cohérents.",
+      "tags": ["UI/UX", "Identité visuelle", "Figma", "Design system"]
     },
     {
       "slug": "innovation",
-      "number": "05",
-      "title": "Innovation & Automatisation",
+      "number": "06",
+      "title": "Innovation et automatisation",
       "icon": "bolt",
-      "description": "Prototypes, scripts, IA appliquée aux besoins métier. Nous transformons une contrainte en produit utilisable.",
+      "description": "Prototypes, scripts et IA appliquée aux besoins métier : une contrainte devient un outil utilisable.",
       "tags": ["Prototypage", "Automatisation", "IA appliquée", "Recherche"]
     }
   ]

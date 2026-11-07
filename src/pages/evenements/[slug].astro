@@ -111,12 +111,12 @@ const jsonLd = {
   <section class="container-g pb-12">
     <div class="max-w-3xl">
       {data.subtitle && (
-        <p class="text-lg md:text-xl text-gemula-grey leading-relaxed reveal">
+        <p class="text-lg md:text-xl text-gemula-grey leading-relaxed">
           {data.subtitle}
         </p>
       )}
 
-      <div class="mt-8 flex flex-wrap gap-2 reveal">
+      <div class="mt-8 flex flex-wrap gap-2">
         {data.domains.map((domain) => (
           <span class="tag">{domainLabel[domain] ?? domain}</span>
         ))}
@@ -127,7 +127,7 @@ const jsonLd = {
 
   <!-- Infos clés -->
   <section class="container-g pb-16">
-    <div class="rounded-3xl border border-gemula-black/[0.08] bg-white p-8 md:p-10 reveal">
+    <div class="rounded-xl border border-gemula-silver bg-white p-8 md:p-10">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div>
           <span class="eyebrow block mb-2">Dates</span>
@@ -167,7 +167,7 @@ const jsonLd = {
         )}
       </div>
 
-      <div class="mt-8 pt-8 border-t border-gemula-black/[0.06] flex flex-wrap items-center gap-4">
+      <div class="mt-8 pt-8 border-t border-gemula-silver flex flex-wrap items-center gap-4">
         <a
           href={data.url}
           target="_blank"
@@ -187,7 +187,7 @@ const jsonLd = {
   <!-- Pourquoi cet événement -->
   {data.why && (
     <section class="container-g pb-16">
-      <div class="max-w-3xl reveal">
+      <div class="max-w-3xl">
         <span class="eyebrow block mb-4">Pourquoi cet événement ?</span>
         <p class="text-lg text-gemula-black leading-relaxed">
           {data.why}
@@ -197,8 +197,8 @@ const jsonLd = {
   )}
 
   <!-- Contenu Markdown -->
-  <section class="container-g pb-16 border-t border-gemula-black/[0.06] pt-16">
-    <div class="max-w-3xl reveal">
+  <section class="container-g pb-16 border-t border-gemula-silver pt-16">
+    <div class="max-w-3xl">
       <div class="prose-gemula">
         <Content />
       </div>
@@ -207,7 +207,7 @@ const jsonLd = {
 
   <!-- Note de transparence -->
   <section class="container-g pb-16">
-    <div class="max-w-3xl rounded-2xl border border-gemula-black/[0.08] bg-white/60 p-6">
+    <div class="max-w-3xl rounded-xl border border-gemula-silver bg-white/60 p-6">
       <p class="text-xs text-gemula-grey leading-relaxed">
         <strong class="text-gemula-black">Note de transparence.</strong> Gemula recense cet événement à titre informatif. Les dates et modalités peuvent évoluer ; consultez la source officielle avant de vous inscrire.
       </p>
@@ -216,7 +216,7 @@ const jsonLd = {
 
   <!-- Autres événements -->
   {autres.length > 0 && (
-    <section class="container-g py-16 border-t border-gemula-black/[0.06]">
+    <section class="container-g py-16 border-t border-gemula-silver">
       <SectionHeading
         eyebrow="Autres rendez-vous"
         title="À découvrir aussi."
