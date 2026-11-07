@@ -1,6 +1,6 @@
 ---
 title: "IndabaX Cameroon 2026"
-subtitle: "Deep Learning Indaba — édition Cameroun"
+subtitle: "Deep Learning Indaba, édition Cameroun"
 domains: ["ia-data", "informatique"]
 format: "presentiel"
 city: "Ngaoundéré"

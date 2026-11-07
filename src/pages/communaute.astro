@@ -1,18 +1,18 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
 import site from '@data/site.json';
 
 const whatsappUrl = site.community?.whatsappUrl ?? '';
 
 const espaces = [
-  { key: 'Learn',   fr: 'Apprendre',  icon: 'school',       desc: 'Formations, ateliers et entraide.',            tile: 'bg-gemula-orange text-white' },
-  { key: 'Explore', fr: 'Découvrir',  icon: 'explore',      desc: 'Veille, conférences et opportunités.',         tile: 'bg-gemula-amber text-gemula-black' },
-  { key: 'Build',   fr: 'Contribuer', icon: 'construction', desc: 'Mini-projets et missions ponctuelles.',        tile: 'bg-gemula-ember text-white' },
-  { key: 'Connect', fr: 'Réseauter',  icon: 'groups',       desc: 'Rencontres et partage de compétences.',        tile: 'bg-gemula-gold text-gemula-black' }
+  { key: 'Learn',   fr: 'Apprendre',  icon: 'school',       desc: 'Ateliers gratuits, tutoriels et entraide entre membres.' },
+  { key: 'Explore', fr: 'Découvrir',  icon: 'explore',      desc: 'Veille, conférences et opportunités partagées.' },
+  { key: 'Build',   fr: 'Contribuer', icon: 'construction', desc: 'Mini-projets et missions ponctuelles encadrées.' },
+  { key: 'Connect', fr: 'Réseauter',  icon: 'groups',       desc: 'Rencontres et partage de compétences.' }
 ];
 
-const inputClass =
-  'w-full rounded-xl border border-gemula-black/15 bg-white px-4 py-3 text-sm focus:border-gemula-orange focus:outline-none focus:ring-2 focus:ring-gemula-orange/20 transition';
+const inputClass = 'field';
 
 const jsonLd = {
   '@context': 'https://schema.org',
@@ -25,123 +25,99 @@ const jsonLd = {
 ---
 <BaseLayout
   title="Gemula Community · Gemula"
-  description="Une communauté ouverte pour apprendre, partager et participer autour de la data, de l'IA et des technologies."
+  description="Une communauté ouverte et gratuite pour apprendre, partager et participer autour de la data, de l'IA et des technologies, à Douala et en ligne."
   jsonLd={jsonLd}
 >
-  <!-- HERO ORANGE -->
-  <section class="relative overflow-hidden bg-gemula-orange text-white">
-    <div class="pointer-events-none absolute -right-24 -top-24 h-80 w-80 rounded-full bg-gemula-gold/50" aria-hidden="true"></div>
-    <div class="pointer-events-none absolute right-40 bottom-10 h-24 w-24 rounded-full bg-gemula-amber/60" aria-hidden="true"></div>
-    <div class="pointer-events-none absolute -left-16 bottom-0 h-56 w-56 rounded-full bg-gemula-burnt/40" aria-hidden="true"></div>
-
-    <div class="container-g relative pt-16 md:pt-24 pb-28 md:pb-36">
-      <div class="max-w-3xl reveal">
-        <span class="inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-kicker">
-          <span class="material-symbols-outlined text-[1.2em]" aria-hidden="true">celebration</span>
-          Gemula Community
-        </span>
-        <h1 class="mt-6 font-display text-display-md md:text-display-lg font-bold tracking-tightest text-balance !text-white">
-          Apprenons, partageons, construisons ensemble.
+  <section class="border-b border-gemula-silver">
+    <div class="container-g pt-10 md:pt-14 pb-14 md:pb-20">
+      <Breadcrumb items={[{ href: '/', label: 'Accueil' }, { label: 'Communauté' }]} class="mb-10" />
+      <div class="max-w-3xl">
+        <p class="eyebrow mb-5">Gemula Community</p>
+        <h1 class="font-display text-display-md md:text-display-lg font-semibold tracking-tightest text-balance">
+          Apprenons, partageons et construisons ensemble.
         </h1>
-        <p class="mt-6 text-lg md:text-xl text-white/90 leading-relaxed max-w-2xl">
-          Une communauté ouverte à tous les passionnés de data, d'IA et de tech. Pas besoin d'intégrer l'équipe pour participer.
+        <p class="mt-6 text-lg text-gemula-grey leading-relaxed max-w-2xl">
+          Une communauté ouverte et gratuite pour les étudiants et passionnés de data, d'IA et de technologie. Il n'est pas nécessaire d'intégrer l'équipe pour participer.
         </p>
-        <div class="mt-10 flex flex-wrap gap-3">
-          <a href="#rejoindre" class="btn bg-white text-gemula-orange hover:bg-gemula-cream hover:-translate-y-0.5 shadow-soft">
-            Rejoindre la communauté
-            <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_downward</span>
-          </a>
-          <a href="#formations" class="btn-ghost-light">Voir les formations</a>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href="#rejoindre" class="btn-primary">Rejoindre la communauté</a>
+          {whatsappUrl && (
+            <a href={whatsappUrl} target="_blank" rel="noopener" class="btn-ghost">Suivre la chaîne WhatsApp</a>
+          )}
         </div>
       </div>
     </div>
-
-    <svg class="absolute bottom-0 left-0 w-full h-12 md:h-16" viewBox="0 0 1440 80" preserveAspectRatio="none" aria-hidden="true">
-      <path d="M0,40 C240,90 480,0 720,40 C960,80 1200,10 1440,45 L1440,80 L0,80 Z" fill="#F7F3EC" />
-    </svg>
   </section>
 
   <!-- 4 ESPACES -->
-  <section class="container-g py-16 md:py-20">
+  <section class="container-g section">
+    <h2 class="font-display text-display-sm font-semibold tracking-tightest mb-10">Quatre façons de participer</h2>
     <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-5">
       {espaces.map((e) => (
-        <article class="reveal rounded-3xl bg-white border border-gemula-black/[0.06] p-7 text-center transition-all duration-300 hover:-translate-y-1.5 hover:shadow-card">
-          <span class={`mx-auto mb-5 flex h-16 w-16 items-center justify-center rounded-2xl ${e.tile}`}>
-            <span class="material-symbols-outlined text-3xl" aria-hidden="true">{e.icon}</span>
+        <article class="card">
+          <span class="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gemula-sand">
+            <span class="material-symbols-outlined text-[1.35rem]" aria-hidden="true">{e.icon}</span>
           </span>
-          <h2 class="font-display text-lg font-bold">{e.key}</h2>
-          <p class="text-xs uppercase tracking-kicker text-gemula-orange font-semibold mt-1 mb-3">{e.fr}</p>
-          <p class="text-sm text-gemula-grey leading-relaxed">{e.desc}</p>
+          <h3 class="font-display text-lg font-semibold">{e.fr}</h3>
+          <p class="text-sm text-gemula-grey">{e.key}</p>
+          <p class="mt-3 text-[0.9375rem] text-gemula-grey leading-relaxed">{e.desc}</p>
         </article>
       ))}
     </div>
   </section>
 
-  <!-- FORMATIONS -->
-  <section id="formations" class="container-g pb-16 md:pb-20">
-    <div class="rounded-3xl bg-gemula-cream border border-gemula-orange/20 p-8 md:p-12 reveal">
-      <div class="flex flex-wrap items-center gap-3 mb-6">
-        <h2 class="font-display text-2xl md:text-3xl font-bold tracking-tightest">Des formations gratuites.</h2>
-        <span class="rounded-full bg-gemula-orange px-3 py-1 text-xs font-semibold text-white">100 % gratuit</span>
+  <!-- FORMATIONS GRATUITES -->
+  <section id="formations" class="bg-gemula-sand border-y border-gemula-silver">
+    <div class="container-g section grid lg:grid-cols-12 gap-10">
+      <div class="lg:col-span-5">
+        <h2 class="font-display text-display-sm font-semibold tracking-tightest">Des ateliers gratuits pour les membres</h2>
+        <p class="mt-4 text-gemula-grey leading-relaxed">
+          Le calendrier des prochaines sessions est publié ici et sur la chaîne WhatsApp. Les membres sont prévenus en premier.
+        </p>
       </div>
-      <div class="grid md:grid-cols-2 gap-6">
-        <div class="flex gap-4">
-          <span class="material-symbols-outlined text-gemula-orange text-3xl" aria-hidden="true">lock_open</span>
-          <div>
-            <h3 class="font-display text-base font-semibold">Accès ouvert</h3>
-            <p class="mt-1 text-sm text-gemula-grey leading-relaxed">Webinaires, conférences et tutoriels : on se connecte, sans inscription.</p>
-          </div>
+      <div class="lg:col-span-7 grid sm:grid-cols-2 gap-5">
+        <div class="card">
+          <h3 class="font-display text-base font-semibold">Accès libre</h3>
+          <p class="mt-2 text-[0.9375rem] text-gemula-grey leading-relaxed">Webinaires, conférences et tutoriels, ouverts sans inscription.</p>
         </div>
-        <div class="flex gap-4">
-          <span class="material-symbols-outlined text-gemula-orange text-3xl" aria-hidden="true">how_to_reg</span>
-          <div>
-            <h3 class="font-display text-base font-semibold">Sur inscription</h3>
-            <p class="mt-1 text-sm text-gemula-grey leading-relaxed">Ateliers pratiques à places limitées, ouverts à tous ou réservés aux membres.</p>
-          </div>
+        <div class="card">
+          <h3 class="font-display text-base font-semibold">Sur inscription</h3>
+          <p class="mt-2 text-[0.9375rem] text-gemula-grey leading-relaxed">Ateliers pratiques à places limitées, ouverts à tous ou réservés aux membres.</p>
+        </div>
+        <div class="sm:col-span-2 rounded-xl border border-gemula-silver bg-white p-5 text-[0.9375rem] text-gemula-grey">
+          Vous cherchez une formation pour les équipes de votre entreprise ? Consultez nos <a href="/formations" class="font-semibold text-gemula-black underline decoration-gemula-orange decoration-2 underline-offset-4">formations pour entreprises</a>.
         </div>
       </div>
-      <p class="mt-8 text-sm text-gemula-grey">Le calendrier des prochaines sessions sera publié ici. Les membres sont prévenus en premier.</p>
     </div>
   </section>
 
   <!-- REJOINDRE -->
-  <section id="rejoindre" class="container-g pb-16 md:pb-24">
-    <div class="rounded-3xl bg-gemula-orange text-white p-8 md:p-14 grid lg:grid-cols-12 gap-10 lg:gap-14 relative overflow-hidden">
-      <div class="pointer-events-none absolute -left-10 -bottom-16 h-52 w-52 rounded-full bg-gemula-gold/40" aria-hidden="true"></div>
-
-      <div class="lg:col-span-5 relative reveal">
-        <h2 class="font-display text-display-sm font-bold tracking-tightest text-balance !text-white">
-          Prêt à nous rejoindre&nbsp;?
-        </h2>
-        <p class="mt-5 text-base md:text-lg text-white/90 leading-relaxed">
-          Dites-nous qui vous êtes et ce qui vous intéresse. On s'occupe du reste.
+  <section id="rejoindre" class="container-g section">
+    <div class="grid lg:grid-cols-12 gap-10 lg:gap-14">
+      <div class="lg:col-span-5">
+        <h2 class="font-display text-display-sm font-semibold tracking-tightest">Rejoindre la communauté</h2>
+        <p class="mt-4 text-gemula-grey leading-relaxed">
+          Dites-nous qui vous êtes et ce qui vous intéresse. Nous vous écrivons pour la suite.
         </p>
-        {whatsappUrl && (
-          <a href={whatsappUrl} target="_blank" rel="noopener" class="btn-ghost-light mt-8">
-            <span class="material-symbols-outlined text-[1.2em]" aria-hidden="true">forum</span>
-            Canal WhatsApp
-          </a>
-        )}
-        <p class="mt-8 text-xs text-white/80 leading-relaxed">
-          Rejoindre la communauté n'est pas un recrutement dans l'équipe et ne garantit ni emploi, ni stage, ni place sur un projet.
-          Vous visez l'équipe ? <a href="/collaborer#rejoindre" class="underline font-semibold">C'est par ici.</a>
+        <p class="mt-8 text-sm text-gemula-grey leading-relaxed">
+          Rejoindre la communauté n'est pas un recrutement dans l'équipe et ne garantit ni emploi, ni stage, ni place sur un projet. Pour candidater dans l'équipe, <a href="/collaborer#rejoindre" class="font-semibold text-gemula-black underline">consultez cette page</a>.
         </p>
       </div>
 
-      <div class="lg:col-span-7 relative reveal">
+      <div class="lg:col-span-7">
         <form
           id="community-form"
-          class="rounded-2xl bg-white text-gemula-black p-6 md:p-8 space-y-5 shadow-lift"
+          class="card md:p-8 space-y-5"
           data-email={site.email}
           novalidate
         >
           <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
             <div>
-              <label for="c-nom" class="block text-sm font-medium mb-2">Nom complet <span class="text-gemula-orange">*</span></label>
+              <label for="c-nom" class="block text-sm font-medium mb-2">Nom complet <span class="text-gemula-accent">*</span></label>
               <input type="text" id="c-nom" name="nom" required class={inputClass} />
             </div>
             <div>
-              <label for="c-email" class="block text-sm font-medium mb-2">Email <span class="text-gemula-orange">*</span></label>
+              <label for="c-email" class="block text-sm font-medium mb-2">Email <span class="text-gemula-accent">*</span></label>
               <input type="email" id="c-email" name="email" required class={inputClass} />
             </div>
           </div>
@@ -152,13 +128,12 @@ const jsonLd = {
           </div>
 
           <fieldset>
-            <legend class="block text-sm font-medium mb-3">Ce qui vous tente</legend>
+            <legend class="block text-sm font-medium mb-3">Ce qui vous intéresse</legend>
             <div class="flex flex-wrap gap-2">
               {espaces.map((e) => (
                 <label class="cursor-pointer">
                   <input type="checkbox" name="interets" value={e.key} class="peer sr-only" />
-                  <span class="inline-flex items-center gap-1.5 rounded-full border border-gemula-black/15 px-4 py-2 text-sm font-medium transition peer-checked:bg-gemula-orange peer-checked:border-gemula-orange peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-gemula-orange/40 hover:border-gemula-orange">
-                    <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">{e.icon}</span>
+                  <span class="inline-flex items-center rounded-lg border border-gemula-black/20 px-3.5 py-2 text-sm font-medium transition-colors peer-checked:bg-gemula-black peer-checked:border-gemula-black peer-checked:text-white peer-focus-visible:ring-2 peer-focus-visible:ring-gemula-orange hover:border-gemula-black">
                     {e.fr}
                   </span>
                 </label>
@@ -167,16 +142,11 @@ const jsonLd = {
           </fieldset>
 
           <div>
-            <label for="c-msg" class="block text-sm font-medium mb-2">Un mot pour nous (facultatif)</label>
+            <label for="c-msg" class="block text-sm font-medium mb-2">Message (facultatif)</label>
             <textarea id="c-msg" name="message" rows="3" class={`${inputClass} resize-y`}></textarea>
           </div>
 
-          <div class="flex flex-wrap items-center gap-4">
-            <button type="submit" class="btn-primary">
-              Rejoindre
-              <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">send</span>
-            </button>
-          </div>
+          <button type="submit" class="btn-primary">Rejoindre la communauté</button>
           <p id="community-status" class="text-sm text-gemula-grey hidden" role="status"></p>
         </form>
       </div>
@@ -214,7 +184,7 @@ const jsonLd = {
       const interets = data.getAll('interets').map(String);
 
       if (!nom || !email || !/^\S+@\S+\.\S+$/.test(email)) {
-        status.textContent = 'Merci d’indiquer votre nom et un e-mail valide.';
+        status.textContent = 'Indiquez votre nom et une adresse email valide.';
         status.className = 'text-sm text-red-600';
         return;
       }
@@ -230,7 +200,7 @@ const jsonLd = {
       payload.append(FIELD_IDS.type, COMMUNITY_TYPE);
       payload.append(FIELD_IDS.message, message);
 
-      status.textContent = 'Envoi en cours…';
+      status.textContent = 'Envoi en cours';
       status.className = 'text-sm text-gemula-grey';
 
       try {
@@ -241,11 +211,11 @@ const jsonLd = {
           headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
           body: payload.toString()
         });
-        status.textContent = 'Bienvenue dans la communauté ! Nous vous écrivons très vite.';
+        status.textContent = 'Inscription envoyée. Nous vous écrivons très prochainement.';
         status.className = 'text-sm text-emerald-600';
         form.reset();
       } catch {
-        status.textContent = `Une erreur s’est produite. Écrivez-nous à ${form.dataset.email}.`;
+        status.textContent = `L'envoi a échoué. Écrivez-nous à ${form.dataset.email}.`;
         status.className = 'text-sm text-red-600';
       }
     });

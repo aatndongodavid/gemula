@@ -5,7 +5,7 @@ category: certifications
 publishedAt: 2026-08-15
 author: "Hamza"
 tags: ["Certifications", "DataCamp", "SQL", "Stage"]
-cover: "/images/journal/article-03.jpg"
+cover: ""
 ---
 
 Afin de ne pas me reposer exclusivement sur l'Intelligence Artificielle et de consolider mes acquis techniques, j'ai décidé de revoir mes fondamentaux dans plusieurs domaines.

@@ -6,6 +6,7 @@ interface Props {
   link?: { href: string; label: string };
   align?: 'left' | 'center';
   class?: string;
+  as?: 'h2' | 'h3';
 }
 
 const {
@@ -17,28 +18,24 @@ const {
   class: className = ''
 } = Astro.props;
 
-const alignment = align === 'center' ? 'text-center items-center' : 'text-left items-start';
+const alignment = align === 'center' ? 'text-center items-center mx-auto' : 'text-left items-start';
 ---
-<div class={`flex flex-col md:flex-row md:items-end md:justify-between gap-6 mb-12 md:mb-16 ${className}`}>
-  <div class={`max-w-3xl flex flex-col ${alignment}`}>
-    {eyebrow && <span class="eyebrow mb-4">{eyebrow}</span>}
-    <h2 class="font-display text-display-sm md:text-display-md font-bold tracking-tightest text-balance">
+<div class={`flex flex-col md:flex-row md:items-end md:justify-between gap-5 mb-10 md:mb-12 ${className}`}>
+  <div class={`max-w-2xl flex flex-col ${alignment}`}>
+    {eyebrow && <span class="eyebrow mb-3">{eyebrow}</span>}
+    <h2 class="font-display text-display-sm font-semibold tracking-tightest text-balance">
       {title}
     </h2>
     {description && (
-      <p class="mt-5 text-base md:text-lg text-gemula-grey leading-relaxed max-w-2xl">
+      <p class="mt-4 text-base md:text-lg text-gemula-grey leading-relaxed">
         {description}
       </p>
     )}
   </div>
 
   {link && (
-    <a
-      href={link.href}
-      class="hidden md:inline-flex items-center gap-2 text-sm font-medium text-gemula-grey hover:text-gemula-orange transition-colors shrink-0"
-    >
+    <a href={link.href} class="link-arrow text-[0.9375rem] shrink-0">
       {link.label}
-      <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>
     </a>
   )}
 </div>

@@ -5,7 +5,7 @@ category: stages
 publishedAt: 2026-08-20
 author: "Ali Faysal"
 tags: ["Stage", "Excel", "Dashboard", "Laborex"]
-cover: "/images/journal/article-02.jpg"
+cover: ""
 ---
 
 Lors de son passage chez Laborex, Faysal a mis à profit son expertise sur Microsoft Excel en concevant un tableau de bord interactif et épuré.

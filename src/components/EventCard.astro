@@ -28,7 +28,7 @@ const statusLabel: Record<string, string> = {
 };
 
 const statusColor: Record<string, string> = {
-  'a-venir': 'text-gemula-orange',
+  'a-venir': 'text-gemula-accent',
   'en-cours': 'text-emerald-600',
   'passe': 'text-gemula-grey'
 };
@@ -39,7 +39,7 @@ const dateDisplay = end && end !== start ? `${start} → ${end}` : start;
 
 const isCompact = variant === 'compact';
 ---
-<article class={`card card-hover reveal h-full flex flex-col ${isCompact ? 'p-5' : ''}`}>
+<article class={`card card-hover h-full flex flex-col ${isCompact ? 'p-5' : ''}`}>
   <div class="flex items-center justify-between gap-3 mb-4">
     <span class={`text-[0.7rem] font-semibold uppercase tracking-kicker ${statusColor[data.status]}`}>
       {statusLabel[data.status]}
@@ -61,11 +61,11 @@ const isCompact = variant === 'compact';
 
   <div class="text-sm text-gemula-grey space-y-1.5 mb-5 flex-grow">
     <div class="flex items-center gap-2">
-      <span class="material-symbols-outlined text-[1.1em] text-gemula-orange" aria-hidden="true">calendar_today</span>
+      <span class="material-symbols-outlined text-[1.1em] text-gemula-accent" aria-hidden="true">calendar_today</span>
       <span>{dateDisplay}</span>
     </div>
     <div class="flex items-center gap-2">
-      <span class="material-symbols-outlined text-[1.1em] text-gemula-orange" aria-hidden="true">location_on</span>
+      <span class="material-symbols-outlined text-[1.1em] text-gemula-accent" aria-hidden="true">location_on</span>
       <span>{data.city}</span>
     </div>
   </div>
@@ -80,7 +80,7 @@ const isCompact = variant === 'compact';
 
   <a
     href={`/evenements/${slug}`}
-    class="inline-flex items-center gap-2 text-sm font-medium text-gemula-black hover:text-gemula-orange transition-colors mt-auto"
+    class="inline-flex items-center gap-2 text-sm font-medium text-gemula-black hover:text-gemula-black transition-colors mt-auto"
   >
     {isCompact ? 'Détails' : 'Voir les détails'}
     <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>

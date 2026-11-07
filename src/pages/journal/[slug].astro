@@ -75,7 +75,7 @@ const jsonLd = {
 >
   <!-- Meta -->
   <section class="container-g pb-10">
-    <div class="max-w-3xl flex flex-wrap items-center gap-4 text-sm text-gemula-grey reveal">
+    <div class="max-w-3xl flex flex-wrap items-center gap-4 text-sm text-gemula-grey">
       <time datetime={data.publishedAt.toISOString()}>
         {publie}
       </time>
@@ -97,7 +97,7 @@ const jsonLd = {
   <!-- Cover -->
   {data.cover && (
     <section class="container-g pb-16">
-      <div class="rounded-3xl overflow-hidden border border-gemula-black/[0.08] bg-white aspect-[16/9] reveal">
+      <div class="rounded-xl overflow-hidden border border-gemula-silver bg-white aspect-[16/9]">
         <img
           src={data.cover}
           alt={data.title}
@@ -117,7 +117,7 @@ const jsonLd = {
 
   <!-- Autres articles -->
   {autres.length > 0 && (
-    <section class="container-g py-16 border-t border-gemula-black/[0.06]">
+    <section class="container-g py-16 border-t border-gemula-silver">
       <SectionHeading
         eyebrow="À lire aussi"
         title="D'autres articles du journal."

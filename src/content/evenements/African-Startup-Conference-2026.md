@@ -14,5 +14,5 @@ status: a-venir
 source: "africanstartupconference.org"
 verifiedAt: 2026-09-24
 featured: false
-why: "5e édition de la principale conférence panafricaine start-up, cette année centrée sur le deeptech (IA, robotique, sciences profondes). Sort du cadre camerounais mais recoupe directement le positionnement deeptech de DATAIKÔS — utile pour élargir l'agenda à une veille panafricaine."
+why: "5e édition de la principale conférence panafricaine start-up, cette année centrée sur le deeptech (IA, robotique, sciences profondes). Sort du cadre camerounais mais recoupe directement le positionnement deeptech de DATAIKÔS, utile pour élargir l'agenda à une veille panafricaine."
 ---

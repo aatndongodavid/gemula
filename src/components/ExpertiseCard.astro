@@ -6,6 +6,7 @@ interface Expertise {
   icon: string;
   description: string;
   tags: string[];
+  href?: string;
 }
 
 interface Props {
@@ -13,33 +14,29 @@ interface Props {
 }
 
 const { domain } = Astro.props;
+const Tag = domain.href ? 'a' : 'article';
 ---
-<article class="card card-hover reveal h-full flex flex-col">
-  <div class="flex items-start justify-between mb-6">
-    <span class="text-xs font-semibold tracking-kicker text-gemula-orange">
-      {domain.number}
-    </span>
-    <span
-      class="material-symbols-outlined text-2xl text-gemula-orange"
-      aria-hidden="true"
-    >
-      {domain.icon}
-    </span>
-  </div>
+<Tag
+  href={domain.href}
+  class={`card h-full flex flex-col ${domain.href ? 'card-hover border-gemula-black/30' : ''}`}
+>
+  <span class="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gemula-sand text-gemula-black">
+    <span class="material-symbols-outlined text-[1.35rem]" aria-hidden="true">{domain.icon}</span>
+  </span>
 
-  <h3 class="font-display text-xl font-semibold mb-3">
-    {domain.title}
-  </h3>
+  <h3 class="font-display text-lg font-semibold mb-2">{domain.title}</h3>
 
-  <p class="text-sm text-gemula-grey leading-relaxed flex-grow">
-    {domain.description}
-  </p>
+  <p class="text-[0.9375rem] text-gemula-grey leading-relaxed flex-grow">{domain.description}</p>
 
   {domain.tags.length > 0 && (
-    <ul class="mt-6 flex flex-wrap gap-2">
+    <ul class="mt-5 flex flex-wrap gap-1.5">
       {domain.tags.slice(0, 4).map((tag) => (
         <li class="tag">{tag}</li>
       ))}
     </ul>
   )}
-</article>
+
+  {domain.href && (
+    <span class="link-arrow mt-6 text-[0.9375rem]">Voir les formations</span>
+  )}
+</Tag>

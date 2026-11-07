@@ -51,7 +51,7 @@ const jsonLd = {
 >
   <!-- Catégories (affichage simple, non filtrant pour l'instant) -->
   <section class="container-g pb-12">
-    <div class="flex flex-wrap gap-2 reveal">
+    <div class="flex flex-wrap gap-2">
       <span class="tag">Toutes</span>
       {categories.slice(0, 5).map((cat) => (
         <span class="tag">{cat.label}</span>
@@ -62,7 +62,7 @@ const jsonLd = {
   <!-- Article à la une -->
   {featured && (
     <section class="container-g pb-16 md:pb-20">
-      <article class="card card-hover reveal md:p-10 grid md:grid-cols-12 gap-8 items-center">
+      <article class="card card-hover md:p-10 grid md:grid-cols-12 gap-8 items-center">
         <div class="md:col-span-7">
           <div class="flex items-center gap-3 mb-5">
             <span class="tag">
@@ -73,8 +73,8 @@ const jsonLd = {
             </time>
           </div>
 
-          <h2 class="font-display text-2xl md:text-4xl font-bold tracking-tightest leading-tight mb-4">
-            <a href={`/journal/${featured.slug}`} class="hover:text-gemula-orange transition-colors">
+          <h2 class="font-display text-2xl md:text-4xl font-semibold tracking-tightest leading-tight mb-4">
+            <a href={`/journal/${featured.slug}`} class="hover:text-gemula-black transition-colors">
               {featured.data.title}
             </a>
           </h2>
@@ -85,14 +85,14 @@ const jsonLd = {
 
           <div class="flex items-center justify-between">
             <span class="text-sm text-gemula-grey">Par {featured.data.author}</span>
-            <a href={`/journal/${featured.slug}`} class="inline-flex items-center gap-2 text-sm font-medium text-gemula-black hover:text-gemula-orange transition-colors">
+            <a href={`/journal/${featured.slug}`} class="inline-flex items-center gap-2 text-sm font-medium text-gemula-black hover:text-gemula-black transition-colors">
               Lire l'article
               <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>
             </a>
           </div>
         </div>
 
-        <div class="md:col-span-5 aspect-[4/3] rounded-2xl overflow-hidden bg-gemula-sand">
+        <div class="md:col-span-5 aspect-[4/3] rounded-xl overflow-hidden bg-gemula-sand">
           {featured.data.cover ? (
             <img
               src={featured.data.cover}
@@ -124,7 +124,7 @@ const jsonLd = {
 
   {articles.length === 0 && (
     <section class="container-g pb-20">
-      <div class="rounded-2xl border border-dashed border-gemula-black/15 bg-white/60 p-12 text-center max-w-2xl mx-auto">
+      <div class="rounded-xl border border-dashed border-gemula-black/15 bg-white/60 p-12 text-center max-w-2xl mx-auto">
         <h3 class="font-display text-xl font-semibold mb-3">
           Le journal arrive bientôt.
         </h3>

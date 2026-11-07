@@ -20,23 +20,26 @@ const { title, description, image, type, jsonLd } = Astro.props;
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
 
+    <link rel="preload" href="/fonts/Poppins-600.woff2" as="font" type="font/woff2" crossorigin />
+    <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preconnect" href="https://fonts.googleapis.com" />
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
+    <!-- Icônes : display=block évite d'afficher le nom de l'icône pendant le chargement -->
     <link
       rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&family=Poppins:wght@500;600;700;800&family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=swap"
+      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=block"
     />
 
     <SEO title={title} description={description} image={image} type={type} jsonLd={jsonLd} />
   </head>
   <body>
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-gemula-black focus:text-white focus:px-4 focus:py-2 focus:rounded-lg focus:z-[100]">
+    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-gemula-black focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:z-[100]">
       Aller au contenu
     </a>
 
     <Nav />
 
-    <main id="main" class="pt-16 md:pt-20">
+    <main id="main" class="pt-16 md:pt-[72px]">
       <slot />
     </main>
 
@@ -51,35 +54,12 @@ const { title, description, image, type, jsonLd } = Astro.props;
           const isOpen = panel.style.maxHeight && panel.style.maxHeight !== '0px';
           panel.style.maxHeight = isOpen ? '0px' : panel.scrollHeight + 'px';
           burger.setAttribute('aria-expanded', String(!isOpen));
+          burger.setAttribute('aria-label', isOpen ? 'Ouvrir le menu' : 'Fermer le menu');
+          const icon = burger.querySelector('span');
+          if (icon) icon.textContent = isOpen ? 'menu' : 'close';
         });
       }
 
-      // Reveal au scroll
-      const prefersReduced = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-      const reveals = document.querySelectorAll('.reveal');
-      if (!prefersReduced && 'IntersectionObserver' in window) {
-        const io = new IntersectionObserver((entries) => {
-          entries.forEach((entry) => {
-            if (entry.isIntersecting) {
-              entry.target.classList.add('in-view');
-              io.unobserve(entry.target);
-            }
-          });
-        }, { threshold: 0.12, rootMargin: '0px 0px -60px 0px' });
-        reveals.forEach((el) => io.observe(el));
-      } else {
-        reveals.forEach((el) => el.classList.add('in-view'));
-      }
-
-      // Shrink nav on scroll
-      const nav = document.getElementById('nav');
-      if (nav) {
-        const onScroll = () => {
-          nav.classList.toggle('shadow-soft', window.scrollY > 20);
-        };
-        window.addEventListener('scroll', onScroll, { passive: true });
-        onScroll();
-      }
     </script>
   </body>
 </html>
