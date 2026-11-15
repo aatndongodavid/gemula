@@ -1,0 +1,109 @@
+{
+  "catalogueUrl": "/documents/catalogue-formations-gemula.pdf",
+  "outils": [
+    "Excel", "Word", "PowerPoint", "Outlook", "Teams", "OneDrive", "SharePoint",
+    "Google Workspace", "Microsoft Forms", "Copilot", "ChatGPT", "Claude", "Gemini",
+    "Power BI", "Power Query", "Power Automate", "Power Apps"
+  ],
+  "etapes": [
+    { "titre": "Diagnostic en ligne", "texte": "Chaque participant passe un test de 20 minutes. Nous formons des groupes de niveau homogène et ciblons les vraies lacunes." },
+    { "titre": "Programme ajusté", "texte": "Nous recueillons vos documents types : tableaux de suivi, rapports, modèles de courrier. Les exercices partent de votre métier." },
+    { "titre": "Formation pratique", "texte": "70 % du temps est consacré à la pratique sur poste, sur des cas tirés du quotidien des participants." },
+    { "titre": "Évaluation finale", "texte": "Le test du diagnostic est repassé. Vous recevez un rapport de progression individuel et collectif." },
+    { "titre": "Suivi de 30 jours", "texte": "Un canal de questions reste ouvert un mois après la formation pour accompagner la mise en pratique." }
+  ],
+  "paliers": [
+    {
+      "id": "essentiel",
+      "nom": "Essentiel",
+      "titre": "Maîtriser les outils de base sur des cas réels",
+      "public": "Collaborateurs qui utilisent les outils bureautiques sans méthode ou qui ont appris seuls.",
+      "modules": [
+        { "code": "E1", "titre": "Excel : les fondamentaux", "duree": "2 jours", "objectif": "Construire et exploiter un tableau fiable, sans ressaisie ni calcul manuel.", "contenu": ["Saisie, mise en forme et mise en forme conditionnelle", "Fonctions courantes : SOMME, MOYENNE, SI, NB.SI, SOMME.SI", "Références relatives et absolues", "Tri, filtres et mise sous forme de tableau", "Graphiques simples et mise en page pour l'impression"] },
+        { "code": "E2", "titre": "Excel pour la gestion et le reporting", "duree": "2 jours", "objectif": "Transformer des données brutes en un suivi mensuel exploitable par la direction.", "contenu": ["RECHERCHEX, INDEX et EQUIV, fonctions de date", "Tableaux croisés dynamiques et segments", "Tableaux de bord : ventes, stocks, trésorerie, présence", "Diagramme de Pareto pour prioriser les actions", "Validation des données, protection et partage des classeurs"] },
+        { "code": "E3", "titre": "Word professionnel et documents automatisés", "duree": "2 jours", "objectif": "Produire des documents homogènes et générer en série les courriers répétitifs.", "contenu": ["Styles, plans et table des matières automatique", "Modèles d'entreprise : en-tête, charte, champs à remplir", "Publipostage : courriers, attestations, convocations, contrats", "Suivi des modifications et commentaires", "Finalisation et export en PDF"] },
+        { "code": "E4", "titre": "PowerPoint : présenter pour convaincre", "duree": "1 jour", "objectif": "Construire une présentation claire et cohérente, de la structure au visuel.", "contenu": ["Construire un message : une idée par diapositive", "Masques et modèles d'entreprise", "Graphiques, schémas SmartArt et visuels", "Animations utiles et mode présentateur"] },
+        { "code": "E5", "titre": "Outlook et gestion du temps", "duree": "1 jour", "objectif": "Reprendre le contrôle de sa boîte de réception et de son agenda.", "contenu": ["Dossiers, catégories et règles de tri automatique", "Recherche avancée et messages types", "Calendriers partagés, invitations et salles", "Délégation, absences et gestion des tâches"] },
+        { "code": "E6", "titre": "Google Docs, Sheets et Slides", "duree": "2 jours", "objectif": "Les compétences des modules E1, E3 et E4 pour les structures qui travaillent sous Google.", "contenu": ["Docs : mise en forme, modèles, suggestions et commentaires", "Sheets : formules, filtres, tableaux croisés, graphiques", "Slides : thèmes, mise en page et présentation", "Historique des versions et travail hors connexion"] }
+      ]
+    },
+    {
+      "id": "collaboratif",
+      "nom": "Collaboratif",
+      "titre": "Passer du fichier envoyé par email au document partagé",
+      "public": "Entreprises équipées de Microsoft 365 ou Google Workspace dont les équipes n'exploitent pas encore les outils de partage.",
+      "modules": [
+        { "code": "C1", "titre": "Microsoft 365 : OneDrive, SharePoint et coédition", "duree": "1 jour", "objectif": "Stocker, partager et modifier à plusieurs un même document, sans doublon.", "contenu": ["OneDrive et synchronisation sur le poste", "Bibliothèques SharePoint d'équipe", "Partage, droits d'accès et liens sécurisés", "Coédition en temps réel et historique des versions"] },
+        { "code": "C2", "titre": "Teams pour le travail d'équipe", "duree": "1 jour", "objectif": "Organiser la communication d'une équipe autour de canaux, de fichiers et de réunions.", "contenu": ["Équipes, canaux et conversations", "Fichiers partagés et onglets : Planner, OneNote, Excel", "Réunions : planification, enregistrement, compte rendu", "Quand utiliser Teams plutôt qu'un email"] },
+        { "code": "C3", "titre": "Google Workspace collaboratif", "duree": "1 jour", "objectif": "L'équivalent des modules C1 et C2 pour les structures sous Google.", "contenu": ["Google Drive et Drive partagés", "Gmail : libellés, filtres, délégation", "Agenda partagé et Google Meet", "Google Chat et espaces d'équipe"] },
+        { "code": "C4", "titre": "Formulaires et collecte de données", "duree": "0,5 jour", "objectif": "Remplacer les fiches papier et les relances par des formulaires en ligne.", "contenu": ["Microsoft Forms et Google Forms : questions et logique conditionnelle", "Enquêtes, inscriptions et remontées terrain", "Récupération automatique des réponses dans Excel ou Sheets"] },
+        { "code": "C5", "titre": "Organiser l'information partagée et l'archivage", "duree": "1 jour", "objectif": "Définir une organisation des dossiers et des droits que toute l'entreprise respecte.", "contenu": ["Arborescence commune et règles de nommage", "Gestion des droits par service", "Numérisation et archivage des documents papier", "Sauvegarde et récupération des fichiers supprimés"] }
+      ]
+    },
+    {
+      "id": "performance",
+      "nom": "Performance",
+      "titre": "L'IA, la data et l'automatisation au service des équipes",
+      "public": "Cadres, analystes, contrôleurs de gestion et équipes qui veulent produire plus avec les mêmes ressources.",
+      "modules": [
+        { "code": "P1", "titre": "L'IA au bureau : prise en main", "duree": "1 jour", "objectif": "Utiliser les assistants d'IA pour rédiger, résumer et analyser, en sachant vérifier leurs réponses.", "contenu": ["Panorama : Copilot, ChatGPT, Claude, Gemini", "Rédiger et reformuler emails, notes et rapports", "Résumer des documents longs et des comptes rendus", "Analyser un tableau et préparer une présentation", "Repérer les erreurs et les inventions de l'IA"] },
+        { "code": "P2", "titre": "L'IA par métier : ateliers de prompting", "duree": "1 jour", "objectif": "Construire une bibliothèque de consignes réutilisables pour les tâches de son service.", "contenu": ["Rédiger une consigne efficace : rôle, contexte, format, exemples", "Techniques avancées : exemples guidés, raisonnement étape par étape", "Atelier au choix : RH, commercial, finance, administration", "Bibliothèque de prompts partagée par l'équipe"] },
+        { "code": "P3", "titre": "IA, confidentialité et bonnes pratiques", "duree": "0,5 jour", "objectif": "Donner à l'entreprise des règles claires d'usage de l'IA.", "contenu": ["Les données à ne jamais transmettre à un outil d'IA", "Versions grand public et versions entreprise", "Rédiger une charte d'usage de l'IA", "Droit d'auteur, responsabilité et vérification humaine"] },
+        { "code": "P4", "titre": "Excel avancé et Power Query", "duree": "2 jours", "objectif": "Consolider et nettoyer automatiquement des données issues de plusieurs fichiers ou logiciels.", "contenu": ["Import depuis fichiers, dossiers et exports de logiciels", "Nettoyage, fusion et transformation avec Power Query", "Actualisation en un clic des rapports récurrents", "Fonctions avancées : FILTRE, UNIQUE, LET, tableaux dynamiques"] },
+        { "code": "P5", "titre": "Power BI : du fichier au tableau de bord", "duree": "3 jours", "objectif": "Publier un tableau de bord interactif et à jour pour la direction.", "contenu": ["Connexion aux sources et préparation des données", "Modélisation : relations entre tables", "Mesures DAX essentielles", "Visualisations, filtres et indicateurs clés", "Publication, partage et actualisation automatique"] },
+        { "code": "P6", "titre": "Automatiser avec Power Automate et Power Apps", "duree": "2 jours", "objectif": "Automatiser les tâches répétitives et créer de petites applications internes.", "contenu": ["Flux automatiques : validations, relances, notifications", "Circuits d'approbation : congés, achats, notes de frais", "Application simple de saisie avec Power Apps", "Liaison avec SharePoint, Excel, Outlook et Teams"] }
+      ]
+    }
+  ],
+  "parcours": [
+    { "id": "assistanat", "titre": "Assistanat et secrétariat", "public": "Assistants de direction, secrétaires, agents administratifs", "modules": ["E3", "E5", "C1", "C4", "P1"], "duree": "5,5 jours" },
+    { "id": "finance", "titre": "Gestion, finance et comptabilité", "public": "Comptables, contrôleurs de gestion, analystes", "modules": ["E2", "P4", "P5", "P1"], "duree": "8 jours" },
+    { "id": "commercial", "titre": "Commercial et relation client", "public": "Commerciaux, chargés de clientèle, superviseurs de centre d'appels", "modules": ["E2", "E4", "C2", "P1", "P2"], "duree": "6 jours" },
+    { "id": "rh", "titre": "Ressources humaines", "public": "Gestionnaires RH, chargés de paie et de recrutement", "modules": ["E3", "C4", "P1", "P2", "P6"], "duree": "6,5 jours" },
+    { "id": "direction", "titre": "Managers et direction", "public": "Directeurs, chefs de service, responsables d'équipe", "modules": ["C2", "P1", "P3"], "duree": "2,5 jours" },
+    { "id": "pme", "titre": "Transformation numérique des PME", "public": "Toute l'équipe d'une PME qui passe à Microsoft 365 ou Google Workspace", "modules": ["E1", "C1", "C2", "C5", "P1"], "duree": "6 jours" },
+    { "id": "ong", "titre": "ONG et projets de développement", "public": "Chargés de suivi-évaluation, coordinateurs, assistants de projet", "modules": ["C4", "E2", "P5", "P3"], "duree": "6 jours" }
+  ],
+  "formats": [
+    { "nom": "Intra-entreprise", "organisation": "Dans vos locaux, avec vos seuls collaborateurs et sur vos fichiers.", "ideal": "Former une équipe ou un service entier" },
+    { "nom": "Inter-entreprises", "organisation": "Sessions programmées à Douala avec des participants de plusieurs structures.", "ideal": "Former une à trois personnes" },
+    { "nom": "Sessions fractionnées", "organisation": "2 heures par semaine pendant 4 à 8 semaines.", "ideal": "Équipes qui ne peuvent pas s'absenter une journée" },
+    { "nom": "Pauses déjeuner numériques", "organisation": "1 h 30 sur un sujet précis : une fonction Excel, un usage de Teams ou de l'IA.", "ideal": "Entretenir les acquis dans la durée" },
+    { "nom": "Classe virtuelle", "organisation": "En ligne et en direct, avec partage d'écran.", "ideal": "Équipes réparties sur plusieurs villes" },
+    { "nom": "Accompagnement individuel", "organisation": "Séances en tête-à-tête, au rythme de la personne.", "ideal": "Dirigeants et cadres de direction" }
+  ],
+  "references": [
+    {
+      "titre": "Excel, diagramme de Pareto et prompt engineering",
+      "date": "Mai 2026",
+      "format": "10 jours, à distance sur WhatsApp et Zoom",
+      "texte": "Un programme progressif, du niveau débutant au niveau intermédiaire : fonctions Excel essentielles, gestion de stocks et calculs d'amortissement, analyse de Pareto avec graphique combiné, puis introduction au prompt engineering.",
+      "points": ["Fonctions SOMME, SI, SOMME.SI, RECHERCHEV", "Classeur de gestion de stocks avec tableau de bord", "Analyse de Pareto 80/20", "Prompting par rôle, exemples guidés et métaprompts"],
+      "image": ""
+    },
+    {
+      "titre": "Initiation à l'intelligence artificielle avec EK NumériK",
+      "date": "31 octobre 2026",
+      "format": "Une journée en présentiel à Douala",
+      "texte": "Première collaboration avec EK NumériK : un atelier pour des jeunes de 6 à 16 ans, conçu pour comprendre ce qu'est l'IA, entraîner un premier modèle, créer et présenter son projet.",
+      "points": ["Comprendre l'IA avec des exemples du quotidien", "Entraîner un modèle simple", "Créer puis présenter un projet"],
+      "image": "/images/formations/ek-numerik-atelier-ia.png"
+    }
+  ],
+  "formateurs": {
+    "david-aat-ndongo": "Intelligence artificielle, prompt engineering, Excel et data science",
+    "mbonjo-etia-patrick-thomas": "IA générative, automatisation et ingénierie des données",
+    "eba-ngolong-jeanne-chantal": "Initiation à l'IA, data science et outils numériques",
+    "garga-ali-faysal": "Excel pour la gestion, tableaux de bord et reporting",
+    "kwarissa-lada-lydia": "Excel avancé, analyse de données et reporting",
+    "kpoumie-amza": "Power BI, business intelligence et analyse de données"
+  },
+  "faq": [
+    { "q": "Combien coûte une formation ?", "r": "Chaque proposition est établie sur devis, selon le nombre de participants, le format, la durée et le lieu. L'audit numérique et le diagnostic des participants sont offerts." },
+    { "q": "Vos formations ont-elles lieu dans nos locaux ?", "r": "Oui. Le format intra-entreprise se déroule chez vous, à Douala ou ailleurs au Cameroun. Nous proposons aussi des classes virtuelles et des sessions inter-entreprises." },
+    { "q": "Nos collaborateurs n'ont pas tous le même niveau. Comment faites-vous ?", "r": "Le diagnostic en ligne, passé avant la formation, sert à constituer des groupes de niveau homogène. Personne ne s'ennuie et personne n'est perdu." },
+    { "q": "Faut-il que nous ayons des licences Microsoft 365 ?", "r": "Non. Nous formons sur les outils que vous utilisez déjà : Microsoft Office, Microsoft 365 ou Google Workspace. Nous pouvons aussi vous conseiller avant un changement d'outil." },
+    { "q": "Que reçoivent les participants ?", "r": "Les supports de cours, une fiche mémo par thème, les exercices corrigés, une attestation de formation Gemula et un mois de suivi pour poser leurs questions." },
+    { "q": "Préparez-vous aux certifications Microsoft ?", "r": "Oui, nous proposons des sessions de préparation aux certifications Microsoft Office Specialist et Power BI Data Analyst. Les modalités d'examen sont confirmées au moment de l'inscription." }
+  ]
+}

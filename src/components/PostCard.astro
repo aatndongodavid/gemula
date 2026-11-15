@@ -25,7 +25,7 @@ const categoryLabels: Record<string, string> = {
   'publications': 'Publications'
 };
 ---
-<article class="card card-hover reveal h-full flex flex-col">
+<article class="card card-hover h-full flex flex-col">
   <div class="flex items-center justify-between gap-3 mb-4">
     <span class="tag text-[0.7rem]">
       {categoryLabels[data.category] ?? data.category}
@@ -36,7 +36,7 @@ const categoryLabels: Record<string, string> = {
   </div>
 
   <h3 class="font-display text-lg font-semibold leading-snug mb-3">
-    <a href={`/journal/${slug}`} class="hover:text-gemula-orange transition-colors">
+    <a href={`/journal/${slug}`} class="hover:text-gemula-black transition-colors">
       {data.title}
     </a>
   </h3>
@@ -45,11 +45,11 @@ const categoryLabels: Record<string, string> = {
     {data.excerpt}
   </p>
 
-  <div class="flex items-center justify-between mt-auto pt-4 border-t border-gemula-black/[0.06]">
+  <div class="flex items-center justify-between mt-auto pt-4 border-t border-gemula-silver">
     <span class="text-xs text-gemula-grey">Par {data.author}</span>
     <a
       href={`/journal/${slug}`}
-      class="text-sm font-medium text-gemula-black hover:text-gemula-orange transition-colors inline-flex items-center gap-1"
+      class="text-sm font-medium text-gemula-black hover:text-gemula-black transition-colors inline-flex items-center gap-1"
     >
       Lire
       <span class="material-symbols-outlined text-[1em]" aria-hidden="true">arrow_forward</span>

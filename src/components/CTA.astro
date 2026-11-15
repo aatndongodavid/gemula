@@ -1,4 +1,6 @@
 ---
+import site from '@data/site.json';
+
 interface Props {
   eyebrow?: string;
   title: string;
@@ -6,51 +8,61 @@ interface Props {
   primaryCta: { href: string; label: string };
   secondaryCta?: { href: string; label: string };
   dark?: boolean;
+  showContact?: boolean;
 }
 
 const {
-  eyebrow = 'Collaborer',
+  eyebrow,
   title,
   description,
   primaryCta,
   secondaryCta,
-  dark = true
+  dark = true,
+  showContact = false
 } = Astro.props;
 
 const wrapperClass = dark
   ? 'bg-gemula-black text-white'
-  : 'bg-white border border-gemula-black/[0.08] text-gemula-black';
-
-const descClass = dark ? 'text-white/70' : 'text-gemula-grey';
-const eyebrowClass = dark ? 'text-gemula-orange' : 'text-gemula-orange';
+  : 'bg-gemula-sand text-gemula-black';
+const titleClass = dark ? '!text-white' : '';
+const descClass = dark ? 'text-white/75' : 'text-gemula-grey';
 const secondaryClass = dark ? 'btn-ghost-light' : 'btn-ghost';
 ---
-<section class="container-g py-20 md:py-28">
-  <div class={`rounded-3xl ${wrapperClass} px-8 py-14 md:px-16 md:py-20 reveal`}>
-    <div class="max-w-3xl">
-      <span class={`eyebrow ${eyebrowClass}`}>{eyebrow}</span>
-
-      <h2 class="font-display text-display-sm md:text-display-md font-bold tracking-tightest mt-5 leading-tight text-balance">
+<section class="container-g py-16 md:py-20">
+  <div class={`rounded-xl ${wrapperClass} px-6 py-12 md:px-14 md:py-16 grid lg:grid-cols-12 gap-10 items-end`}>
+    <div class="lg:col-span-7">
+      {eyebrow && <span class={`text-sm font-semibold ${dark ? 'text-gemula-orange' : 'text-gemula-accent'}`}>{eyebrow}</span>}
+      <h2 class={`font-display text-display-sm font-semibold tracking-tightest mt-3 text-balance ${titleClass}`}>
         {title}
       </h2>
-
       {description && (
-        <p class={`mt-6 text-base md:text-lg leading-relaxed ${descClass} max-w-2xl`}>
+        <p class={`mt-4 text-base md:text-lg leading-relaxed ${descClass} max-w-xl`}>
           {description}
         </p>
       )}
-
-      <div class="mt-10 flex flex-wrap gap-3">
-        <a href={primaryCta.href} class="btn-primary">
-          {primaryCta.label}
-          <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>
-        </a>
+      <div class="mt-8 flex flex-wrap gap-3">
+        <a href={primaryCta.href} class="btn-primary">{primaryCta.label}</a>
         {secondaryCta && (
-          <a href={secondaryCta.href} class={secondaryClass}>
-            {secondaryCta.label}
-          </a>
+          <a href={secondaryCta.href} class={secondaryClass}>{secondaryCta.label}</a>
         )}
       </div>
     </div>
+
+    {showContact && (
+      <dl class={`lg:col-span-5 grid gap-4 text-[0.9375rem] ${dark ? 'text-white/80' : 'text-gemula-grey'}`}>
+        <div class={`flex justify-between gap-4 border-b pb-3 ${dark ? 'border-white/15' : 'border-gemula-silver'}`}>
+          <dt>Téléphone</dt>
+          <dd><a href={site.phoneHref} class={`font-semibold ${dark ? 'text-white' : 'text-gemula-black'} hover:underline`}>{site.phone}</a></dd>
+        </div>
+        <div class={`flex justify-between gap-4 border-b pb-3 ${dark ? 'border-white/15' : 'border-gemula-silver'}`}>
+          <dt>WhatsApp</dt>
+          <dd><a href={site.whatsappFormation} target="_blank" rel="noopener" class={`font-semibold ${dark ? 'text-white' : 'text-gemula-black'} hover:underline`}>Écrire sur WhatsApp</a></dd>
+        </div>
+        <div class="flex justify-between gap-4">
+          <dt>Email</dt>
+          <dd><a href={`mailto:${site.email}`} class={`font-semibold break-all ${dark ? 'text-white' : 'text-gemula-black'} hover:underline`}>{site.email}</a></dd>
+        </div>
+      </dl>
+    )}
   </div>
 </section>

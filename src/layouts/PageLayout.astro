@@ -26,18 +26,18 @@ const {
 } = Astro.props;
 ---
 <BaseLayout title={`${title} · Gemula`} description={description} image={image} jsonLd={jsonLd}>
-  <section class="container-g pt-12 md:pt-20 pb-12 md:pb-16">
+  <section class="container-g pt-10 md:pt-14 pb-10 md:pb-14">
     {breadcrumb && breadcrumb.length > 0 && (
       <Breadcrumb items={breadcrumb} class="mb-10" />
     )}
 
     <div class="max-w-3xl">
-      {eyebrow && <span class="eyebrow mb-5 block">{eyebrow}</span>}
-      <h1 class="font-display text-display-sm md:text-display-md font-bold tracking-tightest text-balance">
+      {eyebrow && <p class="eyebrow mb-5">{eyebrow}</p>}
+      <h1 class="font-display text-display-md md:text-display-lg font-semibold tracking-tightest text-balance">
         {title}
       </h1>
       {description && (
-        <p class="mt-6 text-lg md:text-xl text-gemula-grey leading-relaxed">
+        <p class="mt-6 text-lg text-gemula-grey leading-relaxed max-w-2xl">
           {description}
         </p>
       )}

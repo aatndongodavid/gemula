@@ -19,6 +19,7 @@ linkedin: "https://www.linkedin.com/in/david-meilleur-aat-ndongo"
 portfolio: "https://davidaat.vercel.app/"
 github: "https://github.com/aatndongodavid"
 location: "Douala, Cameroun"
+photo: "/images/talents/david.JPG"
 
 ---
 

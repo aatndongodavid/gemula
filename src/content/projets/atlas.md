@@ -24,7 +24,6 @@ links:
   github: ""
 cover: "/images/atlas/dashboard.png"
 gallery:
-  - "/images/atlas/stocks.png"
   - "/images/atlas/facturation.png"
   - "/images/atlas/crm.png"
 ---
@@ -41,12 +40,12 @@ Atlas prend le problème autrement : **un outil sérieux, complet, qui tient dan
 
 Atlas centralise six fonctions essentielles dans une seule application :
 
-1. **Stocks** — mouvements d'entrée/sortie, alertes de seuil, valorisation FIFO.
-2. **Facturation** — émission, suivi des paiements, relances, statuts.
-3. **CRM** — portefeuille clients, historique d'achat, segmentation simple.
-4. **Analytique prédictive** — modèles ARIMA et SARIMAX pour anticiper les ventes et les besoins de réapprovisionnement.
-5. **Narration IA** — les indicateurs métier sont traduits en phrases claires, exploitables par un dirigeant non technique.
-6. **Rapports PDF** — exports prêts à partager avec un comptable, une banque ou un partenaire.
+1. **Stocks** : mouvements d'entrée/sortie, alertes de seuil, valorisation FIFO.
+2. **Facturation** : émission, suivi des paiements, relances, statuts.
+3. **CRM** : portefeuille clients, historique d'achat, segmentation simple.
+4. **Analytique prédictive** : modèles ARIMA et SARIMAX pour anticiper les ventes et les besoins de réapprovisionnement.
+5. **Narration IA** : les indicateurs métier sont traduits en phrases claires, exploitables par un dirigeant non technique.
+6. **Rapports PDF** : exports prêts à partager avec un comptable, une banque ou un partenaire.
 
 ## Architecture
 

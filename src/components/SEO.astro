@@ -10,7 +10,7 @@ interface Props {
 }
 
 const {
-  title = `${site.name} — Collectif étudiant d'innovation technologique`,
+  title = `${site.name}, formations et ingénierie data et IA à Douala`,
   description = site.description,
   image = '/images/og/gemula-og.png',
   type = 'website',
@@ -36,8 +36,9 @@ const baseOrg = {
   },
   contactPoint: {
     '@type': 'ContactPoint',
-    contactType: 'General',
+    contactType: 'customer service',
     email: site.email,
+    telephone: site.phone.replace(/\s/g, ''),
     availableLanguage: ['fr', 'en']
   },
   sameAs: Object.values(site.social).filter(Boolean)

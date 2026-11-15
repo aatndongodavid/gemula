@@ -1,0 +1,352 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
+import SectionHeading from '@components/SectionHeading.astro';
+import TalentCard from '@components/TalentCard.astro';
+import CTA from '@components/CTA.astro';
+import site from '@data/site.json';
+import formations from '@data/formations.json';
+
+const modulesParCode = Object.fromEntries(
+  formations.paliers.flatMap((p) => p.modules.map((m) => [m.code, { ...m, palier: p.nom }]))
+);
+const nbModules = Object.keys(modulesParCode).length;
+
+const formateurSlugs = Object.keys(formations.formateurs);
+const formateurs = (await getCollection('talents'))
+  .filter((t) => formateurSlugs.includes(t.slug))
+  .sort((a, b) => a.data.order - b.data.order);
+
+const devisUrl = '/collaborer?type=formation#formulaire';
+
+const jsonLd = [
+  {
+    '@context': 'https://schema.org',
+    '@type': 'ItemList',
+    name: 'Catalogue des formations Gemula pour entreprises',
+    itemListElement: Object.values(modulesParCode).map((m, i) => ({
+      '@type': 'ListItem',
+      position: i + 1,
+      item: {
+        '@type': 'Course',
+        courseCode: m.code,
+        name: m.titre,
+        description: m.objectif,
+        inLanguage: 'fr',
+        provider: { '@id': `${site.url}/#organization` }
+      }
+    }))
+  },
+  {
+    '@context': 'https://schema.org',
+    '@type': 'FAQPage',
+    mainEntity: formations.faq.map((f) => ({
+      '@type': 'Question',
+      name: f.q,
+      acceptedAnswer: { '@type': 'Answer', text: f.r }
+    }))
+  }
+];
+---
+<BaseLayout
+  title="Formations pour entreprises · Gemula"
+  description="Formations pratiques pour les équipes des entreprises à Douala et au Cameroun : Excel, Word, Microsoft 365, Google Workspace, IA au bureau, Power BI et automatisation. Diagnostic offert."
+  jsonLd={jsonLd}
+>
+  <!-- EN-TÊTE -->
+  <section class="border-b border-gemula-silver">
+    <div class="container-g pt-10 md:pt-14 pb-14 md:pb-20">
+      <Breadcrumb items={[{ href: '/', label: 'Accueil' }, { label: 'Formations' }]} class="mb-10" />
+      <div class="grid lg:grid-cols-12 gap-12 items-end">
+        <div class="lg:col-span-7">
+          <p class="eyebrow mb-5">Formations pour entreprises</p>
+          <h1 class="font-display text-display-md md:text-display-lg font-semibold tracking-tightest text-balance">
+            Des équipes plus efficaces sur les outils qu'elles utilisent chaque jour.
+          </h1>
+          <p class="mt-6 text-lg text-gemula-grey leading-relaxed max-w-xl">
+            Bureautique, travail collaboratif, intelligence artificielle, data et automatisation. Des formations pratiques, construites sur vos fichiers et vos métiers, et suivies d'un mois d'accompagnement.
+          </p>
+          <div class="mt-9 flex flex-wrap gap-3">
+            <a href={devisUrl} class="btn-primary">Demander l'audit offert</a>
+            <a href={formations.catalogueUrl} class="btn-ghost" download>
+              <span class="material-symbols-outlined text-[1.2rem]" aria-hidden="true">download</span>
+              Catalogue en PDF
+            </a>
+          </div>
+        </div>
+
+        <dl class="lg:col-span-5 grid grid-cols-2 gap-px overflow-hidden rounded-xl border border-gemula-silver bg-gemula-silver">
+          <div class="bg-white p-5">
+            <dt class="text-sm text-gemula-grey">Catalogue</dt>
+            <dd class="mt-1 font-display text-lg font-semibold">{nbModules} modules</dd>
+          </div>
+          <div class="bg-white p-5">
+            <dt class="text-sm text-gemula-grey">Parcours métiers</dt>
+            <dd class="mt-1 font-display text-lg font-semibold">{formations.parcours.length} programmes</dd>
+          </div>
+          <div class="bg-white p-5">
+            <dt class="text-sm text-gemula-grey">Lieu</dt>
+            <dd class="mt-1 font-display text-lg font-semibold">Vos locaux ou en ligne</dd>
+          </div>
+          <div class="bg-white p-5">
+            <dt class="text-sm text-gemula-grey">Après la formation</dt>
+            <dd class="mt-1 font-display text-lg font-semibold">30 jours de suivi</dd>
+          </div>
+        </dl>
+      </div>
+    </div>
+  </section>
+
+  <!-- OUTILS -->
+  <section class="container-g py-10 border-b border-gemula-silver">
+    <div class="flex flex-col md:flex-row md:items-center gap-4">
+      <p class="text-sm font-semibold shrink-0 md:w-48">Outils enseignés</p>
+      <ul class="flex flex-wrap gap-2">
+        {formations.outils.map((o) => <li class="tag text-[0.8125rem]">{o}</li>)}
+      </ul>
+    </div>
+  </section>
+
+  <!-- APPROCHE -->
+  <section id="approche" class="container-g section">
+    <SectionHeading
+      eyebrow="Notre approche"
+      title="Partir du niveau réel, repartir avec des compétences utilisées"
+      description="Chaque formation suit les mêmes cinq étapes, du diagnostic au suivi."
+    />
+    <ol class="grid sm:grid-cols-2 lg:grid-cols-5 gap-px overflow-hidden rounded-xl border border-gemula-silver bg-gemula-silver">
+      {formations.etapes.map((e, i) => (
+        <li class="bg-white p-6 flex flex-col">
+          <span class="flex h-8 w-8 items-center justify-center rounded-md bg-gemula-black font-display text-sm font-semibold text-white">{i + 1}</span>
+          <h3 class="mt-5 font-display text-base font-semibold">{e.titre}</h3>
+          <p class="mt-2 text-[0.9375rem] text-gemula-grey leading-relaxed">{e.texte}</p>
+        </li>
+      ))}
+    </ol>
+    <p class="mt-6 text-[0.9375rem] text-gemula-grey max-w-3xl">
+      Chaque participant reçoit les supports de cours, une fiche mémo par thème, les exercices corrigés et une attestation de formation. L'entreprise reçoit la liste de présence et les résultats avant et après la formation.
+    </p>
+  </section>
+
+  <!-- CATALOGUE -->
+  <section id="catalogue" class="bg-gemula-sand border-y border-gemula-silver">
+    <div class="container-g section">
+      <SectionHeading
+        eyebrow="Catalogue"
+        title={`${nbModules} modules en trois paliers`}
+        description="Les durées sont indicatives et s'ajustent après le diagnostic. Un jour correspond à 7 heures de formation. Cliquez sur un module pour voir son contenu."
+      />
+
+      <div class="space-y-12">
+        {formations.paliers.map((palier) => (
+          <div id={palier.id}>
+            <div class="grid lg:grid-cols-12 gap-6 lg:gap-10">
+              <div class="lg:col-span-4">
+                <h3 class="font-display text-2xl font-semibold">{palier.nom}</h3>
+                <p class="mt-2 font-medium">{palier.titre}</p>
+                <p class="mt-3 text-[0.9375rem] text-gemula-grey leading-relaxed">{palier.public}</p>
+              </div>
+              <div class="lg:col-span-8 overflow-hidden rounded-xl border border-gemula-silver bg-white divide-y divide-gemula-silver">
+                {palier.modules.map((m) => (
+                  <details id={m.code.toLowerCase()} class="group">
+                    <summary class="flex items-center gap-4 px-5 py-4 hover:bg-gemula-cream">
+                      <span class="w-8 shrink-0 font-display text-sm font-semibold text-gemula-accent">{m.code}</span>
+                      <span class="flex-grow font-medium">{m.titre}</span>
+                      <span class="hidden sm:block shrink-0 text-sm text-gemula-grey">{m.duree}</span>
+                      <span class="chevron material-symbols-outlined shrink-0 text-gemula-grey" aria-hidden="true">expand_more</span>
+                    </summary>
+                    <div class="px-5 pb-5 sm:pl-[4.25rem]">
+                      <p class="text-sm text-gemula-grey sm:hidden mb-2">{m.duree}</p>
+                      <p class="text-[0.9375rem]"><span class="font-semibold">Objectif : </span>{m.objectif}</p>
+                      <ul class="mt-3 space-y-1.5 text-[0.9375rem] text-gemula-grey">
+                        {m.contenu.map((c) => (
+                          <li class="flex gap-2.5">
+                            <span class="mt-[0.6em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
+                            <span>{c}</span>
+                          </li>
+                        ))}
+                      </ul>
+                    </div>
+                  </details>
+                ))}
+              </div>
+            </div>
+          </div>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- PARCOURS -->
+  <section id="parcours" class="container-g section">
+    <SectionHeading
+      eyebrow="Parcours par métier"
+      title="Sept programmes prêts à l'emploi"
+      description="Les modules regroupés selon les métiers. Chaque parcours peut être réparti sur plusieurs semaines pour ne pas immobiliser vos équipes."
+    />
+    <div class="grid md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {formations.parcours.map((p) => (
+        <article id={`parcours-${p.id}`} class="card flex flex-col target:border-gemula-black target:ring-2 target:ring-gemula-orange">
+          <div class="flex items-start justify-between gap-4">
+            <h3 class="font-display text-lg font-semibold">{p.titre}</h3>
+            <span class="shrink-0 rounded-md bg-gemula-sand px-2 py-1 text-sm font-medium">{p.duree}</span>
+          </div>
+          <p class="mt-2 text-[0.9375rem] text-gemula-grey leading-relaxed">{p.public}</p>
+          <ul class="mt-5 pt-4 border-t border-gemula-silver space-y-2 flex-grow">
+            {p.modules.map((code) => (
+              <li>
+                <a href={`#${code.toLowerCase()}`} class="flex gap-3 text-[0.9375rem] hover:underline">
+                  <span class="w-7 shrink-0 font-semibold text-gemula-accent">{code}</span>
+                  <span>{modulesParCode[code]?.titre}</span>
+                </a>
+              </li>
+            ))}
+          </ul>
+          <a href={`/collaborer?type=formation&parcours=${p.id}#formulaire`} class="link-arrow mt-6 text-[0.9375rem]">Demander ce parcours</a>
+        </article>
+      ))}
+    </div>
+    <p class="mt-8 text-[0.9375rem] text-gemula-grey max-w-3xl">
+      Secteurs accompagnés en priorité : banques, microfinance et assurances, centres d'appels, PME commerciales et industrielles, ONG et projets financés, administrations, écoles et universités.
+    </p>
+  </section>
+
+  <!-- FORMATS -->
+  <section id="formats" class="container-g section border-t border-gemula-silver">
+    <SectionHeading
+      eyebrow="Formats"
+      title="Un format adapté à la disponibilité de vos équipes"
+      description="Groupes de 6 à 12 participants, avec un ordinateur par personne."
+    />
+    <div class="overflow-x-auto rounded-xl border border-gemula-silver">
+      <table class="w-full min-w-[640px] text-left text-[0.9375rem]">
+        <thead class="bg-gemula-sand">
+          <tr>
+            <th scope="col" class="px-5 py-3.5 font-semibold">Format</th>
+            <th scope="col" class="px-5 py-3.5 font-semibold">Organisation</th>
+            <th scope="col" class="px-5 py-3.5 font-semibold">Idéal pour</th>
+          </tr>
+        </thead>
+        <tbody class="divide-y divide-gemula-silver">
+          {formations.formats.map((f) => (
+            <tr>
+              <th scope="row" class="px-5 py-4 font-medium align-top whitespace-nowrap">{f.nom}</th>
+              <td class="px-5 py-4 text-gemula-grey align-top">{f.organisation}</td>
+              <td class="px-5 py-4 text-gemula-grey align-top">{f.ideal}</td>
+            </tr>
+          ))}
+        </tbody>
+      </table>
+    </div>
+
+    <div class="mt-10 grid md:grid-cols-3 gap-5">
+      <div class="card">
+        <h3 class="font-display text-base font-semibold">À la carte</h3>
+        <p class="mt-2 text-[0.9375rem] text-gemula-grey leading-relaxed">Un ou plusieurs modules, selon vos besoins du moment.</p>
+      </div>
+      <div class="card">
+        <h3 class="font-display text-base font-semibold">Programme sur mesure</h3>
+        <p class="mt-2 text-[0.9375rem] text-gemula-grey leading-relaxed">Un parcours construit après le diagnostic, pour un service ou toute l'entreprise.</p>
+      </div>
+      <div class="card">
+        <h3 class="font-display text-base font-semibold">Abonnement annuel</h3>
+        <p class="mt-2 text-[0.9375rem] text-gemula-grey leading-relaxed">Un volume d'heures de formation dans l'année, les pauses déjeuner numériques et un support par message.</p>
+      </div>
+    </div>
+    <p class="mt-6 text-[0.9375rem] text-gemula-grey">
+      Tarifs sur devis, selon le nombre de participants, le format et le lieu. Préparation possible aux certifications Microsoft Office Specialist et Power BI Data Analyst.
+    </p>
+  </section>
+
+  <!-- RÉFÉRENCES -->
+  <section id="references" class="bg-gemula-sand border-y border-gemula-silver">
+    <div class="container-g section">
+      <SectionHeading
+        eyebrow="Références"
+        title="Formations déjà menées par l'équipe"
+      />
+      <div class="grid lg:grid-cols-2 gap-5">
+        {formations.references.map((r) => (
+          <article class="card flex flex-col sm:flex-row gap-6">
+            {r.image && (
+              <img src={r.image} alt={`Visuel de l'événement : ${r.titre}`} class="w-full sm:w-40 shrink-0 rounded-lg border border-gemula-silver object-cover object-top aspect-[4/5]" loading="lazy" decoding="async" />
+            )}
+            <div>
+              <p class="text-sm text-gemula-grey">{r.date}</p>
+              <h3 class="mt-1 font-display text-lg font-semibold">{r.titre}</h3>
+              <p class="mt-1 text-sm font-medium">{r.format}</p>
+              <p class="mt-3 text-[0.9375rem] text-gemula-grey leading-relaxed">{r.texte}</p>
+              <ul class="mt-4 space-y-1.5 text-[0.9375rem]">
+                {r.points.map((pt) => (
+                  <li class="flex gap-2.5">
+                    <span class="mt-[0.6em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
+                    <span>{pt}</span>
+                  </li>
+                ))}
+              </ul>
+            </div>
+          </article>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <!-- FORMATEURS -->
+  <section id="formateurs" class="container-g section">
+    <SectionHeading
+      eyebrow="Formateurs"
+      title="Une équipe qui pratique ce qu'elle enseigne"
+      description="Data scientists, analystes et ingénieurs IA, nos formateurs utilisent ces outils dans leurs projets et leurs missions en entreprise."
+    />
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {formateurs.map((t) => (
+        <TalentCard talent={t} teaches={formations.formateurs[t.slug as keyof typeof formations.formateurs]} />
+      ))}
+    </div>
+  </section>
+
+  <!-- FAQ -->
+  <section id="faq" class="container-g section border-t border-gemula-silver">
+    <div class="grid lg:grid-cols-12 gap-10">
+      <div class="lg:col-span-4">
+        <h2 class="font-display text-display-sm font-semibold tracking-tightest">Questions fréquentes</h2>
+        <p class="mt-4 text-gemula-grey leading-relaxed">
+          Une autre question ? Appelez-nous au <a href={site.phoneHref} class="font-semibold text-gemula-black underline decoration-gemula-orange decoration-2 underline-offset-4">{site.phone}</a>.
+        </p>
+      </div>
+      <div class="lg:col-span-8 divide-y divide-gemula-silver border-y border-gemula-silver">
+        {formations.faq.map((f) => (
+          <details class="group">
+            <summary class="flex items-center justify-between gap-6 py-5 font-medium">
+              <span>{f.q}</span>
+              <span class="chevron material-symbols-outlined shrink-0 text-gemula-grey" aria-hidden="true">expand_more</span>
+            </summary>
+            <p class="pb-5 -mt-1 text-[0.9375rem] text-gemula-grey leading-relaxed max-w-2xl">{f.r}</p>
+          </details>
+        ))}
+      </div>
+    </div>
+  </section>
+
+  <CTA
+    eyebrow="Prochaine étape"
+    title="Commencez par un audit numérique offert."
+    description="Une demi-journée pour observer comment travaillent vos équipes et repérer les gains possibles. Vous recevez ensuite une proposition détaillée."
+    primaryCta={{ href: devisUrl, label: "Demander l'audit offert" }}
+    secondaryCta={{ href: formations.catalogueUrl, label: 'Télécharger le catalogue' }}
+    showContact={true}
+  />
+</BaseLayout>
+
+<script>
+  // Ouvre automatiquement le module ciblé par l'ancre (ex. /formations#e2)
+  function openTarget() {
+    const id = decodeURIComponent(location.hash.slice(1));
+    if (!id) return;
+    const el = document.getElementById(id);
+    if (el instanceof HTMLDetailsElement) el.open = true;
+  }
+  window.addEventListener('hashchange', openTarget);
+  openTarget();
+</script>

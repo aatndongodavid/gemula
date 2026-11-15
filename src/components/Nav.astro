@@ -2,85 +2,76 @@
 import Flag from './Flag.astro';
 
 const links = [
-  { href: '/',                    label: 'Accueil' },
-  { href: '/expertise',           label: 'Expertise' },
-  { href: '/agenda-scientifique', label: 'Agenda scientifique' },
-  { href: '/projet',              label: 'Projet' },
-  { href: '/talents',             label: 'Talents' },
-  { href: '/communaute',          label: 'Communauté' },
-  { href: '/journal',             label: 'Journal' },
-  { href: '/collaborer',          label: 'Collaborer' }
+  { href: '/formations', label: 'Formations' },
+  { href: '/expertise',  label: 'Expertise' },
+  { href: '/projet',     label: 'Réalisations' },
+  { href: '/talents',    label: 'Équipe' },
+  { href: '/journal',    label: 'Journal' },
+  { href: '/communaute', label: 'Communauté' }
 ];
 
-const currentPath = Astro.url.pathname;
+const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
 
 function isActive(href: string) {
-  if (href === '/') return currentPath === '/';
+  if (href === '/projet') return currentPath === '/projet' || currentPath.startsWith('/projets');
   return currentPath === href || currentPath.startsWith(href + '/');
 }
 ---
-<header id="nav" class="fixed inset-x-0 top-0 z-50 bg-gemula-sand/85 backdrop-blur-md border-b border-gemula-black/[0.06] transition-all duration-300">
-  <div class="container-g flex h-16 md:h-20 items-center justify-between gap-6">
-    <a href="/" class="flex items-center gap-3 group" aria-label="Gemula — Accueil">
+<header id="nav" class="fixed inset-x-0 top-0 z-50 bg-white/95 backdrop-blur border-b border-gemula-silver">
+  <div class="container-g flex h-16 md:h-[72px] items-center justify-between gap-6">
+    <a href="/" class="flex items-center gap-3" aria-label="Gemula, retour à l'accueil">
       <Flag size="md" />
-      <span class="font-display text-xl font-bold tracking-tightest text-gemula-black group-hover:text-gemula-orange transition-colors">
-        Gemula
-      </span>
+      <span class="font-display text-[1.35rem] font-semibold tracking-tightest text-gemula-black">Gemula</span>
     </a>
 
-    <nav class="hidden lg:flex items-center gap-6 xl:gap-8" aria-label="Navigation principale">
+    <nav class="hidden lg:flex items-center gap-1" aria-label="Navigation principale">
       {links.map((link) => (
         <a
           href={link.href}
-          class={`relative text-sm font-medium transition-colors ${
+          aria-current={isActive(link.href) ? 'page' : undefined}
+          class={`rounded-md px-3 py-2 text-[0.9375rem] font-medium transition-colors ${
             isActive(link.href)
-              ? 'text-gemula-black'
+              ? 'text-gemula-black bg-gemula-sand'
               : 'text-gemula-grey hover:text-gemula-black'
           }`}
         >
           {link.label}
-          {isActive(link.href) && (
-            <span class="absolute -bottom-1.5 left-0 right-0 h-0.5 bg-gemula-orange rounded-full" />
-          )}
         </a>
       ))}
     </nav>
 
-    <div class="flex items-center gap-3">
-      <a href="/collaborer" class="hidden md:inline-flex btn-dark text-sm py-2.5 px-5">
-        Discutons
+    <div class="flex items-center gap-2">
+      <a href="/collaborer" class="hidden sm:inline-flex btn-primary py-2.5 px-4 text-sm">
+        Nous contacter
       </a>
-
       <button
         id="burger"
-        class="lg:hidden flex flex-col gap-1.5 p-2 -mr-2"
+        class="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-md border border-gemula-silver"
         aria-label="Ouvrir le menu"
         aria-expanded="false"
+        aria-controls="mobile-panel"
       >
-        <span class="block w-5 h-0.5 bg-gemula-black"></span>
-        <span class="block w-5 h-0.5 bg-gemula-black"></span>
-        <span class="block w-5 h-0.5 bg-gemula-black"></span>
+        <span class="material-symbols-outlined text-[1.4rem]" aria-hidden="true">menu</span>
       </button>
     </div>
   </div>
 
   <div
     id="mobile-panel"
-    class="lg:hidden overflow-hidden max-h-0 transition-[max-height] duration-300 ease-out border-t border-gemula-black/[0.06] bg-gemula-sand"
+    class="lg:hidden overflow-hidden max-h-0 transition-[max-height] duration-200 ease-out bg-white"
   >
-    <nav class="container-g py-4 flex flex-col gap-1" aria-label="Navigation mobile">
+    <nav class="container-g py-3 flex flex-col border-t border-gemula-silver" aria-label="Navigation mobile">
       {links.map((link) => (
         <a
           href={link.href}
-          class={`py-3 px-3 rounded-lg text-sm font-medium transition-colors ${
-            isActive(link.href)
-              ? 'bg-gemula-orange/10 text-gemula-orange'
-              : 'text-gemula-black hover:bg-gemula-black/[0.04]'
+          class={`py-3 text-base font-medium border-b border-gemula-silver/70 ${
+            isActive(link.href) ? 'text-gemula-accent' : 'text-gemula-black'
           }`}
         >
           {link.label}
         </a>
       ))}
+      <a href="/collaborer" class="btn-primary mt-4 mb-2">Nous contacter</a>
     </nav>
   </div>
 </header>

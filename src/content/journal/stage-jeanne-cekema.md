@@ -5,7 +5,7 @@ category: stages
 publishedAt: 2026-08-10
 author: "Jeanne Eba"
 tags: ["Stage", "CEKEMA", "Développement", "Data"]
-cover: "/images/journal/article-04.jpg"
+cover: ""
 ---
 
 Durant trois mois de stage chez CEKEMA, Jeanne Chantale a cumulé les expertises (Développement d'applications, Data Science et UI Design) pour participer de manière décisive à la création et au déploiement de trois écosystèmes digitaux :

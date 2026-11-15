@@ -48,11 +48,11 @@ const jsonLd = {
 ---
 <PageLayout
   title={data.name}
-  description={`${data.name} — ${data.role} au sein du collectif Gemula.`}
+  description={`${data.name}, ${data.role} au sein du collectif Gemula.`}
   eyebrow={data.role}
   breadcrumb={[
     { href: '/', label: 'Accueil' },
-    { href: '/talents', label: 'Talents' },
+    { href: '/talents', label: 'Équipe' },
     { label: data.name }
   ]}
   jsonLd={jsonLd}
@@ -61,19 +61,23 @@ const jsonLd = {
   <section class="container-g pb-16">
     <div class="grid lg:grid-cols-12 gap-10 items-start">
       <!-- Avatar + liens -->
-      <div class="lg:col-span-4 reveal">
-        <div class="w-32 h-32 rounded-full bg-gemula-black text-gemula-orange flex items-center justify-center font-display font-bold text-3xl mb-6">
-          {data.initials}
-        </div>
+      <div class="lg:col-span-4">
+        {data.photo ? (
+          <img src={data.photo} alt={`Portrait de ${data.name}`} class="w-32 h-32 rounded-full object-cover mb-6 bg-gemula-sand" />
+        ) : (
+          <div class="w-32 h-32 rounded-full bg-gemula-black text-white flex items-center justify-center font-display font-semibold text-3xl mb-6" aria-hidden="true">
+            {data.initials}
+          </div>
+        )}
 
-        <h2 class="font-display text-2xl font-bold tracking-tightest mb-2">
+        <h2 class="font-display text-2xl font-semibold tracking-tightest mb-2">
           {data.name}
         </h2>
-        <p class="text-gemula-orange font-medium mb-6">{data.role}</p>
+        <p class="text-gemula-grey font-medium mb-6">{data.role}</p>
 
         {data.location && (
           <div class="flex items-center gap-2 text-sm text-gemula-grey mb-6">
-            <span class="material-symbols-outlined text-[1.1em] text-gemula-orange" aria-hidden="true">
+            <span class="material-symbols-outlined text-[1.1em] text-gemula-accent" aria-hidden="true">
               location_on
             </span>
             {data.location}
@@ -105,7 +109,7 @@ const jsonLd = {
       <!-- Bio + expertise -->
       <div class="lg:col-span-8 space-y-10">
         {data.expertise.length > 0 && (
-          <div class="reveal">
+          <div>
             <span class="eyebrow block mb-4">Expertises</span>
             <ul class="flex flex-wrap gap-2">
               {data.expertise.map((skill) => (
@@ -115,7 +119,7 @@ const jsonLd = {
           </div>
         )}
 
-        <div class="reveal prose-gemula">
+        <div class="prose-gemula">
           <Content />
         </div>
       </div>
@@ -124,7 +128,7 @@ const jsonLd = {
 
   <!-- Projets liés -->
   {projetsLies.length > 0 && (
-    <section class="container-g py-16 border-t border-gemula-black/[0.06]">
+    <section class="container-g py-16 border-t border-gemula-silver">
       <SectionHeading
         eyebrow="Contributions"
         title="Projets auxquels ce talent participe."
@@ -139,7 +143,7 @@ const jsonLd = {
 
   <!-- Autres talents -->
   {autres.length > 0 && (
-    <section class="container-g py-16 border-t border-gemula-black/[0.06]">
+    <section class="container-g py-16 border-t border-gemula-silver">
       <SectionHeading
         eyebrow="Le collectif"
         title="D'autres talents."

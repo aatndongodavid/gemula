@@ -1,3 +1,12 @@
+/* Polices hébergées sur le site : aucune dépendance externe pour le texte */
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 400; font-display: swap; src: url('/fonts/Inter-Regular.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/Inter-Medium.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/Inter-SemiBold.woff2') format('woff2'); }
+@font-face { font-family: 'Inter'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/Inter-Bold.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 500; font-display: swap; src: url('/fonts/Poppins-500.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 600; font-display: swap; src: url('/fonts/Poppins-600.woff2') format('woff2'); }
+@font-face { font-family: 'Poppins'; font-style: normal; font-weight: 700; font-display: swap; src: url('/fonts/Poppins-700.woff2') format('woff2'); }
+
 @tailwind base;
 @tailwind components;
 @tailwind utilities;
@@ -8,32 +17,37 @@
 @layer base {
   html {
     scroll-behavior: smooth;
+    scroll-padding-top: 6rem;
     -webkit-text-size-adjust: 100%;
   }
 
   body {
-    @apply bg-gemula-sand text-gemula-black font-sans antialiased;
-    font-feature-settings: 'ss01', 'cv01', 'cv11';
+    @apply bg-white text-gemula-black font-sans antialiased;
+    font-size: 1rem;
+    line-height: 1.6;
   }
 
   h1, h2, h3, h4 {
     @apply font-display text-gemula-black;
-    font-weight: 700;
+    font-weight: 600;
   }
 
   a { color: inherit; text-decoration: none; }
 
-  ::selection {
-    @apply bg-gemula-orange text-white;
+  :focus-visible {
+    outline: 2px solid #F5791C;
+    outline-offset: 3px;
+    border-radius: 4px;
   }
 
-  ::-webkit-scrollbar { width: 10px; }
-  ::-webkit-scrollbar-track { @apply bg-gemula-sand; }
-  ::-webkit-scrollbar-thumb {
-    @apply bg-gemula-silver rounded-full;
-    border: 2px solid #F7F3EC;
+  ::selection {
+    @apply bg-gemula-orange text-gemula-black;
   }
-  ::-webkit-scrollbar-thumb:hover { @apply bg-gemula-orange; }
+
+  @media (prefers-reduced-motion: reduce) {
+    html { scroll-behavior: auto; }
+    *, *::before, *::after { transition: none !important; animation: none !important; }
+  }
 }
 
 /* =========================================================
@@ -41,102 +55,95 @@
    ========================================================= */
 @layer components {
   .container-g {
-    @apply mx-auto w-full max-w-content px-6 md:px-10 lg:px-12;
+    @apply mx-auto w-full max-w-content px-5 md:px-10;
   }
 
+  /* Petit libellé de section : casse normale, couleur d'accent */
   .eyebrow {
-    @apply text-[0.72rem] uppercase tracking-kicker text-gemula-grey font-semibold;
+    @apply inline-flex items-center gap-2 text-sm font-semibold text-gemula-accent;
   }
 
   .btn {
-    @apply inline-flex items-center justify-center gap-2 rounded-full px-6 py-3 text-sm font-semibold transition-all duration-300;
+    @apply inline-flex items-center justify-center gap-2 rounded-lg px-5 py-3 text-[0.9375rem] font-semibold leading-none transition-colors duration-150;
   }
   .btn-primary {
-    @apply btn bg-gemula-orange text-white shadow-soft hover:bg-gemula-ember hover:shadow-lift hover:-translate-y-0.5;
+    @apply btn bg-gemula-orange text-gemula-black hover:bg-gemula-gold;
   }
   .btn-dark {
-    @apply btn bg-gemula-black text-white hover:bg-gemula-charcoal hover:-translate-y-0.5;
+    @apply btn bg-gemula-black text-white hover:bg-gemula-asphalt;
   }
   .btn-ghost {
-    @apply btn border border-gemula-black/15 bg-transparent text-gemula-black hover:border-gemula-black hover:bg-gemula-black/[0.03];
+    @apply btn border border-gemula-black/20 bg-white text-gemula-black hover:border-gemula-black;
   }
   .btn-ghost-light {
-    @apply btn border border-white/20 bg-transparent text-white hover:border-white/50 hover:bg-white/5;
+    @apply btn border border-white/30 bg-transparent text-white hover:border-white;
   }
 
   .card {
-    @apply rounded-2xl border border-gemula-black/[0.08] bg-white p-7 transition-all duration-300;
+    @apply rounded-xl border border-gemula-silver bg-white p-6 md:p-7;
   }
   .card-hover {
-    @apply hover:-translate-y-1 hover:border-gemula-orange/30 hover:shadow-card;
+    @apply transition-colors duration-150 hover:border-gemula-black/40;
   }
 
   .tag {
-    @apply inline-flex items-center rounded-full border border-gemula-black/10 bg-white/60 px-3 py-1 text-xs font-medium text-gemula-asphalt;
+    @apply inline-flex items-center rounded-md border border-gemula-silver bg-white px-2.5 py-1 text-xs font-medium text-gemula-asphalt;
   }
 
   .section {
-    @apply py-20 md:py-28;
+    @apply py-16 md:py-24;
   }
   .section-sm {
-    @apply py-14 md:py-20;
+    @apply py-12 md:py-16;
   }
 
   .divider {
-    @apply border-t border-gemula-black/[0.08];
+    @apply border-t border-gemula-silver;
+  }
+
+  .field {
+    @apply w-full rounded-lg border border-gemula-black/20 bg-white px-4 py-3 text-[0.9375rem] text-gemula-black placeholder:text-gemula-grey/70 focus:border-gemula-black focus:outline-none focus:ring-2 focus:ring-gemula-orange/40;
+  }
+
+  .link-arrow {
+    @apply inline-flex items-center gap-1.5 font-semibold text-gemula-black underline decoration-gemula-orange decoration-2 underline-offset-[6px] hover:decoration-gemula-black;
   }
 }
 
 /* =========================================================
-   DRAPEAU GEMULA
+   DRAPEAU GEMULA (statique)
    ========================================================= */
 .gemula-flag {
   display: grid;
   grid-template-columns: repeat(4, 1fr);
   grid-template-rows: repeat(3, 1fr);
-  gap: 1.5px;
+  gap: 0;
   flex-shrink: 0;
 }
 .gemula-flag i {
   display: block;
-  border-radius: 1px;
   aspect-ratio: 1;
-  animation: flagWave 2.6s ease-in-out infinite;
-  animation-delay: calc(var(--col) * 0.12s);
 }
 .gemula-flag i.on  { background: #F5791C; }
 .gemula-flag i.off { background: #1B1B1B; }
-
 .gemula-flag--light i.off { background: #FFFFFF; }
 
-@keyframes flagWave {
-  0%, 100% { transform: translateY(0); }
-  50%      { transform: translateY(-2px); }
+/* Bande à damier : signature visuelle, utilisée avec parcimonie */
+.checker-band {
+  height: 12px;
+  background-image:
+    linear-gradient(45deg, #1B1B1B 25%, transparent 25%, transparent 75%, #1B1B1B 75%),
+    linear-gradient(45deg, #1B1B1B 25%, transparent 25%, transparent 75%, #1B1B1B 75%);
+  background-color: #F5791C;
+  background-size: 12px 12px;
+  background-position: 0 0, 6px 6px;
 }
 
-@media (prefers-reduced-motion: reduce) {
-  .gemula-flag i { animation: none; }
-}
-
-/* =========================================================
-   REVEAL (IntersectionObserver)
-   ========================================================= */
-.reveal {
-  opacity: 0;
-  transform: translateY(24px);
-  transition: opacity 0.7s cubic-bezier(.22,.9,.24,1),
-              transform 0.7s cubic-bezier(.22,.9,.24,1);
-}
-.reveal.in-view {
-  opacity: 1;
-  transform: translateY(0);
-}
-@media (prefers-reduced-motion: reduce) {
-  .reveal { opacity: 1; transform: none; transition: none; }
-}
+/* Les anciennes classes d'apparition restent sans effet : le contenu est visible immédiatement */
+.reveal { opacity: 1; transform: none; }
 
 /* =========================================================
-   PROSE (pour articles Markdown)
+   PROSE (articles Markdown)
    ========================================================= */
 .prose-gemula {
   @apply prose prose-neutral max-w-prose;
@@ -148,8 +155,14 @@
   @apply mt-10 mb-3 font-display text-xl md:text-2xl;
 }
 .prose-gemula a {
-  @apply text-gemula-orange underline decoration-gemula-orange/30 underline-offset-4 hover:decoration-gemula-orange;
+  @apply text-gemula-accent underline decoration-gemula-orange/40 underline-offset-4 hover:decoration-gemula-accent;
 }
 .prose-gemula code {
   @apply rounded bg-gemula-sand px-1.5 py-0.5 text-sm;
 }
+
+/* Détails dépliables (modules, FAQ) */
+details > summary { list-style: none; cursor: pointer; }
+details > summary::-webkit-details-marker { display: none; }
+details .chevron { transition: transform 150ms ease; }
+details[open] .chevron { transform: rotate(180deg); }

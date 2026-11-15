@@ -4,6 +4,7 @@ import PageLayout from '@layouts/PageLayout.astro';
 import SectionHeading from '@components/SectionHeading.astro';
 import TalentCard from '@components/TalentCard.astro';
 import CTA from '@components/CTA.astro';
+import formations from '@data/formations.json';
 
 const talents = (await getCollection('talents')).sort(
   (a, b) => a.data.order - b.data.order
@@ -27,20 +28,20 @@ const jsonLd = {
 };
 ---
 <PageLayout
-  title="Talents"
-  description="Les membres du collectif Gemula : data scientists, développeurs, designers, électrotechniciens. Découvrez les profils qui construisent nos projets."
+  title="Équipe"
+  description="Les membres de Gemula : data scientists, analystes, ingénieurs IA, développeurs et électrotechniciennes. Les profils qui forment vos équipes et construisent nos projets."
   eyebrow="Le collectif"
   breadcrumb={[
     { href: '/', label: 'Accueil' },
-    { label: 'Talents' }
+    { label: 'Équipe' }
   ]}
   jsonLd={jsonLd}
 >
   <!-- Intro -->
   <section class="container-g pb-16 md:pb-20">
-    <div class="max-w-3xl reveal">
+    <div class="max-w-3xl">
       <p class="text-lg md:text-xl text-gemula-grey leading-relaxed">
-        Gemula rassemble des profils complémentaires : data, IA, développement, design et ingénierie. Chaque talent est identifié, chaque contribution est visible.
+        Gemula rassemble des profils complémentaires : data, IA, développement, design et ingénierie. Les membres marqués comme formateurs interviennent dans nos <a href="/formations#formateurs" class="font-semibold text-gemula-black underline decoration-gemula-orange decoration-2 underline-offset-4">formations pour entreprises</a>.
       </p>
     </div>
   </section>
@@ -49,17 +50,17 @@ const jsonLd = {
   <section class="container-g pb-20 md:pb-28">
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {talents.map((talent) => (
-        <TalentCard talent={talent} />
+        <TalentCard talent={talent} teaches={formations.formateurs[talent.slug as keyof typeof formations.formateurs]} />
       ))}
     </div>
   </section>
 
   <!-- Rejoindre -->
-  <section class="container-g py-20 md:py-28 border-t border-gemula-black/[0.06]">
+  <section class="container-g py-20 md:py-28 border-t border-gemula-silver">
     <SectionHeading
       eyebrow="Rejoindre Gemula"
-      title="Vous voulez rejoindre le collectif ?"
-      description="Gemula recrute des étudiants motivés, curieux et prêts à construire des projets concrets. Nous cherchons des profils data, IA, développement, design et ingénierie."
+      title="Rejoindre Gemula"
+      description="Nous étudions les candidatures de profils data, IA, développement, design et ingénierie lorsque des responsabilités sont disponibles."
     />
 
     <div class="grid grid-cols-1 md:grid-cols-3 gap-6 max-w-4xl">
@@ -77,7 +78,7 @@ const jsonLd = {
           desc: 'Électrotechnique, systèmes embarqués, IoT.'
         }
       ].map((profil) => (
-        <div class="card reveal">
+        <div class="card">
           <h3 class="font-display text-lg font-semibold mb-3">
             {profil.title}
           </h3>
@@ -91,7 +92,6 @@ const jsonLd = {
     <div class="mt-10">
       <a href="/collaborer#rejoindre" class="btn-primary">
         Candidater
-        <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>
       </a>
     </div>
   </section>

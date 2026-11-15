@@ -5,72 +5,85 @@ import site from '@data/site.json';
 
 const services = [
   {
-    title: 'Projet étudiant',
-    desc: 'Un projet encadré par le collectif, avec des étudiants motivés et un livrable concret.'
+    value: 'Formation des équipes',
+    title: 'Former mes équipes',
+    desc: 'Formations aux outils de bureau, à l\'IA, à la data et à l\'automatisation, avec audit et diagnostic offerts.'
   },
   {
-    title: 'Prototype / MVP',
-    desc: 'Un prototype fonctionnel pour tester une idée rapidement avant un investissement lourd.'
-  },
-  {
-    title: 'Data Analysis',
+    value: 'Data Analysis',
+    title: 'Analyse de données',
     desc: 'Analyse de vos données existantes, tableaux de bord, indicateurs et recommandations.'
   },
   {
+    value: 'Intelligence artificielle',
     title: 'Intelligence artificielle',
-    desc: 'Modèles prédictifs, automatisation, IA générative appliquée à vos cas d\'usage.'
+    desc: 'Modèles prédictifs, automatisation et IA générative appliquée à vos cas d\'usage.'
   },
   {
+    value: 'Développement logiciel',
     title: 'Développement logiciel',
-    desc: 'Applications desktop, web, APIs, outils métier sur mesure.'
+    desc: 'Applications desktop et web, API et outils métier sur mesure.'
   },
   {
-    title: 'Design & UI/UX',
-    desc: 'Interfaces, identités visuelles, systèmes de design et expérience utilisateur.'
+    value: 'Prototype / MVP',
+    title: 'Prototype ou MVP',
+    desc: 'Un prototype fonctionnel pour tester une idée avant un investissement lourd.'
   },
   {
+    value: 'Automatisation',
     title: 'Automatisation',
-    desc: 'Scripts, workflows, intégrations et processus répétitifs transformés en outils.'
+    desc: 'Scripts, workflows et intégrations pour supprimer les tâches répétitives.'
   },
   {
-    title: 'Communication digitale',
-    desc: 'Présence en ligne, contenus, supports visuels et communication de projet.'
+    value: 'Design & UI/UX',
+    title: 'Design et UI/UX',
+    desc: 'Interfaces, identités visuelles et systèmes de design.'
+  },
+  {
+    value: 'Projet étudiant',
+    title: 'Projet étudiant encadré',
+    desc: 'Un projet confié au collectif, mené par des étudiants encadrés, avec un livrable concret.'
   }
 ];
 ---
 <PageLayout
-  title="Collaborer"
-  description="Entreprises, institutions, chercheurs et porteurs de projets : Gemula vous aide à transformer un problème en solution concrète."
-  eyebrow="Travaillons ensemble"
+  title="Contactez Gemula"
+  description="Formation de vos équipes, analyse de données, IA ou développement : décrivez votre besoin, nous vous répondons sous 48 heures ouvrées."
+  eyebrow="Entreprises, institutions et porteurs de projets"
   breadcrumb={[
     { href: '/', label: 'Accueil' },
-    { label: 'Collaborer' }
+    { label: 'Contact' }
   ]}
 >
-  <!-- Intro -->
-  <section class="container-g pb-16">
-    <div class="max-w-3xl reveal">
-      <p class="font-display text-2xl md:text-3xl font-semibold leading-snug tracking-tightest text-balance">
-        Vous avez un problème ?<br />
-        Gemula peut le transformer en solution.
-      </p>
-      <p class="mt-8 text-lg text-gemula-grey leading-relaxed">
-        Nous collaborons avec des entreprises, des institutions, des chercheurs et des porteurs de projets. Chaque collaboration donne lieu à un livrable concret, documenté et mesurable.
-      </p>
+  <!-- Contact direct -->
+  <section class="container-g pb-12">
+    <div class="grid sm:grid-cols-3 gap-px overflow-hidden rounded-xl border border-gemula-silver bg-gemula-silver max-w-4xl">
+      <a href={site.phoneHref} class="bg-white p-5 hover:bg-gemula-cream">
+        <span class="text-sm text-gemula-grey">Téléphone</span>
+        <span class="mt-1 block font-display text-lg font-semibold">{site.phone}</span>
+      </a>
+      <a href={site.whatsappFormation} target="_blank" rel="noopener" class="bg-white p-5 hover:bg-gemula-cream">
+        <span class="text-sm text-gemula-grey">WhatsApp</span>
+        <span class="mt-1 block font-display text-lg font-semibold">Écrire un message</span>
+      </a>
+      <a href={`mailto:${site.email}`} class="bg-white p-5 hover:bg-gemula-cream">
+        <span class="text-sm text-gemula-grey">Email</span>
+        <span class="mt-1 block font-display text-[0.95rem] font-semibold break-all">{site.email}</span>
+      </a>
     </div>
   </section>
 
   <!-- Services -->
-  <section class="container-g py-16 md:py-20 border-t border-gemula-black/[0.06]">
+  <section class="container-g py-16 md:py-20 border-t border-gemula-silver">
     <SectionHeading
       eyebrow="Ce que nous faisons"
-      title="Huit façons de collaborer."
+      title="Huit façons de travailler ensemble"
     />
 
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {services.map((service) => (
-        <div class="card card-hover reveal">
-          <h3 class="font-display text-base font-semibold mb-3">
+        <div class="card">
+          <h3 class="font-display text-base font-semibold mb-2">
             {service.title}
           </h3>
           <p class="text-sm text-gemula-grey leading-relaxed">
@@ -82,96 +95,95 @@ const services = [
   </section>
 
   <!-- Formulaire -->
-  <section id="formulaire" class="container-g py-16 md:py-20 border-t border-gemula-black/[0.06]">
+  <section id="formulaire" class="container-g py-16 md:py-20 border-t border-gemula-silver">
     <SectionHeading
       eyebrow="Proposer un projet"
-      title="Décrivez votre besoin."
-      description="Remplissez ce formulaire. Nous vous répondons sous 48 heures ouvrées."
+      title="Décrivez votre besoin"
+      description="Nous vous répondons sous 48 heures ouvrées. Pour une formation, précisez le nombre de personnes à former et les outils utilisés."
     />
 
     <form
       id="contact-form"
-      class="max-w-2xl space-y-6 reveal"
+      class="max-w-2xl space-y-6"
       novalidate
     >
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         <div>
           <label for="nom" class="block text-sm font-medium mb-2">
-            Nom complet <span class="text-gemula-orange">*</span>
+            Nom complet <span class="text-gemula-accent">*</span>
           </label>
           <input
             type="text"
             id="nom"
             name="nom"
             required
-            class="w-full rounded-xl border border-gemula-black/15 bg-white px-4 py-3 text-sm focus:border-gemula-orange focus:outline-none focus:ring-2 focus:ring-gemula-orange/20 transition"
+            class="field"
           />
         </div>
 
         <div>
           <label for="email" class="block text-sm font-medium mb-2">
-            Email <span class="text-gemula-orange">*</span>
+            Email <span class="text-gemula-accent">*</span>
           </label>
           <input
             type="email"
             id="email"
             name="email"
             required
-            class="w-full rounded-xl border border-gemula-black/15 bg-white px-4 py-3 text-sm focus:border-gemula-orange focus:outline-none focus:ring-2 focus:ring-gemula-orange/20 transition"
+            class="field"
           />
         </div>
       </div>
 
       <div>
         <label for="organisation" class="block text-sm font-medium mb-2">
-          Organisation
+          Entreprise ou organisation
         </label>
         <input
           type="text"
           id="organisation"
           name="organisation"
-          class="w-full rounded-xl border border-gemula-black/15 bg-white px-4 py-3 text-sm focus:border-gemula-orange focus:outline-none focus:ring-2 focus:ring-gemula-orange/20 transition"
+          class="field"
         />
       </div>
 
       <div>
         <label for="type" class="block text-sm font-medium mb-2">
-          Type de collaboration <span class="text-gemula-orange">*</span>
+          Type de collaboration <span class="text-gemula-accent">*</span>
         </label>
         <select
           id="type"
           name="type"
           required
-          class="w-full rounded-xl border border-gemula-black/15 bg-white px-4 py-3 text-sm focus:border-gemula-orange focus:outline-none focus:ring-2 focus:ring-gemula-orange/20 transition"
+          class="field"
         >
-          <option value="">— Choisir —</option>
+          <option value="">Choisir un type de demande</option>
           {services.map((s) => (
-            <option value={s.title}>{s.title}</option>
+            <option value={s.value}>{s.title}</option>
           ))}
         </select>
       </div>
 
       <div>
         <label for="message" class="block text-sm font-medium mb-2">
-          Décrivez votre besoin <span class="text-gemula-orange">*</span>
+          Décrivez votre besoin <span class="text-gemula-accent">*</span>
         </label>
         <textarea
           id="message"
           name="message"
           rows="6"
           required
-          class="w-full rounded-xl border border-gemula-black/15 bg-white px-4 py-3 text-sm focus:border-gemula-orange focus:outline-none focus:ring-2 focus:ring-gemula-orange/20 transition resize-y"
+          class="field resize-y"
         ></textarea>
       </div>
 
       <div class="flex flex-wrap items-center gap-4">
         <button type="submit" class="btn-primary">
-          Envoyer
-          <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">send</span>
+          Envoyer la demande
         </button>
         <p class="text-xs text-gemula-grey">
           Ou écrivez-nous directement à{' '}
-          <a href={`mailto:${site.email}`} class="text-gemula-orange hover:underline">
+          <a href={`mailto:${site.email}`} class="font-semibold text-gemula-black underline decoration-gemula-orange decoration-2 underline-offset-4">
             {site.email}
           </a>
         </p>
@@ -182,57 +194,57 @@ const services = [
   </section>
 
   <!-- Rejoindre Gemula -->
-  <section id="rejoindre" class="container-g py-16 md:py-20 border-t border-gemula-black/[0.06]">
+  <section id="rejoindre" class="container-g py-16 md:py-20 border-t border-gemula-silver">
     <SectionHeading
       eyebrow="Rejoindre Gemula"
-      title="Vous êtes étudiant et motivé ?"
+      title="Vous souhaitez rejoindre Gemula ?"
       description="Pour simplement apprendre, partager et participer, rejoignez Gemula Community. Pour intégrer l'équipe opérationnelle, nous étudions les candidatures de profils techniques, créatifs et ingénieurs lorsque des responsabilités sont disponibles."
     />
 
     <div class="grid grid-cols-1 md:grid-cols-2 gap-10 max-w-3xl">
-      <div class="reveal">
+      <div>
         <h3 class="font-display text-lg font-semibold mb-4">
           Ce que nous offrons
         </h3>
         <ul class="space-y-3 text-sm text-gemula-grey leading-relaxed">
           <li class="flex gap-3">
-            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
             Des projets concrets qui enrichissent votre portfolio
           </li>
           <li class="flex gap-3">
-            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
             Un encadrement par des pairs et par le lead du collectif
           </li>
           <li class="flex gap-3">
-            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
             Une visibilité via le journal et les événements
           </li>
           <li class="flex gap-3">
-            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
             Un réseau actif au Cameroun et à l'international
           </li>
         </ul>
       </div>
 
-      <div class="reveal">
+      <div>
         <h3 class="font-display text-lg font-semibold mb-4">
           Ce que nous demandons
         </h3>
         <ul class="space-y-3 text-sm text-gemula-grey leading-relaxed">
           <li class="flex gap-3">
-            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
             Curiosité et envie d'apprendre
           </li>
           <li class="flex gap-3">
-            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
             Capacité à travailler en équipe
           </li>
           <li class="flex gap-3">
-            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
             Un minimum de disponibilité (5 à 10 h par semaine)
           </li>
           <li class="flex gap-3">
-            <span class="material-symbols-outlined text-gemula-orange text-[1.2em]" aria-hidden="true">check</span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
             Une spécialité à apporter au collectif
           </li>
         </ul>
@@ -242,7 +254,6 @@ const services = [
     <div class="mt-10">
       <a href={`mailto:${site.email}?subject=Candidature%20Gemula`} class="btn-primary">
         Envoyer une candidature
-        <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>
       </a>
       <a href="/communaute#rejoindre" class="btn-ghost ml-3">
         Rejoindre la communauté
@@ -255,7 +266,7 @@ const services = [
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const status = document.getElementById('form-status');
 
-  // ⚠️ À remplacer par les valeurs de TON Google Form
+  // Formulaire Google relié à la feuille de suivi des demandes
   const GOOGLE_FORM_ACTION_URL =
     'https://docs.google.com/forms/d/e/1FAIpQLScOGnCs2MCGc4-_r-FKENVnrGF__dOD55k_xgT65DO-wHl1gA/formResponse';
 const FIELD_IDS = {
@@ -265,6 +276,29 @@ const FIELD_IDS = {
   type: 'entry.1070537805',
   message: 'entry.485062477',
 };
+
+  // Préremplissage depuis la page Formations : ?type=formation&parcours=finance
+  const params = new URLSearchParams(location.search);
+  const typeSelect = document.getElementById('type') as HTMLSelectElement | null;
+  const messageField = document.getElementById('message') as HTMLTextAreaElement | null;
+  if (params.get('type') === 'formation' && typeSelect) {
+    typeSelect.value = 'Formation des équipes';
+    const parcours = params.get('parcours');
+    if (parcours && messageField && !messageField.value) {
+      const labels: Record<string, string> = {
+        assistanat: 'Assistanat et secrétariat',
+        finance: 'Gestion, finance et comptabilité',
+        commercial: 'Commercial et relation client',
+        rh: 'Ressources humaines',
+        direction: 'Managers et direction',
+        pme: 'Transformation numérique des PME',
+        ong: 'ONG et projets de développement'
+      };
+      if (labels[parcours]) {
+        messageField.value = `Parcours qui nous intéresse : ${labels[parcours]}\nNombre de personnes à former : \nOutils utilisés : `;
+      }
+    }
+  }
 
   if (form && status) {
     form.addEventListener('submit', async (e) => {
@@ -278,7 +312,7 @@ const FIELD_IDS = {
       const message = String(data.get('message') ?? '').trim();
 
       if (!nom || !email || !type || !message) {
-        status.textContent = 'Merci de remplir tous les champs obligatoires.';
+        status.textContent = 'Renseignez votre nom, votre email, le type de demande et votre message.';
         status.className = 'text-sm text-red-600';
         return;
       }
@@ -290,7 +324,7 @@ const FIELD_IDS = {
       payload.append(FIELD_IDS.type, type);
       payload.append(FIELD_IDS.message, message);
 
-      status.textContent = 'Envoi en cours…';
+      status.textContent = 'Envoi en cours';
       status.className = 'text-sm text-gemula-grey';
 
       try {
@@ -303,12 +337,12 @@ const FIELD_IDS = {
           body: payload.toString(),
         });
 
-        status.textContent = 'Merci, votre demande a bien été envoyée. Nous vous répondons sous 48h ouvrées.';
+        status.textContent = 'Demande envoyée. Nous vous répondons sous 48 heures ouvrées.';
         status.className = 'text-sm text-emerald-600';
         form.reset();
       } catch (err) {
         status.textContent =
-          "Une erreur s'est produite. Écrivez-nous directement à contact@gemula.com si le problème persiste.";
+          "Une erreur s'est produite. L'envoi a échoué. Écrivez-nous à meilleurd2001@gmail.com ou appelez le +237 6 82 37 55 73.";
         status.className = 'text-sm text-red-600';
       }
     });

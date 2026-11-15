@@ -17,7 +17,7 @@ const statusLabels: Record<string, string> = {
   'concept': 'Concept'
 };
 ---
-<article class={`card card-hover reveal h-full flex flex-col ${featured ? 'md:p-10' : ''}`}>
+<article class={`card card-hover h-full flex flex-col ${featured ? 'md:p-10' : ''}`}>
   <div class="flex items-start justify-between gap-4 mb-5">
     <span class="tag">{statusLabels[data.status] ?? data.status}</span>
     {data.year && (
@@ -29,7 +29,7 @@ const statusLabels: Record<string, string> = {
     {data.title}
   </h3>
 
-  <p class="text-sm text-gemula-orange font-medium mb-4">
+  <p class="text-sm text-gemula-black font-medium mb-4">
     {data.tagline}
   </p>
 
@@ -51,7 +51,7 @@ const statusLabels: Record<string, string> = {
 
   <a
     href={`/projets/${slug}`}
-    class="inline-flex items-center gap-2 text-sm font-medium text-gemula-black hover:text-gemula-orange transition-colors"
+    class="inline-flex items-center gap-2 text-sm font-medium text-gemula-black hover:text-gemula-black transition-colors"
   >
     Voir le projet
     <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>

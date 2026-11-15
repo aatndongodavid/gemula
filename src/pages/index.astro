@@ -1,59 +1,39 @@
 ---
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
-import Hero from '@components/Hero.astro';
 import SectionHeading from '@components/SectionHeading.astro';
 import ExpertiseCard from '@components/ExpertiseCard.astro';
 import ProjectCard from '@components/ProjectCard.astro';
-import EventCard from '@components/EventCard.astro';
 import TalentCard from '@components/TalentCard.astro';
 import PostCard from '@components/PostCard.astro';
 import CTA from '@components/CTA.astro';
-import Flag from '@components/Flag.astro';
 
 import site from '@data/site.json';
 import expertiseData from '@data/expertise.json';
+import formations from '@data/formations.json';
 
-// -------- Projets --------
+// Projets
 const projets = await getCollection('projets');
 const atlas = projets.find((p) => p.slug === 'atlas');
 const projetsSecondaires = projets
-  .filter((p) => !p.data.featured)
+  .filter((p) => !p.data.featured && p.slug !== 'atlas')
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 3);
 
-// -------- Événements --------
-const evenements = await getCollection('evenements');
-const evenementsTries = evenements.sort(
-  (a, b) => b.data.startDate.getTime() - a.data.startDate.getTime()
-);
-const prochainsEvenements = evenementsTries
-  .filter((e) => e.data.status !== 'passe')
-  .slice(0, 3);
-const derniersEvenements = evenementsTries
-  .filter((e) => e.data.status === 'passe')
-  .slice(0, 3);
-const evenementsAffiches =
-  prochainsEvenements.length > 0 ? prochainsEvenements : derniersEvenements;
-
-// -------- Talents --------
+// Équipe : les formateurs en premier
+const formateurSlugs = Object.keys(formations.formateurs);
 const talents = (await getCollection('talents'))
+  .filter((t) => formateurSlugs.includes(t.slug))
   .sort((a, b) => a.data.order - b.data.order)
   .slice(0, 4);
 
-// -------- Journal --------
+// Journal
 const articles = (await getCollection('journal', ({ data }) => !data.draft))
   .sort((a, b) => b.data.publishedAt.getTime() - a.data.publishedAt.getTime())
   .slice(0, 3);
 
-// -------- Compteurs (pour chiffres clés) --------
-const stats = {
-  projets: projets.length,
-  talents: (await getCollection('talents')).length,
-  domaines: expertiseData.domains.length
-};
+const nbModules = formations.paliers.reduce((n, p) => n + p.modules.length, 0);
 
-// -------- JSON-LD homepage --------
 const homeJsonLd = {
   '@context': 'https://schema.org',
   '@type': 'WebSite',
@@ -61,328 +41,249 @@ const homeJsonLd = {
   url: site.url,
   description: site.description,
   inLanguage: 'fr-FR',
-  publisher: {
-    '@id': `${site.url}/#organization`
-  }
+  publisher: { '@id': `${site.url}/#organization` }
 };
+
+// Damier du visuel d'accueil : 4 colonnes x 3 lignes, comme le drapeau Gemula
+const damier = [1,0,1,0, 0,1,0,1, 1,0,1,0];
 ---
 <BaseLayout
-  title="Gemula — Collectif étudiant d'innovation technologique à Douala"
-  description="Gemula conçoit des solutions data, IA, logiciel et design depuis Douala. Apprendre, expérimenter, construire, publier, collaborer."
+  title="Gemula, formations et ingénierie data et IA à Douala"
+  description="Gemula forme les équipes des entreprises aux outils numériques, à l'IA et à la data, et conçoit des solutions sur mesure en data, IA et logiciel depuis Douala."
   jsonLd={homeJsonLd}
 >
-  <!-- ================= 01 · HERO ================= -->
-  <Hero
-    eyebrow="Collectif étudiant · Douala · Cameroun"
-    title="Là où le talent devient un impact."
-    subtitle="Gemula est un collectif étudiant d'innovation technologique. Nous apprenons, expérimentons, construisons, publions et collaborons autour de la data, de l'IA, du logiciel et du design."
-    primaryCta={{ href: '/projet', label: 'Découvrir Atlas' }}
-    secondaryCta={{ href: '/collaborer', label: 'Collaborer avec nous' }}
-  />
-
-  <!-- ================= 02 · GEMULA EN QUELQUES MOTS ================= -->
-  <section class="container-g py-20 md:py-28 border-t border-gemula-black/[0.06]">
-    <div class="grid lg:grid-cols-12 gap-12">
-      <div class="lg:col-span-4 reveal">
-        <div class="flex items-center gap-3 mb-6">
-          <Flag size="sm" />
-          <span class="eyebrow">Le collectif</span>
+  <!-- ACCUEIL -->
+  <section class="border-b border-gemula-silver">
+    <div class="container-g grid lg:grid-cols-12 gap-12 lg:gap-8 items-center py-14 md:py-20 lg:py-24">
+      <div class="lg:col-span-7">
+        <p class="eyebrow mb-5">Collectif d'ingénierie, Douala</p>
+        <h1 class="font-display text-display-md md:text-display-lg font-semibold tracking-tightest text-balance">
+          Nous formons vos équipes et construisons vos outils data et IA.
+        </h1>
+        <p class="mt-6 text-lg text-gemula-grey leading-relaxed max-w-xl">
+          Gemula accompagne les entreprises du Cameroun sur deux terrains : la maîtrise des outils numériques du quotidien, et la conception de solutions en data, intelligence artificielle et logiciel.
+        </p>
+        <div class="mt-9 flex flex-wrap gap-3">
+          <a href="/formations" class="btn-primary">Découvrir les formations</a>
+          <a href="/collaborer" class="btn-ghost">Parler de votre projet</a>
         </div>
       </div>
 
-      <div class="lg:col-span-8 reveal">
-        <p class="font-display text-xl md:text-3xl font-semibold leading-snug tracking-tightest text-balance">
-          Depuis Douala, Gemula forme une génération d'étudiants qui ne se contentent pas d'apprendre : ils livrent des solutions concrètes, documentées et mesurables pour des entreprises, des institutions et des porteurs de projets.
-        </p>
-
-        <div class="mt-12 grid grid-cols-3 gap-8 max-w-xl">
-          <div>
-            <span class="font-display text-3xl md:text-4xl font-bold text-gemula-orange">
-              {String(stats.projets).padStart(2, '0')}
-            </span>
-            <p class="mt-2 text-sm text-gemula-grey">Projets construits</p>
+      <div class="hidden lg:block lg:col-span-5">
+        <div class="ml-auto max-w-[420px]">
+          <div class="grid grid-cols-4 overflow-hidden rounded-xl" aria-hidden="true">
+            {damier.map((on) => (
+              <div class={`aspect-square ${on ? 'bg-gemula-orange' : 'bg-gemula-black'}`}></div>
+            ))}
           </div>
-          <div>
-            <span class="font-display text-3xl md:text-4xl font-bold text-gemula-orange">
-              {String(stats.talents).padStart(2, '0')}
-            </span>
-            <p class="mt-2 text-sm text-gemula-grey">Talents actifs</p>
-          </div>
-          <div>
-            <span class="font-display text-3xl md:text-4xl font-bold text-gemula-orange">
-              {String(stats.domaines).padStart(2, '0')}
-            </span>
-            <p class="mt-2 text-sm text-gemula-grey">Domaines couverts</p>
-          </div>
+          <p class="mt-4 text-sm text-gemula-grey">{site.tagline}</p>
         </div>
-
-        <p class="mt-12 text-base text-gemula-grey leading-relaxed max-w-2xl">
-          Le collectif est né d'une conviction simple : l'Afrique de demain a besoin de ses propres ingénieurs, data scientists et designers. Nous construisons cet avenir depuis Douala, avec rigueur scientifique et exécution produit.
-        </p>
       </div>
     </div>
   </section>
 
-  <!-- ================= 03 · EXPERTISE ================= -->
-  <section class="container-g py-20 md:py-28 border-t border-gemula-black/[0.06]">
+  <!-- DEUX FAÇONS DE TRAVAILLER AVEC NOUS -->
+  <section class="container-g section">
     <SectionHeading
-      eyebrow="Expertise"
-      title="Cinq domaines, une même exigence."
-      description="De la donnée à l'interface, Gemula rassemble des compétences complémentaires pour explorer, prototyper et construire des solutions numériques utiles."
-      link={{ href: '/expertise', label: 'Voir en détail' }}
+      title="Deux façons de travailler avec Gemula"
+      description="Selon votre besoin, nous intervenons auprès de vos collaborateurs ou directement sur vos outils."
     />
-
-    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
-      {expertiseData.domains.slice(0, 5).map((domain) => (
-        <ExpertiseCard domain={domain} />
-      ))}
-
-      <!-- Carte bonus : lien vers tous les projets -->
-      <article class="card card-hover reveal h-full flex flex-col bg-gemula-black text-white border-gemula-black">
-        <div class="flex items-start justify-between mb-6">
-          <span class="text-xs font-semibold tracking-kicker text-gemula-orange">
-            06
-          </span>
-          <span class="material-symbols-outlined text-2xl text-gemula-orange" aria-hidden="true">
-            arrow_outward
-          </span>
-        </div>
-        <h3 class="font-display text-xl font-semibold mb-3">
-          Et aussi
-        </h3>
-        <p class="text-sm text-white/70 leading-relaxed flex-grow">
-          Exploration, prototypage, recherche appliquée et expérimentations internes menées par les membres du collectif.
+    <div class="grid md:grid-cols-2 gap-5">
+      <a href="/formations" class="card card-hover flex flex-col md:p-9">
+        <span class="material-symbols-outlined text-[1.75rem] text-gemula-black mb-6" aria-hidden="true">school</span>
+        <h3 class="font-display text-xl md:text-2xl font-semibold">Former vos équipes</h3>
+        <p class="mt-3 text-gemula-grey leading-relaxed">
+          {nbModules} modules sur Excel, Word, Microsoft 365, Google Workspace, l'IA au bureau, Power BI et l'automatisation. Des exercices construits sur vos propres fichiers, et un suivi d'un mois après la formation.
         </p>
-        <ul class="mt-6 flex flex-wrap gap-2">
-          <li class="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-white/80">
-            Recherche
-          </li>
-          <li class="inline-flex items-center rounded-full border border-white/15 bg-white/5 px-3 py-1 text-xs font-medium text-white/80">
-            Prototypage
-          </li>
-        </ul>
-      </article>
+        <span class="link-arrow mt-8">Voir le catalogue des formations</span>
+      </a>
+      <a href="/collaborer" class="card card-hover flex flex-col md:p-9">
+        <span class="material-symbols-outlined text-[1.75rem] text-gemula-black mb-6" aria-hidden="true">build</span>
+        <h3 class="font-display text-xl md:text-2xl font-semibold">Construire une solution</h3>
+        <p class="mt-3 text-gemula-grey leading-relaxed">
+          Analyse de données, tableaux de bord, modèles prédictifs, applications métier et automatisations. Nous partons de votre problème et livrons un outil utilisable.
+        </p>
+        <span class="link-arrow mt-8">Proposer un projet</span>
+      </a>
     </div>
   </section>
 
-  <!-- ================= 04 · PROJET PHARE : ATLAS ================= -->
-  {atlas && (
-    <section class="container-g py-20 md:py-28 border-t border-gemula-black/[0.06]">
+  <!-- FORMATIONS -->
+  <section class="bg-gemula-sand border-y border-gemula-silver">
+    <div class="container-g section">
       <SectionHeading
-        eyebrow="Projet phare"
-        title="Dataikos Atlas"
-        description="La gestion opérationnelle complète des PME camerounaises, en local, sans cloud."
+        eyebrow="Formations pour entreprises"
+        title="Trois paliers, de la remise à niveau à l'automatisation"
+        description="Chaque module peut être suivi seul ou combiné dans un programme sur mesure, après un diagnostic gratuit du niveau de vos équipes."
+        link={{ href: '/formations', label: 'Tout le catalogue' }}
       />
 
-      <div class="grid lg:grid-cols-12 gap-10 lg:gap-16 items-start">
-        <div class="lg:col-span-7 reveal">
-          <div class="space-y-8">
-            <div>
-              <span class="eyebrow block mb-3">Problème</span>
-              <p class="text-base text-gemula-black leading-relaxed">
-                {atlas.data.problem}
-              </p>
-            </div>
-
-            <div>
-              <span class="eyebrow block mb-3">Contexte</span>
-              <p class="text-base text-gemula-grey leading-relaxed">
-                {atlas.data.context}
-              </p>
-            </div>
-
-            <div>
-              <span class="eyebrow block mb-3">Solution</span>
-              <p class="text-base text-gemula-grey leading-relaxed">
-                {atlas.data.solution}
-              </p>
-            </div>
-          </div>
-
-          <div class="mt-10">
-            <span class="eyebrow block mb-4">Technologies</span>
-            <ul class="flex flex-wrap gap-2">
-              {atlas.data.stack.map((tech) => (
-                <li class="tag">{tech}</li>
+      <div class="grid lg:grid-cols-3 gap-5">
+        {formations.paliers.map((palier) => (
+          <div class="card flex flex-col">
+            <h3 class="font-display text-lg font-semibold">{palier.nom}</h3>
+            <p class="mt-1 text-[0.9375rem] text-gemula-grey">{palier.titre}</p>
+            <ul class="mt-5 divide-y divide-gemula-silver border-t border-gemula-silver flex-grow">
+              {palier.modules.map((m) => (
+                <li>
+                  <a href={`/formations#${m.code.toLowerCase()}`} class="flex items-baseline gap-3 py-2.5 text-[0.9375rem] hover:underline">
+                    <span class="w-7 shrink-0 text-sm font-semibold text-gemula-accent">{m.code}</span>
+                    <span class="flex-grow">{m.titre}</span>
+                  </a>
+                </li>
               ))}
             </ul>
           </div>
-
-          <div class="mt-10 flex flex-wrap gap-3">
-            <a href="/projet" class="btn-primary">
-              Voir l'étude de cas
-              <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">
-                arrow_forward
-              </span>
-            </a>
-            <a href="/projets" class="btn-ghost">
-              Toutes les réalisations
-            </a>
-          </div>
-        </div>
-
-        <!-- Aperçu visuel Atlas -->
-        <div class="lg:col-span-5 reveal">
-          <div class="rounded-2xl overflow-hidden border border-gemula-black/[0.08] bg-white aspect-[4/3]">
-            {atlas.data.cover ? (
-              <img
-                src={atlas.data.cover}
-                alt={`Interface de ${atlas.data.title}`}
-                class="w-full h-full object-cover"
-                loading="lazy"
-                decoding="async"
-              />
-            ) : (
-              <div class="w-full h-full flex items-center justify-center bg-gemula-sand">
-                <Flag size="lg" />
-              </div>
-            )}
-          </div>
-
-          <div class="mt-6 grid grid-cols-2 gap-3">
-            {atlas.data.features.slice(0, 4).map((feature) => (
-              <div class="rounded-xl border border-gemula-black/[0.08] bg-white p-4">
-                <p class="text-xs text-gemula-grey leading-snug">
-                  {feature}
-                </p>
-              </div>
-            ))}
-          </div>
-        </div>
+        ))}
       </div>
 
-      <!-- Autres réalisations -->
-      {projetsSecondaires.length > 0 && (
-        <div class="mt-20 pt-16 border-t border-gemula-black/[0.06]">
-          <div class="flex items-end justify-between mb-10">
-            <div>
-              <span class="eyebrow block mb-3">Autres réalisations</span>
-              <h3 class="font-display text-2xl md:text-3xl font-bold tracking-tightest">
-                Ce que nous construisons aussi.
-              </h3>
-            </div>
-            <a
-              href="/projets"
-              class="hidden md:inline-flex items-center gap-2 text-sm font-medium text-gemula-grey hover:text-gemula-orange transition-colors"
-            >
-              Tous les projets
-              <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">
-                arrow_forward
-              </span>
-            </a>
-          </div>
+      <div class="mt-10">
+        <p class="text-sm font-semibold mb-3">Parcours prêts à l'emploi par métier</p>
+        <ul class="flex flex-wrap gap-2">
+          {formations.parcours.map((p) => (
+            <li>
+              <a href={`/formations#parcours-${p.id}`} class="inline-flex rounded-lg border border-gemula-black/20 bg-white px-3.5 py-2 text-sm font-medium hover:border-gemula-black">
+                {p.titre}
+              </a>
+            </li>
+          ))}
+        </ul>
+      </div>
+    </div>
+  </section>
 
-          <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
+  <!-- RÉFÉRENCES DE FORMATION -->
+  <section class="container-g section">
+    <SectionHeading
+      title="Formations déjà menées"
+      description="Nos formateurs enseignent ce qu'ils pratiquent dans leurs propres projets."
+      link={{ href: '/formations#references', label: 'Voir le détail' }}
+    />
+    <div class="grid md:grid-cols-2 gap-5">
+      {formations.references.map((r) => (
+        <article class="card">
+          <p class="text-sm text-gemula-grey">{r.date}, {r.format.charAt(0).toLowerCase() + r.format.slice(1)}</p>
+          <h3 class="mt-2 font-display text-lg font-semibold">{r.titre}</h3>
+          <p class="mt-3 text-[0.9375rem] text-gemula-grey leading-relaxed">{r.texte}</p>
+        </article>
+      ))}
+    </div>
+  </section>
+
+  <!-- EXPERTISE -->
+  <section class="container-g section border-t border-gemula-silver">
+    <SectionHeading
+      eyebrow="Expertise"
+      title="Les compétences du collectif"
+      description="De la donnée à l'interface, Gemula réunit des profils complémentaires pour former, analyser, prototyper et construire."
+      link={{ href: '/expertise', label: 'Voir en détail' }}
+    />
+    <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
+      {expertiseData.domains.map((domain) => (
+        <ExpertiseCard domain={domain} />
+      ))}
+    </div>
+  </section>
+
+  <!-- RÉALISATIONS -->
+  {atlas && (
+    <section class="bg-gemula-sand border-y border-gemula-silver">
+      <div class="container-g section">
+        <SectionHeading
+          eyebrow="Réalisations"
+          title={atlas.data.title}
+          description={atlas.data.tagline}
+          link={{ href: '/projet', label: "Lire l'étude de cas" }}
+        />
+
+        <div class="grid lg:grid-cols-12 gap-8 lg:gap-12 items-start">
+          <div class="lg:col-span-7 overflow-hidden rounded-xl border border-gemula-silver bg-white aspect-[16/10]">
+            {atlas.data.cover && (
+              <img src={atlas.data.cover} alt={`Interface de ${atlas.data.title}`} class="w-full h-full object-cover object-top" loading="lazy" decoding="async" />
+            )}
+          </div>
+          <dl class="lg:col-span-5 space-y-6">
+            <div>
+              <dt class="text-sm font-semibold">Le problème</dt>
+              <dd class="mt-1.5 text-[0.9375rem] text-gemula-grey leading-relaxed">{atlas.data.problem}</dd>
+            </div>
+            <div>
+              <dt class="text-sm font-semibold">La solution</dt>
+              <dd class="mt-1.5 text-[0.9375rem] text-gemula-grey leading-relaxed">{atlas.data.solution}</dd>
+            </div>
+            <div>
+              <dt class="text-sm font-semibold">Technologies</dt>
+              <dd class="mt-2 flex flex-wrap gap-1.5">
+                {atlas.data.stack.map((tech) => <span class="tag">{tech}</span>)}
+              </dd>
+            </div>
+          </dl>
+        </div>
+
+        {projetsSecondaires.length > 0 && (
+          <div class="mt-14 grid grid-cols-1 md:grid-cols-3 gap-5">
             {projetsSecondaires.map((projet) => (
               <ProjectCard project={projet} />
             ))}
           </div>
-        </div>
-      )}
+        )}
+      </div>
     </section>
   )}
 
-  <!-- ================= 05 · AGENDA SCIENTIFIQUE ================= -->
-  <section class="container-g py-20 md:py-28 border-t border-gemula-black/[0.06]">
+  <!-- ÉQUIPE -->
+  <section class="container-g section">
     <SectionHeading
-      eyebrow="Agenda scientifique"
-      title="Les rendez-vous qui font avancer la science."
-      description="Conférences, colloques, workshops et écoles scientifiques liés aux mathématiques, statistiques, informatique, data science et intelligence artificielle au Cameroun."
-      link={{ href: '/agenda-scientifique', label: 'Agenda complet' }}
+      eyebrow="Équipe"
+      title="Les formateurs et ingénieurs de Gemula"
+      description="Data scientists, analystes et ingénieurs IA, qui interviennent à la fois en formation et sur les projets."
+      link={{ href: '/talents', label: "Toute l'équipe" }}
     />
-
-    {evenementsAffiches.length > 0 ? (
-      <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
-        {evenementsAffiches.map((event) => (
-          <EventCard event={event} />
-        ))}
-      </div>
-    ) : (
-      <div class="rounded-2xl border border-dashed border-gemula-black/15 bg-white/60 p-10 text-center">
-        <p class="text-gemula-grey">
-          L'agenda sera mis à jour prochainement avec les prochains rendez-vous scientifiques.
-        </p>
-      </div>
-    )}
-
-    <p class="mt-8 text-xs text-gemula-grey leading-relaxed max-w-2xl">
-      Gemula recense ces événements à titre informatif. Les dates et modalités peuvent évoluer ; consultez la source officielle avant de vous inscrire.
-    </p>
-  </section>
-
-  <!-- ================= 06 · TALENTS ================= -->
-  <section class="container-g py-20 md:py-28 border-t border-gemula-black/[0.06]">
-    <SectionHeading
-      eyebrow="Talents"
-      title="Les visages derrière les projets."
-      description="Une communauté de profils complémentaires : data scientists, développeurs, designers, électrotechniciens. Découvrez qui construit Gemula."
-      link={{ href: '/talents', label: 'Tous les talents' }}
-    />
-
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-5">
       {talents.map((talent) => (
-        <TalentCard talent={talent} />
+        <TalentCard talent={talent} teaches={formations.formateurs[talent.slug as keyof typeof formations.formateurs]} />
       ))}
     </div>
   </section>
 
-  <!-- ================= 07 · JOURNAL ================= -->
-  <section class="container-g py-20 md:py-28 border-t border-gemula-black/[0.06]">
-    <SectionHeading
-      eyebrow="Journal"
-      title="Ce que nous apprenons, publions et vivons."
-      description="Stages, compétitions, certifications, projets et vie du collectif. Le journal de Gemula."
-      link={{ href: '/journal', label: 'Tout le journal' }}
-    />
-
-    {articles.length > 0 ? (
+  <!-- JOURNAL -->
+  {articles.length > 0 && (
+    <section class="container-g section border-t border-gemula-silver">
+      <SectionHeading
+        eyebrow="Journal"
+        title="Actualités du collectif"
+        description="Stages, compétitions, certifications et projets."
+        link={{ href: '/journal', label: 'Tout le journal' }}
+      />
       <div class="grid grid-cols-1 md:grid-cols-3 gap-5">
         {articles.map((post) => (
           <PostCard post={post} />
         ))}
       </div>
-    ) : (
-      <div class="rounded-2xl border border-dashed border-gemula-black/15 bg-white/60 p-10 text-center">
-        <p class="text-gemula-grey">
-          Les premiers articles du journal arrivent bientôt.
+    </section>
+  )}
+
+  <!-- COMMUNAUTÉ -->
+  <section class="container-g pb-4">
+    <div class="rounded-xl border border-gemula-silver p-6 md:p-10 grid md:grid-cols-12 gap-6 items-center">
+      <div class="md:col-span-8">
+        <h2 class="font-display text-xl md:text-2xl font-semibold">Gemula Community</h2>
+        <p class="mt-2 text-gemula-grey leading-relaxed">
+          Une communauté ouverte aux étudiants et passionnés de data, d'IA et de technologie, avec des ateliers et des ressources gratuites.
         </p>
       </div>
-    )}
-  </section>
-
-  <!-- ================= 08 · COMMUNAUTÉ ================= -->
-  <section class="container-g py-12 md:py-16">
-    <div class="relative overflow-hidden rounded-3xl bg-gemula-orange text-white px-8 py-12 md:px-14 md:py-16 reveal">
-      <div class="pointer-events-none absolute -right-16 -top-16 h-56 w-56 rounded-full bg-gemula-gold/50" aria-hidden="true"></div>
-      <div class="relative max-w-2xl">
-        <span class="inline-flex items-center gap-2 rounded-full bg-white/20 px-4 py-1.5 text-xs font-semibold uppercase tracking-kicker">
-          <span class="material-symbols-outlined text-[1.2em]" aria-hidden="true">celebration</span>
-          Gemula Community
-        </span>
-        <h2 class="mt-5 font-display text-display-sm font-bold tracking-tightest text-balance !text-white">
-          Une communauté ouverte à tous les passionnés.
-        </h2>
-        <p class="mt-4 text-base md:text-lg text-white/90 leading-relaxed">
-          Apprendre, partager et participer, sans intégrer l'équipe.
-        </p>
-        <div class="mt-8 flex flex-wrap gap-3">
-          <a href="/communaute#rejoindre" class="btn bg-white text-gemula-orange hover:bg-gemula-cream hover:-translate-y-0.5 shadow-soft">
-            Rejoindre la communauté
-            <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>
-          </a>
-          <a href="/communaute" class="btn-ghost-light">Découvrir</a>
-        </div>
+      <div class="md:col-span-4 md:text-right">
+        <a href="/communaute" class="btn-ghost">Découvrir la communauté</a>
       </div>
     </div>
   </section>
 
-  <!-- ================= 09 · CTA COLLABORER ================= -->
   <CTA
-    eyebrow="Collaborer"
-    title="Vous avez un problème ? Gemula peut le transformer en solution."
-    description="Entreprises, institutions, chercheurs, porteurs de projets : proposons ensemble un prototype, une analyse ou un produit."
-    primaryCta={{ href: '/collaborer', label: 'Proposer un projet' }}
-    secondaryCta={{ href: '/expertise', label: 'Voir nos expertises' }}
-    dark={true}
+    eyebrow="Contact"
+    title="Parlons de vos équipes ou de votre projet."
+    description="Nous vous répondons sous 48 heures ouvrées. Pour une formation, l'audit numérique de vos besoins est offert."
+    primaryCta={{ href: '/collaborer', label: 'Écrire à Gemula' }}
+    secondaryCta={{ href: '/formations', label: 'Voir les formations' }}
+    showContact={true}
   />
 </BaseLayout>
