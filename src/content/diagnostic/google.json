@@ -1,0 +1,90 @@
+{
+  "domaine": "google",
+  "titre": "Google Workspace (Docs, Sheets, Drive)",
+  "palier": "collaboratif",
+  "outils": "google",
+  "modules": [
+    "E6",
+    "C3"
+  ],
+  "questions": [
+    {
+      "id": "ggl-01",
+      "niveau": 1,
+      "question": "Plusieurs collègues peuvent-ils modifier le même Google Sheets en même temps ?",
+      "choix": [
+        "Non, un seul à la fois",
+        "Oui, en temps réel, et chacun voit les modifications des autres",
+        "Seulement s'ils ont le même ordinateur",
+        "Seulement après l'avoir téléchargé"
+      ],
+      "reponse": 1,
+      "explication": "La coédition en temps réel est le principe même de Google Workspace : un seul fichier, toujours à jour."
+    },
+    {
+      "id": "ggl-02",
+      "niveau": 2,
+      "question": "Un collègue a supprimé un paragraphe important dans un Google Docs. Comment le retrouver ?",
+      "choix": [
+        "C'est impossible",
+        "Avec l'historique des versions",
+        "Dans la corbeille de l'ordinateur",
+        "En demandant à Google"
+      ],
+      "reponse": 1,
+      "explication": "Fichier, puis Historique des versions : chaque état du document est conservé et peut être restauré."
+    },
+    {
+      "id": "ggl-03",
+      "niveau": 2,
+      "question": "Quel est l'avantage d'un Drive partagé par rapport à « Mon Drive » ?",
+      "choix": [
+        "Il offre plus de couleurs",
+        "Les fichiers appartiennent à l'équipe et restent disponibles même si leur créateur quitte l'entreprise",
+        "Il est réservé aux images",
+        "Il ne nécessite pas de connexion"
+      ],
+      "reponse": 1,
+      "explication": "Dans un Drive partagé, l'organisation garde la propriété des fichiers, ce qui évite de les perdre au départ d'un collaborateur."
+    },
+    {
+      "id": "ggl-04",
+      "niveau": 1,
+      "question": "À quoi sert le mode « Suggestion » dans Google Docs ?",
+      "choix": [
+        "À corriger l'orthographe",
+        "À proposer des modifications que l'auteur peut accepter ou refuser",
+        "À traduire le document",
+        "À verrouiller le document"
+      ],
+      "reponse": 1,
+      "explication": "C'est l'équivalent du suivi des modifications de Word."
+    },
+    {
+      "id": "ggl-05",
+      "niveau": 3,
+      "question": "Comment appliquer automatiquement un libellé aux emails de vos clients dans Gmail ?",
+      "choix": [
+        "En créant un filtre",
+        "En archivant les messages",
+        "En les marquant comme importants",
+        "En créant une signature"
+      ],
+      "reponse": 0,
+      "explication": "Les filtres Gmail appliquent des libellés, archivent ou transfèrent selon des critères."
+    },
+    {
+      "id": "ggl-06",
+      "niveau": 2,
+      "question": "Vous voulez partager un document que le destinataire peut lire mais pas modifier. Quel rôle lui donnez-vous ?",
+      "choix": [
+        "Éditeur",
+        "Lecteur",
+        "Propriétaire",
+        "Commentateur avec droits d'édition"
+      ],
+      "reponse": 1,
+      "explication": "Le rôle Lecteur permet de consulter sans modifier ; Commentateur permet en plus d'ajouter des commentaires."
+    }
+  ]
+}

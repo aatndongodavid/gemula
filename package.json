@@ -10,7 +10,8 @@
     "preview": "astro preview",
     "astro": "astro",
     "check:links": "node scripts/check-links.mjs",
-    "images": "node scripts/optimize-images.mjs"
+    "images": "node scripts/optimize-images.mjs",
+    "test:diagnostic": "tsx scripts/test-diagnostic.ts"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",
@@ -18,5 +19,8 @@
     "@tailwindcss/typography": "^0.5.15",
     "astro": "^5.1.1",
     "tailwindcss": "^3.4.17"
+  },
+  "devDependencies": {
+    "tsx": "^4.19.2"
   }
 }

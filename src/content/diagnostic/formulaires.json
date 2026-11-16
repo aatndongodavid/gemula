@@ -1,0 +1,89 @@
+{
+  "domaine": "formulaires",
+  "titre": "Formulaires et collecte de données",
+  "palier": "collaboratif",
+  "outils": "tous",
+  "modules": [
+    "C4"
+  ],
+  "questions": [
+    {
+      "id": "frm-01",
+      "niveau": 1,
+      "question": "Quel outil remplace le mieux une fiche d'inscription papier ?",
+      "choix": [
+        "Un document Word envoyé par email",
+        "Un formulaire en ligne (Google Forms ou Microsoft Forms)",
+        "Une photo de la fiche",
+        "Un message WhatsApp"
+      ],
+      "reponse": 1,
+      "explication": "Le formulaire en ligne collecte des réponses structurées, directement exploitables."
+    },
+    {
+      "id": "frm-02",
+      "niveau": 2,
+      "question": "À quoi sert la logique conditionnelle (embranchement) dans un formulaire ?",
+      "choix": [
+        "À vérifier l'orthographe",
+        "À afficher certaines questions selon la réponse précédente",
+        "À limiter le nombre de réponses",
+        "À changer les couleurs"
+      ],
+      "reponse": 1,
+      "explication": "L'embranchement évite de poser des questions inutiles et raccourcit le formulaire."
+    },
+    {
+      "id": "frm-03",
+      "niveau": 2,
+      "question": "Comment exploiter facilement les réponses d'un formulaire ?",
+      "choix": [
+        "Les recopier à la main dans Excel",
+        "Les relier automatiquement à un classeur Excel ou Google Sheets",
+        "Les imprimer",
+        "Les lire une par une dans l'outil"
+      ],
+      "reponse": 1,
+      "explication": "Les réponses arrivent en temps réel dans un tableau, prêt pour l'analyse ou un tableau de bord."
+    },
+    {
+      "id": "frm-04",
+      "niveau": 3,
+      "question": "Pour obtenir des données propres et faciles à analyser, quel type de question privilégier ?",
+      "choix": [
+        "Des questions à réponse libre pour tout",
+        "Des choix multiples ou des listes déroulantes quand les réponses possibles sont connues",
+        "Des questions sans consigne",
+        "Des questions facultatives uniquement"
+      ],
+      "reponse": 1,
+      "explication": "Les réponses fermées évitent les fautes de frappe et les variantes (« Douala », « douala », « DLA »)."
+    },
+    {
+      "id": "frm-05",
+      "niveau": 1,
+      "question": "Comment s'assurer qu'une question est toujours renseignée ?",
+      "choix": [
+        "En la mettant en gras",
+        "En activant l'option « Obligatoire »",
+        "En la plaçant en premier",
+        "En ajoutant un point d'exclamation"
+      ],
+      "reponse": 1,
+      "explication": "Le formulaire ne peut pas être envoyé tant qu'une question obligatoire est vide."
+    },
+    {
+      "id": "frm-06",
+      "niveau": 2,
+      "question": "Vous collectez des données personnelles par formulaire. Quelle est la bonne pratique ?",
+      "choix": [
+        "Demander le maximum d'informations au cas où",
+        "Informer les personnes de l'usage des données et ne demander que le nécessaire",
+        "Publier les réponses sur Internet",
+        "Partager le fichier de réponses avec tous les services"
+      ],
+      "reponse": 1,
+      "explication": "La minimisation et l'information des personnes sont au cœur de la protection des données personnelles."
+    }
+  ]
+}

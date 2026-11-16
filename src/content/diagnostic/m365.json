@@ -1,0 +1,103 @@
+{
+  "domaine": "m365",
+  "titre": "Microsoft 365 : OneDrive, SharePoint et Teams",
+  "palier": "collaboratif",
+  "outils": "microsoft",
+  "modules": [
+    "C1",
+    "C2"
+  ],
+  "questions": [
+    {
+      "id": "m365-01",
+      "niveau": 1,
+      "question": "Pourquoi partager un lien OneDrive plutôt qu'envoyer le fichier en pièce jointe ?",
+      "choix": [
+        "Le lien est plus joli",
+        "Tout le monde travaille sur une seule version à jour, sans doublons",
+        "La pièce jointe est plus sécurisée",
+        "Le lien fonctionne sans Internet"
+      ],
+      "reponse": 1,
+      "explication": "Une pièce jointe crée une copie par destinataire ; un lien renvoie toujours vers le même fichier."
+    },
+    {
+      "id": "m365-02",
+      "niveau": 2,
+      "question": "Comment plusieurs personnes peuvent-elles modifier le même fichier Excel en même temps ?",
+      "choix": [
+        "En l'envoyant à tour de rôle par email",
+        "En l'ouvrant depuis OneDrive, SharePoint ou Teams",
+        "En le copiant sur une clé USB",
+        "C'est impossible avec Excel"
+      ],
+      "reponse": 1,
+      "explication": "Un fichier stocké dans le cloud Microsoft 365 peut être coédité en temps réel."
+    },
+    {
+      "id": "m365-03",
+      "niveau": 2,
+      "question": "Un fichier a été supprimé d'une bibliothèque SharePoint. Où le chercher en premier ?",
+      "choix": [
+        "Dans la corbeille du site SharePoint",
+        "Dans la boîte de réception",
+        "Dans le dossier Téléchargements",
+        "Il est perdu définitivement"
+      ],
+      "reponse": 0,
+      "explication": "SharePoint et OneDrive conservent les éléments supprimés dans une corbeille pendant plusieurs semaines."
+    },
+    {
+      "id": "m365-04",
+      "niveau": 1,
+      "question": "Dans Teams, à quoi sert un canal ?",
+      "choix": [
+        "À passer des appels téléphoniques uniquement",
+        "À organiser les conversations et les fichiers d'une équipe par sujet ou par projet",
+        "À envoyer des emails externes",
+        "À stocker des mots de passe"
+      ],
+      "reponse": 1,
+      "explication": "Chaque canal regroupe les échanges, les fichiers et les onglets d'un thème."
+    },
+    {
+      "id": "m365-05",
+      "niveau": 3,
+      "question": "Quel est le risque d'un lien de partage « Tout le monde » ?",
+      "choix": [
+        "Le fichier devient plus lent",
+        "Toute personne qui obtient le lien peut ouvrir le fichier, même hors de l'entreprise",
+        "Le fichier est supprimé après 24 heures",
+        "Aucun risque"
+      ],
+      "reponse": 1,
+      "explication": "Pour des documents internes, préférez « Personnes de votre organisation » ou des personnes précises."
+    },
+    {
+      "id": "m365-06",
+      "niveau": 2,
+      "question": "Où sont stockés les fichiers partagés dans un canal Teams ?",
+      "choix": [
+        "Sur l'ordinateur de l'expéditeur",
+        "Dans le site SharePoint de l'équipe",
+        "Dans Outlook",
+        "Nulle part, ils sont temporaires"
+      ],
+      "reponse": 1,
+      "explication": "Chaque équipe Teams s'appuie sur un site SharePoint : les fichiers y sont stockés et versionnés."
+    },
+    {
+      "id": "m365-07",
+      "niveau": 2,
+      "question": "Dans quel cas Teams est-il plus adapté qu'un email ?",
+      "choix": [
+        "Pour un courrier officiel à un client",
+        "Pour un échange rapide entre membres d'une équipe sur un projet en cours",
+        "Pour envoyer une facture",
+        "Pour une candidature"
+      ],
+      "reponse": 1,
+      "explication": "Teams convient aux échanges internes fréquents ; l'email reste adapté aux communications formelles ou externes."
+    }
+  ]
+}

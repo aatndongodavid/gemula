@@ -1,0 +1,89 @@
+{
+  "domaine": "ia-securite",
+  "titre": "IA, confidentialité et bonnes pratiques",
+  "palier": "performance",
+  "outils": "tous",
+  "modules": [
+    "P3"
+  ],
+  "questions": [
+    {
+      "id": "ias-01",
+      "niveau": 1,
+      "question": "Quelle information ne faut-il jamais coller dans un outil d'IA grand public non validé par l'entreprise ?",
+      "choix": [
+        "Une question de culture générale",
+        "Les données personnelles des clients, les salaires ou des mots de passe",
+        "Une recette de cuisine",
+        "Un texte déjà public"
+      ],
+      "reponse": 1,
+      "explication": "Ces données peuvent être conservées par le fournisseur. Elles doivent rester dans des outils autorisés par l'entreprise."
+    },
+    {
+      "id": "ias-02",
+      "niveau": 2,
+      "question": "Quelle différence majeure entre une version entreprise d'un outil d'IA et sa version grand public gratuite ?",
+      "choix": [
+        "Aucune différence",
+        "La version entreprise offre généralement des engagements contractuels de confidentialité et de non-réutilisation des données",
+        "La version grand public est plus sécurisée",
+        "La version entreprise n'utilise pas d'IA"
+      ],
+      "reponse": 1,
+      "explication": "Les offres professionnelles prévoient en général des garanties sur l'usage et la conservation des données. Il faut les vérifier contrat par contrat."
+    },
+    {
+      "id": "ias-03",
+      "niveau": 2,
+      "question": "À quoi sert une charte d'usage de l'IA dans une entreprise ?",
+      "choix": [
+        "À interdire tout usage de l'IA",
+        "À définir les outils autorisés, les données interdites et les règles de vérification",
+        "À choisir les couleurs des présentations",
+        "À remplacer le règlement intérieur"
+      ],
+      "reponse": 1,
+      "explication": "Une charte claire permet aux équipes d'utiliser l'IA en confiance et en sécurité."
+    },
+    {
+      "id": "ias-04",
+      "niveau": 1,
+      "question": "Un email rédigé avec l'aide d'une IA contient une erreur envoyée à un client. Qui est responsable ?",
+      "choix": [
+        "L'IA",
+        "Le fournisseur de l'outil",
+        "L'entreprise et la personne qui a envoyé l'email",
+        "Personne"
+      ],
+      "reponse": 2,
+      "explication": "L'IA est un outil : la responsabilité du contenu envoyé reste humaine."
+    },
+    {
+      "id": "ias-05",
+      "niveau": 3,
+      "question": "Au Cameroun, quel texte encadre la protection des données à caractère personnel ?",
+      "choix": [
+        "La loi n° 2024/017 du 23 décembre 2024",
+        "Le Code du travail uniquement",
+        "Aucun texte",
+        "Le règlement de la CEMAC sur les changes"
+      ],
+      "reponse": 0,
+      "explication": "La loi n° 2024/017 du 23 décembre 2024 fixe les règles de protection des données personnelles au Cameroun."
+    },
+    {
+      "id": "ias-06",
+      "niveau": 2,
+      "question": "Vous voulez faire analyser un tableau de clients par une IA. Quelle précaution prendre ?",
+      "choix": [
+        "Aucune",
+        "Anonymiser les données, par exemple en remplaçant les noms par des codes",
+        "Ajouter les numéros de téléphone pour plus de précision",
+        "Envoyer le fichier complet à plusieurs outils"
+      ],
+      "reponse": 1,
+      "explication": "L'anonymisation permet de profiter de l'analyse sans exposer d'informations personnelles."
+    }
+  ]
+}

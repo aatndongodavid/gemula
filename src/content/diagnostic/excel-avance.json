@@ -1,0 +1,102 @@
+{
+  "domaine": "excel-avance",
+  "titre": "Excel avancé et Power Query",
+  "palier": "performance",
+  "outils": "microsoft",
+  "modules": [
+    "P4"
+  ],
+  "questions": [
+    {
+      "id": "xla-01",
+      "niveau": 2,
+      "question": "À quoi sert Power Query dans Excel ?",
+      "choix": [
+        "À dessiner des graphiques",
+        "À importer, nettoyer et combiner des données de façon répétable",
+        "À envoyer des emails",
+        "À protéger un classeur"
+      ],
+      "reponse": 1,
+      "explication": "Power Query enregistre chaque étape de préparation des données et peut les rejouer à volonté."
+    },
+    {
+      "id": "xla-02",
+      "niveau": 2,
+      "question": "Vous avez préparé un rapport avec Power Query. Le mois suivant, de nouvelles données arrivent. Que faites-vous ?",
+      "choix": [
+        "Vous refaites tout le travail",
+        "Vous cliquez sur « Actualiser tout »",
+        "Vous recopiez les données à la main",
+        "Vous créez un nouveau classeur"
+      ],
+      "reponse": 1,
+      "explication": "Les étapes enregistrées sont rejouées automatiquement sur les nouvelles données."
+    },
+    {
+      "id": "xla-03",
+      "niveau": 3,
+      "question": "Vous recevez chaque mois un fichier de ventes, rangé dans un même dossier. Comment les combiner automatiquement ?",
+      "choix": [
+        "Copier-coller chaque fichier dans une feuille",
+        "Utiliser Power Query avec la source « Dossier »",
+        "Ouvrir tous les fichiers en même temps",
+        "Fusionner les cellules"
+      ],
+      "reponse": 1,
+      "explication": "Power Query peut lire tous les fichiers d'un dossier et les empiler, y compris ceux ajoutés plus tard."
+    },
+    {
+      "id": "xla-04",
+      "niveau": 2,
+      "question": "Que renvoie =UNIQUE(A2:A500) ?",
+      "choix": [
+        "Le nombre de valeurs",
+        "La liste des valeurs de A2:A500 sans doublons",
+        "La première valeur",
+        "Une erreur"
+      ],
+      "reponse": 1,
+      "explication": "UNIQUE est une fonction de tableau dynamique : le résultat s'étend automatiquement sur plusieurs cellules."
+    },
+    {
+      "id": "xla-05",
+      "niveau": 3,
+      "question": "Que fait =FILTRE(A2:C500;C2:C500>100000) ?",
+      "choix": [
+        "Elle trie le tableau",
+        "Elle renvoie les lignes de A2:C500 dont la valeur en colonne C dépasse 100 000",
+        "Elle supprime les lignes inférieures à 100 000",
+        "Elle compte les lignes"
+      ],
+      "reponse": 1,
+      "explication": "FILTRE extrait dynamiquement les lignes qui respectent une condition, sans toucher aux données sources."
+    },
+    {
+      "id": "xla-06",
+      "niveau": 3,
+      "question": "À quoi sert la fonction LET ?",
+      "choix": [
+        "À verrouiller une cellule",
+        "À nommer des calculs intermédiaires dans une formule pour la rendre plus lisible et plus rapide",
+        "À créer une liste déroulante",
+        "À lier deux classeurs"
+      ],
+      "reponse": 1,
+      "explication": "LET évite de répéter le même calcul plusieurs fois dans une formule longue."
+    },
+    {
+      "id": "xla-07",
+      "niveau": 2,
+      "question": "Quel avantage a l'étape « Supprimer les doublons » dans Power Query par rapport à la même action faite à la main ?",
+      "choix": [
+        "Elle est plus colorée",
+        "Elle est enregistrée et sera rejouée à chaque actualisation",
+        "Elle supprime aussi les colonnes vides",
+        "Aucun avantage"
+      ],
+      "reponse": 1,
+      "explication": "Dans Power Query, chaque nettoyage devient une étape automatique et documentée."
+    }
+  ]
+}

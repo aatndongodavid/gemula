@@ -72,7 +72,7 @@
   }
 
   .btn {
-    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-[0.9375rem] font-medium leading-none transition-[background-color,border-color,color,box-shadow] duration-150;
+    @apply inline-flex min-h-[44px] items-center justify-center gap-2 rounded-lg px-4 py-2.5 text-[0.9375rem] font-medium leading-none transition-[background-color,border-color,color,box-shadow] duration-150 disabled:cursor-not-allowed disabled:opacity-40;
   }
   .btn-primary {
     @apply btn bg-accent text-bg hover:bg-[#FF6A26];
@@ -203,3 +203,6 @@
 
 /* Pendant l'intro, les animations d'entrée de la page attendent qu'elle se termine */
 .intro main .animate-fade-up { animation-play-state: paused; }
+
+/* Titres qui reçoivent le focus par script (changement d'étape) : pas de contour visible */
+[tabindex='-1']:focus { outline: none; }

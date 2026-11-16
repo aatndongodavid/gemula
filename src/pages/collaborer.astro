@@ -251,9 +251,25 @@ const services = [
       ong: 'ONG et projets de développement'
     };
     if (messageField && !messageField.value) {
-      messageField.value =
-        (parcours && labels[parcours] ? `Parcours qui nous intéresse : ${labels[parcours]}\n` : '') +
-        'Nombre de personnes à former : \nOutils utilisés : ';
+      if (params.get('source') === 'diagnostic') {
+        // Arrivée depuis le diagnostic en ligne : on reprend le résultat
+        const equipes: Record<string, string> = { '1': '1 personne', '2-5': '2 à 5 personnes', '6-12': '6 à 12 personnes', '12+': 'plus de 12 personnes' };
+        const outilsLabels: Record<string, string> = { microsoft: 'Microsoft 365', google: 'Google Workspace', 'les-deux': 'Microsoft 365 et Google Workspace', inconnu: 'à préciser' };
+        const score = (params.get('score') || '').replace(/[^0-9]/g, '');
+        const niveau = (params.get('niveau') || '').slice(0, 20);
+        const modules = (params.get('modules') || '').split(',').filter((m) => /^[A-Z][0-9]$/.test(m));
+        messageField.value =
+          `Résultat du diagnostic en ligne : ${score}/100 (niveau ${niveau.toLowerCase()})\n` +
+          (modules.length ? `Modules recommandés : ${modules.join(', ')}\n` : '') +
+          (parcours && labels[parcours] ? `Parcours le plus proche : ${labels[parcours]}\n` : '') +
+          `Nombre de personnes à former : ${equipes[params.get('equipe') || ''] ?? ''}\n` +
+          `Outils utilisés : ${outilsLabels[params.get('outils') || ''] ?? ''}\n\n` +
+          'Notre contexte : ';
+      } else {
+        messageField.value =
+          (parcours && labels[parcours] ? `Parcours qui nous intéresse : ${labels[parcours]}\n` : '') +
+          'Nombre de personnes à former : \nOutils utilisés : ';
+      }
     }
   }
 

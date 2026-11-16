@@ -1,0 +1,89 @@
+{
+  "domaine": "organisation",
+  "titre": "Organiser l'information partagée et l'archivage",
+  "palier": "collaboratif",
+  "outils": "tous",
+  "modules": [
+    "C5"
+  ],
+  "questions": [
+    {
+      "id": "org-01",
+      "niveau": 1,
+      "question": "Quel nom de fichier facilite le classement et la recherche ?",
+      "choix": [
+        "rapport final OK.docx",
+        "2026-11-03_Rapport-ventes_v2.docx",
+        "Document1.docx",
+        "nouveau rapport (2).docx"
+      ],
+      "reponse": 1,
+      "explication": "Une date au format AAAA-MM-JJ en début de nom permet un tri chronologique automatique, et le nom reste explicite."
+    },
+    {
+      "id": "org-02",
+      "niveau": 2,
+      "question": "Comment attribuer les droits d'accès aux dossiers partagés ?",
+      "choix": [
+        "Tout le monde a accès à tout",
+        "Chacun accède à ce dont il a besoin pour son travail, par service",
+        "Seul le directeur a accès",
+        "Par ordre d'ancienneté"
+      ],
+      "reponse": 1,
+      "explication": "Le principe du moindre privilège limite les erreurs et les fuites de données."
+    },
+    {
+      "id": "org-03",
+      "niveau": 2,
+      "question": "Que signifie la règle de sauvegarde 3-2-1 ?",
+      "choix": [
+        "3 dossiers, 2 sous-dossiers, 1 fichier",
+        "3 copies des données, sur 2 supports différents, dont 1 hors du site",
+        "Sauvegarder 3 fois par jour",
+        "Garder les fichiers 3 ans, 2 mois et 1 jour"
+      ],
+      "reponse": 1,
+      "explication": "Cette règle protège contre la panne, le vol, l'incendie ou le rançongiciel."
+    },
+    {
+      "id": "org-04",
+      "niveau": 1,
+      "question": "Quelle arborescence de dossiers est la plus efficace pour une équipe ?",
+      "choix": [
+        "Chacun crée ses dossiers comme il veut",
+        "Une arborescence commune, peu profonde et documentée",
+        "Un seul dossier contenant tout",
+        "Un dossier par jour"
+      ],
+      "reponse": 1,
+      "explication": "Une structure partagée et simple permet à chacun de retrouver un fichier sans demander."
+    },
+    {
+      "id": "org-05",
+      "niveau": 3,
+      "question": "Les fichiers « final_v3_def_OK.docx » se multiplient. Quelle est la meilleure solution ?",
+      "choix": [
+        "Ajouter encore un suffixe",
+        "Travailler sur un fichier unique partagé et s'appuyer sur l'historique des versions",
+        "Imprimer chaque version",
+        "Supprimer les anciennes versions chaque soir"
+      ],
+      "reponse": 1,
+      "explication": "Le stockage partagé (OneDrive, SharePoint, Drive) conserve automatiquement les versions précédentes."
+    },
+    {
+      "id": "org-06",
+      "niveau": 2,
+      "question": "Quelle méthode convient pour numériser des archives papier ?",
+      "choix": [
+        "Photographier avec un téléphone sans les renommer",
+        "Scanner en PDF avec reconnaissance de texte (OCR) et appliquer une règle de nommage",
+        "Recopier le texte à la main",
+        "Les garder seulement en papier"
+      ],
+      "reponse": 1,
+      "explication": "L'OCR rend le texte des documents scannés recherchable, et le nommage cohérent permet de les retrouver."
+    }
+  ]
+}

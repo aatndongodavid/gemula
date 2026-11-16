@@ -1,0 +1,115 @@
+{
+  "domaine": "excel-gestion",
+  "titre": "Excel pour la gestion et le reporting",
+  "palier": "essentiel",
+  "outils": "tous",
+  "modules": [
+    "E2"
+  ],
+  "questions": [
+    {
+      "id": "xlg-01",
+      "niveau": 2,
+      "question": "Vous devez retrouver le prix d'un article à partir de son code, stocké dans une autre feuille. Quelle fonction est la plus adaptée ?",
+      "choix": [
+        "CONCAT",
+        "RECHERCHEX",
+        "NB.SI",
+        "TROUVE"
+      ],
+      "reponse": 1,
+      "explication": "RECHERCHEX (ou RECHERCHEV dans les versions plus anciennes) cherche une valeur et renvoie l'information correspondante d'une autre colonne."
+    },
+    {
+      "id": "xlg-02",
+      "niveau": 1,
+      "question": "À quoi sert un tableau croisé dynamique ?",
+      "choix": [
+        "À dessiner un organigramme",
+        "À synthétiser rapidement des données, par exemple les ventes par mois et par commercial, sans écrire de formule",
+        "À protéger un classeur par mot de passe",
+        "À fusionner deux fichiers Word"
+      ],
+      "reponse": 1,
+      "explication": "Le tableau croisé dynamique regroupe, additionne et compare des milliers de lignes en quelques clics."
+    },
+    {
+      "id": "xlg-03",
+      "niveau": 2,
+      "question": "Dans un tableau croisé dynamique, à quoi servent les segments ?",
+      "choix": [
+        "À découper le fichier en plusieurs feuilles",
+        "À filtrer les données d'un clic grâce à des boutons visuels",
+        "À calculer des pourcentages",
+        "À trier les colonnes par couleur"
+      ],
+      "reponse": 1,
+      "explication": "Les segments sont des filtres sous forme de boutons, très pratiques dans un tableau de bord."
+    },
+    {
+      "id": "xlg-04",
+      "niveau": 3,
+      "question": "Dans =RECHERCHEV(F2;A:D;3;FAUX), que signifie FAUX ?",
+      "choix": [
+        "La formule renvoie FAUX si elle ne trouve rien",
+        "La recherche exige une correspondance exacte",
+        "La troisième colonne est ignorée",
+        "La recherche se fait de bas en haut"
+      ],
+      "reponse": 1,
+      "explication": "Le dernier argument à FAUX impose une correspondance exacte, indispensable pour rechercher des codes ou des références."
+    },
+    {
+      "id": "xlg-05",
+      "niveau": 2,
+      "question": "À quoi sert un diagramme de Pareto ?",
+      "choix": [
+        "À suivre l'évolution d'une valeur dans le temps",
+        "À identifier les quelques causes qui expliquent l'essentiel d'un résultat, pour prioriser les actions",
+        "À comparer deux années de ventes",
+        "À représenter un organigramme"
+      ],
+      "reponse": 1,
+      "explication": "Le principe 80/20 : souvent, environ 20 % des causes produisent 80 % des effets. Le Pareto aide à décider où agir en premier."
+    },
+    {
+      "id": "xlg-06",
+      "niveau": 2,
+      "question": "Comment empêcher la saisie d'une date en dehors du mois en cours dans une colonne ?",
+      "choix": [
+        "Avec la validation des données",
+        "Avec un filtre automatique",
+        "Avec la mise en forme conditionnelle",
+        "En protégeant la feuille"
+      ],
+      "reponse": 0,
+      "explication": "La validation des données refuse les saisies qui ne respectent pas une règle (dates, listes, nombres)."
+    },
+    {
+      "id": "xlg-07",
+      "niveau": 3,
+      "question": "Quel avantage offre la combinaison INDEX et EQUIV par rapport à RECHERCHEV ?",
+      "choix": [
+        "Elle est plus rapide à taper",
+        "Elle peut renvoyer une valeur située à gauche de la colonne de recherche",
+        "Elle fonctionne sans données",
+        "Elle trie les résultats"
+      ],
+      "reponse": 1,
+      "explication": "RECHERCHEV ne regarde que vers la droite ; INDEX et EQUIV (comme RECHERCHEX) fonctionnent dans les deux sens."
+    },
+    {
+      "id": "xlg-08",
+      "niveau": 1,
+      "question": "La date de début est en A2 et la date de fin en B2. Comment obtenir le nombre de jours écoulés ?",
+      "choix": [
+        "=B2-A2",
+        "=A2-B2",
+        "=ANNEE(B2-A2)",
+        "=DATE(B2;A2)"
+      ],
+      "reponse": 0,
+      "explication": "Excel stocke les dates sous forme de nombres : une simple soustraction (fin moins début) donne le nombre de jours."
+    }
+  ]
+}

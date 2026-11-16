@@ -1,0 +1,102 @@
+{
+  "domaine": "powerbi",
+  "titre": "Power BI : du fichier au tableau de bord",
+  "palier": "performance",
+  "outils": "tous",
+  "modules": [
+    "P5"
+  ],
+  "questions": [
+    {
+      "id": "pbi-01",
+      "niveau": 1,
+      "question": "À quoi sert principalement Power BI ?",
+      "choix": [
+        "À rédiger des courriers",
+        "À créer des tableaux de bord interactifs à partir de vos données",
+        "À gérer les emails",
+        "À faire des présentations animées"
+      ],
+      "reponse": 1,
+      "explication": "Power BI connecte plusieurs sources de données et les présente sous forme de rapports interactifs."
+    },
+    {
+      "id": "pbi-02",
+      "niveau": 2,
+      "question": "Comment relier une table Ventes à une table Produits dans Power BI ?",
+      "choix": [
+        "Par la couleur des colonnes",
+        "Par une colonne commune, par exemple le code produit",
+        "Par l'ordre des lignes",
+        "Ce n'est pas possible"
+      ],
+      "reponse": 1,
+      "explication": "Les relations s'appuient sur une clé commune ; elles permettent d'analyser les ventes par catégorie de produit, par exemple."
+    },
+    {
+      "id": "pbi-03",
+      "niveau": 2,
+      "question": "Qu'est-ce que le DAX ?",
+      "choix": [
+        "Un format d'image",
+        "Le langage de formules utilisé pour créer des mesures et des calculs dans Power BI",
+        "Un type de graphique",
+        "Une extension de fichier Excel"
+      ],
+      "reponse": 1,
+      "explication": "Le DAX (Data Analysis Expressions) sert par exemple à calculer un chiffre d'affaires, une marge ou une évolution."
+    },
+    {
+      "id": "pbi-04",
+      "niveau": 3,
+      "question": "Quelle est la différence entre une mesure et une colonne calculée ?",
+      "choix": [
+        "Aucune",
+        "Une mesure est calculée à la volée selon les filtres du rapport ; une colonne calculée est stockée ligne par ligne",
+        "La colonne calculée est plus rapide dans tous les cas",
+        "Une mesure ne peut pas être affichée"
+      ],
+      "reponse": 1,
+      "explication": "Les mesures s'adaptent au contexte (période, région, produit sélectionnés) : c'est le cœur des tableaux de bord."
+    },
+    {
+      "id": "pbi-05",
+      "niveau": 2,
+      "question": "Comment mettre un rapport Power BI à disposition de la direction ?",
+      "choix": [
+        "Envoyer des captures d'écran chaque semaine",
+        "Le publier dans le service Power BI et le partager avec les personnes concernées",
+        "L'imprimer",
+        "L'envoyer en pièce jointe .pbix à tout le monde"
+      ],
+      "reponse": 1,
+      "explication": "La publication donne un accès sécurisé et toujours à jour, sur ordinateur comme sur mobile."
+    },
+    {
+      "id": "pbi-06",
+      "niveau": 3,
+      "question": "Qu'est-ce qu'un modèle en étoile ?",
+      "choix": [
+        "Un rapport avec des étoiles de notation",
+        "Une table de faits (ventes) au centre, reliée à des tables de dimensions (dates, produits, clients)",
+        "Un graphique circulaire",
+        "Un thème de couleurs"
+      ],
+      "reponse": 1,
+      "explication": "Le modèle en étoile est l'organisation recommandée : plus simple, plus rapide et plus fiable."
+    },
+    {
+      "id": "pbi-07",
+      "niveau": 2,
+      "question": "Comment faire en sorte que le tableau de bord se mette à jour sans intervention ?",
+      "choix": [
+        "En programmant une actualisation planifiée",
+        "En rouvrant le fichier chaque jour",
+        "En le dupliquant",
+        "Ce n'est pas possible"
+      ],
+      "reponse": 0,
+      "explication": "L'actualisation planifiée recharge les données à heures fixes. Pour des sources locales, une passerelle de données est nécessaire."
+    }
+  ]
+}

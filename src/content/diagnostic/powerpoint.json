@@ -1,0 +1,89 @@
+{
+  "domaine": "powerpoint",
+  "titre": "PowerPoint : présenter pour convaincre",
+  "palier": "essentiel",
+  "outils": "microsoft",
+  "modules": [
+    "E4"
+  ],
+  "questions": [
+    {
+      "id": "ppt-01",
+      "niveau": 1,
+      "question": "Quelle règle rend une présentation plus claire ?",
+      "choix": [
+        "Mettre le maximum de texte sur chaque diapositive",
+        "Une idée principale par diapositive",
+        "Utiliser une police différente par diapositive",
+        "Animer chaque élément"
+      ],
+      "reponse": 1,
+      "explication": "Une idée par diapositive aide le public à suivre et donne de la force au message."
+    },
+    {
+      "id": "ppt-02",
+      "niveau": 2,
+      "question": "Vous voulez changer le logo et les couleurs sur les 40 diapositives d'une présentation en une seule fois. Où le faire ?",
+      "choix": [
+        "Diapositive par diapositive",
+        "Dans le masque des diapositives",
+        "Dans les notes du présentateur",
+        "Dans les transitions"
+      ],
+      "reponse": 1,
+      "explication": "Le masque des diapositives contrôle la mise en page, les polices et les éléments communs à toutes les diapositives."
+    },
+    {
+      "id": "ppt-03",
+      "niveau": 2,
+      "question": "Qu'apporte le mode présentateur ?",
+      "choix": [
+        "Il enregistre automatiquement la présentation",
+        "Il affiche vos notes et la diapositive suivante sur votre écran, tandis que le public ne voit que la diapositive en cours",
+        "Il traduit la présentation",
+        "Il supprime les animations"
+      ],
+      "reponse": 1,
+      "explication": "Le mode présentateur vous aide à garder le fil sans que le public voie vos notes."
+    },
+    {
+      "id": "ppt-04",
+      "niveau": 1,
+      "question": "Pour montrer l'évolution du chiffre d'affaires sur 12 mois, quel graphique choisir ?",
+      "choix": [
+        "Un graphique en secteurs",
+        "Un graphique en courbes",
+        "Un nuage de points",
+        "Un graphique en radar"
+      ],
+      "reponse": 1,
+      "explication": "La courbe met en évidence une tendance dans le temps. Le secteur sert à montrer la part de chaque élément dans un total."
+    },
+    {
+      "id": "ppt-05",
+      "niveau": 3,
+      "question": "Vous voulez qu'un graphique PowerPoint se mette à jour quand les chiffres changent dans Excel. Que faites-vous ?",
+      "choix": [
+        "Vous faites une capture d'écran",
+        "Vous collez le graphique avec liaison au classeur Excel",
+        "Vous retapez les chiffres",
+        "Vous l'insérez en image"
+      ],
+      "reponse": 1,
+      "explication": "Un collage avec liaison garde le lien avec la source : il suffit d'actualiser le graphique."
+    },
+    {
+      "id": "ppt-06",
+      "niveau": 2,
+      "question": "Où noter ce que vous voulez dire pendant la présentation, sans que le public le voie ?",
+      "choix": [
+        "Dans une zone de texte cachée derrière une image",
+        "Dans la zone de notes de chaque diapositive",
+        "Dans le titre",
+        "Dans le pied de page"
+      ],
+      "reponse": 1,
+      "explication": "Les notes sont visibles en mode présentateur et peuvent être imprimées pour vous."
+    }
+  ]
+}

@@ -1,0 +1,504 @@
+---
+import { getCollection } from 'astro:content';
+import BaseLayout from '@layouts/BaseLayout.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
+import Icon from '@components/Icon.astro';
+import site from '@data/site.json';
+import formations from '@data/formations.json';
+import { NB_QUESTIONS } from '@lib/diagnostic';
+
+// Banque de questions : src/content/diagnostic/*.json (validée par le schéma de src/content/config.ts)
+const domaines = (await getCollection('diagnostic')).map((e) => e.data);
+
+// Contrôle à la compilation : un identifiant de question ne doit exister qu'une fois
+const ids = domaines.flatMap((d) => d.questions.map((q) => q.id));
+const doublons = ids.filter((id, i) => ids.indexOf(id) !== i);
+if (doublons.length) throw new Error(`Diagnostic : identifiants de question en double : ${[...new Set(doublons)].join(', ')}`);
+const codes = formations.paliers.flatMap((p) => p.modules.map((m) => m.code));
+for (const d of domaines) for (const m of d.modules) {
+  if (!codes.includes(m)) throw new Error(`Diagnostic : le domaine « ${d.domaine} » cite le module ${m}, absent du catalogue.`);
+}
+
+const modules = formations.paliers.flatMap((p) =>
+  p.modules.map((m) => ({ code: m.code, titre: m.titre, duree: m.duree, objectif: m.objectif, palier: p.id }))
+);
+const parcours = formations.parcours.map((p) => ({ id: p.id, titre: p.titre, modules: p.modules, duree: p.duree }));
+const data = { domaines, modules, parcours };
+
+const nbQuestions = ids.length;
+
+const metiers = [...formations.parcours.map((p) => ({ value: p.id, label: p.titre })), { value: 'autre', label: 'Autre métier' }];
+const outils = [
+  { value: 'microsoft', label: 'Microsoft 365 / Office' },
+  { value: 'google', label: 'Google Workspace' },
+  { value: 'les-deux', label: 'Les deux' },
+  { value: 'inconnu', label: 'Je ne sais pas' }
+];
+const objectifs = [
+  { value: 'temps', label: 'Gagner du temps' },
+  { value: 'fiabilite', label: 'Fiabiliser nos chiffres' },
+  { value: 'collaboration', label: 'Mieux travailler à plusieurs' },
+  { value: 'ia', label: "Adopter l'IA en sécurité" },
+  { value: 'aucun', label: 'Pas d\'objectif précis' }
+];
+const equipes = [
+  { value: '1', label: 'Juste moi' },
+  { value: '2-5', label: '2 à 5 personnes' },
+  { value: '6-12', label: '6 à 12 personnes' },
+  { value: '12+', label: 'Plus de 12' }
+];
+
+const groupes = [
+  { name: 'metier', legend: 'Votre métier', hint: 'Pour cibler les questions et le parcours.', options: metiers, required: true },
+  { name: 'outils', legend: 'Les outils de votre entreprise', hint: 'Nous ne posons que des questions sur vos outils.', options: outils, required: true },
+  { name: 'objectif', legend: 'Votre objectif principal', hint: 'Facultatif.', options: objectifs, required: false },
+  { name: 'equipe', legend: 'Combien de personnes à former ?', hint: 'Facultatif.', options: equipes, required: false }
+];
+
+const jsonLd = {
+  '@context': 'https://schema.org',
+  '@type': 'WebApplication',
+  name: 'Diagnostic des compétences numériques Gemula',
+  url: `${site.url}/diagnostic`,
+  applicationCategory: 'EducationalApplication',
+  operatingSystem: 'Navigateur web',
+  inLanguage: 'fr-FR',
+  offers: { '@type': 'Offer', price: '0', priceCurrency: 'XAF' },
+  provider: { '@id': `${site.url}/#organization` }
+};
+---
+<BaseLayout
+  title="Diagnostic gratuit : testez votre niveau Excel, IA et Microsoft 365 · Gemula"
+  description={`Testez en 5 minutes votre niveau sur Excel, Word, Microsoft 365, Google Workspace, l'IA et Power BI. Score par domaine et programme de formation recommandé, gratuitement.`}
+  jsonLd={jsonLd}
+>
+  <div class="relative isolate overflow-hidden">
+    <div class="glow-top absolute inset-0 -z-10" aria-hidden="true"></div>
+    <div class="grid-bg absolute inset-0 -z-10 h-[640px]" aria-hidden="true"></div>
+
+    <div class="container-g pt-10 pb-24 md:pt-14">
+      <Breadcrumb items={[{ href: '/', label: 'Accueil' }, { href: '/formations', label: 'Formations' }, { label: 'Diagnostic' }]} class="mb-10" />
+
+      <!-- ÉTAPE 1 : INTRODUCTION -->
+      <section id="step-intro" class="diag-step" aria-labelledby="intro-title">
+        <div class="grid items-center gap-12 lg:grid-cols-12">
+          <div class="lg:col-span-7">
+            <span class="pill"><span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true"></span> Gratuit · Résultat immédiat</span>
+            <h1 id="intro-title" class="mt-6 text-display-lg text-gradient text-balance">Où en est votre équipe avec ses outils numériques ?</h1>
+            <p class="mt-6 max-w-xl text-lg leading-relaxed text-muted">
+              {NB_QUESTIONS} questions, environ 5 minutes. Vous obtenez votre niveau par domaine et un programme de formation adapté à votre métier, tiré de notre catalogue.
+            </p>
+            <div class="mt-9 flex flex-wrap items-center gap-3">
+              <button type="button" class="btn-primary" data-action="start">Commencer le diagnostic <Icon name="arrow_forward" /></button>
+              <a href="/formations" class="btn-ghost">Voir le catalogue</a>
+            </div>
+            <p class="mt-5 text-sm text-muted">Aucune inscription. Vos réponses restent dans votre navigateur.</p>
+          </div>
+          <div class="lg:col-span-5">
+            <ul class="card space-y-5 md:p-8">
+              <li class="flex gap-4">
+                <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-surface-2 text-accent-text"><Icon name="layers" class="text-xl" /></span>
+                <span><span class="block font-medium text-fg">{domaines.length} domaines évalués</span><span class="text-sm text-muted">Excel, Word, PowerPoint, Outlook, Microsoft 365, Google Workspace, formulaires, IA, Power BI, automatisation…</span></span>
+              </li>
+              <li class="flex gap-4">
+                <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-surface-2 text-accent-text"><Icon name="sparkles" class="text-xl" /></span>
+                <span><span class="block font-medium text-fg">Un test différent à chaque fois</span><span class="text-sm text-muted">{nbQuestions} questions dans notre banque : vous ne retombez jamais sur le même test deux fois de suite.</span></span>
+              </li>
+              <li class="flex gap-4">
+                <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-surface-2 text-accent-text"><Icon name="chart" class="text-xl" /></span>
+                <span><span class="block font-medium text-fg">Un programme sur mesure</span><span class="text-sm text-muted">Les modules à suivre en priorité, leur durée et le parcours métier le plus proche.</span></span>
+              </li>
+            </ul>
+          </div>
+        </div>
+      </section>
+
+      <!-- ÉTAPE 2 : PROFIL -->
+      <section id="step-profil" class="diag-step mx-auto max-w-3xl" hidden aria-labelledby="profil-title">
+        <p class="font-mono text-xs text-accent-text">Étape 1 sur 2</p>
+        <h2 id="profil-title" class="mt-2 text-display-sm" tabindex="-1">Parlez-nous de votre contexte.</h2>
+        <p class="mt-3 text-muted">Nous adaptons les questions à vos outils et le programme à votre métier.</p>
+
+        <form id="profil-form" class="mt-10 space-y-9" novalidate>
+          {groupes.map((g) => (
+            <fieldset>
+              <legend class="text-base font-medium text-fg">{g.legend} {g.required && <span class="text-accent-text" aria-hidden="true">*</span>}</legend>
+              <p class="mt-1 text-sm text-muted">{g.hint}</p>
+              <div class="mt-4 flex flex-wrap gap-2">
+                {g.options.map((o) => (
+                  <label class="cursor-pointer">
+                    <input type="radio" name={g.name} value={o.value} class="peer sr-only" required={g.required} />
+                    <span class="inline-flex min-h-[44px] items-center rounded-xl border border-line-strong bg-surface px-4 py-2 text-sm font-medium text-muted transition-colors hover:border-subtle hover:text-fg peer-checked:border-accent peer-checked:bg-accent-soft peer-checked:text-fg peer-focus-visible:ring-2 peer-focus-visible:ring-accent-text">{o.label}</span>
+                  </label>
+                ))}
+              </div>
+              <p class="field-error" data-error-for={g.name} hidden>Choisissez une réponse.</p>
+            </fieldset>
+          ))}
+          <div class="flex flex-wrap items-center gap-3 border-t border-line pt-8">
+            <button type="submit" class="btn-primary">Commencer les questions <Icon name="arrow_forward" /></button>
+            <button type="button" class="btn-ghost" data-action="back-intro">Retour</button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ÉTAPE 3 : QUESTIONS -->
+      <section id="step-quiz" class="diag-step mx-auto max-w-3xl" hidden aria-label="Questions du diagnostic">
+        <div class="flex items-center justify-between gap-4 text-sm">
+          <p class="font-mono text-xs text-accent-text">Étape 2 sur 2</p>
+          <p id="quiz-count" class="text-muted" aria-live="polite"></p>
+        </div>
+        <div class="mt-3 h-1.5 overflow-hidden rounded-full bg-surface-3" role="progressbar" aria-label="Progression" aria-valuemin="0" id="quiz-progress">
+          <div class="h-full rounded-full bg-accent transition-[width] duration-500 ease-out" id="quiz-bar" style="width:0%"></div>
+        </div>
+
+        <form id="quiz-form" class="mt-10" novalidate>
+          <fieldset>
+            <legend class="sr-only" id="quiz-legend"></legend>
+            <div class="flex flex-wrap items-center gap-2">
+              <span class="tag" id="quiz-domain"></span>
+              <span class="tag" id="quiz-level"></span>
+            </div>
+            <h2 class="mt-5 text-2xl md:text-[1.75rem] leading-snug tracking-tighter2" id="quiz-question" tabindex="-1" aria-hidden="true"></h2>
+            <div class="mt-8 grid gap-3" id="quiz-choices"></div>
+          </fieldset>
+          <p class="mt-4 text-sm text-muted">Astuce : touches 1 à 5 pour répondre, Entrée pour continuer.</p>
+          <div class="mt-8 flex items-center justify-between gap-3 border-t border-line pt-6">
+            <button type="button" class="btn-ghost" data-action="prev">Précédent</button>
+            <button type="submit" class="btn-primary" id="quiz-next" disabled>Question suivante <Icon name="arrow_forward" /></button>
+          </div>
+        </form>
+      </section>
+
+      <!-- ÉTAPE 4 : RÉSULTATS (rempli par le script) -->
+      <section id="step-result" class="diag-step" hidden aria-labelledby="result-title"></section>
+
+      <noscript>
+        <p class="card mt-10 max-w-2xl">Le diagnostic nécessite JavaScript. Vous pouvez aussi <a href="/collaborer?type=formation#formulaire" class="text-fg underline decoration-accent underline-offset-4">nous contacter</a> pour un diagnostic accompagné, offert.</p>
+      </noscript>
+    </div>
+  </div>
+
+  <script type="application/json" id="diag-data" set:html={JSON.stringify(data)} />
+</BaseLayout>
+
+<style is:global>
+  .diag-choice { display: flex; align-items: center; gap: 0.875rem; min-height: 56px; cursor: pointer; border-radius: 0.875rem; border: 1px solid #34363B; background: #0F1011; padding: 0.875rem 1rem; transition: border-color .15s, background-color .15s, transform .15s; }
+  .diag-choice:hover { border-color: #6B7079; background: #151618; }
+  .diag-choice:has(input:checked) { border-color: #FF5000; background: #2A1408; }
+  .diag-choice:has(input:focus-visible) { outline: 2px solid #FF8547; outline-offset: 2px; }
+  .diag-choice .diag-key { display: inline-flex; height: 1.75rem; width: 1.75rem; flex-shrink: 0; align-items: center; justify-content: center; border-radius: 0.5rem; border: 1px solid #34363B; font-family: ui-monospace, monospace; font-size: 0.75rem; color: #9A9FA8; }
+  .diag-choice:has(input:checked) .diag-key { border-color: #FF5000; background: #FF5000; color: #08090A; }
+  .diag-choice.is-unsure { border-style: dashed; }
+  .diag-step:not([hidden]) { animation: fade-up 0.5s cubic-bezier(0.16, 1, 0.3, 1) both; }
+  @keyframes fade-up { from { opacity: 0; transform: translateY(10px); } to { opacity: 1; transform: none; } }
+  .diag-ring { transition: stroke-dashoffset 1.2s cubic-bezier(0.16, 1, 0.3, 1); }
+  @media (prefers-reduced-motion: reduce) { .diag-step:not([hidden]) { animation: none; } .diag-ring { transition: none; } }
+</style>
+
+<script>
+  import {
+    tirerQuestions, majHistorique, historiqueVide, calculerScore, recommander, SEUIL_LACUNE, SEUIL_MAITRISE,
+    type Domaine, type Module, type Parcours, type Profil, type Historique, type QuestionTiree, type Reponse, type Resultat, type Programme
+  } from '@lib/diagnostic';
+
+  const raw = document.getElementById('diag-data')?.textContent ?? '{}';
+  const DATA = JSON.parse(raw) as { domaines: Domaine[]; modules: Module[]; parcours: Parcours[] };
+  const HISTO_KEY = 'gemula-diagnostic';
+
+  const $ = <T extends HTMLElement = HTMLElement>(sel: string) => document.querySelector(sel) as T;
+  const esc = (s: string) => s.replace(/[&<>"']/g, (c) => ({ '&': '&amp;', '<': '&lt;', '>': '&gt;', '"': '&quot;', "'": '&#39;' })[c]!);
+  const track = (name: string, params: Record<string, unknown> = {}) => (window as any).gtag?.('event', name, params);
+
+  const steps = ['intro', 'profil', 'quiz', 'result'] as const;
+  function show(step: (typeof steps)[number], focus?: string) {
+    steps.forEach((s) => ($(`#step-${s}`).hidden = s !== step));
+    window.scrollTo({ top: 0, behavior: matchMedia('(prefers-reduced-motion: reduce)').matches ? 'auto' : 'smooth' });
+    if (focus) requestAnimationFrame(() => $(focus)?.focus({ preventScroll: true }));
+  }
+
+  function lireHistorique(): Historique {
+    try { return { ...historiqueVide(), ...JSON.parse(localStorage.getItem(HISTO_KEY) || '{}') }; } catch { return historiqueVide(); }
+  }
+  function ecrireHistorique(h: Historique) {
+    try { localStorage.setItem(HISTO_KEY, JSON.stringify(h)); } catch {}
+  }
+
+  // ------------------------------------------------------------------ état
+  let profil: Profil = { metier: 'autre', outils: 'inconnu', objectif: 'aucun', equipe: '' };
+  let questions: QuestionTiree[] = [];
+  let reponses: (Reponse | undefined)[] = [];
+  let index = 0;
+
+  // ------------------------------------------------------------------ intro et profil
+  document.querySelectorAll('[data-action="start"]').forEach((b) => b.addEventListener('click', () => {
+    show('profil', '#profil-title');
+    track('diagnostic_start');
+  }));
+  $('[data-action="back-intro"]').addEventListener('click', () => show('intro'));
+
+  const profilForm = $<HTMLFormElement>('#profil-form');
+  profilForm.addEventListener('change', (e) => {
+    const t = e.target as HTMLInputElement;
+    const err = profilForm.querySelector<HTMLElement>(`[data-error-for="${t.name}"]`);
+    if (err) err.hidden = true;
+  });
+  profilForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    const fd = new FormData(profilForm);
+    let premierManquant: string | null = null;
+    for (const name of ['metier', 'outils']) {
+      const manque = !fd.get(name);
+      const err = profilForm.querySelector<HTMLElement>(`[data-error-for="${name}"]`);
+      if (err) err.hidden = !manque;
+      if (manque && !premierManquant) premierManquant = name;
+    }
+    if (premierManquant) {
+      profilForm.querySelector<HTMLInputElement>(`input[name="${premierManquant}"]`)?.focus();
+      return;
+    }
+    profil = {
+      metier: String(fd.get('metier')),
+      outils: String(fd.get('outils')) as Profil['outils'],
+      objectif: (String(fd.get('objectif') || 'aucun')) as Profil['objectif'],
+      equipe: String(fd.get('equipe') || '')
+    };
+    demarrerTest();
+  });
+
+  function demarrerTest() {
+    questions = tirerQuestions(DATA.domaines, profil, DATA.parcours, lireHistorique());
+    reponses = new Array(questions.length).fill(undefined);
+    index = 0;
+    $('#quiz-progress').setAttribute('aria-valuemax', String(questions.length));
+    afficherQuestion();
+    show('quiz', '#quiz-question');
+  }
+
+  // ------------------------------------------------------------------ questions
+  const niveaux = ['', 'Niveau 1 · bases', 'Niveau 2 · pratique', 'Niveau 3 · avancé'];
+  const quizForm = $<HTMLFormElement>('#quiz-form');
+  const nextBtn = $<HTMLButtonElement>('#quiz-next');
+
+  function afficherQuestion() {
+    const q = questions[index];
+    $('#quiz-count').textContent = `Question ${index + 1} sur ${questions.length}`;
+    $('#quiz-bar').style.width = `${(index / questions.length) * 100}%`;
+    $('#quiz-progress').setAttribute('aria-valuenow', String(index));
+    $('#quiz-domain').textContent = q.domaineTitre;
+    $('#quiz-level').textContent = niveaux[q.niveau] ?? '';
+    $('#quiz-question').textContent = q.question;
+    $('#quiz-legend').textContent = q.question;
+
+    const options = [...q.ordre.map((i) => ({ value: String(i), label: q.choix[i], unsure: false })), { value: 'nsp', label: 'Je ne sais pas', unsure: true }];
+    const actuelle = reponses[index];
+    $('#quiz-choices').innerHTML = options.map((o, k) => `
+      <label class="diag-choice${o.unsure ? ' is-unsure' : ''}">
+        <input type="radio" name="choix" value="${o.value}" class="sr-only" ${(actuelle === null && o.unsure) || (actuelle !== undefined && actuelle !== null && String(actuelle) === o.value) ? 'checked' : ''} />
+        <span class="diag-key" aria-hidden="true">${k + 1}</span>
+        <span class="${o.unsure ? 'text-muted' : 'text-fg'}">${esc(o.label)}</span>
+      </label>`).join('');
+    nextBtn.disabled = actuelle === undefined;
+    nextBtn.firstChild!.textContent = index === questions.length - 1 ? 'Voir mes résultats ' : 'Question suivante ';
+    ($('[data-action="prev"]') as HTMLButtonElement).disabled = index === 0;
+  }
+
+  $('#quiz-choices').addEventListener('change', (e) => {
+    const v = (e.target as HTMLInputElement).value;
+    reponses[index] = v === 'nsp' ? null : Number(v);
+    nextBtn.disabled = false;
+  });
+
+  quizForm.addEventListener('submit', (e) => {
+    e.preventDefault();
+    if (reponses[index] === undefined) return;
+    if (index < questions.length - 1) {
+      index++;
+      afficherQuestion();
+      $('#quiz-question').focus({ preventScroll: true });
+    } else {
+      terminer();
+    }
+  });
+
+  $('[data-action="prev"]').addEventListener('click', () => {
+    if (index > 0) { index--; afficherQuestion(); $('#quiz-question').focus({ preventScroll: true }); }
+  });
+
+  // Raccourcis clavier : 1 à 5 pour choisir, Entrée pour valider
+  document.addEventListener('keydown', (e) => {
+    if ($('#step-quiz').hidden || e.altKey || e.ctrlKey || e.metaKey) return;
+    const tag = (e.target as HTMLElement).tagName;
+    if (tag === 'TEXTAREA' || (tag === 'INPUT' && (e.target as HTMLInputElement).type === 'text')) return;
+    const n = Number(e.key);
+    const inputs = document.querySelectorAll<HTMLInputElement>('#quiz-choices input');
+    if (n >= 1 && n <= inputs.length) {
+      inputs[n - 1].checked = true;
+      inputs[n - 1].dispatchEvent(new Event('change', { bubbles: true }));
+      inputs[n - 1].focus();
+    }
+  });
+
+  // ------------------------------------------------------------------ résultats
+  function terminer() {
+    const finales = reponses.map((r) => (r === undefined ? null : r));
+    ecrireHistorique(majHistorique(lireHistorique(), questions));
+    const resultat = calculerScore(questions, finales, DATA.domaines);
+    const programme = recommander(resultat, profil, DATA.modules, DATA.parcours);
+    afficherResultat(resultat, programme, finales);
+    show('result', '#result-title');
+    track('diagnostic_complete', { score: resultat.global, niveau: resultat.niveau, metier: profil.metier });
+  }
+
+  const paliersInfo = {
+    essentiel: { nom: 'Essentiel', desc: 'Outils de base' },
+    collaboratif: { nom: 'Collaboratif', desc: 'Travail partagé' },
+    performance: { nom: 'Performance', desc: 'IA, data et automatisation' }
+  } as const;
+
+  const phrases: Record<Resultat['niveau'], string> = {
+    'Débutant': 'Les bases sont à construire : une formation pratique, sur vos propres fichiers, vous fera gagner beaucoup de temps.',
+    'Intermédiaire': 'Vous avez des bases, avec des lacunes ciblées. Quelques modules bien choisis feront une vraie différence.',
+    'Confirmé': 'Bon niveau. Il reste quelques points à consolider avant de passer à l\'automatisation et à la data.',
+    'Avancé': 'Excellent niveau ! Vous êtes prêt pour l\'IA, la data et l\'automatisation à grande échelle.'
+  };
+
+  const etatDomaine = (t: number) => t >= SEUIL_MAITRISE ? { label: 'Maîtrisé', cls: 'text-success' } : t >= SEUIL_LACUNE ? { label: 'À consolider', cls: 'text-accent-text' } : { label: 'À travailler', cls: 'text-danger' };
+  const priorites = { prioritaire: 'Prioritaire', utile: 'Recommandé', approfondir: 'Pour aller plus loin' };
+
+  function lienDemande(r: Resultat, p: Programme) {
+    const params = new URLSearchParams({ type: 'formation', source: 'diagnostic', score: String(r.global), niveau: r.niveau, modules: p.modules.map((m) => m.code).join(',') });
+    if (p.parcours) params.set('parcours', p.parcours.id);
+    if (profil.equipe) params.set('equipe', profil.equipe);
+    params.set('outils', profil.outils);
+    return `/collaborer?${params.toString()}#formulaire`;
+  }
+
+  function afficherResultat(r: Resultat, p: Programme, finales: Reponse[]) {
+    const C = 2 * Math.PI * 52;
+    const bonnes = questions.filter((q, i) => finales[i] === q.reponse).length;
+    const paliersHtml = (Object.keys(paliersInfo) as (keyof typeof paliersInfo)[])
+      .filter((k) => r.paliers[k].total > 0)
+      .map((k) => {
+        const pct = Math.round(r.paliers[k].taux * 100);
+        return `<div>
+          <div class="flex items-baseline justify-between gap-3"><span class="font-medium text-fg">${paliersInfo[k].nom}</span><span class="font-mono text-sm text-muted">${pct} %</span></div>
+          <p class="text-xs text-muted">${paliersInfo[k].desc}</p>
+          <div class="mt-2 h-2 overflow-hidden rounded-full bg-surface-3"><div class="h-full rounded-full bg-accent" style="width:${pct}%"></div></div>
+        </div>`;
+      }).join('');
+
+    const domainesHtml = r.domaines.map((d) => {
+      const e = etatDomaine(d.taux);
+      return `<li class="flex items-center justify-between gap-4 py-3">
+        <span class="min-w-0"><span class="block truncate text-sm text-fg">${esc(d.titre)}</span><span class="text-xs text-muted">${d.bonnes} / ${d.total} bonne${d.bonnes > 1 ? 's' : ''} réponse${d.bonnes > 1 ? 's' : ''}</span></span>
+        <span class="shrink-0 text-xs font-medium ${e.cls}">${e.label}</span>
+      </li>`;
+    }).join('');
+
+    const modulesHtml = p.modules.map((m) => `
+      <li class="card !p-5 flex flex-col">
+        <div class="flex items-center justify-between gap-2">
+          <span class="font-mono text-xs text-accent-text">${esc(m.code)} · ${esc(paliersInfo[m.palier].nom)}</span>
+          <span class="tag">${esc(m.duree)}</span>
+        </div>
+        <h4 class="mt-3 text-base font-semibold text-fg">${esc(m.titre)}</h4>
+        ${m.objectif ? `<p class="mt-1 text-sm text-muted">${esc(m.objectif)}</p>` : ''}
+        <p class="mt-auto pt-4 text-xs text-muted"><span class="font-medium ${m.priorite === 'prioritaire' ? 'text-accent-text' : 'text-fg'}">${priorites[m.priorite]}</span> · ${esc(m.raison)}</p>
+        <a href="/formations#${m.code.toLowerCase()}" class="mt-3 text-sm font-medium text-fg underline decoration-accent underline-offset-4">Détail du module</a>
+      </li>`).join('');
+
+    const revueHtml = questions.map((q, i) => {
+      const r2 = finales[i];
+      const ok = r2 === q.reponse;
+      const statut = ok ? '<span class="text-success">Bonne réponse</span>' : r2 === null ? '<span class="text-muted">Je ne sais pas</span>' : '<span class="text-danger">Réponse incorrecte</span>';
+      return `<li class="border-t border-line py-5">
+        <p class="text-xs text-muted">${i + 1}. ${esc(q.domaineTitre)} · ${statut}</p>
+        <p class="mt-1 font-medium text-fg">${esc(q.question)}</p>
+        ${!ok && r2 !== null ? `<p class="mt-2 text-sm text-muted">Votre réponse : ${esc(q.choix[r2])}</p>` : ''}
+        <p class="mt-1 text-sm text-fg">Bonne réponse : ${esc(q.choix[q.reponse])}</p>
+        ${q.explication ? `<p class="mt-2 text-sm text-muted">${esc(q.explication)}</p>` : ''}
+      </li>`;
+    }).join('');
+
+    const lien = lienDemande(r, p);
+    $('#step-result').innerHTML = `
+      <div class="grid gap-6 lg:grid-cols-12">
+        <div class="card md:p-8 lg:col-span-5 flex flex-col items-center text-center lg:sticky lg:top-24 lg:self-start">
+          <p class="font-mono text-xs text-accent-text">Votre résultat</p>
+          <div class="relative mt-6 h-44 w-44">
+            <svg viewBox="0 0 120 120" class="h-full w-full -rotate-90" aria-hidden="true">
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#1C1D20" stroke-width="10" />
+              <circle cx="60" cy="60" r="52" fill="none" stroke="#FF5000" stroke-width="10" stroke-linecap="round" class="diag-ring" stroke-dasharray="${C}" stroke-dashoffset="${C}" data-target="${C * (1 - r.global / 100)}" />
+            </svg>
+            <div class="absolute inset-0 flex flex-col items-center justify-center">
+              <span class="text-5xl font-semibold tracking-tightest text-fg">${r.global}</span>
+              <span class="text-sm text-muted">sur 100</span>
+            </div>
+          </div>
+          <h2 id="result-title" class="mt-6 text-display-sm" tabindex="-1">Niveau ${r.niveau.toLowerCase()}</h2>
+          <p class="mt-3 text-muted">${phrases[r.niveau]}</p>
+          <p class="mt-4 text-sm text-muted">${bonnes} bonne${bonnes > 1 ? 's' : ''} réponse${bonnes > 1 ? 's' : ''} sur ${questions.length}, pondérées par la difficulté.</p>
+        </div>
+        <div class="card md:p-8 lg:col-span-7">
+          <h3 class="text-lg">Par palier du catalogue</h3>
+          <div class="mt-6 space-y-5">${paliersHtml}</div>
+          <h3 class="mt-10 text-lg">Par domaine</h3>
+          <ul class="mt-2 divide-y divide-line">${domainesHtml}</ul>
+        </div>
+      </div>
+
+      <section class="mt-16" aria-labelledby="prog-title">
+        <div class="flex flex-col gap-4 md:flex-row md:items-end md:justify-between">
+          <div class="max-w-2xl">
+            <p class="eyebrow">Programme recommandé</p>
+            <h2 id="prog-title" class="mt-3 text-display-sm">${p.modules.length} module${p.modules.length > 1 ? 's' : ''} pour progresser, ${String(p.jours).replace('.', ',')} jour${p.jours > 1 ? 's' : ''} au total.</h2>
+            ${p.parcours ? `<p class="mt-3 text-muted">Parcours le plus proche : <a href="/formations#parcours-${p.parcours.id}" class="text-fg underline decoration-accent underline-offset-4">${esc(p.parcours.titre)}</a> (${esc(p.parcours.duree)}).</p>` : ''}
+          </div>
+        </div>
+        <ul class="mt-8 grid gap-4 sm:grid-cols-2 lg:grid-cols-3">${modulesHtml}</ul>
+        <p class="mt-4 text-sm text-muted">Durées indicatives, ajustées après un diagnostic approfondi de toute l'équipe. Formations sur site à Douala ou en ligne, avec 30 jours de suivi.</p>
+      </section>
+
+      <section class="relative isolate mt-16 overflow-hidden rounded-3xl border border-line bg-surface px-6 py-12 md:px-12 md:py-14">
+        <div class="glow-top absolute inset-0 -z-10" aria-hidden="true"></div>
+        <div class="grid gap-8 lg:grid-cols-12 lg:items-center">
+          <div class="lg:col-span-7">
+            <h2 class="text-display-sm text-gradient text-balance">Faites de ce diagnostic un vrai programme pour votre équipe.</h2>
+            <p class="mt-4 text-muted">Nous préparons une proposition à partir de vos résultats : programme ajusté, format (intra, inter, sessions fractionnées, en ligne) et devis. L'audit numérique de votre équipe est offert.</p>
+          </div>
+          <div class="flex flex-col gap-3 lg:col-span-5">
+            <a href="${lien}" class="btn-primary">Recevoir ce programme et un devis</a>
+            <a href="https://wa.me/237682375573?text=${encodeURIComponent(`Bonjour Gemula, je viens de faire le diagnostic (score ${r.global}/100). Modules recommandés : ${p.modules.map((m) => m.code).join(', ')}. J'aimerais en discuter.`)}" target="_blank" rel="noopener" class="btn-ghost">En parler sur WhatsApp</a>
+            <a href="/documents/catalogue-formations-gemula.pdf" download class="btn-ghost">Télécharger le catalogue PDF</a>
+          </div>
+        </div>
+      </section>
+
+      <details class="card mt-10 md:p-8">
+        <summary class="cursor-pointer select-none text-lg font-semibold text-fg">Revoir mes réponses et les explications</summary>
+        <ol class="mt-4">${revueHtml}</ol>
+      </details>
+
+      <div class="mt-10 flex flex-wrap items-center gap-3">
+        <button type="button" class="btn-ghost" data-action="restart">Refaire le test avec de nouvelles questions</button>
+        <button type="button" class="btn-ghost" data-action="share">Partager le diagnostic</button>
+        <span id="share-status" class="text-sm text-muted" role="status"></span>
+      </div>`;
+
+    requestAnimationFrame(() => requestAnimationFrame(() => {
+      const ring = document.querySelector<SVGCircleElement>('.diag-ring');
+      ring?.setAttribute('stroke-dashoffset', ring.dataset.target ?? '0');
+    }));
+
+    $('[data-action="restart"]').addEventListener('click', () => { track('diagnostic_restart'); demarrerTest(); });
+    $('[data-action="share"]').addEventListener('click', async () => {
+      const url = `${location.origin}/diagnostic`;
+      const text = 'Testez le niveau numérique de votre équipe en 5 minutes avec le diagnostic gratuit de Gemula.';
+      try {
+        if (navigator.share) await navigator.share({ title: 'Diagnostic Gemula', text, url });
+        else { await navigator.clipboard.writeText(url); $('#share-status').textContent = 'Lien copié.'; }
+      } catch {}
+    });
+  }
+</script>

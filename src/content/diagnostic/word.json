@@ -1,0 +1,102 @@
+{
+  "domaine": "word",
+  "titre": "Word professionnel et documents automatisés",
+  "palier": "essentiel",
+  "outils": "microsoft",
+  "modules": [
+    "E3"
+  ],
+  "questions": [
+    {
+      "id": "wrd-01",
+      "niveau": 1,
+      "question": "Pourquoi utiliser les styles (Titre 1, Titre 2…) plutôt que mettre le texte en gras à la main ?",
+      "choix": [
+        "Pour imprimer plus vite",
+        "Pour obtenir une mise en forme homogène et générer une table des matières automatique",
+        "Pour réduire la taille du fichier",
+        "Pour activer la correction orthographique"
+      ],
+      "reponse": 1,
+      "explication": "Les styles garantissent une présentation cohérente et permettent à Word de construire le plan et la table des matières."
+    },
+    {
+      "id": "wrd-02",
+      "niveau": 2,
+      "question": "Sur quoi repose une table des matières automatique dans Word ?",
+      "choix": [
+        "Sur les numéros de page saisis à la main",
+        "Sur les styles de titre appliqués au document",
+        "Sur les mots en gras",
+        "Sur les sauts de page"
+      ],
+      "reponse": 1,
+      "explication": "Word liste automatiquement les paragraphes mis en forme avec les styles Titre 1, Titre 2, etc."
+    },
+    {
+      "id": "wrd-03",
+      "niveau": 2,
+      "question": "Vous devez envoyer 200 courriers identiques avec un nom et une adresse différents. Quelle fonctionnalité utilisez-vous ?",
+      "choix": [
+        "Le copier-coller",
+        "Le publipostage",
+        "Le suivi des modifications",
+        "Les sections"
+      ],
+      "reponse": 1,
+      "explication": "Le publipostage fusionne un modèle Word avec une liste (souvent un fichier Excel) pour produire des documents personnalisés en série."
+    },
+    {
+      "id": "wrd-04",
+      "niveau": 1,
+      "question": "À quoi sert le suivi des modifications ?",
+      "choix": [
+        "À enregistrer automatiquement le fichier",
+        "À voir, accepter ou refuser les corrections apportées par chaque relecteur",
+        "À compter les mots",
+        "À traduire le document"
+      ],
+      "reponse": 1,
+      "explication": "Chaque modification est visible et attribuée à son auteur, ce qui facilite la relecture à plusieurs."
+    },
+    {
+      "id": "wrd-05",
+      "niveau": 3,
+      "question": "Vous voulez que la numérotation des pages commence à 1 à partir de la page 3. Que faites-vous ?",
+      "choix": [
+        "Vous tapez les numéros à la main",
+        "Vous insérez un saut de section, puis vous désactivez « Lier au précédent » dans le pied de page",
+        "Vous supprimez les deux premières pages",
+        "Vous changez la taille de la police"
+      ],
+      "reponse": 1,
+      "explication": "Les sections permettent d'avoir des en-têtes, pieds de page et numérotations différents dans un même document."
+    },
+    {
+      "id": "wrd-06",
+      "niveau": 2,
+      "question": "Quel est l'intérêt d'un modèle Word (.dotx) ?",
+      "choix": [
+        "Il ne peut pas être imprimé",
+        "Il sert de base réutilisable (en-tête, charte, champs) sans risque d'écraser l'original",
+        "Il convertit le document en PDF",
+        "Il empêche toute modification"
+      ],
+      "reponse": 1,
+      "explication": "Un modèle crée un nouveau document à chaque ouverture : l'original reste intact."
+    },
+    {
+      "id": "wrd-07",
+      "niveau": 1,
+      "question": "Quelle est la bonne façon de passer à la page suivante ?",
+      "choix": [
+        "Appuyer plusieurs fois sur Entrée",
+        "Insérer un saut de page (Ctrl+Entrée)",
+        "Réduire la marge du bas",
+        "Ajouter des espaces"
+      ],
+      "reponse": 1,
+      "explication": "Un saut de page reste fiable même si le texte au-dessus change, contrairement aux lignes vides."
+    }
+  ]
+}
