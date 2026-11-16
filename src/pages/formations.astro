@@ -69,7 +69,8 @@ const jsonLd = [
             Bureautique, travail collaboratif, intelligence artificielle, data et automatisation. Des formations pratiques, construites sur vos fichiers et vos métiers, et suivies d'un mois d'accompagnement.
           </p>
           <div class="mt-9 flex flex-wrap gap-3">
-            <a href={devisUrl} class="btn-primary">Demander l'audit offert</a>
+            <a href="/diagnostic" class="btn-primary">Tester mon niveau en 5 minutes <Icon name="arrow_forward" /></a>
+            <a href={devisUrl} class="btn-ghost">Demander l'audit offert</a>
             <a href={formations.catalogueUrl} class="btn-ghost" download>
               <Icon name="download" class="text-[1.2rem]" />
               Catalogue en PDF
@@ -125,6 +126,13 @@ const jsonLd = [
         </li>
       ))}
     </ol>
+    <a href="/diagnostic" class="group mt-6 flex flex-col gap-4 rounded-2xl border border-accent/40 bg-accent-soft/40 p-6 transition-colors hover:border-accent sm:flex-row sm:items-center sm:justify-between">
+      <span>
+        <span class="block font-medium text-fg">Faites l'étape 1 dès maintenant : le diagnostic en ligne</span>
+        <span class="mt-1 block text-sm text-muted">15 questions tirées au hasard, votre niveau par domaine et le programme recommandé. Gratuit, sans inscription.</span>
+      </span>
+      <span class="btn-primary shrink-0">Commencer le test <Icon name="arrow_forward" class="transition-transform group-hover:translate-x-0.5" /></span>
+    </a>
     <p class="mt-6 text-[0.9375rem] text-muted max-w-3xl">
       Chaque participant reçoit les supports de cours, une fiche mémo par thème, les exercices corrigés et une attestation de formation. L'entreprise reçoit la liste de présence et les résultats avant et après la formation.
     </p>
@@ -271,7 +279,7 @@ const jsonLd = [
         {formations.references.map((r) => (
           <article class="card flex flex-col sm:flex-row gap-6">
             {r.image && (
-              <img src={r.image} alt={`Visuel de l'événement : ${r.titre}`} class="w-full sm:w-40 shrink-0 rounded-lg border border-line object-cover object-top aspect-[4/5]" loading="lazy" decoding="async" />
+              <img src={r.image} alt={`Visuel de l'événement : ${r.titre}`} class="w-full sm:w-40 shrink-0 rounded-lg border border-line object-cover object-center aspect-[4/5]" loading="lazy" decoding="async" />
             )}
             <div>
               <p class="text-sm text-muted">{r.date}</p>

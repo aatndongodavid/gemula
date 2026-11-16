@@ -1,3 +1,10 @@
+# Diagnostic en ligne et atelier EK NumériK (16 novembre 2026)
+
+- Nouvelle page **/diagnostic** : test gratuit de 15 questions tirées d'une banque de 93 questions sur 14 domaines du catalogue. Questions adaptées aux outils de l'entreprise (Microsoft ou Google), jamais deux fois le même test de suite. Résultat : score sur 100, niveau par palier et par domaine, programme de modules recommandés, parcours métier le plus proche, demande de devis préremplie.
+- Ajouter des questions : voir `docs/diagnostic.md`.
+- Nouvel article du journal sur l'atelier IA du 31 octobre chez EK NumériK, avec trois photos (visages des enfants floutés).
+- Liens vers le diagnostic : accueil, page Formations, menu et pied de page.
+
 # Refonte v3 du site Gemula (16 novembre 2026)
 
 ## Nouveau design

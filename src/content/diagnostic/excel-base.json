@@ -1,0 +1,115 @@
+{
+  "domaine": "excel-base",
+  "titre": "Excel : les fondamentaux",
+  "palier": "essentiel",
+  "outils": "tous",
+  "modules": [
+    "E1"
+  ],
+  "questions": [
+    {
+      "id": "xlb-01",
+      "niveau": 1,
+      "question": "Quelle formule additionne les valeurs des cellules A1 à A10 ?",
+      "choix": [
+        "=SOMME(A1:A10)",
+        "=ADDITION(A1:A10)",
+        "=SOMME(A1;A10)",
+        "=A1+A10"
+      ],
+      "reponse": 0,
+      "explication": "Le deux-points désigne une plage : A1:A10 couvre les dix cellules. =SOMME(A1;A10) n'additionne que A1 et A10."
+    },
+    {
+      "id": "xlb-02",
+      "niveau": 1,
+      "question": "Dans la formule =$B$2*C5, à quoi servent les symboles $ ?",
+      "choix": [
+        "À indiquer que la cellule contient un montant en devise",
+        "À figer la référence B2 quand on recopie la formule",
+        "À protéger la cellule B2 contre la modification",
+        "À forcer le calcul de B2 avant celui de C5"
+      ],
+      "reponse": 1,
+      "explication": "Le $ rend la référence absolue : B2 reste B2 quelle que soit la cellule où la formule est recopiée."
+    },
+    {
+      "id": "xlb-03",
+      "niveau": 2,
+      "question": "La cellule E2 contient =A2*$D$1. Vous la recopiez en E3. Quelle formule obtenez-vous ?",
+      "choix": [
+        "=A3*$D$2",
+        "=A2*$D$1",
+        "=A3*$D$1",
+        "=A3*D2"
+      ],
+      "reponse": 2,
+      "explication": "A2 est relative et devient A3 ; $D$1 est absolue et ne change pas."
+    },
+    {
+      "id": "xlb-04",
+      "niveau": 2,
+      "question": "Quelle formule compte le nombre de cellules de B2:B50 dont la valeur est « Payé » ?",
+      "choix": [
+        "=NBVAL(B2:B50)",
+        "=NB.SI(B2:B50;\"Payé\")",
+        "=SOMME.SI(B2:B50;\"Payé\")",
+        "=NB.SI(\"Payé\";B2:B50)"
+      ],
+      "reponse": 1,
+      "explication": "NB.SI(plage;critère) compte les cellules égales au critère. NBVAL compte toutes les cellules non vides, et l'ordre des arguments compte."
+    },
+    {
+      "id": "xlb-05",
+      "niveau": 1,
+      "question": "La cellule C2 vaut 8. Qu'affiche =SI(C2>=10;\"Admis\";\"Ajourné\") ?",
+      "choix": [
+        "Admis",
+        "Ajourné",
+        "FAUX",
+        "#VALEUR!"
+      ],
+      "reponse": 1,
+      "explication": "8 n'est pas supérieur ou égal à 10 : la fonction SI renvoie la seconde valeur, « Ajourné »."
+    },
+    {
+      "id": "xlb-06",
+      "niveau": 3,
+      "question": "Les régions sont en A2:A100 et les montants en C2:C100. Quelle formule calcule le total de la région « Littoral » ?",
+      "choix": [
+        "=SOMME.SI(C2:C100;\"Littoral\";A2:A100)",
+        "=SOMME.SI(A2:A100;\"Littoral\";C2:C100)",
+        "=SOMME(A2:A100=\"Littoral\")",
+        "=NB.SI(A2:A100;\"Littoral\")"
+      ],
+      "reponse": 1,
+      "explication": "SOMME.SI prend d'abord la plage où chercher le critère, puis le critère, puis la plage à additionner."
+    },
+    {
+      "id": "xlb-07",
+      "niveau": 1,
+      "question": "Quel est le principal avantage de « Mettre sous forme de tableau » dans Excel ?",
+      "choix": [
+        "Les nouvelles lignes reprennent automatiquement les formules, la mise en forme et les filtres",
+        "Les cellules sont automatiquement protégées contre la modification",
+        "Les formules sont remplacées par leurs valeurs pour alléger le fichier",
+        "Les données sont triées automatiquement à chaque saisie"
+      ],
+      "reponse": 0,
+      "explication": "Un tableau structuré s'agrandit tout seul : les nouvelles lignes héritent des formules et sont prises en compte par les graphiques et tableaux croisés."
+    },
+    {
+      "id": "xlb-08",
+      "niveau": 2,
+      "question": "Vous voulez que les stocks inférieurs au seuil d'alerte apparaissent en rouge automatiquement. Quel outil utilisez-vous ?",
+      "choix": [
+        "La mise en forme conditionnelle",
+        "La validation des données avec un message d'alerte",
+        "Un filtre automatique sur la colonne des stocks",
+        "Un tri croissant sur la colonne des stocks"
+      ],
+      "reponse": 0,
+      "explication": "La mise en forme conditionnelle applique un format selon une règle et se met à jour dès que les valeurs changent."
+    }
+  ]
+}

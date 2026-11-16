@@ -91,7 +91,31 @@ const journal = defineCollection({
   })
 });
 
+// Banque de questions du diagnostic : un fichier JSON par domaine dans src/content/diagnostic/.
+// Pour ajouter une question, ajoutez un objet dans « questions » avec un identifiant unique.
+const diagnostic = defineCollection({
+  type: 'data',
+  schema: z.object({
+    domaine: z.string(),
+    titre: z.string(),
+    palier: z.enum(['essentiel', 'collaboratif', 'performance']),
+    outils: z.enum(['tous', 'microsoft', 'google']),
+    modules: z.array(z.string()).min(1),
+    questions: z.array(
+      z.object({
+        id: z.string().regex(/^[a-z0-9-]+$/, 'identifiant en minuscules, chiffres et tirets'),
+        niveau: z.number().int().min(1).max(3),
+        question: z.string().min(10),
+        choix: z.array(z.string()).min(2).max(5),
+        reponse: z.number().int().min(0),
+        explication: z.string().optional()
+      }).refine((q) => q.reponse < q.choix.length, { message: 'reponse doit désigner un des choix (0 = premier choix)' })
+    ).min(1)
+  })
+});
+
 export const collections = {
+  diagnostic,
   projets,
   evenements,
   talents,

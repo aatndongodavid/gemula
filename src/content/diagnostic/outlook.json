@@ -1,0 +1,89 @@
+{
+  "domaine": "outlook",
+  "titre": "Outlook et gestion du temps",
+  "palier": "essentiel",
+  "outils": "microsoft",
+  "modules": [
+    "E5"
+  ],
+  "questions": [
+    {
+      "id": "out-01",
+      "niveau": 1,
+      "question": "Comment classer automatiquement les messages d'un fournisseur dans un dossier dédié ?",
+      "choix": [
+        "En les déplaçant chaque matin",
+        "En créant une règle",
+        "En les marquant comme lus",
+        "En les transférant à un collègue"
+      ],
+      "reponse": 1,
+      "explication": "Une règle trie les messages dès leur arrivée selon l'expéditeur, l'objet ou des mots-clés."
+    },
+    {
+      "id": "out-02",
+      "niveau": 2,
+      "question": "Vous partez en congé une semaine. Quelle fonctionnalité prévient automatiquement vos correspondants ?",
+      "choix": [
+        "Les réponses automatiques (gestionnaire d'absence)",
+        "Une règle qui transfère vos messages à un collègue",
+        "Le statut « Absent » dans Teams",
+        "Un message type envoyé à vos contacts avant de partir"
+      ],
+      "reponse": 0,
+      "explication": "Les réponses automatiques envoient un message d'absence pendant la période choisie, avec des textes différents pour l'interne et l'externe."
+    },
+    {
+      "id": "out-03",
+      "niveau": 2,
+      "question": "Comment trouver un créneau où cinq collègues sont disponibles ?",
+      "choix": [
+        "Envoyer une invitation à un créneau et attendre les refus",
+        "Utiliser l'assistant Planification de la réunion",
+        "Créer un sondage par email pour chaque créneau",
+        "Consulter son propre calendrier et choisir un créneau libre"
+      ],
+      "reponse": 1,
+      "explication": "L'assistant Planification affiche les disponibilités de chaque participant et propose des créneaux libres."
+    },
+    {
+      "id": "out-04",
+      "niveau": 1,
+      "question": "Quelle est la différence entre Cc et Cci ?",
+      "choix": [
+        "Les destinataires en Cc ne peuvent pas répondre à tous",
+        "Les destinataires en Cci ne sont pas visibles des autres",
+        "Les destinataires en Cci reçoivent le message en différé",
+        "Les destinataires en Cc reçoivent une copie chiffrée"
+      ],
+      "reponse": 1,
+      "explication": "Cci (copie cachée) protège les adresses des destinataires, utile pour un envoi à de nombreuses personnes externes."
+    },
+    {
+      "id": "out-05",
+      "niveau": 3,
+      "question": "Votre assistante doit gérer vos rendez-vous. Quelle solution est la plus adaptée ?",
+      "choix": [
+        "Lui donner votre mot de passe",
+        "Lui accorder un accès délégué à votre calendrier",
+        "Lui transférer chaque invitation",
+        "Imprimer votre agenda chaque semaine"
+      ],
+      "reponse": 1,
+      "explication": "La délégation donne des droits précis sans partager de mot de passe, et chaque action reste traçable."
+    },
+    {
+      "id": "out-06",
+      "niveau": 2,
+      "question": "Vous rédigez souvent la même réponse. Quel outil vous fait gagner du temps ?",
+      "choix": [
+        "Les modèles de message ou les QuickParts",
+        "Le mode hors connexion",
+        "Les indicateurs de suivi",
+        "Le dossier Courrier indésirable"
+      ],
+      "reponse": 0,
+      "explication": "Les modèles et QuickParts insèrent un texte enregistré en un clic."
+    }
+  ]
+}

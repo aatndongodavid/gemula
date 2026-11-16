@@ -1,0 +1,103 @@
+{
+  "domaine": "m365",
+  "titre": "Microsoft 365 : OneDrive, SharePoint et Teams",
+  "palier": "collaboratif",
+  "outils": "microsoft",
+  "modules": [
+    "C1",
+    "C2"
+  ],
+  "questions": [
+    {
+      "id": "m365-01",
+      "niveau": 1,
+      "question": "Pourquoi partager un lien OneDrive plutôt qu'envoyer le fichier en pièce jointe ?",
+      "choix": [
+        "La pièce jointe est limitée à un seul destinataire",
+        "Tout le monde travaille sur une seule version à jour, sans doublons",
+        "Le lien permet de modifier le fichier sans Internet",
+        "Le lien réduit la taille du fichier"
+      ],
+      "reponse": 1,
+      "explication": "Une pièce jointe crée une copie par destinataire ; un lien renvoie toujours vers le même fichier."
+    },
+    {
+      "id": "m365-02",
+      "niveau": 2,
+      "question": "Comment plusieurs personnes peuvent-elles modifier le même fichier Excel en même temps ?",
+      "choix": [
+        "En l'envoyant à tour de rôle par email",
+        "En l'ouvrant depuis OneDrive, SharePoint ou Teams",
+        "En le copiant sur une clé USB",
+        "C'est impossible avec Excel"
+      ],
+      "reponse": 1,
+      "explication": "Un fichier stocké dans le cloud Microsoft 365 peut être coédité en temps réel."
+    },
+    {
+      "id": "m365-03",
+      "niveau": 2,
+      "question": "Un fichier a été supprimé d'une bibliothèque SharePoint. Où le chercher en premier ?",
+      "choix": [
+        "Dans la corbeille du site SharePoint",
+        "Dans la boîte de réception",
+        "Dans le dossier Téléchargements",
+        "Il est perdu définitivement"
+      ],
+      "reponse": 0,
+      "explication": "SharePoint et OneDrive conservent les éléments supprimés dans une corbeille pendant plusieurs semaines."
+    },
+    {
+      "id": "m365-04",
+      "niveau": 1,
+      "question": "Dans Teams, à quoi sert un canal ?",
+      "choix": [
+        "À rassembler les échanges et fichiers d'une équipe par sujet",
+        "À envoyer un message à toute l'entreprise en une fois",
+        "À planifier les réunions en ligne de l'équipe",
+        "À échanger en privé avec un seul collègue"
+      ],
+      "reponse": 0,
+      "explication": "Chaque canal regroupe les échanges, les fichiers et les onglets d'un thème."
+    },
+    {
+      "id": "m365-05",
+      "niveau": 3,
+      "question": "Quel est le risque d'un lien de partage « Toute personne disposant du lien » ?",
+      "choix": [
+        "Toute personne qui obtient le lien peut ouvrir le fichier, même hors de l'entreprise",
+        "Seuls les collègues connectés à Microsoft 365 peuvent l'ouvrir",
+        "Le fichier ne peut plus être modifié par son propriétaire",
+        "Le lien cesse de fonctionner dès que le fichier est modifié"
+      ],
+      "reponse": 0,
+      "explication": "Pour des documents internes, préférez « Personnes de votre organisation » ou des personnes précises."
+    },
+    {
+      "id": "m365-06",
+      "niveau": 2,
+      "question": "Où sont stockés les fichiers partagés dans un canal Teams ?",
+      "choix": [
+        "Dans le OneDrive de la personne qui les publie",
+        "Dans le site SharePoint de l'équipe",
+        "Dans la boîte aux lettres Outlook de l'équipe",
+        "Dans le dossier Téléchargements de chaque membre"
+      ],
+      "reponse": 1,
+      "explication": "Les fichiers d'un canal sont dans le site SharePoint de l'équipe. Ceux échangés en conversation privée, eux, sont stockés dans le OneDrive de l'expéditeur."
+    },
+    {
+      "id": "m365-07",
+      "niveau": 2,
+      "question": "Dans quel cas Teams est-il plus adapté qu'un email ?",
+      "choix": [
+        "Pour un courrier officiel adressé à un client",
+        "Pour un échange rapide entre collègues sur un projet en cours",
+        "Pour transmettre une facture à un fournisseur",
+        "Pour une communication qui doit rester archivée par écrit"
+      ],
+      "reponse": 1,
+      "explication": "Teams convient aux échanges internes fréquents ; l'email reste adapté aux communications formelles ou externes."
+    }
+  ]
+}

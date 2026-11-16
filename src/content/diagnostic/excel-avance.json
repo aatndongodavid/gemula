@@ -1,0 +1,102 @@
+{
+  "domaine": "excel-avance",
+  "titre": "Excel avancé et Power Query",
+  "palier": "performance",
+  "outils": "microsoft",
+  "modules": [
+    "P4"
+  ],
+  "questions": [
+    {
+      "id": "xla-01",
+      "niveau": 2,
+      "question": "À quoi sert Power Query dans Excel ?",
+      "choix": [
+        "À créer des tableaux croisés dynamiques plus rapides",
+        "À importer, nettoyer et combiner des données de façon répétable",
+        "À écrire des macros sans programmer",
+        "À créer des graphiques interactifs"
+      ],
+      "reponse": 1,
+      "explication": "Power Query enregistre chaque étape de préparation des données et peut les rejouer à volonté."
+    },
+    {
+      "id": "xla-02",
+      "niveau": 2,
+      "question": "Vous avez préparé un rapport avec Power Query. Le mois suivant, de nouvelles données arrivent. Que faites-vous ?",
+      "choix": [
+        "Vous rejouez chaque étape de nettoyage",
+        "Vous cliquez sur « Actualiser tout »",
+        "Vous recréez la requête sur le nouveau fichier",
+        "Vous copiez les nouvelles données sous le tableau existant"
+      ],
+      "reponse": 1,
+      "explication": "Si les nouvelles données arrivent à la même source (même fichier ou même dossier), « Actualiser tout » rejoue toutes les étapes enregistrées."
+    },
+    {
+      "id": "xla-03",
+      "niveau": 3,
+      "question": "Vous recevez chaque mois un fichier de ventes, rangé dans un même dossier. Comment les combiner automatiquement ?",
+      "choix": [
+        "Utiliser Power Query avec la source « Dossier »",
+        "Utiliser l'outil Consolider du menu Données",
+        "Créer un tableau croisé dynamique sur chaque fichier",
+        "Lier chaque fichier par des formules ='[fichier]Feuille'!A1"
+      ],
+      "reponse": 0,
+      "explication": "Power Query peut lire tous les fichiers d'un dossier et les empiler, y compris ceux ajoutés plus tard."
+    },
+    {
+      "id": "xla-04",
+      "niveau": 2,
+      "question": "Que renvoie =UNIQUE(A2:A500) (Excel 365 et 2021) ?",
+      "choix": [
+        "Le nombre de valeurs différentes dans A2:A500",
+        "La liste des valeurs de A2:A500 sans doublons",
+        "Les valeurs qui n'apparaissent qu'une seule fois, et elles seules",
+        "VRAI si la plage ne contient aucun doublon"
+      ],
+      "reponse": 1,
+      "explication": "UNIQUE renvoie chaque valeur une seule fois ; le résultat s'étend automatiquement sur plusieurs cellules. (Avec son troisième argument à VRAI, elle renverrait les valeurs présentes une seule fois.)"
+    },
+    {
+      "id": "xla-05",
+      "niveau": 3,
+      "question": "Que fait =FILTRE(A2:C500;C2:C500>100000) (Excel 365 et 2021) ?",
+      "choix": [
+        "Elle masque dans la feuille les lignes inférieures à 100 000",
+        "Elle renvoie, dans une nouvelle zone, les lignes dont la colonne C dépasse 100 000",
+        "Elle supprime des données sources les lignes inférieures à 100 000",
+        "Elle compte les lignes dont la colonne C dépasse 100 000"
+      ],
+      "reponse": 1,
+      "explication": "FILTRE extrait dynamiquement les lignes qui respectent une condition, sans toucher aux données sources."
+    },
+    {
+      "id": "xla-06",
+      "niveau": 3,
+      "question": "À quoi sert la fonction LET (Excel 365 et 2021) ?",
+      "choix": [
+        "À définir un nom valable dans tout le classeur, comme le gestionnaire de noms",
+        "À nommer des calculs intermédiaires à l'intérieur d'une formule pour la rendre plus lisible",
+        "À figer une valeur pour qu'elle ne soit plus recalculée",
+        "À relier une formule à une cellule d'un autre classeur"
+      ],
+      "reponse": 1,
+      "explication": "LET évite de répéter le même calcul plusieurs fois dans une formule longue."
+    },
+    {
+      "id": "xla-07",
+      "niveau": 2,
+      "question": "Quel avantage a l'étape « Supprimer les doublons » dans Power Query par rapport à la même action faite à la main ?",
+      "choix": [
+        "Elle supprime aussi les doublons dans le fichier source",
+        "Elle est enregistrée et rejouée à chaque actualisation",
+        "Elle compare les lignes sans tenir compte des majuscules",
+        "Elle conserve automatiquement la ligne la plus récente"
+      ],
+      "reponse": 1,
+      "explication": "Dans Power Query, chaque nettoyage devient une étape automatique et documentée."
+    }
+  ]
+}

@@ -1,0 +1,102 @@
+{
+  "domaine": "word",
+  "titre": "Word professionnel et documents automatisés",
+  "palier": "essentiel",
+  "outils": "microsoft",
+  "modules": [
+    "E3"
+  ],
+  "questions": [
+    {
+      "id": "wrd-01",
+      "niveau": 1,
+      "question": "Pourquoi utiliser les styles (Titre 1, Titre 2…) plutôt que mettre le texte en gras à la main ?",
+      "choix": [
+        "Pour que le correcteur orthographique s'applique aux titres",
+        "Pour obtenir une mise en forme homogène et une table des matières automatique",
+        "Pour empêcher les autres de modifier les titres",
+        "Pour que les titres s'impriment en couleur"
+      ],
+      "reponse": 1,
+      "explication": "Les styles garantissent une présentation cohérente et permettent à Word de construire le plan et la table des matières."
+    },
+    {
+      "id": "wrd-02",
+      "niveau": 2,
+      "question": "Sur quoi repose une table des matières automatique dans Word ?",
+      "choix": [
+        "Sur les numéros de page saisis à la main",
+        "Sur les styles de titre appliqués au document",
+        "Sur les mots en gras",
+        "Sur les sauts de page"
+      ],
+      "reponse": 1,
+      "explication": "Word liste automatiquement les paragraphes mis en forme avec les styles Titre 1, Titre 2, etc."
+    },
+    {
+      "id": "wrd-03",
+      "niveau": 2,
+      "question": "Vous devez envoyer 200 courriers identiques avec un nom et une adresse différents. Quelle fonctionnalité utilisez-vous ?",
+      "choix": [
+        "Le copier-coller",
+        "Le publipostage",
+        "Le suivi des modifications",
+        "Les sections"
+      ],
+      "reponse": 1,
+      "explication": "Le publipostage fusionne un modèle Word avec une liste (souvent un fichier Excel) pour produire des documents personnalisés en série."
+    },
+    {
+      "id": "wrd-04",
+      "niveau": 1,
+      "question": "À quoi sert le suivi des modifications ?",
+      "choix": [
+        "À enregistrer automatiquement une copie à chaque modification",
+        "À voir, accepter ou refuser les corrections de chaque relecteur",
+        "À empêcher toute modification sans mot de passe",
+        "À comparer le nombre de mots entre deux versions"
+      ],
+      "reponse": 1,
+      "explication": "Chaque modification est visible et attribuée à son auteur, ce qui facilite la relecture à plusieurs."
+    },
+    {
+      "id": "wrd-05",
+      "niveau": 3,
+      "question": "Vous voulez que la numérotation des pages commence à 1 à partir de la page 3. Que faites-vous ?",
+      "choix": [
+        "Vous insérez un saut de page avant la page 3, puis vous ajoutez les numéros de page dans le pied de page",
+        "Vous insérez un saut de section, désactivez « Lier au précédent » et recommencez la numérotation à 1",
+        "Vous cochez « Première page différente » dans l'en-tête, puis vous ajoutez les numéros de page",
+        "Vous numérotez tout le document, puis vous effacez à la main les numéros des pages 1 et 2"
+      ],
+      "reponse": 1,
+      "explication": "Le saut de section crée une nouvelle partie ; « Lier au précédent » désactivé, ses pieds de page sont indépendants, et le format des numéros permet de repartir à 1."
+    },
+    {
+      "id": "wrd-06",
+      "niveau": 2,
+      "question": "Quel est l'intérêt d'un modèle Word (.dotx) ?",
+      "choix": [
+        "Il protège le document par un mot de passe",
+        "Il sert de base réutilisable sans risque d'écraser l'original",
+        "Il est le seul format accepté pour le publipostage",
+        "Il enregistre automatiquement toutes les versions"
+      ],
+      "reponse": 1,
+      "explication": "Un modèle crée un nouveau document à chaque ouverture : l'original reste intact."
+    },
+    {
+      "id": "wrd-07",
+      "niveau": 1,
+      "question": "Quelle est la bonne façon de passer à la page suivante ?",
+      "choix": [
+        "Appuyer plusieurs fois sur Entrée",
+        "Insérer un saut de page (Ctrl+Entrée)",
+        "Réduire la marge du bas",
+        "Ajouter des espaces"
+      ],
+      "reponse": 1,
+      "explication": "Un saut de page reste fiable même si le texte au-dessus change, contrairement aux lignes vides."
+    }
+  ]
+}

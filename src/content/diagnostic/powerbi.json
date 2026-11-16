@@ -1,0 +1,102 @@
+{
+  "domaine": "powerbi",
+  "titre": "Power BI : du fichier au tableau de bord",
+  "palier": "performance",
+  "outils": "tous",
+  "modules": [
+    "P5"
+  ],
+  "questions": [
+    {
+      "id": "pbi-01",
+      "niveau": 1,
+      "question": "À quoi sert principalement Power BI ?",
+      "choix": [
+        "À stocker les données de l'entreprise à la place d'une base de données",
+        "À créer des tableaux de bord interactifs à partir de vos données",
+        "À saisir des données sur mobile",
+        "À automatiser l'envoi de rapports par email"
+      ],
+      "reponse": 1,
+      "explication": "Power BI connecte plusieurs sources de données et les présente sous forme de rapports interactifs."
+    },
+    {
+      "id": "pbi-02",
+      "niveau": 2,
+      "question": "Comment relier une table Ventes à une table Produits dans Power BI ?",
+      "choix": [
+        "En fusionnant les deux tables en une seule dans Excel",
+        "Par une colonne commune, par exemple le code produit",
+        "En plaçant les deux tables sur la même page du rapport",
+        "Par la position des lignes dans chaque table"
+      ],
+      "reponse": 1,
+      "explication": "Les relations s'appuient sur une clé commune ; elles permettent d'analyser les ventes par catégorie de produit, par exemple."
+    },
+    {
+      "id": "pbi-03",
+      "niveau": 2,
+      "question": "Qu'est-ce que le DAX ?",
+      "choix": [
+        "Le langage de requête utilisé dans Power Query",
+        "Le langage de formules des mesures et des calculs",
+        "Le format de fichier des rapports Power BI",
+        "Le service en ligne qui héberge les rapports"
+      ],
+      "reponse": 1,
+      "explication": "Le DAX sert aux mesures et calculs (chiffre d'affaires, marge, évolution). Power Query, lui, utilise le langage M."
+    },
+    {
+      "id": "pbi-04",
+      "niveau": 3,
+      "question": "Quelle est la différence entre une mesure et une colonne calculée ?",
+      "choix": [
+        "Une mesure est stockée dans le modèle ligne par ligne, une colonne calculée est calculée à l'affichage",
+        "Une mesure se recalcule selon les filtres du rapport, une colonne calculée est fixée ligne par ligne",
+        "Une colonne calculée suit les filtres du rapport, une mesure ne peut être utilisée que dans un tableau",
+        "Les deux sont identiques, seul l'endroit où on les écrit change"
+      ],
+      "reponse": 1,
+      "explication": "Les mesures s'adaptent au contexte (période, région, produit sélectionnés) : c'est le cœur des tableaux de bord."
+    },
+    {
+      "id": "pbi-05",
+      "niveau": 2,
+      "question": "Comment mettre un rapport Power BI à disposition de la direction ?",
+      "choix": [
+        "Envoyer le fichier .pbix par email à chaque mise à jour",
+        "Le publier dans le service Power BI et le partager",
+        "Exporter chaque page en PDF chaque semaine",
+        "Copier les graphiques dans une présentation"
+      ],
+      "reponse": 1,
+      "explication": "La publication donne un accès sécurisé et toujours à jour, sur ordinateur comme sur mobile."
+    },
+    {
+      "id": "pbi-06",
+      "niveau": 3,
+      "question": "Qu'est-ce qu'un modèle en étoile ?",
+      "choix": [
+        "Une seule grande table qui contient toutes les colonnes",
+        "Une table de faits reliée à des tables de dimensions",
+        "Des tables toutes reliées entre elles deux à deux",
+        "Une page d'accueil qui renvoie vers les autres pages"
+      ],
+      "reponse": 1,
+      "explication": "Le modèle en étoile est l'organisation recommandée : plus simple, plus rapide et plus fiable."
+    },
+    {
+      "id": "pbi-07",
+      "niveau": 2,
+      "question": "Comment faire en sorte que le tableau de bord se mette à jour sans intervention ?",
+      "choix": [
+        "En programmant une actualisation planifiée",
+        "En activant l'enregistrement automatique du fichier",
+        "En publiant le rapport une seconde fois",
+        "En liant le rapport à un classeur Excel ouvert"
+      ],
+      "reponse": 0,
+      "explication": "L'actualisation planifiée recharge les données à heures fixes. Pour des sources locales, une passerelle de données est nécessaire."
+    }
+  ]
+}

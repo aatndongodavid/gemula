@@ -39,6 +39,7 @@ function isActive(href: string) {
     </nav>
 
     <div class="flex items-center gap-2">
+      <a href="/diagnostic" class="hidden xl:inline-flex btn-ghost min-h-[36px] px-3.5 py-2 text-sm">Tester mon niveau</a>
       <a href="/collaborer" class="hidden sm:inline-flex btn-light min-h-[36px] px-3.5 py-2 text-sm">
         Nous contacter
       </a>
@@ -67,7 +68,8 @@ function isActive(href: string) {
           {link.label}
         </a>
       ))}
-      <a href="/collaborer" class="btn-primary mt-4 mb-3">Nous contacter</a>
+      <a href="/diagnostic" class="btn-ghost mt-4">Tester mon niveau</a>
+      <a href="/collaborer" class="btn-primary mt-3 mb-3">Nous contacter</a>
     </nav>
   </div>
 </header>
