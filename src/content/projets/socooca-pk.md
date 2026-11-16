@@ -19,6 +19,6 @@ status: en-cours
 links:
   demo: ""
   github: ""
-cover: "/images/projets/socooca-pk.png"
+cover: "/images/projets/socooca-pk.webp"
 gallery: []
 ---

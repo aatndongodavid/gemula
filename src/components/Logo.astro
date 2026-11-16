@@ -1,0 +1,16 @@
+---
+import FlagMark from './FlagMark.astro';
+
+interface Props {
+  class?: string;
+  size?: 'sm' | 'md' | 'lg';
+}
+
+const { class: className = '', size = 'md' } = Astro.props;
+const flag = { sm: 'h-5', md: 'h-7', lg: 'h-10' }[size];
+const text = { sm: 'text-lg', md: 'text-[1.3rem]', lg: 'text-3xl' }[size];
+---
+<span class={`inline-flex items-center gap-2 ${className}`}>
+  <FlagMark class={flag} />
+  <span class={`font-brand font-semibold tracking-[-0.02em] text-fg ${text}`}>Gemula</span>
+</span>

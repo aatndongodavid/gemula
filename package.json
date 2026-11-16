@@ -1,14 +1,16 @@
 {
   "name": "gemula",
   "type": "module",
-  "version": "2.0.0",
+  "version": "3.0.0",
   "private": true,
   "scripts": {
     "dev": "astro dev",
     "start": "astro dev",
     "build": "astro build",
     "preview": "astro preview",
-    "astro": "astro"
+    "astro": "astro",
+    "check:links": "node scripts/check-links.mjs",
+    "images": "node scripts/optimize-images.mjs"
   },
   "dependencies": {
     "@astrojs/sitemap": "^3.2.1",

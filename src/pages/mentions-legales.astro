@@ -1,0 +1,33 @@
+---
+import LegalLayout from '@layouts/LegalLayout.astro';
+import site from '@data/site.json';
+---
+<LegalLayout
+  title="Mentions légales"
+  description="Éditeur, responsable de la publication et hébergeur du site gemula.org."
+>
+  <h2>Éditeur du site</h2>
+  <p>
+    {site.legal.editeur}<br />
+    {site.legal.ville}<br />
+    Email : <a href={`mailto:${site.email}`}>{site.email}</a><br />
+    Téléphone : <a href={site.phoneHref}>{site.phone}</a>
+  </p>
+  <p>Tant que Gemula ne dispose pas de la personnalité morale, le collectif est représenté par son fondateur.</p>
+
+  <h2>Responsable de la publication</h2>
+  <p>{site.legal.representant}.</p>
+
+  <h2>Hébergement</h2>
+  <p>{site.legal.hebergeur}.</p>
+
+  <h2>Crédits</h2>
+  <p>
+    Conception et développement : équipe Gemula. Photographies : membres du collectif. Polices Inter et Poppins sous licence SIL Open Font License.
+  </p>
+
+  <h2>Pour aller plus loin</h2>
+  <p>
+    Consultez notre <a href="/confidentialite">politique de confidentialité</a> et nos <a href="/conditions">conditions générales d'utilisation</a>.
+  </p>
+</LegalLayout>

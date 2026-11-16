@@ -1,0 +1,89 @@
+---
+// Bandeau de consentement. Seule la mesure d'audience dépend du choix du visiteur :
+// rien n'est chargé tant qu'il n'a pas accepté. Le choix est conservé 6 mois.
+import site from '@data/site.json';
+const gaId = site.analytics?.ga4Id ?? '';
+---
+<div
+  id="cookie-banner"
+  class="fixed inset-x-3 bottom-3 z-[150] mx-auto hidden max-w-2xl rounded-2xl border border-line-strong bg-surface-2/95 p-5 shadow-2xl backdrop-blur sm:inset-x-6 sm:bottom-6 md:p-6"
+  role="dialog"
+  aria-modal="false"
+  aria-labelledby="cookie-title"
+  aria-describedby="cookie-desc"
+  data-ga={gaId}
+>
+  <p id="cookie-title" class="font-semibold text-fg">Votre vie privée</p>
+  <p id="cookie-desc" class="mt-2 text-sm leading-relaxed text-muted">
+    Nous aimerions mesurer l'audience du site pour l'améliorer. Ces statistiques ne sont activées qu'avec votre accord et vous pouvez changer d'avis à tout moment depuis le pied de page.
+    <a href="/confidentialite#cookies" class="text-fg underline decoration-accent underline-offset-4">En savoir plus</a>
+  </p>
+  <div class="mt-4 flex flex-wrap gap-2">
+    <button type="button" class="btn-primary" data-consent="granted">Accepter</button>
+    <button type="button" class="btn-ghost" data-consent="denied">Refuser</button>
+  </div>
+</div>
+
+<script>
+  const KEY = 'gemula-consent';
+  const MAX_AGE = 1000 * 60 * 60 * 24 * 182; // 6 mois
+  const banner = document.getElementById('cookie-banner');
+  const gaId = banner?.dataset.ga ?? '';
+
+  type Consent = { value: 'granted' | 'denied'; at: number };
+
+  function read(): Consent | null {
+    try {
+      const raw = localStorage.getItem(KEY);
+      if (!raw) return null;
+      const c = JSON.parse(raw) as Consent;
+      return Date.now() - c.at < MAX_AGE ? c : null;
+    } catch { return null; }
+  }
+
+  function loadAnalytics() {
+    if (!gaId || (window as any).__gaLoaded) return;
+    (window as any).__gaLoaded = true;
+    const s = document.createElement('script');
+    s.async = true;
+    s.src = `https://www.googletagmanager.com/gtag/js?id=${encodeURIComponent(gaId)}`;
+    document.head.appendChild(s);
+    const w = window as any;
+    w.dataLayer = w.dataLayer || [];
+    w.gtag = function () { w.dataLayer.push(arguments); };
+    w.gtag('js', new Date());
+    w.gtag('config', gaId, { anonymize_ip: true });
+  }
+
+  function clearAnalyticsCookies() {
+    document.cookie.split(';').map((c) => c.trim().split('=')[0]).filter((n) => n.startsWith('_ga')).forEach((n) => {
+      const host = location.hostname.replace(/^www\./, '');
+      document.cookie = `${n}=; Max-Age=0; path=/`;
+      document.cookie = `${n}=; Max-Age=0; path=/; domain=.${host}`;
+    });
+  }
+
+  function save(value: Consent['value']) {
+    try { localStorage.setItem(KEY, JSON.stringify({ value, at: Date.now() })); } catch {}
+    banner?.classList.add('hidden');
+    if (value === 'granted') loadAnalytics();
+    else clearAnalyticsCookies();
+  }
+
+  const current = read();
+  if (!current) banner?.classList.remove('hidden');
+  else if (current.value === 'granted') loadAnalytics();
+
+  banner?.querySelectorAll<HTMLButtonElement>('[data-consent]').forEach((b) =>
+    b.addEventListener('click', () => save(b.dataset.consent as Consent['value']))
+  );
+
+  // Lien « Gérer les cookies » du pied de page
+  document.querySelectorAll('[data-open-consent]').forEach((el) =>
+    el.addEventListener('click', (e) => {
+      e.preventDefault();
+      banner?.classList.remove('hidden');
+      banner?.querySelector<HTMLButtonElement>('[data-consent]')?.focus();
+    })
+  );
+</script>

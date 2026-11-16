@@ -19,7 +19,7 @@ status: realise
 links:
   demo: ""
   github: ""
-cover: "/images/projets/mapebe.png"
+cover: "/images/projets/mapebe.webp"
 gallery: []
 ---
 

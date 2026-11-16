@@ -1,7 +1,7 @@
 {
   "name": "Gemula",
   "tagline": "Là où le talent devient un impact.",
-  "description": "Gemula est un collectif d'ingénierie en data, intelligence artificielle et logiciel basé à Douala. Formations pour entreprises, projets sur mesure et recherche appliquée.",
+  "description": "Gemula est un collectif d'innovation technologique basé à Douala : formations data, IA et outils numériques pour les entreprises, projets sur mesure et une communauté ouverte, Gemula Community.",
   "url": "https://gemula.org",
   "email": "meilleurd2001@gmail.com",
   "phone": "+237 6 82 37 55 73",
@@ -17,7 +17,7 @@
   },
   "social": {
     "linkedin": "https://www.linkedin.com/in/david-meilleur-aat-ndongo",
-    "github": "https://github.com/gemula"
+    "github": "https://github.com/aatndongodavid"
   },
   "founder": {
     "name": "Aat Ndongo David Meilleur",
@@ -27,5 +27,17 @@
   "community": {
     "name": "Gemula Community",
     "whatsappUrl": "https://whatsapp.com/channel/0029VbDxo9v5q08h4gSF1X38"
+  },
+  "analytics": {
+    "_note": "Identifiant de mesure Google Analytics 4 (format G-XXXXXXXXXX). Laisser vide pour désactiver. Le script ne se charge qu'après accord du visiteur dans le bandeau cookies.",
+    "ga4Id": ""
+  },
+  "legal": {
+    "editeur": "Gemula, collectif étudiant d'innovation technologique (sans personnalité morale à ce jour)",
+    "representant": "Aat Ndongo David Meilleur, fondateur",
+    "ville": "Douala, Cameroun",
+    "hebergeur": "LWS (Ligne Web Services), 10 rue Penthièvre, 75008 Paris, France",
+    "loiDonnees": "loi n° 2024/017 du 23 décembre 2024 relative à la protection des données à caractère personnel au Cameroun",
+    "miseAJour": "16 novembre 2026"
   }
 }

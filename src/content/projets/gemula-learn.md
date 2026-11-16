@@ -19,7 +19,7 @@ status: realise
 links:
   demo: ""
   github: ""
-cover: "/images/projets/gemula-learn.png"
+cover: "/images/projets/gemula-learn.webp"
 gallery: []
 ---
 

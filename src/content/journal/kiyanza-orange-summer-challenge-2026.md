@@ -5,7 +5,7 @@ category: competitions
 publishedAt: 2026-10-11
 author: "Gemula"
 tags: ["KIYANZA", "Orange Summer Challenge", "Innovation", "Compétition"]
-cover: "/images/journal/OSC2026.png"
+cover: "/images/journal/OSC2026.webp"
 ---
 
 **Une victoire qui célèbre l'innovation et le talent.**

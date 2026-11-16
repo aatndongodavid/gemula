@@ -19,6 +19,6 @@ status: experimental
 links:
   demo: ""
   github: ""
-cover: "/images/projets/projet-eneo.png"
+cover: "/images/projets/projet-eneo.webp"
 gallery: []
 ---

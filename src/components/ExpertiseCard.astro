@@ -1,4 +1,5 @@
 ---
+import Icon from '@components/Icon.astro';
 interface Expertise {
   slug: string;
   number: string;
@@ -18,15 +19,15 @@ const Tag = domain.href ? 'a' : 'article';
 ---
 <Tag
   href={domain.href}
-  class={`card h-full flex flex-col ${domain.href ? 'card-hover border-gemula-black/30' : ''}`}
+  class={`card h-full flex flex-col ${domain.href ? 'card-hover border-line-strong' : ''}`}
 >
-  <span class="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-gemula-sand text-gemula-black">
-    <span class="material-symbols-outlined text-[1.35rem]" aria-hidden="true">{domain.icon}</span>
+  <span class="mb-5 inline-flex h-10 w-10 items-center justify-center rounded-lg bg-surface text-fg">
+    <Icon name={domain.icon} class="text-[1.35rem]" />
   </span>
 
   <h3 class="font-display text-lg font-semibold mb-2">{domain.title}</h3>
 
-  <p class="text-[0.9375rem] text-gemula-grey leading-relaxed flex-grow">{domain.description}</p>
+  <p class="text-[0.9375rem] text-muted leading-relaxed flex-grow">{domain.description}</p>
 
   {domain.tags.length > 0 && (
     <ul class="mt-5 flex flex-wrap gap-1.5">

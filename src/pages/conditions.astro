@@ -1,0 +1,75 @@
+---
+import LegalLayout from '@layouts/LegalLayout.astro';
+import site from '@data/site.json';
+
+const toc = [
+  { id: 'objet', label: 'Objet' },
+  { id: 'acces', label: 'Accès au site' },
+  { id: 'services', label: 'Formations et projets' },
+  { id: 'communaute', label: 'Gemula Community' },
+  { id: 'formulaires', label: 'Formulaires' },
+  { id: 'propriete', label: 'Propriété intellectuelle' },
+  { id: 'contenus', label: 'Contenus et liens' },
+  { id: 'responsabilite', label: 'Responsabilité' },
+  { id: 'droit', label: 'Droit applicable' }
+];
+---
+<LegalLayout
+  title="Conditions générales d'utilisation"
+  description="Les règles d'utilisation du site gemula.org : accès, formulaires, Gemula Community, propriété intellectuelle et responsabilité."
+  toc={toc}
+>
+  <h2 id="objet">1. Objet</h2>
+  <p>
+    Les présentes conditions encadrent l'utilisation du site <strong>gemula.org</strong>, édité par {site.legal.editeur}. En naviguant sur le site, vous acceptez ces conditions. Si vous ne les acceptez pas, merci de ne pas utiliser le site.
+  </p>
+
+  <h2 id="acces">2. Accès au site</h2>
+  <p>
+    Le site est accessible gratuitement, sans création de compte. Nous faisons notre possible pour qu'il soit disponible en permanence, mais il peut être interrompu pour maintenance ou pour des raisons indépendantes de notre volonté.
+  </p>
+
+  <h2 id="services">3. Formations pour entreprises et projets</h2>
+  <p>
+    Les formations, parcours, formats et réalisations présentés sur le site sont décrits à titre d'information. Une demande envoyée depuis le site ne constitue pas un contrat. Chaque formation ou projet fait l'objet d'une proposition écrite (programme, durée, tarif, conditions) que vous êtes libre d'accepter. Les conditions de cette proposition prévalent sur la description du site.
+  </p>
+
+  <h2 id="communaute">4. Gemula Community</h2>
+  <p>
+    Gemula Community est un espace ouvert d'apprentissage, de partage et de collaboration. Certaines activités sont libres d'accès, d'autres sur inscription selon les conditions annoncées avant chaque session.
+  </p>
+  <ul>
+    <li>Rejoindre la communauté ne vaut pas recrutement dans l'équipe opérationnelle et ne garantit ni emploi, ni stage, ni mentorat individuel, ni place sur un projet.</li>
+    <li>Les membres s'engagent à respecter la charte de conduite : respect, bienveillance, inclusion, confidentialité des échanges et respect des droits sur les contenus partagés.</li>
+    <li>Gemula peut retirer l'accès aux espaces communautaires en cas de manquement.</li>
+    <li>Les supports de cours sont fournis pour un usage personnel, sauf mention contraire.</li>
+  </ul>
+
+  <h2 id="formulaires">5. Utilisation des formulaires</h2>
+  <p>
+    Vous vous engagez à fournir des informations exactes et à ne pas utiliser les formulaires pour envoyer des messages publicitaires non sollicités, illicites ou automatisés. Des protections anti-spam filtrent les envois. Le traitement de vos données est décrit dans la <a href="/confidentialite">politique de confidentialité</a>.
+  </p>
+
+  <h2 id="propriete">6. Propriété intellectuelle</h2>
+  <p>
+    Le nom Gemula, le logo, la charte graphique, les textes, visuels et projets présentés sur le site appartiennent à Gemula ou à leurs auteurs, crédités lorsque c'est possible. Toute reproduction, totale ou partielle, sans autorisation écrite est interdite, sauf citation courte avec mention de la source et lien vers gemula.org.
+  </p>
+  <p>Les marques et logiciels cités (Microsoft Excel, Power BI, Google Workspace, etc.) appartiennent à leurs propriétaires respectifs.</p>
+
+  <h2 id="contenus">7. Contenus, agenda et liens externes</h2>
+  <p>
+    Les événements de l'agenda scientifique sont relayés à titre informatif : leurs dates et modalités peuvent changer selon les organisateurs. Les articles du journal sont publiés sous la responsabilité de l'équipe opérationnelle.
+    Le site contient des liens vers d'autres sites. Gemula n'est pas responsable de leur contenu ni de leurs pratiques en matière de données.
+  </p>
+
+  <h2 id="responsabilite">8. Responsabilité</h2>
+  <p>
+    Nous veillons à l'exactitude des informations publiées, sans pouvoir garantir l'absence d'erreur. Gemula ne saurait être tenu responsable d'un dommage résultant de l'utilisation du site ou de l'impossibilité d'y accéder. Signalez-nous toute erreur à <a href={`mailto:${site.email}`}>{site.email}</a>.
+  </p>
+
+  <h2 id="droit">9. Droit applicable et litiges</h2>
+  <p>
+    Les présentes conditions sont soumises au droit camerounais. En cas de différend, une solution amiable est recherchée en priorité. À défaut, le litige relève du Tribunal de Première Instance de Douala.
+  </p>
+  <p>Ces conditions peuvent être modifiées à tout moment ; la version applicable est celle publiée sur cette page.</p>
+</LegalLayout>

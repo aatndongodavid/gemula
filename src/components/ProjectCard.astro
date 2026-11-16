@@ -1,4 +1,5 @@
 ---
+import Icon from '@components/Icon.astro';
 import type { CollectionEntry } from 'astro:content';
 import TagList from './TagList.astro';
 
@@ -21,7 +22,7 @@ const statusLabels: Record<string, string> = {
   <div class="flex items-start justify-between gap-4 mb-5">
     <span class="tag">{statusLabels[data.status] ?? data.status}</span>
     {data.year && (
-      <span class="text-xs text-gemula-grey">{data.year}</span>
+      <span class="text-xs text-muted">{data.year}</span>
     )}
   </div>
 
@@ -29,12 +30,12 @@ const statusLabels: Record<string, string> = {
     {data.title}
   </h3>
 
-  <p class="text-sm text-gemula-black font-medium mb-4">
+  <p class="text-sm text-fg font-medium mb-4">
     {data.tagline}
   </p>
 
   {!featured && (
-    <p class="text-sm text-gemula-grey leading-relaxed mb-6 flex-grow">
+    <p class="text-sm text-muted leading-relaxed mb-6 flex-grow">
       {data.solution.length > 140
         ? data.solution.slice(0, 140).trim() + '…'
         : data.solution}
@@ -42,7 +43,7 @@ const statusLabels: Record<string, string> = {
   )}
 
   {featured && (
-    <p class="text-base text-gemula-grey leading-relaxed mb-6 flex-grow">
+    <p class="text-base text-muted leading-relaxed mb-6 flex-grow">
       {data.solution}
     </p>
   )}
@@ -51,9 +52,9 @@ const statusLabels: Record<string, string> = {
 
   <a
     href={`/projets/${slug}`}
-    class="inline-flex items-center gap-2 text-sm font-medium text-gemula-black hover:text-gemula-black transition-colors"
+    class="inline-flex items-center gap-2 text-sm font-medium text-fg hover:text-fg transition-colors"
   >
     Voir le projet
-    <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>
+    <Icon name="arrow_forward" class="text-[1.1em]" />
   </a>
 </article>

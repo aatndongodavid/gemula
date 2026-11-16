@@ -21,18 +21,17 @@ const {
   showContact = false
 } = Astro.props;
 
-const wrapperClass = dark
-  ? 'bg-gemula-black text-white'
-  : 'bg-gemula-sand text-gemula-black';
-const titleClass = dark ? '!text-white' : '';
-const descClass = dark ? 'text-white/75' : 'text-gemula-grey';
+const wrapperClass = 'relative isolate overflow-hidden border border-line bg-surface text-fg';
+const titleClass = '';
+const descClass = 'text-muted';
 const secondaryClass = dark ? 'btn-ghost-light' : 'btn-ghost';
 ---
 <section class="container-g py-16 md:py-20">
-  <div class={`rounded-xl ${wrapperClass} px-6 py-12 md:px-14 md:py-16 grid lg:grid-cols-12 gap-10 items-end`}>
+  <div class={`rounded-3xl ${wrapperClass} px-6 py-12 md:px-14 md:py-16 grid lg:grid-cols-12 gap-10 items-end`}>
+    <div class="glow-top absolute inset-0 -z-10" aria-hidden="true"></div>
     <div class="lg:col-span-7">
-      {eyebrow && <span class={`text-sm font-semibold ${dark ? 'text-gemula-orange' : 'text-gemula-accent'}`}>{eyebrow}</span>}
-      <h2 class={`font-display text-display-sm font-semibold tracking-tightest mt-3 text-balance ${titleClass}`}>
+      {eyebrow && <span class={`text-sm font-semibold ${dark ? 'text-accent-text' : 'text-accent-text'}`}>{eyebrow}</span>}
+      <h2 class={`text-display-sm font-semibold mt-3 text-balance text-gradient ${titleClass}`}>
         {title}
       </h2>
       {description && (
@@ -49,18 +48,18 @@ const secondaryClass = dark ? 'btn-ghost-light' : 'btn-ghost';
     </div>
 
     {showContact && (
-      <dl class={`lg:col-span-5 grid gap-4 text-[0.9375rem] ${dark ? 'text-white/80' : 'text-gemula-grey'}`}>
-        <div class={`flex justify-between gap-4 border-b pb-3 ${dark ? 'border-white/15' : 'border-gemula-silver'}`}>
+      <dl class={`lg:col-span-5 grid gap-4 text-[0.9375rem] ${dark ? 'text-muted' : 'text-muted'}`}>
+        <div class={`flex justify-between gap-4 border-b pb-3 ${dark ? 'border-line' : 'border-line'}`}>
           <dt>Téléphone</dt>
-          <dd><a href={site.phoneHref} class={`font-semibold ${dark ? 'text-white' : 'text-gemula-black'} hover:underline`}>{site.phone}</a></dd>
+          <dd><a href={site.phoneHref} class={`font-semibold ${dark ? 'text-white' : 'text-fg'} hover:underline`}>{site.phone}</a></dd>
         </div>
-        <div class={`flex justify-between gap-4 border-b pb-3 ${dark ? 'border-white/15' : 'border-gemula-silver'}`}>
+        <div class={`flex justify-between gap-4 border-b pb-3 ${dark ? 'border-line' : 'border-line'}`}>
           <dt>WhatsApp</dt>
-          <dd><a href={site.whatsappFormation} target="_blank" rel="noopener" class={`font-semibold ${dark ? 'text-white' : 'text-gemula-black'} hover:underline`}>Écrire sur WhatsApp</a></dd>
+          <dd><a href={site.whatsappFormation} target="_blank" rel="noopener" class={`font-semibold ${dark ? 'text-white' : 'text-fg'} hover:underline`}>Écrire sur WhatsApp</a></dd>
         </div>
         <div class="flex justify-between gap-4">
           <dt>Email</dt>
-          <dd><a href={`mailto:${site.email}`} class={`font-semibold break-all ${dark ? 'text-white' : 'text-gemula-black'} hover:underline`}>{site.email}</a></dd>
+          <dd><a href={`mailto:${site.email}`} class={`font-semibold break-all ${dark ? 'text-white' : 'text-fg'} hover:underline`}>{site.email}</a></dd>
         </div>
       </dl>
     )}

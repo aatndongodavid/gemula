@@ -1,5 +1,5 @@
 ---
-import Flag from './Flag.astro';
+import Logo from './Logo.astro';
 import site from '@data/site.json';
 
 const year = new Date().getFullYear();
@@ -10,9 +10,18 @@ const columns = [
     links: [
       { href: '/formations', label: 'Formations' },
       { href: '/formations#parcours', label: 'Parcours par métier' },
-      { href: '/expertise', label: 'Expertise' },
+      { href: '/expertise', label: 'Solutions sur mesure' },
       { href: '/projet', label: 'Réalisations' },
       { href: '/collaborer', label: 'Demander un devis' }
+    ]
+  },
+  {
+    title: 'Communauté',
+    links: [
+      { href: '/communaute', label: 'Gemula Community' },
+      { href: '/communaute#formations', label: 'Ateliers gratuits' },
+      { href: '/communaute#rejoindre', label: 'Rejoindre la communauté' },
+      { href: '/agenda-scientifique', label: 'Agenda scientifique' }
     ]
   },
   {
@@ -20,65 +29,59 @@ const columns = [
     links: [
       { href: '/talents', label: 'Équipe' },
       { href: '/journal', label: 'Journal' },
-      { href: '/agenda-scientifique', label: 'Agenda scientifique' },
-      { href: '/communaute', label: 'Gemula Community' },
       { href: '/collaborer#rejoindre', label: "Rejoindre l'équipe" }
     ]
   }
 ];
+
+const legal = [
+  { href: '/confidentialite', label: 'Confidentialité' },
+  { href: '/conditions', label: "Conditions d'utilisation" },
+  { href: '/mentions-legales', label: 'Mentions légales' }
+];
 ---
-<footer class="bg-gemula-black text-white">
-  <div class="checker-band" aria-hidden="true"></div>
-  <div class="container-g py-14 md:py-16">
-    <div class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-12 gap-10">
-      <div class="lg:col-span-4">
-        <div class="flex items-center gap-3 mb-5">
-          <Flag size="md" variant="light" />
-          <span class="font-display text-xl font-semibold tracking-tightest">Gemula</span>
-        </div>
-        <p class="text-[0.9375rem] text-white/70 leading-relaxed max-w-xs">
-          Collectif d'ingénierie en data, intelligence artificielle et logiciel, basé à Douala, Cameroun.
+<footer class="border-t border-line bg-bg">
+  <div class="container-g py-16 md:py-20">
+    <div class="grid grid-cols-2 gap-10 lg:grid-cols-12">
+      <div class="col-span-2 lg:col-span-4">
+        <Logo />
+        <p class="mt-5 max-w-xs text-sm leading-relaxed text-muted">
+          Collectif d'innovation technologique en data, intelligence artificielle et logiciel. Douala, Cameroun.
         </p>
+        <ul class="mt-6 flex flex-col gap-2 text-sm">
+          <li><a href={site.phoneHref} class="text-muted hover:text-fg">{site.phone}</a></li>
+          <li><a href={site.whatsapp} target="_blank" rel="noopener" class="text-muted hover:text-fg">WhatsApp</a></li>
+          <li><a href={`mailto:${site.email}`} class="break-all text-muted hover:text-fg">{site.email}</a></li>
+        </ul>
       </div>
 
       {columns.map((col) => (
         <div class="lg:col-span-2">
-          <h3 class="text-sm font-semibold text-white mb-4">{col.title}</h3>
+          <h2 class="mb-4 text-sm font-medium text-fg">{col.title}</h2>
           <ul class="flex flex-col gap-2.5">
             {col.links.map((link) => (
-              <li>
-                <a href={link.href} class="text-[0.9375rem] text-white/70 hover:text-white transition-colors">
-                  {link.label}
-                </a>
-              </li>
+              <li><a href={link.href} class="text-sm text-muted transition-colors hover:text-fg">{link.label}</a></li>
             ))}
           </ul>
         </div>
       ))}
 
-      <div class="lg:col-span-4">
-        <h3 class="text-sm font-semibold text-white mb-4">Contact</h3>
-        <ul class="flex flex-col gap-2.5 text-[0.9375rem]">
-          <li>
-            <a href={site.phoneHref} class="text-white/70 hover:text-white transition-colors">{site.phone}</a>
-          </li>
-          <li>
-            <a href={site.whatsapp} target="_blank" rel="noopener" class="text-white/70 hover:text-white transition-colors">WhatsApp</a>
-          </li>
-          <li>
-            <a href={`mailto:${site.email}`} class="text-white/70 hover:text-white transition-colors break-all">{site.email}</a>
-          </li>
-          <li class="flex gap-4 pt-1">
-            <a href={site.social.linkedin} target="_blank" rel="noopener" class="text-white/70 hover:text-white transition-colors">LinkedIn</a>
-            <a href={site.social.github} target="_blank" rel="noopener" class="text-white/70 hover:text-white transition-colors">GitHub</a>
-          </li>
+      <div class="lg:col-span-2">
+        <h2 class="mb-4 text-sm font-medium text-fg">Suivre Gemula</h2>
+        <ul class="flex flex-col gap-2.5 text-sm">
+          <li><a href={site.social.linkedin} target="_blank" rel="noopener" class="text-muted hover:text-fg">LinkedIn</a></li>
+          <li><a href={site.social.github} target="_blank" rel="noopener" class="text-muted hover:text-fg">GitHub</a></li>
+          <li><a href={site.community.whatsappUrl} target="_blank" rel="noopener" class="text-muted hover:text-fg">Chaîne WhatsApp</a></li>
         </ul>
       </div>
     </div>
 
-    <div class="mt-12 pt-6 border-t border-white/10 flex flex-col md:flex-row justify-between gap-3 text-sm text-white/50">
-      <p>© {year} {site.name}. Tous droits réservés.</p>
-      <p>{site.tagline}</p>
+    <div class="mt-14 flex flex-col gap-4 border-t border-line pt-6 text-sm text-muted md:flex-row md:items-center md:justify-between">
+      <p>© {year} {site.name}. {site.tagline}</p>
+      <ul class="flex flex-wrap gap-x-5 gap-y-2">
+        {legal.map((l) => <li><a href={l.href} class="hover:text-fg">{l.label}</a></li>)}
+        <li><a href="/confidentialite#cookies" data-open-consent class="hover:text-fg">Gérer les cookies</a></li>
+      </ul>
     </div>
   </div>
 </footer>

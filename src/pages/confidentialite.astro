@@ -1,0 +1,109 @@
+---
+import LegalLayout from '@layouts/LegalLayout.astro';
+import site from '@data/site.json';
+
+const toc = [
+  { id: 'responsable', label: 'Responsable du traitement' },
+  { id: 'donnees', label: 'Données collectées' },
+  { id: 'finalites', label: 'Finalités et bases' },
+  { id: 'destinataires', label: 'Destinataires et transferts' },
+  { id: 'conservation', label: 'Durées de conservation' },
+  { id: 'cookies', label: 'Cookies et mesure d\'audience' },
+  { id: 'droits', label: 'Vos droits' },
+  { id: 'securite', label: 'Sécurité' },
+  { id: 'modifications', label: 'Modifications' }
+];
+---
+<LegalLayout
+  title="Politique de confidentialité"
+  description="Quelles données Gemula collecte sur gemula.org, pourquoi, combien de temps elles sont conservées et comment exercer vos droits."
+  toc={toc}
+>
+  <p>
+    Gemula respecte votre vie privée. Cette politique explique quelles données personnelles nous collectons lorsque vous utilisez le site <strong>gemula.org</strong>, pourquoi nous les utilisons et comment exercer vos droits. Elle s'applique conformément à la {site.legal.loiDonnees}.
+  </p>
+  <p>En résumé : nous ne collectons que ce que vous nous envoyez volontairement, nous ne vendons aucune donnée, et la mesure d'audience ne s'active qu'avec votre accord.</p>
+
+  <h2 id="responsable">1. Responsable du traitement</h2>
+  <p>
+    Le responsable du traitement est {site.legal.editeur}, représenté par {site.legal.representant}, {site.legal.ville}.
+    Un référent aux données personnelles, désigné au sein de l'équipe, traite les demandes.
+  </p>
+  <p>Contact : <a href={`mailto:${site.email}?subject=Donn%C3%A9es%20personnelles`}>{site.email}</a> ou {site.phone}.</p>
+
+  <h2 id="donnees">2. Données collectées</h2>
+  <h3>Formulaire de contact (page Contact)</h3>
+  <p>Nom, adresse email, entreprise ou organisation (facultatif), type de demande et contenu de votre message.</p>
+  <h3>Inscription à Gemula Community</h3>
+  <p>Nom, adresse email, école, entreprise ou ville (facultatif), centres d'intérêt et message (facultatif).</p>
+  <h3>Échanges directs</h3>
+  <p>Si vous nous écrivez par email, par téléphone ou par WhatsApp, nous recevons les informations que vous choisissez de partager. WhatsApp est un service de Meta, soumis à sa propre politique de confidentialité.</p>
+  <h3>Navigation</h3>
+  <p>
+    L'hébergeur enregistre des journaux techniques (adresse IP, date, page demandée, navigateur) nécessaires au fonctionnement et à la sécurité du site.
+    Avec votre accord seulement, des statistiques de visite anonymisées sont collectées (voir la section Cookies).
+  </p>
+  <p>Nous ne collectons aucune donnée sensible et le site ne s'adresse pas aux enfants de moins de 15 ans sans l'accord d'un parent.</p>
+
+  <h2 id="finalites">3. Finalités et bases du traitement</h2>
+  <table>
+    <thead><tr><th>Finalité</th><th>Base</th></tr></thead>
+    <tbody>
+      <tr><td>Répondre à vos demandes de formation, de devis ou de collaboration</td><td>Votre demande (mesures précontractuelles) et votre consentement</td></tr>
+      <tr><td>Gérer votre inscription à Gemula Community et vous informer des activités</td><td>Votre consentement, retirable à tout moment</td></tr>
+      <tr><td>Assurer la sécurité du site et lutter contre le spam</td><td>Intérêt légitime de Gemula</td></tr>
+      <tr><td>Mesurer l'audience pour améliorer le site</td><td>Votre consentement, donné dans le bandeau cookies</td></tr>
+    </tbody>
+  </table>
+  <p>Vos données ne sont jamais vendues ni utilisées pour de la publicité ciblée. Conformément à notre règlement intérieur, aucune donnée personnelle n'est transmise à un service d'intelligence artificielle générative non autorisé.</p>
+
+  <h2 id="destinataires">4. Destinataires et transferts</h2>
+  <p>Seuls les membres de l'équipe opérationnelle qui en ont besoin accèdent à vos données. Nous utilisons les prestataires suivants :</p>
+  <ul>
+    <li><strong>Google</strong> (Google Forms et Google Sheets) : réception et suivi des formulaires ; Google Analytics si vous l'acceptez.</li>
+    <li><strong>LWS</strong> : hébergement du site, en France.</li>
+    <li><strong>Meta</strong> (WhatsApp) : uniquement si vous choisissez de nous écrire par ce canal ou de suivre la chaîne de la communauté.</li>
+  </ul>
+  <p>Ces prestataires peuvent stocker des données hors du Cameroun, notamment dans l'Union européenne et aux États-Unis. Ils s'engagent contractuellement à protéger les données qu'ils traitent.</p>
+
+  <h2 id="conservation">5. Durées de conservation</h2>
+  <ul>
+    <li>Demandes de contact sans suite : 3 ans après le dernier échange.</li>
+    <li>Données des clients et partenaires : durée de la relation, puis durée légale applicable.</li>
+    <li>Inscription à Gemula Community : jusqu'à votre désinscription, ou 2 ans sans activité.</li>
+    <li>Journaux techniques de l'hébergeur : 12 mois au plus.</li>
+    <li>Choix concernant les cookies : 6 mois, puis la question vous est reposée.</li>
+  </ul>
+
+  <h2 id="cookies">6. Cookies et mesure d'audience</h2>
+  <p>
+    Le site fonctionne sans cookie publicitaire. Votre choix concernant la mesure d'audience est enregistré dans le stockage local de votre navigateur (clé <code>gemula-consent</code>), sans être transmis à un tiers.
+  </p>
+  <p>
+    Si vous acceptez, nous utilisons <strong>Google Analytics 4</strong> avec anonymisation de l'adresse IP pour compter les visites et connaître les pages consultées. Ce service dépose des cookies <code>_ga</code> pour une durée maximale de 13 mois. Si vous refusez, aucun script de mesure n'est chargé.
+  </p>
+  <p>
+    <a href="#cookies" data-open-consent>Modifier mon choix concernant les cookies</a>
+  </p>
+
+  <h2 id="droits">7. Vos droits</h2>
+  <p>Vous pouvez à tout moment :</p>
+  <ul>
+    <li>être informé et accéder à vos données ;</li>
+    <li>les faire rectifier ou compléter ;</li>
+    <li>demander leur suppression ;</li>
+    <li>vous opposer à leur traitement ou retirer votre consentement ;</li>
+    <li>recevoir une copie de vos données dans un format courant.</li>
+  </ul>
+  <p>
+    Pour exercer ces droits, écrivez à <a href={`mailto:${site.email}?subject=Exercice%20de%20mes%20droits`}>{site.email}</a> en précisant votre demande. Nous répondons dans un délai d'un mois. Si vous estimez que vos droits ne sont pas respectés, vous pouvez saisir l'autorité de protection des données personnelles compétente au Cameroun.
+  </p>
+
+  <h2 id="securite">8. Sécurité</h2>
+  <p>
+    Le site est servi en HTTPS. Les accès aux données sont limités aux personnes qui en ont besoin, protégés par des mots de passe robustes et, lorsque c'est possible, par une double authentification, puis révoqués à la fin de leur mission. Toute fuite ou suspicion de fuite est traitée immédiatement.
+  </p>
+
+  <h2 id="modifications">9. Modifications</h2>
+  <p>Cette politique peut évoluer. La date de dernière mise à jour figure en haut de la page. En cas de changement important, nous l'indiquerons sur le site.</p>
+</LegalLayout>

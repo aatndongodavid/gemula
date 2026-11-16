@@ -2,64 +2,70 @@
 import Nav from '@components/Nav.astro';
 import Footer from '@components/Footer.astro';
 import SEO from '@components/SEO.astro';
+import Intro from '@components/Intro.astro';
+import CookieBanner from '@components/CookieBanner.astro';
 import '@styles/global.css';
 
 interface Props {
   title?: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
   type?: 'website' | 'article';
   jsonLd?: object | object[];
+  noindex?: boolean;
+  intro?: boolean;
 }
 
-const { title, description, image, type, jsonLd } = Astro.props;
+const { title, description, image, imageAlt, type, jsonLd, noindex = false, intro = false } = Astro.props;
 ---
 <!doctype html>
 <html lang="fr">
   <head>
     <meta charset="UTF-8" />
     <meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover" />
+    <!-- Avant tout rendu : active les animations et décide de l'intro (une fois par session) -->
+    <script is:inline define:vars={{ intro }}>
+      document.documentElement.classList.add('js');
+      try {
+        var calm = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+        if (intro && !calm && !sessionStorage.getItem('gemula-intro')) document.documentElement.classList.add('intro');
+      } catch (e) {}
+    </script>
 
-    <link rel="preload" href="/fonts/Poppins-600.woff2" as="font" type="font/woff2" crossorigin />
     <link rel="preload" href="/fonts/Inter-Regular.woff2" as="font" type="font/woff2" crossorigin />
-    <link rel="preconnect" href="https://fonts.googleapis.com" />
-    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin />
-    <!-- Icônes : display=block évite d'afficher le nom de l'icône pendant le chargement -->
-    <link
-      rel="stylesheet"
-      href="https://fonts.googleapis.com/css2?family=Material+Symbols+Outlined:opsz,wght,FILL,GRAD@24,400,0,0&display=block"
-    />
+    <link rel="preload" href="/fonts/Inter-SemiBold.woff2" as="font" type="font/woff2" crossorigin />
 
-    <SEO title={title} description={description} image={image} type={type} jsonLd={jsonLd} />
+    <SEO title={title} description={description} image={image} imageAlt={imageAlt} type={type} jsonLd={jsonLd} noindex={noindex} />
   </head>
   <body>
-    <a href="#main" class="sr-only focus:not-sr-only focus:absolute focus:top-2 focus:left-2 focus:bg-gemula-black focus:text-white focus:px-4 focus:py-2 focus:rounded-md focus:z-[100]">
+    <a href="#main" class="sr-only focus:not-sr-only focus:fixed focus:top-3 focus:left-3 focus:z-[300] focus:rounded-lg focus:bg-fg focus:px-4 focus:py-2 focus:text-bg">
       Aller au contenu
     </a>
 
+    {intro && <Intro />}
     <Nav />
 
-    <main id="main" class="pt-16 md:pt-[72px]">
+    <main id="main" class="pt-16">
       <slot />
     </main>
 
     <Footer />
+    <CookieBanner />
 
     <script>
-      // Menu mobile
-      const burger = document.getElementById('burger');
-      const panel = document.getElementById('mobile-panel');
-      if (burger && panel) {
-        burger.addEventListener('click', () => {
-          const isOpen = panel.style.maxHeight && panel.style.maxHeight !== '0px';
-          panel.style.maxHeight = isOpen ? '0px' : panel.scrollHeight + 'px';
-          burger.setAttribute('aria-expanded', String(!isOpen));
-          burger.setAttribute('aria-label', isOpen ? 'Ouvrir le menu' : 'Fermer le menu');
-          const icon = burger.querySelector('span');
-          if (icon) icon.textContent = isOpen ? 'menu' : 'close';
-        });
+      // Apparition douce des blocs marqués data-reveal
+      const items = document.querySelectorAll('[data-reveal]');
+      if ('IntersectionObserver' in window) {
+        const io = new IntersectionObserver((entries) => {
+          entries.forEach((e) => {
+            if (e.isIntersecting) { e.target.classList.add('is-visible'); io.unobserve(e.target); }
+          });
+        }, { rootMargin: '0px 0px -8% 0px', threshold: 0.08 });
+        items.forEach((el) => io.observe(el));
+      } else {
+        items.forEach((el) => el.classList.add('is-visible'));
       }
-
     </script>
   </body>
 </html>

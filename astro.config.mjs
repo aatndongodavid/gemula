@@ -7,7 +7,12 @@ export default defineConfig({
   trailingSlash: 'ignore',
   integrations: [
     tailwind({ applyBaseStyles: false }),
-    sitemap()
+    sitemap({
+      // La page 404 et le portfolio statique ne sont pas des pages à référencer
+      filter: (page) => !page.includes('/404') && !page.endsWith('.html'),
+      changefreq: 'monthly',
+      lastmod: new Date()
+    })
   ],
   markdown: {
     shikiConfig: { theme: 'github-dark' }

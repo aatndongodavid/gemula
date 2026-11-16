@@ -1,13 +1,14 @@
 ---
-import Flag from './Flag.astro';
+import Logo from './Logo.astro';
+import Icon from './Icon.astro';
 
 const links = [
   { href: '/formations', label: 'Formations' },
-  { href: '/expertise',  label: 'Expertise' },
+  { href: '/expertise',  label: 'Solutions' },
   { href: '/projet',     label: 'Réalisations' },
+  { href: '/communaute', label: 'Communauté' },
   { href: '/talents',    label: 'Équipe' },
-  { href: '/journal',    label: 'Journal' },
-  { href: '/communaute', label: 'Communauté' }
+  { href: '/journal',    label: 'Journal' }
 ];
 
 const currentPath = Astro.url.pathname.replace(/\/$/, '') || '/';
@@ -17,11 +18,10 @@ function isActive(href: string) {
   return currentPath === href || currentPath.startsWith(href + '/');
 }
 ---
-<header id="nav" class="fixed inset-x-0 top-0 z-50 bg-white/95 backdrop-blur border-b border-gemula-silver">
-  <div class="container-g flex h-16 md:h-[72px] items-center justify-between gap-6">
-    <a href="/" class="flex items-center gap-3" aria-label="Gemula, retour à l'accueil">
-      <Flag size="md" />
-      <span class="font-display text-[1.35rem] font-semibold tracking-tightest text-gemula-black">Gemula</span>
+<header id="nav" class="fixed inset-x-0 top-0 z-50 border-b border-transparent transition-colors duration-200 data-[scrolled=true]:border-line data-[scrolled=true]:bg-bg/75 data-[scrolled=true]:backdrop-blur-xl">
+  <div class="container-g flex h-16 items-center justify-between gap-6">
+    <a href="/" class="rounded-md" aria-label="Gemula, retour à l'accueil">
+      <Logo />
     </a>
 
     <nav class="hidden lg:flex items-center gap-1" aria-label="Navigation principale">
@@ -29,10 +29,8 @@ function isActive(href: string) {
         <a
           href={link.href}
           aria-current={isActive(link.href) ? 'page' : undefined}
-          class={`rounded-md px-3 py-2 text-[0.9375rem] font-medium transition-colors ${
-            isActive(link.href)
-              ? 'text-gemula-black bg-gemula-sand'
-              : 'text-gemula-grey hover:text-gemula-black'
+          class={`rounded-md px-3 py-2 text-sm transition-colors ${
+            isActive(link.href) ? 'text-fg' : 'text-muted hover:text-fg'
           }`}
         >
           {link.label}
@@ -41,37 +39,56 @@ function isActive(href: string) {
     </nav>
 
     <div class="flex items-center gap-2">
-      <a href="/collaborer" class="hidden sm:inline-flex btn-primary py-2.5 px-4 text-sm">
+      <a href="/collaborer" class="hidden sm:inline-flex btn-light min-h-[36px] px-3.5 py-2 text-sm">
         Nous contacter
       </a>
       <button
         id="burger"
-        class="lg:hidden inline-flex h-10 w-10 items-center justify-center rounded-md border border-gemula-silver"
+        type="button"
+        class="lg:hidden inline-flex h-11 w-11 items-center justify-center rounded-lg border border-line text-fg"
         aria-label="Ouvrir le menu"
         aria-expanded="false"
         aria-controls="mobile-panel"
       >
-        <span class="material-symbols-outlined text-[1.4rem]" aria-hidden="true">menu</span>
+        <Icon name="menu" class="text-xl burger-open" />
+        <Icon name="close" class="text-xl burger-close hidden" />
       </button>
     </div>
   </div>
 
-  <div
-    id="mobile-panel"
-    class="lg:hidden overflow-hidden max-h-0 transition-[max-height] duration-200 ease-out bg-white"
-  >
-    <nav class="container-g py-3 flex flex-col border-t border-gemula-silver" aria-label="Navigation mobile">
+  <div id="mobile-panel" class="lg:hidden hidden border-t border-line bg-bg/95 backdrop-blur-xl">
+    <nav class="container-g py-3 flex flex-col" aria-label="Navigation mobile">
       {links.map((link) => (
         <a
           href={link.href}
-          class={`py-3 text-base font-medium border-b border-gemula-silver/70 ${
-            isActive(link.href) ? 'text-gemula-accent' : 'text-gemula-black'
-          }`}
+          aria-current={isActive(link.href) ? 'page' : undefined}
+          class={`flex min-h-[48px] items-center border-b border-line text-base ${isActive(link.href) ? 'text-fg' : 'text-muted'}`}
         >
           {link.label}
         </a>
       ))}
-      <a href="/collaborer" class="btn-primary mt-4 mb-2">Nous contacter</a>
+      <a href="/collaborer" class="btn-primary mt-4 mb-3">Nous contacter</a>
     </nav>
   </div>
 </header>
+
+<script>
+  const nav = document.getElementById('nav');
+  const onScroll = () => nav?.setAttribute('data-scrolled', String(window.scrollY > 8));
+  onScroll();
+  window.addEventListener('scroll', onScroll, { passive: true });
+
+  const burger = document.getElementById('burger');
+  const panel = document.getElementById('mobile-panel');
+  burger?.addEventListener('click', () => {
+    const open = panel?.classList.toggle('hidden') === false;
+    burger.setAttribute('aria-expanded', String(open));
+    burger.setAttribute('aria-label', open ? 'Fermer le menu' : 'Ouvrir le menu');
+    burger.querySelector('.burger-open')?.classList.toggle('hidden', open);
+    burger.querySelector('.burger-close')?.classList.toggle('hidden', !open);
+    if (open) nav?.setAttribute('data-scrolled', 'true');
+  });
+  document.addEventListener('keydown', (e) => {
+    if (e.key === 'Escape' && panel && !panel.classList.contains('hidden')) (burger as HTMLButtonElement)?.click();
+  });
+</script>
