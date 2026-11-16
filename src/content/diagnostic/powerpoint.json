@@ -38,10 +38,10 @@
       "niveau": 2,
       "question": "Qu'apporte le mode présentateur ?",
       "choix": [
-        "Il enregistre automatiquement la présentation",
-        "Il affiche vos notes et la diapositive suivante sur votre écran, tandis que le public ne voit que la diapositive en cours",
-        "Il traduit la présentation",
-        "Il supprime les animations"
+        "Il fait défiler les diapositives selon un minutage",
+        "Il montre vos notes et la diapositive suivante à vous seul",
+        "Il enregistre votre voix pour créer une vidéo",
+        "Il masque les animations pour aller plus vite"
       ],
       "reponse": 1,
       "explication": "Le mode présentateur vous aide à garder le fil sans que le public voie vos notes."
@@ -64,10 +64,10 @@
       "niveau": 3,
       "question": "Vous voulez qu'un graphique PowerPoint se mette à jour quand les chiffres changent dans Excel. Que faites-vous ?",
       "choix": [
-        "Vous faites une capture d'écran",
+        "Vous insérez le graphique en tant qu'image haute qualité",
         "Vous collez le graphique avec liaison au classeur Excel",
-        "Vous retapez les chiffres",
-        "Vous l'insérez en image"
+        "Vous recréez le graphique dans PowerPoint à chaque mise à jour",
+        "Vous collez le graphique en conservant la mise en forme source"
       ],
       "reponse": 1,
       "explication": "Un collage avec liaison garde le lien avec la source : il suffit d'actualiser le graphique."
@@ -77,10 +77,10 @@
       "niveau": 2,
       "question": "Où noter ce que vous voulez dire pendant la présentation, sans que le public le voie ?",
       "choix": [
-        "Dans une zone de texte cachée derrière une image",
+        "Dans une zone de texte placée hors de la diapositive",
         "Dans la zone de notes de chaque diapositive",
-        "Dans le titre",
-        "Dans le pied de page"
+        "Dans un commentaire ajouté sur la diapositive",
+        "Dans le texte de remplacement des images"
       ],
       "reponse": 1,
       "explication": "Les notes sont visibles en mode présentateur et peuvent être imprimées pour vous."

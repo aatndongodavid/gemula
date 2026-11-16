@@ -13,10 +13,10 @@
       "niveau": 1,
       "question": "Plusieurs collègues peuvent-ils modifier le même Google Sheets en même temps ?",
       "choix": [
-        "Non, un seul à la fois",
-        "Oui, en temps réel, et chacun voit les modifications des autres",
-        "Seulement s'ils ont le même ordinateur",
-        "Seulement après l'avoir téléchargé"
+        "Non, le fichier est verrouillé pendant qu'un collègue l'édite",
+        "Oui, en temps réel, chacun voit les modifications des autres",
+        "Oui, mais les modifications ne sont fusionnées qu'à la fermeture",
+        "Seulement après avoir téléchargé une copie chacun"
       ],
       "reponse": 1,
       "explication": "La coédition en temps réel est le principe même de Google Workspace : un seul fichier, toujours à jour."
@@ -39,10 +39,10 @@
       "niveau": 2,
       "question": "Quel est l'avantage d'un Drive partagé par rapport à « Mon Drive » ?",
       "choix": [
-        "Il offre plus de couleurs",
-        "Les fichiers appartiennent à l'équipe et restent disponibles même si leur créateur quitte l'entreprise",
-        "Il est réservé aux images",
-        "Il ne nécessite pas de connexion"
+        "Il offre un espace de stockage illimité",
+        "Les fichiers appartiennent à l'équipe et restent disponibles si leur créateur quitte l'entreprise",
+        "Les fichiers y sont accessibles sans connexion Internet",
+        "Les fichiers y sont automatiquement chiffrés, contrairement à Mon Drive"
       ],
       "reponse": 1,
       "explication": "Dans un Drive partagé, l'organisation garde la propriété des fichiers, ce qui évite de les perdre au départ d'un collaborateur."
@@ -52,17 +52,17 @@
       "niveau": 1,
       "question": "À quoi sert le mode « Suggestion » dans Google Docs ?",
       "choix": [
-        "À corriger l'orthographe",
-        "À proposer des modifications que l'auteur peut accepter ou refuser",
-        "À traduire le document",
-        "À verrouiller le document"
+        "À faire corriger l'orthographe et la grammaire par Google",
+        "À proposer des modifications que l'auteur accepte ou refuse",
+        "À laisser Google suggérer la suite de vos phrases",
+        "À verrouiller le document en lecture seule"
       ],
       "reponse": 1,
       "explication": "C'est l'équivalent du suivi des modifications de Word."
     },
     {
       "id": "ggl-05",
-      "niveau": 3,
+      "niveau": 2,
       "question": "Comment appliquer automatiquement un libellé aux emails de vos clients dans Gmail ?",
       "choix": [
         "En créant un filtre",

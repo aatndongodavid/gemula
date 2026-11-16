@@ -12,10 +12,10 @@
       "niveau": 1,
       "question": "Quelle tâche est un bon candidat à l'automatisation ?",
       "choix": [
-        "Une tâche rare et chaque fois différente",
+        "Une tâche rare, qui change à chaque fois",
         "Une tâche répétitive, fréquente, avec des règles claires",
-        "Une décision stratégique",
-        "Un entretien d'embauche"
+        "Une décision qui demande l'avis de la direction",
+        "Une tâche complexe que personne ne maîtrise"
       ],
       "reponse": 1,
       "explication": "Plus une tâche est répétitive et prévisible, plus son automatisation est rentable."
@@ -25,10 +25,10 @@
       "niveau": 2,
       "question": "Dans Power Automate, qu'est-ce qu'un déclencheur ?",
       "choix": [
-        "Le bouton pour supprimer un flux",
-        "L'événement qui lance le flux, par exemple la réception d'un email ou une nouvelle réponse à un formulaire",
-        "Le nom du flux",
-        "Une erreur"
+        "La première action exécutée par le flux",
+        "L'événement qui lance le flux, comme un email reçu",
+        "La condition qui arrête le flux en cas d'erreur",
+        "La personne qui doit valider chaque exécution"
       ],
       "reponse": 1,
       "explication": "Chaque flux commence par un déclencheur, suivi d'une ou plusieurs actions."
@@ -38,12 +38,12 @@
       "niveau": 2,
       "question": "Comment automatiser la validation des demandes de congés par le responsable ?",
       "choix": [
-        "Par des emails manuels",
-        "Avec un flux Power Automate utilisant l'action « Approbation »",
-        "Avec une macro Word",
-        "En imprimant les demandes"
+        "Avec un flux Power Automate et l'action « Approbation »",
+        "Avec un formulaire en ligne dont les réponses arrivent par email",
+        "Avec un dossier partagé où chacun dépose sa demande",
+        "Avec un calendrier Outlook partagé par toute l'équipe"
       ],
-      "reponse": 1,
+      "reponse": 0,
       "explication": "L'approbation envoie la demande au responsable, qui accepte ou refuse en un clic ; le demandeur est notifié automatiquement."
     },
     {
@@ -51,10 +51,10 @@
       "niveau": 2,
       "question": "À quoi sert Power Apps ?",
       "choix": [
-        "À retoucher des photos",
-        "À créer de petites applications de saisie ou de suivi sans programmation complexe",
-        "À faire des visioconférences",
-        "À compresser des fichiers"
+        "À créer des tableaux de bord pour la direction",
+        "À créer de petites applications de saisie sans code complexe",
+        "À automatiser des tâches entre plusieurs logiciels",
+        "À héberger les fichiers partagés de l'équipe"
       ],
       "reponse": 1,
       "explication": "Power Apps permet par exemple de créer une application mobile de remontée terrain reliée à SharePoint ou Excel."
@@ -65,22 +65,22 @@
       "question": "Un flux Power Automate échoue. Où trouver la cause ?",
       "choix": [
         "Dans l'historique d'exécution du flux, qui montre l'étape en erreur",
-        "Dans la corbeille",
-        "Dans les paramètres de Windows",
-        "Nulle part"
+        "Dans le centre d'administration de Microsoft 365",
+        "Dans la boîte de réception de la personne qui a créé le flux",
+        "Dans les journaux d'événements de Windows"
       ],
       "reponse": 0,
-      "explication": "L'historique détaille chaque exécution et l'étape qui a échoué, avec le message d'erreur."
+      "explication": "L'historique d'exécution détaille chaque lancement et l'étape qui a échoué, avec le message d'erreur. Un email d'alerte peut aussi être reçu, mais c'est l'historique qui donne la cause."
     },
     {
       "id": "aut-06",
       "niveau": 1,
       "question": "Quel est le principal bénéfice d'une relance automatique des factures impayées ?",
       "choix": [
-        "Supprimer la relation client",
-        "Ne plus oublier de relance et libérer du temps pour les cas complexes",
-        "Augmenter les prix",
-        "Éviter d'émettre des factures"
+        "Pouvoir appliquer des pénalités de retard plus élevées",
+        "Ne plus oublier de relance et libérer du temps",
+        "Ne plus avoir à appeler les clients en difficulté",
+        "Réduire le nombre de factures émises chaque mois"
       ],
       "reponse": 1,
       "explication": "L'automatisation prend en charge le routinier ; l'équipe se concentre sur les situations qui demandent un échange humain."

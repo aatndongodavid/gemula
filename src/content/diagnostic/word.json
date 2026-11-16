@@ -12,10 +12,10 @@
       "niveau": 1,
       "question": "Pourquoi utiliser les styles (Titre 1, Titre 2…) plutôt que mettre le texte en gras à la main ?",
       "choix": [
-        "Pour imprimer plus vite",
-        "Pour obtenir une mise en forme homogène et générer une table des matières automatique",
-        "Pour réduire la taille du fichier",
-        "Pour activer la correction orthographique"
+        "Pour que le correcteur orthographique s'applique aux titres",
+        "Pour obtenir une mise en forme homogène et une table des matières automatique",
+        "Pour empêcher les autres de modifier les titres",
+        "Pour que les titres s'impriment en couleur"
       ],
       "reponse": 1,
       "explication": "Les styles garantissent une présentation cohérente et permettent à Word de construire le plan et la table des matières."
@@ -51,10 +51,10 @@
       "niveau": 1,
       "question": "À quoi sert le suivi des modifications ?",
       "choix": [
-        "À enregistrer automatiquement le fichier",
-        "À voir, accepter ou refuser les corrections apportées par chaque relecteur",
-        "À compter les mots",
-        "À traduire le document"
+        "À enregistrer automatiquement une copie à chaque modification",
+        "À voir, accepter ou refuser les corrections de chaque relecteur",
+        "À empêcher toute modification sans mot de passe",
+        "À comparer le nombre de mots entre deux versions"
       ],
       "reponse": 1,
       "explication": "Chaque modification est visible et attribuée à son auteur, ce qui facilite la relecture à plusieurs."
@@ -64,23 +64,23 @@
       "niveau": 3,
       "question": "Vous voulez que la numérotation des pages commence à 1 à partir de la page 3. Que faites-vous ?",
       "choix": [
-        "Vous tapez les numéros à la main",
-        "Vous insérez un saut de section, puis vous désactivez « Lier au précédent » dans le pied de page",
-        "Vous supprimez les deux premières pages",
-        "Vous changez la taille de la police"
+        "Vous insérez un saut de page avant la page 3, puis vous ajoutez les numéros de page dans le pied de page",
+        "Vous insérez un saut de section, désactivez « Lier au précédent » et recommencez la numérotation à 1",
+        "Vous cochez « Première page différente » dans l'en-tête, puis vous ajoutez les numéros de page",
+        "Vous numérotez tout le document, puis vous effacez à la main les numéros des pages 1 et 2"
       ],
       "reponse": 1,
-      "explication": "Les sections permettent d'avoir des en-têtes, pieds de page et numérotations différents dans un même document."
+      "explication": "Le saut de section crée une nouvelle partie ; « Lier au précédent » désactivé, ses pieds de page sont indépendants, et le format des numéros permet de repartir à 1."
     },
     {
       "id": "wrd-06",
       "niveau": 2,
       "question": "Quel est l'intérêt d'un modèle Word (.dotx) ?",
       "choix": [
-        "Il ne peut pas être imprimé",
-        "Il sert de base réutilisable (en-tête, charte, champs) sans risque d'écraser l'original",
-        "Il convertit le document en PDF",
-        "Il empêche toute modification"
+        "Il protège le document par un mot de passe",
+        "Il sert de base réutilisable sans risque d'écraser l'original",
+        "Il est le seul format accepté pour le publipostage",
+        "Il enregistre automatiquement toutes les versions"
       ],
       "reponse": 1,
       "explication": "Un modèle crée un nouveau document à chaque ouverture : l'original reste intact."

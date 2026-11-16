@@ -26,9 +26,9 @@
       "question": "Vous partez en congé une semaine. Quelle fonctionnalité prévient automatiquement vos correspondants ?",
       "choix": [
         "Les réponses automatiques (gestionnaire d'absence)",
-        "Les règles de tri",
-        "L'archivage",
-        "Les catégories"
+        "Une règle qui transfère vos messages à un collègue",
+        "Le statut « Absent » dans Teams",
+        "Un message type envoyé à vos contacts avant de partir"
       ],
       "reponse": 0,
       "explication": "Les réponses automatiques envoient un message d'absence pendant la période choisie, avec des textes différents pour l'interne et l'externe."
@@ -38,10 +38,10 @@
       "niveau": 2,
       "question": "Comment trouver un créneau où cinq collègues sont disponibles ?",
       "choix": [
-        "Appeler chacun d'eux",
-        "Utiliser l'assistant Planification lors de la création de la réunion",
-        "Envoyer un email à chacun",
-        "Consulter son propre calendrier"
+        "Envoyer une invitation à un créneau et attendre les refus",
+        "Utiliser l'assistant Planification de la réunion",
+        "Créer un sondage par email pour chaque créneau",
+        "Consulter son propre calendrier et choisir un créneau libre"
       ],
       "reponse": 1,
       "explication": "L'assistant Planification affiche les disponibilités de chaque participant et propose des créneaux libres."
@@ -51,10 +51,10 @@
       "niveau": 1,
       "question": "Quelle est la différence entre Cc et Cci ?",
       "choix": [
-        "Aucune",
-        "Les destinataires en Cci ne sont pas visibles des autres destinataires",
-        "Cci envoie le message plus tard",
-        "Cc chiffre le message"
+        "Les destinataires en Cc ne peuvent pas répondre à tous",
+        "Les destinataires en Cci ne sont pas visibles des autres",
+        "Les destinataires en Cci reçoivent le message en différé",
+        "Les destinataires en Cc reçoivent une copie chiffrée"
       ],
       "reponse": 1,
       "explication": "Cci (copie cachée) protège les adresses des destinataires, utile pour un envoi à de nombreuses personnes externes."

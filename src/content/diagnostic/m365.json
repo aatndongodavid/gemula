@@ -13,10 +13,10 @@
       "niveau": 1,
       "question": "Pourquoi partager un lien OneDrive plutôt qu'envoyer le fichier en pièce jointe ?",
       "choix": [
-        "Le lien est plus joli",
+        "La pièce jointe est limitée à un seul destinataire",
         "Tout le monde travaille sur une seule version à jour, sans doublons",
-        "La pièce jointe est plus sécurisée",
-        "Le lien fonctionne sans Internet"
+        "Le lien permet de modifier le fichier sans Internet",
+        "Le lien réduit la taille du fichier"
       ],
       "reponse": 1,
       "explication": "Une pièce jointe crée une copie par destinataire ; un lien renvoie toujours vers le même fichier."
@@ -52,25 +52,25 @@
       "niveau": 1,
       "question": "Dans Teams, à quoi sert un canal ?",
       "choix": [
-        "À passer des appels téléphoniques uniquement",
-        "À organiser les conversations et les fichiers d'une équipe par sujet ou par projet",
-        "À envoyer des emails externes",
-        "À stocker des mots de passe"
+        "À rassembler les échanges et fichiers d'une équipe par sujet",
+        "À envoyer un message à toute l'entreprise en une fois",
+        "À planifier les réunions en ligne de l'équipe",
+        "À échanger en privé avec un seul collègue"
       ],
-      "reponse": 1,
+      "reponse": 0,
       "explication": "Chaque canal regroupe les échanges, les fichiers et les onglets d'un thème."
     },
     {
       "id": "m365-05",
       "niveau": 3,
-      "question": "Quel est le risque d'un lien de partage « Tout le monde » ?",
+      "question": "Quel est le risque d'un lien de partage « Toute personne disposant du lien » ?",
       "choix": [
-        "Le fichier devient plus lent",
         "Toute personne qui obtient le lien peut ouvrir le fichier, même hors de l'entreprise",
-        "Le fichier est supprimé après 24 heures",
-        "Aucun risque"
+        "Seuls les collègues connectés à Microsoft 365 peuvent l'ouvrir",
+        "Le fichier ne peut plus être modifié par son propriétaire",
+        "Le lien cesse de fonctionner dès que le fichier est modifié"
       ],
-      "reponse": 1,
+      "reponse": 0,
       "explication": "Pour des documents internes, préférez « Personnes de votre organisation » ou des personnes précises."
     },
     {
@@ -78,23 +78,23 @@
       "niveau": 2,
       "question": "Où sont stockés les fichiers partagés dans un canal Teams ?",
       "choix": [
-        "Sur l'ordinateur de l'expéditeur",
+        "Dans le OneDrive de la personne qui les publie",
         "Dans le site SharePoint de l'équipe",
-        "Dans Outlook",
-        "Nulle part, ils sont temporaires"
+        "Dans la boîte aux lettres Outlook de l'équipe",
+        "Dans le dossier Téléchargements de chaque membre"
       ],
       "reponse": 1,
-      "explication": "Chaque équipe Teams s'appuie sur un site SharePoint : les fichiers y sont stockés et versionnés."
+      "explication": "Les fichiers d'un canal sont dans le site SharePoint de l'équipe. Ceux échangés en conversation privée, eux, sont stockés dans le OneDrive de l'expéditeur."
     },
     {
       "id": "m365-07",
       "niveau": 2,
       "question": "Dans quel cas Teams est-il plus adapté qu'un email ?",
       "choix": [
-        "Pour un courrier officiel à un client",
-        "Pour un échange rapide entre membres d'une équipe sur un projet en cours",
-        "Pour envoyer une facture",
-        "Pour une candidature"
+        "Pour un courrier officiel adressé à un client",
+        "Pour un échange rapide entre collègues sur un projet en cours",
+        "Pour transmettre une facture à un fournisseur",
+        "Pour une communication qui doit rester archivée par écrit"
       ],
       "reponse": 1,
       "explication": "Teams convient aux échanges internes fréquents ; l'email reste adapté aux communications formelles ou externes."

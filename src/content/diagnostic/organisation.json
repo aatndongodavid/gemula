@@ -12,10 +12,10 @@
       "niveau": 1,
       "question": "Quel nom de fichier facilite le classement et la recherche ?",
       "choix": [
-        "rapport final OK.docx",
+        "rapport ventes final OK.docx",
         "2026-11-03_Rapport-ventes_v2.docx",
-        "Document1.docx",
-        "nouveau rapport (2).docx"
+        "Rapport ventes novembre (copie 2).docx",
+        "RAPPORT_VENTES_DERNIERE_VERSION.docx"
       ],
       "reponse": 1,
       "explication": "Une date au format AAAA-MM-JJ en début de nom permet un tri chronologique automatique, et le nom reste explicite."
@@ -25,10 +25,10 @@
       "niveau": 2,
       "question": "Comment attribuer les droits d'accès aux dossiers partagés ?",
       "choix": [
-        "Tout le monde a accès à tout",
-        "Chacun accède à ce dont il a besoin pour son travail, par service",
-        "Seul le directeur a accès",
-        "Par ordre d'ancienneté"
+        "Tout le monde accède à tout, pour gagner du temps",
+        "Chacun accède à ce dont il a besoin pour son travail",
+        "Seuls les responsables accèdent aux dossiers partagés",
+        "Chacun partage lui-même ses dossiers avec qui il veut"
       ],
       "reponse": 1,
       "explication": "Le principe du moindre privilège limite les erreurs et les fuites de données."
@@ -38,10 +38,10 @@
       "niveau": 2,
       "question": "Que signifie la règle de sauvegarde 3-2-1 ?",
       "choix": [
-        "3 dossiers, 2 sous-dossiers, 1 fichier",
+        "Sauvegarder 3 fois par jour, 2 fois par semaine et 1 fois par mois",
         "3 copies des données, sur 2 supports différents, dont 1 hors du site",
-        "Sauvegarder 3 fois par jour",
-        "Garder les fichiers 3 ans, 2 mois et 1 jour"
+        "Conserver les sauvegardes 3 mois, sur 2 disques, en 1 exemplaire",
+        "3 dossiers, 2 sous-dossiers et 1 archive par service"
       ],
       "reponse": 1,
       "explication": "Cette règle protège contre la panne, le vol, l'incendie ou le rançongiciel."
@@ -51,10 +51,10 @@
       "niveau": 1,
       "question": "Quelle arborescence de dossiers est la plus efficace pour une équipe ?",
       "choix": [
-        "Chacun crée ses dossiers comme il veut",
+        "Chaque collaborateur crée et organise ses propres dossiers",
         "Une arborescence commune, peu profonde et documentée",
-        "Un seul dossier contenant tout",
-        "Un dossier par jour"
+        "Un seul dossier commun où tous les fichiers sont déposés",
+        "Une arborescence très détaillée, avec un dossier par jour"
       ],
       "reponse": 1,
       "explication": "Une structure partagée et simple permet à chacun de retrouver un fichier sans demander."
@@ -64,10 +64,10 @@
       "niveau": 3,
       "question": "Les fichiers « final_v3_def_OK.docx » se multiplient. Quelle est la meilleure solution ?",
       "choix": [
-        "Ajouter encore un suffixe",
-        "Travailler sur un fichier unique partagé et s'appuyer sur l'historique des versions",
-        "Imprimer chaque version",
-        "Supprimer les anciennes versions chaque soir"
+        "Ajouter la date et les initiales du dernier relecteur au nom",
+        "Un fichier unique partagé, avec l'historique des versions",
+        "Garder uniquement la dernière version sur son ordinateur",
+        "Créer un dossier « Archives » pour les anciennes versions"
       ],
       "reponse": 1,
       "explication": "Le stockage partagé (OneDrive, SharePoint, Drive) conserve automatiquement les versions précédentes."
@@ -77,10 +77,10 @@
       "niveau": 2,
       "question": "Quelle méthode convient pour numériser des archives papier ?",
       "choix": [
-        "Photographier avec un téléphone sans les renommer",
-        "Scanner en PDF avec reconnaissance de texte (OCR) et appliquer une règle de nommage",
-        "Recopier le texte à la main",
-        "Les garder seulement en papier"
+        "Les photographier avec un téléphone, en vrac dans un dossier",
+        "Les scanner en PDF avec OCR et une règle de nommage",
+        "Les scanner en images JPEG, une par page",
+        "Les recopier à la main dans des documents Word"
       ],
       "reponse": 1,
       "explication": "L'OCR rend le texte des documents scannés recherchable, et le nommage cohérent permet de les retrouver."

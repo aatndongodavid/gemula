@@ -25,10 +25,10 @@
       "niveau": 1,
       "question": "Dans la formule =$B$2*C5, à quoi servent les symboles $ ?",
       "choix": [
-        "À afficher le résultat en devise",
+        "À indiquer que la cellule contient un montant en devise",
         "À figer la référence B2 quand on recopie la formule",
-        "À protéger la cellule contre la modification",
-        "À arrondir le résultat"
+        "À protéger la cellule B2 contre la modification",
+        "À forcer le calcul de B2 avant celui de C5"
       ],
       "reponse": 1,
       "explication": "Le $ rend la référence absolue : B2 reste B2 quelle que soit la cellule où la formule est recopiée."
@@ -49,15 +49,15 @@
     {
       "id": "xlb-04",
       "niveau": 2,
-      "question": "Quelle formule compte le nombre de cellules de B2:B50 qui contiennent « Payé » ?",
+      "question": "Quelle formule compte le nombre de cellules de B2:B50 dont la valeur est « Payé » ?",
       "choix": [
         "=NBVAL(B2:B50)",
         "=NB.SI(B2:B50;\"Payé\")",
         "=SOMME.SI(B2:B50;\"Payé\")",
-        "=NB(B2:B50;\"Payé\")"
+        "=NB.SI(\"Payé\";B2:B50)"
       ],
       "reponse": 1,
-      "explication": "NB.SI compte les cellules qui respectent un critère. NBVAL compte toutes les cellules non vides."
+      "explication": "NB.SI(plage;critère) compte les cellules égales au critère. NBVAL compte toutes les cellules non vides, et l'ordre des arguments compte."
     },
     {
       "id": "xlb-05",
@@ -88,14 +88,14 @@
     {
       "id": "xlb-07",
       "niveau": 1,
-      "question": "Quel est le principal avantage de « Mettre sous forme de tableau » (Ctrl+T) ?",
+      "question": "Quel est le principal avantage de « Mettre sous forme de tableau » dans Excel ?",
       "choix": [
-        "Le fichier devient plus léger",
-        "Les formules, mises en forme et filtres s'étendent automatiquement aux nouvelles lignes",
-        "Les données ne peuvent plus être modifiées",
-        "Le classeur est envoyé automatiquement par email"
+        "Les nouvelles lignes reprennent automatiquement les formules, la mise en forme et les filtres",
+        "Les cellules sont automatiquement protégées contre la modification",
+        "Les formules sont remplacées par leurs valeurs pour alléger le fichier",
+        "Les données sont triées automatiquement à chaque saisie"
       ],
-      "reponse": 1,
+      "reponse": 0,
       "explication": "Un tableau structuré s'agrandit tout seul : les nouvelles lignes héritent des formules et sont prises en compte par les graphiques et tableaux croisés."
     },
     {
@@ -104,9 +104,9 @@
       "question": "Vous voulez que les stocks inférieurs au seuil d'alerte apparaissent en rouge automatiquement. Quel outil utilisez-vous ?",
       "choix": [
         "La mise en forme conditionnelle",
-        "Le pinceau de reproduction de mise en forme",
-        "La validation des données",
-        "Le tri personnalisé"
+        "La validation des données avec un message d'alerte",
+        "Un filtre automatique sur la colonne des stocks",
+        "Un tri croissant sur la colonne des stocks"
       ],
       "reponse": 0,
       "explication": "La mise en forme conditionnelle applique un format selon une règle et se met à jour dès que les valeurs changent."

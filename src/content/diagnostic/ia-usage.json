@@ -13,10 +13,10 @@
       "niveau": 1,
       "question": "Un assistant d'IA vous donne des chiffres et des références pour un rapport. Que faites-vous ?",
       "choix": [
-        "Je les copie directement",
-        "Je vérifie les chiffres et les sources, car l'IA peut inventer des informations",
-        "Je demande à l'IA si elle est sûre et je la crois",
-        "Je les supprime tous"
+        "Je les copie, car l'IA a accès à Internet",
+        "Je vérifie chiffres et sources, l'IA peut inventer",
+        "Je demande à l'IA de confirmer qu'elle est sûre",
+        "Je reformule la question pour obtenir les mêmes chiffres"
       ],
       "reponse": 1,
       "explication": "Les IA génératives peuvent produire des informations fausses mais plausibles (hallucinations). La vérification humaine reste indispensable."
@@ -26,23 +26,23 @@
       "niveau": 2,
       "question": "Que contient une consigne (prompt) efficace ?",
       "choix": [
-        "Un seul mot-clé",
+        "Une question courte, avec les mots-clés essentiels",
         "Un rôle, un contexte, une tâche précise et le format attendu",
-        "Le plus de politesse possible",
-        "Uniquement des majuscules"
+        "Une formule de politesse et la question la plus complète possible",
+        "La question posée en anglais, mieux compris par l'IA"
       ],
       "reponse": 1,
       "explication": "Plus le contexte et le résultat attendu sont précis, plus la réponse est utile du premier coup."
     },
     {
       "id": "ia-03",
-      "niveau": 2,
+      "niveau": 1,
       "question": "Vous voulez résumer un compte rendu de 15 pages pour la direction. Quelle consigne est la meilleure ?",
       "choix": [
-        "« Résume. »",
-        "« Résume ce compte rendu en 5 points pour un directeur général, avec les décisions prises et les actions à suivre. »",
-        "« Fais court. »",
-        "« Lis ce document. »"
+        "« Résume ce document. »",
+        "« Résume ce compte rendu en 5 points pour le directeur : décisions et actions à suivre. »",
+        "« Fais un résumé court et professionnel de ce texte. »",
+        "« Peux-tu lire ce compte rendu et me dire ce que tu en penses ? »"
       ],
       "reponse": 1,
       "explication": "Préciser le public, la longueur et ce qu'il faut faire ressortir donne un résumé directement exploitable."
@@ -53,9 +53,9 @@
       "question": "Lequel de ces outils est un assistant d'IA générative ?",
       "choix": [
         "Copilot",
-        "Excel",
-        "Acrobat Reader",
-        "Explorateur de fichiers"
+        "Le lecteur multimédia VLC",
+        "L'Explorateur de fichiers de Windows",
+        "Le logiciel de compression WinRAR"
       ],
       "reponse": 0,
       "explication": "Copilot, ChatGPT, Claude et Gemini sont des assistants d'IA générative."
@@ -65,10 +65,10 @@
       "niveau": 3,
       "question": "Que signifie donner des « exemples guidés » à une IA ?",
       "choix": [
-        "Lui envoyer des captures d'écran",
-        "Lui montrer un ou plusieurs exemples du résultat attendu pour qu'elle reproduise le format et le ton",
-        "Lui demander d'inventer des exemples",
-        "Lui donner des notes"
+        "Lui fournir des captures d'écran de votre logiciel",
+        "Lui montrer des exemples du résultat attendu à reproduire",
+        "Lui demander de proposer plusieurs réponses au choix",
+        "Lui donner la liste des étapes à suivre une par une"
       ],
       "reponse": 1,
       "explication": "Les exemples guidés (few-shot) améliorent nettement la régularité des réponses, par exemple pour des fiches ou des emails types."
@@ -78,10 +78,10 @@
       "niveau": 2,
       "question": "La réponse de l'IA est trop générique. Quelle est la meilleure réaction ?",
       "choix": [
-        "Abandonner l'outil",
-        "Préciser le contexte et vos contraintes, puis demander une nouvelle version",
-        "Reposer exactement la même question",
-        "Changer de navigateur"
+        "Demander à l'IA de répondre « de façon plus professionnelle »",
+        "Préciser le contexte et vos contraintes, puis redemander",
+        "Reposer la même question dans une nouvelle conversation",
+        "Passer à un autre outil d'IA plus puissant"
       ],
       "reponse": 1,
       "explication": "Travailler avec une IA est itératif : on affine la consigne à partir de la première réponse."
@@ -91,10 +91,10 @@
       "niveau": 3,
       "question": "Quel est l'intérêt d'une bibliothèque de prompts partagée dans une équipe ?",
       "choix": [
-        "Remplacer les collaborateurs",
-        "Réutiliser des consignes testées et efficaces pour les tâches récurrentes du service",
-        "Stocker des mots de passe",
-        "Éviter toute vérification"
+        "Garder une trace des conversations de chaque collaborateur",
+        "Réutiliser des consignes testées pour les tâches récurrentes",
+        "Entraîner l'IA sur les documents internes de l'entreprise",
+        "Contrôler le nombre de questions posées à l'IA"
       ],
       "reponse": 1,
       "explication": "Une bibliothèque commune diffuse les bonnes pratiques et fait gagner du temps à toute l'équipe."

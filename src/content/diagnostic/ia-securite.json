@@ -12,10 +12,10 @@
       "niveau": 1,
       "question": "Quelle information ne faut-il jamais coller dans un outil d'IA grand public non validé par l'entreprise ?",
       "choix": [
-        "Une question de culture générale",
-        "Les données personnelles des clients, les salaires ou des mots de passe",
-        "Une recette de cuisine",
-        "Un texte déjà public"
+        "Une question générale sur un logiciel de bureautique",
+        "Des données personnelles de clients, des salaires ou des mots de passe",
+        "Un texte déjà publié sur le site de l'entreprise",
+        "Un brouillon d'email sans nom ni chiffre"
       ],
       "reponse": 1,
       "explication": "Ces données peuvent être conservées par le fournisseur. Elles doivent rester dans des outils autorisés par l'entreprise."
@@ -25,10 +25,10 @@
       "niveau": 2,
       "question": "Quelle différence majeure entre une version entreprise d'un outil d'IA et sa version grand public gratuite ?",
       "choix": [
-        "Aucune différence",
-        "La version entreprise offre généralement des engagements contractuels de confidentialité et de non-réutilisation des données",
-        "La version grand public est plus sécurisée",
-        "La version entreprise n'utilise pas d'IA"
+        "Les deux versions offrent exactement les mêmes garanties",
+        "Des engagements contractuels de confidentialité et de non-réutilisation des données",
+        "Seule la version gratuite permet de supprimer son historique",
+        "La version entreprise fonctionne sans connexion Internet"
       ],
       "reponse": 1,
       "explication": "Les offres professionnelles prévoient en général des garanties sur l'usage et la conservation des données. Il faut les vérifier contrat par contrat."
@@ -38,10 +38,10 @@
       "niveau": 2,
       "question": "À quoi sert une charte d'usage de l'IA dans une entreprise ?",
       "choix": [
-        "À interdire tout usage de l'IA",
-        "À définir les outils autorisés, les données interdites et les règles de vérification",
-        "À choisir les couleurs des présentations",
-        "À remplacer le règlement intérieur"
+        "À interdire l'IA en dehors du service informatique",
+        "À fixer les outils autorisés, les données interdites et la vérification",
+        "À lister les abonnements d'IA payés par l'entreprise",
+        "À remplacer la formation des équipes à l'IA"
       ],
       "reponse": 1,
       "explication": "Une charte claire permet aux équipes d'utiliser l'IA en confiance et en sécurité."
@@ -51,12 +51,12 @@
       "niveau": 1,
       "question": "Un email rédigé avec l'aide d'une IA contient une erreur envoyée à un client. Qui est responsable ?",
       "choix": [
-        "L'IA",
-        "Le fournisseur de l'outil",
+        "Le fournisseur de l'outil d'IA utilisé",
         "L'entreprise et la personne qui a envoyé l'email",
-        "Personne"
+        "Personne, car l'erreur vient de l'outil",
+        "Le service informatique qui a installé l'outil"
       ],
-      "reponse": 2,
+      "reponse": 1,
       "explication": "L'IA est un outil : la responsabilité du contenu envoyé reste humaine."
     },
     {
