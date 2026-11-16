@@ -1,4 +1,5 @@
 ---
+import Icon from '@components/Icon.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import PageLayout from '@layouts/PageLayout.astro';
 import SectionHeading from '@components/SectionHeading.astro';
@@ -98,7 +99,7 @@ const jsonLd = {
 ---
 <PageLayout
   title={data.title}
-  description={data.subtitle ?? data.why ?? `Événement scientifique au Cameroun : ${data.title}`}
+  description={`${data.title}, ${data.city} : ${data.subtitle ?? data.why ?? 'rendez-vous scientifique et technologique'}. Dates, format et inscription, relayés par l'agenda scientifique Gemula.`.slice(0, 158)}
   eyebrow={statusLabel[data.status] ?? 'Événement'}
   breadcrumb={[
     { href: '/', label: 'Accueil' },
@@ -111,7 +112,7 @@ const jsonLd = {
   <section class="container-g pb-12">
     <div class="max-w-3xl">
       {data.subtitle && (
-        <p class="text-lg md:text-xl text-gemula-grey leading-relaxed">
+        <p class="text-lg md:text-xl text-muted leading-relaxed">
           {data.subtitle}
         </p>
       )}
@@ -127,25 +128,25 @@ const jsonLd = {
 
   <!-- Infos clés -->
   <section class="container-g pb-16">
-    <div class="rounded-xl border border-gemula-silver bg-white p-8 md:p-10">
+    <div class="rounded-xl border border-line bg-surface p-8 md:p-10">
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-8">
         <div>
           <span class="eyebrow block mb-2">Dates</span>
-          <p class="text-sm text-gemula-black leading-relaxed font-medium">
+          <p class="text-sm text-fg leading-relaxed font-medium">
             {dateDisplay}
           </p>
         </div>
 
         <div>
           <span class="eyebrow block mb-2">Lieu</span>
-          <p class="text-sm text-gemula-black leading-relaxed font-medium">
+          <p class="text-sm text-fg leading-relaxed font-medium">
             {data.city} · {data.country}
           </p>
         </div>
 
         <div>
           <span class="eyebrow block mb-2">Organisé par</span>
-          <p class="text-sm text-gemula-black leading-relaxed font-medium">
+          <p class="text-sm text-fg leading-relaxed font-medium">
             {data.organizer}
           </p>
         </div>
@@ -153,21 +154,21 @@ const jsonLd = {
         {deadline ? (
           <div>
             <span class="eyebrow block mb-2">Inscription avant</span>
-            <p class="text-sm text-gemula-black leading-relaxed font-medium">
+            <p class="text-sm text-fg leading-relaxed font-medium">
               --
             </p>
           </div>
         ) : (
           <div>
             <span class="eyebrow block mb-2">Format</span>
-            <p class="text-sm text-gemula-black leading-relaxed font-medium">
+            <p class="text-sm text-fg leading-relaxed font-medium">
               {formatLabel[data.format]}
             </p>
           </div>
         )}
       </div>
 
-      <div class="mt-8 pt-8 border-t border-gemula-silver flex flex-wrap items-center gap-4">
+      <div class="mt-8 pt-8 border-t border-line flex flex-wrap items-center gap-4">
         <a
           href={data.url}
           target="_blank"
@@ -175,9 +176,9 @@ const jsonLd = {
           class="btn-primary text-sm py-2.5 px-5"
         >
           Site officiel
-          <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">open_in_new</span>
+          <Icon name="open_in_new" class="text-[1.1em]" />
         </a>
-        <p class="text-xs text-gemula-grey">
+        <p class="text-xs text-muted">
           Source : {data.source} · Vérifié le {verified}
         </p>
       </div>
@@ -189,7 +190,7 @@ const jsonLd = {
     <section class="container-g pb-16">
       <div class="max-w-3xl">
         <span class="eyebrow block mb-4">Pourquoi cet événement ?</span>
-        <p class="text-lg text-gemula-black leading-relaxed">
+        <p class="text-lg text-fg leading-relaxed">
           {data.why}
         </p>
       </div>
@@ -197,7 +198,7 @@ const jsonLd = {
   )}
 
   <!-- Contenu Markdown -->
-  <section class="container-g pb-16 border-t border-gemula-silver pt-16">
+  <section class="container-g pb-16 border-t border-line pt-16">
     <div class="max-w-3xl">
       <div class="prose-gemula">
         <Content />
@@ -207,16 +208,16 @@ const jsonLd = {
 
   <!-- Note de transparence -->
   <section class="container-g pb-16">
-    <div class="max-w-3xl rounded-xl border border-gemula-silver bg-white/60 p-6">
-      <p class="text-xs text-gemula-grey leading-relaxed">
-        <strong class="text-gemula-black">Note de transparence.</strong> Gemula recense cet événement à titre informatif. Les dates et modalités peuvent évoluer ; consultez la source officielle avant de vous inscrire.
+    <div class="max-w-3xl rounded-xl border border-line bg-surface/60 p-6">
+      <p class="text-xs text-muted leading-relaxed">
+        <strong class="text-fg">Note de transparence.</strong> Gemula recense cet événement à titre informatif. Les dates et modalités peuvent évoluer ; consultez la source officielle avant de vous inscrire.
       </p>
     </div>
   </section>
 
   <!-- Autres événements -->
   {autres.length > 0 && (
-    <section class="container-g py-16 border-t border-gemula-silver">
+    <section class="container-g py-16 border-t border-line">
       <SectionHeading
         eyebrow="Autres rendez-vous"
         title="À découvrir aussi."

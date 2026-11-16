@@ -1,37 +1,67 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import Flag from '@components/Flag.astro';
+import FlagMark from '@components/FlagMark.astro';
+import Icon from '@components/Icon.astro';
+
+const pistes = [
+  { href: '/formations', label: 'Formations pour entreprises', desc: '17 modules, 7 parcours par métier', icon: 'school' },
+  { href: '/communaute', label: 'Gemula Community', desc: 'Ateliers gratuits et entraide', icon: 'users' },
+  { href: '/projet', label: 'Réalisations', desc: 'Dataikos Atlas et nos autres projets', icon: 'layers' },
+  { href: '/collaborer', label: 'Nous contacter', desc: 'Réponse sous 48 heures ouvrées', icon: 'mail' }
+];
 ---
 <BaseLayout
   title="Page introuvable · Gemula"
   description="La page que vous cherchez n'existe pas ou a été déplacée."
+  noindex={true}
 >
-  <section class="container-g py-24 md:py-40 text-center">
-    <div class="flex justify-center mb-10">
-      <Flag size="lg" class="scale-150" />
-    </div>
+  <section class="relative isolate overflow-hidden">
+    <div class="glow-top absolute inset-0 -z-10" aria-hidden="true"></div>
+    <div class="grid-bg absolute inset-0 -z-10" aria-hidden="true"></div>
+    <div class="container-g py-20 md:py-32 text-center">
+      <div class="flex justify-center" aria-hidden="true">
+        <FlagMark class="h-20 md:h-24 lost-flag" />
+      </div>
+      <p class="mt-8 font-mono text-sm text-accent-text">Erreur 404</p>
+      <h1 class="mx-auto mt-3 max-w-2xl text-display-md text-gradient text-balance">Cette page s'est perdue en route.</h1>
+      <p class="mx-auto mt-5 max-w-xl text-lg text-muted">
+        Elle a peut-être été déplacée ou renommée. Voici où reprendre la course.
+      </p>
+      <div class="mt-9 flex flex-wrap justify-center gap-3">
+        <a href="/" class="btn-primary"><Icon name="home" /> Retour à l'accueil</a>
+        <a href="/collaborer" class="btn-ghost">Signaler un lien cassé</a>
+      </div>
 
-    <span class="eyebrow block mb-6">Erreur 404</span>
-
-    <h1 class="font-display text-display-sm md:text-display-md font-semibold tracking-tightest mb-6">
-      Cette page est introuvable.
-    </h1>
-
-    <p class="text-lg text-gemula-grey leading-relaxed max-w-xl mx-auto mb-10">
-      La page que vous cherchez a peut-être été déplacée, renommée, ou n'a jamais existé.
-    </p>
-
-    <div class="flex flex-wrap justify-center gap-3">
-      <a href="/" class="btn-primary">
-        Retour à l'accueil
-        <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">home</span>
-      </a>
-      <a href="/projet" class="btn-ghost">
-        Voir le projet phare
-      </a>
-      <a href="/collaborer" class="btn-ghost">
-        Nous contacter
-      </a>
+      <ul class="mx-auto mt-16 grid max-w-4xl gap-3 text-left sm:grid-cols-2">
+        {pistes.map((p) => (
+          <li>
+            <a href={p.href} class="card card-hover group flex items-center gap-4 !p-5">
+              <span class="inline-flex h-10 w-10 shrink-0 items-center justify-center rounded-xl border border-line bg-surface-2 text-accent-text"><Icon name={p.icon} class="text-xl" /></span>
+              <span class="flex-grow">
+                <span class="block font-medium text-fg">{p.label}</span>
+                <span class="block text-sm text-muted">{p.desc}</span>
+              </span>
+              <Icon name="arrow_forward" class="text-muted transition-transform group-hover:translate-x-0.5" />
+            </a>
+          </li>
+        ))}
+      </ul>
     </div>
   </section>
 </BaseLayout>
+
+<script>
+  import { flagCells } from '@lib/flag';
+  // Le drapeau flotte doucement, sauf si l'utilisateur limite les animations
+  const svg = document.querySelector('.lost-flag');
+  if (svg && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
+    const paths = Array.from(svg.querySelectorAll('path'));
+    const t0 = performance.now();
+    const tick = (t: number) => {
+      const cells = flagCells(1.2 + ((t - t0) / 1000) * 2.4, 1);
+      paths.forEach((p, i) => p.setAttribute('d', cells[i]));
+      requestAnimationFrame(tick);
+    };
+    requestAnimationFrame(tick);
+  }
+</script>

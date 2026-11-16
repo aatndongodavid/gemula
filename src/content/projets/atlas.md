@@ -22,10 +22,10 @@ status: realise
 links:
   demo: ""
   github: ""
-cover: "/images/atlas/dashboard.png"
+cover: "/images/atlas/dashboard.webp"
 gallery:
-  - "/images/atlas/facturation.png"
-  - "/images/atlas/crm.png"
+  - "/images/atlas/facturation.webp"
+  - "/images/atlas/crm.webp"
 ---
 
 ## Pourquoi Atlas

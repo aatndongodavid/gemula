@@ -71,6 +71,7 @@ const jsonLd = aVenir.slice(0, 10).map((e) => ({
 ---
 <PageLayout
   title="Agenda scientifique"
+  seoTitle="Agenda scientifique : conférences data et IA au Cameroun · Gemula"
   description="Conférences, colloques, workshops et écoles scientifiques en mathématiques, statistiques, informatique, data science et IA au Cameroun."
   eyebrow="Veille scientifique"
   breadcrumb={[
@@ -83,22 +84,22 @@ const jsonLd = aVenir.slice(0, 10).map((e) => ({
   <section class="container-g pb-12 md:pb-16">
     <div class="grid grid-cols-3 gap-6 max-w-lg">
       <div class="reveal">
-        <span class="font-display text-3xl md:text-4xl font-bold text-gemula-accent">
+        <span class="font-display text-3xl md:text-4xl font-bold text-accent-text">
           {total}
         </span>
-        <p class="mt-2 text-sm text-gemula-grey">Événements recensés</p>
+        <p class="mt-2 text-sm text-muted">Événements recensés</p>
       </div>
       <div class="reveal">
-        <span class="font-display text-3xl md:text-4xl font-bold text-gemula-accent">
+        <span class="font-display text-3xl md:text-4xl font-bold text-accent-text">
           {totalAVenir}
         </span>
-        <p class="mt-2 text-sm text-gemula-grey">À venir / en cours</p>
+        <p class="mt-2 text-sm text-muted">À venir / en cours</p>
       </div>
       <div class="reveal">
-        <span class="font-display text-3xl md:text-4xl font-bold text-gemula-accent">
+        <span class="font-display text-3xl md:text-4xl font-bold text-accent-text">
           {totalPasses}
         </span>
-        <p class="mt-2 text-sm text-gemula-grey">Archivés</p>
+        <p class="mt-2 text-sm text-muted">Archivés</p>
       </div>
     </div>
   </section>
@@ -140,7 +141,7 @@ const jsonLd = aVenir.slice(0, 10).map((e) => ({
 
   <!-- Archives -->
   {passes.length > 0 && (
-    <section class="container-g py-20 md:py-28 border-t border-gemula-silver">
+    <section class="container-g py-20 md:py-28 border-t border-line">
       <SectionHeading
         eyebrow="Archives"
         title="Événements passés."
@@ -159,9 +160,9 @@ const jsonLd = aVenir.slice(0, 10).map((e) => ({
 
   <!-- Disclaimer -->
   <section class="container-g pb-20">
-    <div class="max-w-3xl rounded-xl border border-gemula-silver bg-white/60 p-6">
-      <p class="text-xs text-gemula-grey leading-relaxed">
-        <strong class="text-gemula-black">Note de transparence.</strong> Gemula recense ces événements à titre informatif. Les dates et modalités peuvent évoluer ; consultez la source officielle avant de vous inscrire. Chaque fiche événement indique sa source et sa date de dernière vérification.
+    <div class="max-w-3xl rounded-xl border border-line bg-surface/60 p-6">
+      <p class="text-xs text-muted leading-relaxed">
+        <strong class="text-fg">Note de transparence.</strong> Gemula recense ces événements à titre informatif. Les dates et modalités peuvent évoluer ; consultez la source officielle avant de vous inscrire. Chaque fiche événement indique sa source et sa date de dernière vérification.
       </p>
     </div>
   </section>

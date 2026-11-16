@@ -1,0 +1,50 @@
+---
+// Écran d'ouverture : le drapeau Gemula se construit case par case, ondule, puis le site apparaît.
+// Joué une seule fois par session, jamais si l'utilisateur demande moins d'animations.
+import { flagCells, FLAG_VIEWBOX } from '@lib/flag';
+
+const cells = flagCells(1.2);
+const letters = 'Gemula'.split('');
+---
+<div id="intro" aria-hidden="true">
+  <svg id="intro-flag" viewBox={FLAG_VIEWBOX} width="132" fill="#FF5000">
+    {cells.map((d, i) => (
+      <path class="intro-cell" d={d} style={`animation-delay:${80 + i * 70}ms`} />
+    ))}
+  </svg>
+  <p class="intro-word font-brand text-[2.1rem] font-semibold tracking-[-0.02em] text-fg leading-none">
+    {letters.map((l, i) => <span style={`animation-delay:${650 + i * 45}ms`}>{l}</span>)}
+  </p>
+</div>
+
+<script>
+  import { flagCells } from '@lib/flag';
+
+  const intro = document.getElementById('intro');
+  const root = document.documentElement;
+  if (intro && root.classList.contains('intro')) {
+    const paths = Array.from(intro.querySelectorAll<SVGPathElement>('path'));
+    const start = performance.now();
+    let raf = 0;
+    const tick = (t: number) => {
+      const elapsed = (t - start) / 1000;
+      // L'ondulation démarre doucement une fois les cases posées
+      const amp = Math.min(1, Math.max(0, (elapsed - 0.5) / 0.6));
+      const cells = flagCells(1.2 + elapsed * 3.2, 0.35 + 0.65 * amp);
+      paths.forEach((p, i) => p.setAttribute('d', cells[i]));
+      raf = requestAnimationFrame(tick);
+    };
+    raf = requestAnimationFrame(tick);
+
+    const finish = () => {
+      intro.classList.add('is-done');
+      try { sessionStorage.setItem('gemula-intro', '1'); } catch {}
+      setTimeout(() => {
+        cancelAnimationFrame(raf);
+        root.classList.remove('intro');
+      }, 650);
+    };
+    setTimeout(finish, 1900);
+    intro.addEventListener('click', finish, { once: true });
+  }
+</script>

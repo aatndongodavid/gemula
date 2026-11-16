@@ -48,6 +48,7 @@ const services = [
 ---
 <PageLayout
   title="Contactez Gemula"
+  seoTitle="Contact : formation, devis ou projet data et IA · Gemula"
   description="Formation de vos équipes, analyse de données, IA ou développement : décrivez votre besoin, nous vous répondons sous 48 heures ouvrées."
   eyebrow="Entreprises, institutions et porteurs de projets"
   breadcrumb={[
@@ -57,24 +58,24 @@ const services = [
 >
   <!-- Contact direct -->
   <section class="container-g pb-12">
-    <div class="grid sm:grid-cols-3 gap-px overflow-hidden rounded-xl border border-gemula-silver bg-gemula-silver max-w-4xl">
-      <a href={site.phoneHref} class="bg-white p-5 hover:bg-gemula-cream">
-        <span class="text-sm text-gemula-grey">Téléphone</span>
+    <div class="grid sm:grid-cols-3 gap-px overflow-hidden rounded-xl border border-line bg-line max-w-4xl">
+      <a href={site.phoneHref} class="bg-surface p-5 hover:bg-surface-2">
+        <span class="text-sm text-muted">Téléphone</span>
         <span class="mt-1 block font-display text-lg font-semibold">{site.phone}</span>
       </a>
-      <a href={site.whatsappFormation} target="_blank" rel="noopener" class="bg-white p-5 hover:bg-gemula-cream">
-        <span class="text-sm text-gemula-grey">WhatsApp</span>
+      <a href={site.whatsappFormation} target="_blank" rel="noopener" class="bg-surface p-5 hover:bg-surface-2">
+        <span class="text-sm text-muted">WhatsApp</span>
         <span class="mt-1 block font-display text-lg font-semibold">Écrire un message</span>
       </a>
-      <a href={`mailto:${site.email}`} class="bg-white p-5 hover:bg-gemula-cream">
-        <span class="text-sm text-gemula-grey">Email</span>
+      <a href={`mailto:${site.email}`} class="bg-surface p-5 hover:bg-surface-2">
+        <span class="text-sm text-muted">Email</span>
         <span class="mt-1 block font-display text-[0.95rem] font-semibold break-all">{site.email}</span>
       </a>
     </div>
   </section>
 
   <!-- Services -->
-  <section class="container-g py-16 md:py-20 border-t border-gemula-silver">
+  <section class="container-g py-16 md:py-20 border-t border-line">
     <SectionHeading
       eyebrow="Ce que nous faisons"
       title="Huit façons de travailler ensemble"
@@ -86,7 +87,7 @@ const services = [
           <h3 class="font-display text-base font-semibold mb-2">
             {service.title}
           </h3>
-          <p class="text-sm text-gemula-grey leading-relaxed">
+          <p class="text-sm text-muted leading-relaxed">
             {service.desc}
           </p>
         </div>
@@ -95,68 +96,33 @@ const services = [
   </section>
 
   <!-- Formulaire -->
-  <section id="formulaire" class="container-g py-16 md:py-20 border-t border-gemula-silver">
+  <section id="formulaire" class="container-g py-16 md:py-20 border-t border-line">
     <SectionHeading
       eyebrow="Proposer un projet"
       title="Décrivez votre besoin"
       description="Nous vous répondons sous 48 heures ouvrées. Pour une formation, précisez le nombre de personnes à former et les outils utilisés."
     />
 
-    <form
-      id="contact-form"
-      class="max-w-2xl space-y-6"
-      novalidate
-    >
-      <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
-        <div>
-          <label for="nom" class="block text-sm font-medium mb-2">
-            Nom complet <span class="text-gemula-accent">*</span>
-          </label>
-          <input
-            type="text"
-            id="nom"
-            name="nom"
-            required
-            class="field"
-          />
+    <form id="contact-form" class="card max-w-2xl space-y-5 md:p-8" novalidate>
+      <div class="grid grid-cols-1 gap-5 md:grid-cols-2">
+        <div data-field>
+          <label for="nom" class="mb-2 block text-sm font-medium">Nom complet <span class="text-accent-text" aria-hidden="true">*</span></label>
+          <input type="text" id="nom" name="nom" required minlength="2" maxlength="120" autocomplete="name" class="field" />
         </div>
-
-        <div>
-          <label for="email" class="block text-sm font-medium mb-2">
-            Email <span class="text-gemula-accent">*</span>
-          </label>
-          <input
-            type="email"
-            id="email"
-            name="email"
-            required
-            class="field"
-          />
+        <div data-field>
+          <label for="email" class="mb-2 block text-sm font-medium">Email professionnel <span class="text-accent-text" aria-hidden="true">*</span></label>
+          <input type="email" id="email" name="email" required maxlength="160" autocomplete="email" inputmode="email" class="field" placeholder="nom@entreprise.cm" />
         </div>
       </div>
 
-      <div>
-        <label for="organisation" class="block text-sm font-medium mb-2">
-          Entreprise ou organisation
-        </label>
-        <input
-          type="text"
-          id="organisation"
-          name="organisation"
-          class="field"
-        />
+      <div data-field>
+        <label for="organisation" class="mb-2 block text-sm font-medium">Entreprise ou organisation</label>
+        <input type="text" id="organisation" name="organisation" maxlength="160" autocomplete="organization" class="field" />
       </div>
 
-      <div>
-        <label for="type" class="block text-sm font-medium mb-2">
-          Type de collaboration <span class="text-gemula-accent">*</span>
-        </label>
-        <select
-          id="type"
-          name="type"
-          required
-          class="field"
-        >
+      <div data-field>
+        <label for="type" class="mb-2 block text-sm font-medium">Type de demande <span class="text-accent-text" aria-hidden="true">*</span></label>
+        <select id="type" name="type" required class="field">
           <option value="">Choisir un type de demande</option>
           {services.map((s) => (
             <option value={s.value}>{s.title}</option>
@@ -164,37 +130,37 @@ const services = [
         </select>
       </div>
 
-      <div>
-        <label for="message" class="block text-sm font-medium mb-2">
-          Décrivez votre besoin <span class="text-gemula-accent">*</span>
-        </label>
-        <textarea
-          id="message"
-          name="message"
-          rows="6"
-          required
-          class="field resize-y"
-        ></textarea>
+      <div data-field>
+        <label for="message" class="mb-2 block text-sm font-medium">Décrivez votre besoin <span class="text-accent-text" aria-hidden="true">*</span></label>
+        <textarea id="message" name="message" rows="6" required minlength="20" maxlength="3000" class="field resize-y" placeholder="Contexte, objectif, nombre de personnes à former, délais…"></textarea>
       </div>
 
-      <div class="flex flex-wrap items-center gap-4">
-        <button type="submit" class="btn-primary">
-          Envoyer la demande
-        </button>
-        <p class="text-xs text-gemula-grey">
-          Ou écrivez-nous directement à{' '}
-          <a href={`mailto:${site.email}`} class="font-semibold text-gemula-black underline decoration-gemula-orange decoration-2 underline-offset-4">
-            {site.email}
-          </a>
+      <!-- Champ piège pour les robots : invisible et ignoré par les lecteurs d'écran -->
+      <div class="absolute -left-[9999px] h-px w-px overflow-hidden" aria-hidden="true">
+        <label for="site_web">Ne pas remplir ce champ</label>
+        <input type="text" id="site_web" name="site_web" tabindex="-1" autocomplete="off" data-hp />
+      </div>
+
+      <div data-field>
+        <label class="flex items-start gap-3 text-sm text-muted">
+          <input type="checkbox" id="consent" name="consent" required class="mt-0.5 h-5 w-5 shrink-0 accent-[#FF5000]" />
+          <span>J'accepte que Gemula utilise ces informations pour répondre à ma demande, comme décrit dans la <a href="/confidentialite" class="text-fg underline decoration-accent underline-offset-4">politique de confidentialité</a>.</span>
+        </label>
+      </div>
+
+      <div class="flex flex-wrap items-center gap-4 pt-1">
+        <button type="submit" class="btn-primary">Envoyer la demande</button>
+        <p class="text-sm text-muted">
+          Ou écrivez à <a href={`mailto:${site.email}`} class="font-medium text-fg underline decoration-accent decoration-2 underline-offset-4">{site.email}</a>
         </p>
       </div>
 
-      <p id="form-status" class="text-sm text-gemula-grey hidden"></p>
+      <p id="form-status" class="text-sm text-muted" role="status" aria-live="polite" hidden></p>
     </form>
   </section>
 
   <!-- Rejoindre Gemula -->
-  <section id="rejoindre" class="container-g py-16 md:py-20 border-t border-gemula-silver">
+  <section id="rejoindre" class="container-g py-16 md:py-20 border-t border-line">
     <SectionHeading
       eyebrow="Rejoindre Gemula"
       title="Vous souhaitez rejoindre Gemula ?"
@@ -206,21 +172,21 @@ const services = [
         <h3 class="font-display text-lg font-semibold mb-4">
           Ce que nous offrons
         </h3>
-        <ul class="space-y-3 text-sm text-gemula-grey leading-relaxed">
+        <ul class="space-y-3 text-sm text-muted leading-relaxed">
           <li class="flex gap-3">
-            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-accent" aria-hidden="true"></span>
             Des projets concrets qui enrichissent votre portfolio
           </li>
           <li class="flex gap-3">
-            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-accent" aria-hidden="true"></span>
             Un encadrement par des pairs et par le lead du collectif
           </li>
           <li class="flex gap-3">
-            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-accent" aria-hidden="true"></span>
             Une visibilité via le journal et les événements
           </li>
           <li class="flex gap-3">
-            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-accent" aria-hidden="true"></span>
             Un réseau actif au Cameroun et à l'international
           </li>
         </ul>
@@ -230,21 +196,21 @@ const services = [
         <h3 class="font-display text-lg font-semibold mb-4">
           Ce que nous demandons
         </h3>
-        <ul class="space-y-3 text-sm text-gemula-grey leading-relaxed">
+        <ul class="space-y-3 text-sm text-muted leading-relaxed">
           <li class="flex gap-3">
-            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-accent" aria-hidden="true"></span>
             Curiosité et envie d'apprendre
           </li>
           <li class="flex gap-3">
-            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-accent" aria-hidden="true"></span>
             Capacité à travailler en équipe
           </li>
           <li class="flex gap-3">
-            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-accent" aria-hidden="true"></span>
             Un minimum de disponibilité (5 à 10 h par semaine)
           </li>
           <li class="flex gap-3">
-            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-gemula-orange" aria-hidden="true"></span>
+            <span class="mt-[0.55em] h-1.5 w-1.5 shrink-0 bg-accent" aria-hidden="true"></span>
             Une spécialité à apporter au collectif
           </li>
         </ul>
@@ -263,19 +229,10 @@ const services = [
 </PageLayout>
 
 <script>
+  import { setupForm } from '@scripts/forms';
+
   const form = document.getElementById('contact-form') as HTMLFormElement | null;
   const status = document.getElementById('form-status');
-
-  // Formulaire Google relié à la feuille de suivi des demandes
-  const GOOGLE_FORM_ACTION_URL =
-    'https://docs.google.com/forms/d/e/1FAIpQLScOGnCs2MCGc4-_r-FKENVnrGF__dOD55k_xgT65DO-wHl1gA/formResponse';
-const FIELD_IDS = {
-  nom: 'entry.1483131274',
-  email: 'entry.672292509',
-  organisation: 'entry.1220739448',
-  type: 'entry.1070537805',
-  message: 'entry.485062477',
-};
 
   // Préremplissage depuis la page Formations : ?type=formation&parcours=finance
   const params = new URLSearchParams(location.search);
@@ -284,67 +241,34 @@ const FIELD_IDS = {
   if (params.get('type') === 'formation' && typeSelect) {
     typeSelect.value = 'Formation des équipes';
     const parcours = params.get('parcours');
-    if (parcours && messageField && !messageField.value) {
-      const labels: Record<string, string> = {
-        assistanat: 'Assistanat et secrétariat',
-        finance: 'Gestion, finance et comptabilité',
-        commercial: 'Commercial et relation client',
-        rh: 'Ressources humaines',
-        direction: 'Managers et direction',
-        pme: 'Transformation numérique des PME',
-        ong: 'ONG et projets de développement'
-      };
-      if (labels[parcours]) {
-        messageField.value = `Parcours qui nous intéresse : ${labels[parcours]}\nNombre de personnes à former : \nOutils utilisés : `;
-      }
+    const labels: Record<string, string> = {
+      assistanat: 'Assistanat et secrétariat',
+      finance: 'Gestion, finance et comptabilité',
+      commercial: 'Commercial et relation client',
+      rh: 'Ressources humaines',
+      direction: 'Managers et direction',
+      pme: 'Transformation numérique des PME',
+      ong: 'ONG et projets de développement'
+    };
+    if (messageField && !messageField.value) {
+      messageField.value =
+        (parcours && labels[parcours] ? `Parcours qui nous intéresse : ${labels[parcours]}\n` : '') +
+        'Nombre de personnes à former : \nOutils utilisés : ';
     }
   }
 
   if (form && status) {
-    form.addEventListener('submit', async (e) => {
-      e.preventDefault();
-
-      const data = new FormData(form);
-      const nom = String(data.get('nom') ?? '').trim();
-      const email = String(data.get('email') ?? '').trim();
-      const organisation = String(data.get('organisation') ?? '').trim();
-      const type = String(data.get('type') ?? '').trim();
-      const message = String(data.get('message') ?? '').trim();
-
-      if (!nom || !email || !type || !message) {
-        status.textContent = 'Renseignez votre nom, votre email, le type de demande et votre message.';
-        status.className = 'text-sm text-red-600';
-        return;
-      }
-
-      const payload = new URLSearchParams();
-      payload.append(FIELD_IDS.nom, nom);
-      payload.append(FIELD_IDS.email, email);
-      payload.append(FIELD_IDS.organisation, organisation);
-      payload.append(FIELD_IDS.type, type);
-      payload.append(FIELD_IDS.message, message);
-
-      status.textContent = 'Envoi en cours';
-      status.className = 'text-sm text-gemula-grey';
-
-      try {
-        // Google Forms ne renvoie pas d'en-têtes CORS : on utilise "no-cors",
-        // ce qui empêche de lire la réponse mais envoie bien la requête.
-        await fetch(GOOGLE_FORM_ACTION_URL, {
-          method: 'POST',
-          mode: 'no-cors',
-          headers: { 'Content-Type': 'application/x-www-form-urlencoded' },
-          body: payload.toString(),
-        });
-
-        status.textContent = 'Demande envoyée. Nous vous répondons sous 48 heures ouvrées.';
-        status.className = 'text-sm text-emerald-600';
-        form.reset();
-      } catch (err) {
-        status.textContent =
-          "Une erreur s'est produite. L'envoi a échoué. Écrivez-nous à meilleurd2001@gmail.com ou appelez le +237 6 82 37 55 73.";
-        status.className = 'text-sm text-red-600';
-      }
+    setupForm(form, {
+      status,
+      fallbackEmail: 'meilleurd2001@gmail.com',
+      success: 'Merci, votre demande est bien envoyée. Nous vous répondons sous 48 heures ouvrées.',
+      payload: (d) => ({
+        nom: String(d.get('nom') ?? '').trim(),
+        email: String(d.get('email') ?? '').trim(),
+        organisation: String(d.get('organisation') ?? '').trim(),
+        type: String(d.get('type') ?? '').trim(),
+        message: String(d.get('message') ?? '').trim()
+      })
     });
   }
 </script>

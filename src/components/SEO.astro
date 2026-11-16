@@ -5,16 +5,20 @@ interface Props {
   title?: string;
   description?: string;
   image?: string;
+  imageAlt?: string;
   type?: 'website' | 'article';
   jsonLd?: object | object[];
+  noindex?: boolean;
 }
 
 const {
-  title = `${site.name}, formations et ingénierie data et IA à Douala`,
+  title = `${site.name} · Formations, data et IA à Douala`,
   description = site.description,
-  image = '/images/og/gemula-og.png',
+  image = '/images/og/gemula-og.jpg',
+  imageAlt = 'Gemula, collectif d\'innovation technologique à Douala',
   type = 'website',
-  jsonLd
+  jsonLd,
+  noindex = false
 } = Astro.props;
 
 const canonical = new URL(Astro.url.pathname, Astro.site).toString();
@@ -27,6 +31,7 @@ const baseOrg = {
   name: site.name,
   url: site.url,
   description: site.description,
+  logo: `${site.url}/images/brand/gemula-logo.png`,
   foundingDate: String(site.foundingYear),
   address: {
     '@type': 'PostalAddress',
@@ -50,8 +55,8 @@ const schemas = [baseOrg, ...(Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd]
 <meta name="description" content={description} />
 <link rel="canonical" href={canonical} />
 
-<meta name="theme-color" content="#1B1B1B" />
-<meta name="robots" content="index, follow, max-image-preview:large" />
+<meta name="theme-color" content="#08090A" />
+<meta name="robots" content={noindex ? 'noindex, follow' : 'index, follow, max-image-preview:large'} />
 
 <!-- Open Graph -->
 <meta property="og:type" content={type} />
@@ -59,6 +64,9 @@ const schemas = [baseOrg, ...(Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd]
 <meta property="og:title" content={title} />
 <meta property="og:description" content={description} />
 <meta property="og:image" content={imageUrl} />
+<meta property="og:image:alt" content={imageAlt} />
+{imageUrl.endsWith('gemula-og.jpg') && <meta property="og:image:width" content="1200" />}
+{imageUrl.endsWith('gemula-og.jpg') && <meta property="og:image:height" content="630" />}
 <meta property="og:site_name" content={site.name} />
 <meta property="og:locale" content="fr_FR" />
 
@@ -67,9 +75,12 @@ const schemas = [baseOrg, ...(Array.isArray(jsonLd) ? jsonLd : jsonLd ? [jsonLd]
 <meta name="twitter:title" content={title} />
 <meta name="twitter:description" content={description} />
 <meta name="twitter:image" content={imageUrl} />
+<meta name="twitter:image:alt" content={imageAlt} />
 
 <!-- Favicon -->
+<link rel="icon" href="/favicon.ico" sizes="32x32" />
 <link rel="icon" type="image/svg+xml" href="/favicon.svg" />
+<link rel="manifest" href="/site.webmanifest" />
 <link rel="apple-touch-icon" sizes="180x180" href="/apple-touch-icon.png" />
 
 <!-- JSON-LD -->

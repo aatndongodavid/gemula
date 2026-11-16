@@ -1,3 +1,43 @@
+# Refonte v3 du site Gemula (16 novembre 2026)
+
+## Nouveau design
+
+- Thème sombre inspiré des sites produit (fond quasi noir, lignes fines, titres en dégradé, halo orange).
+- Nouvelle couleur de marque reprise du logo : orange `#FF5000`. Toutes les couleurs sont dans `tailwind.config.mjs`, nommées par rôle (`bg`, `surface`, `line`, `fg`, `muted`, `accent`).
+- Logo : le drapeau à damier qui ondule est dessiné en SVG (`src/lib/flag.ts`), ce qui permet de l'animer.
+- Intro animée au premier chargement de l'accueil (une fois par session, désactivée si le visiteur limite les animations, clic pour passer).
+- Page d'accueil réécrite : équipe en photo, chiffres clés, trois portes d'entrée (formations, solutions, communauté), sections Formations et Gemula Community mises en avant, appel à l'action double (entreprises / étudiants).
+- Page Communauté réécrite d'après le document de cadrage : quatre espaces, formations gratuites (accès libre ou sur inscription), programmes en préparation, rôles, charte, deux parcours distincts.
+- Icônes Google remplacées par des icônes SVG intégrées : plus aucune requête vers un service externe au chargement.
+
+## Conformité et référencement
+
+- Nouvelles pages : `/confidentialite`, `/conditions`, `/mentions-legales` (liens dans le pied de page).
+- Bandeau de consentement aux cookies. La mesure d'audience (Google Analytics 4) ne se charge qu'après accord. Lien « Gérer les cookies » dans le pied de page.
+- Titres et descriptions meta revus sur toutes les pages, image d'aperçu 1200 x 630 (`public/images/og/gemula-og.jpg`) avec texte alternatif.
+- Favicon (SVG, ICO, icônes 180, 192 et 512 px) et manifeste.
+- Sitemap automatique sans la page 404, `robots.txt` simplifié.
+- Page 404 personnalisée, servie par `public/.htaccess` (`ErrorDocument 404`).
+- `.htaccess` : redirection HTTPS, compression, cache navigateur, en-têtes de sécurité, redirection des anciennes images PNG/JPG vers WebP.
+
+## Qualité
+
+- Images converties en WebP (de 6 Mo à moins de 1 Mo au total). Pour de nouvelles images : `npm run images`.
+- Textes alternatifs sur toutes les images, y compris les captures de la galerie Atlas.
+- Contrastes vérifiés avec axe-core (WCAG AA) : aucun problème sur les pages principales.
+- Liens internes et ancres vérifiés : `npm run build && npm run check:links`.
+- Adapté au mobile : aucun défilement horizontal à 390 px, zones tactiles de 44 px minimum.
+- Formulaires : validation champ par champ avec messages clairs, case de consentement, anti-spam (champ piège invisible, délai minimal de 3 s, un envoi par minute, filtre de liens).
+
+## À faire de votre côté
+
+1. **Mesure d'audience** : créer une propriété Google Analytics 4, puis coller l'identifiant (`G-XXXXXXXXXX`) dans `src/data/site.json`, champ `analytics.ga4Id`. Tant qu'il est vide, aucun script de mesure n'est chargé.
+2. **Google Form** : la liste « type de demande » doit contenir les valeurs **Formation des équipes** et **Gemula Community**, sinon ces envois sont ignorés.
+3. **Pages légales** : relire les textes (durées de conservation, adresse de l'hébergeur LWS) et les faire valider si possible par un juriste.
+4. **Liens externes** : les sites des événements et profils n'ont pas pu être testés depuis l'environnement de travail ; les vérifier une fois le site en ligne.
+
+---
+
 # Refonte du site Gemula (novembre 2026)
 
 ## Ce qui change

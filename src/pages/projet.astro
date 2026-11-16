@@ -1,4 +1,5 @@
 ---
+import Icon from '@components/Icon.astro';
 import { getCollection } from 'astro:content';
 import PageLayout from '@layouts/PageLayout.astro';
 import SectionHeading from '@components/SectionHeading.astro';
@@ -30,9 +31,11 @@ const jsonLd = {
     priceCurrency: 'XAF'
   }
 };
+import { galleryAlt } from '@lib/alt';
 ---
 <PageLayout
   title="Dataikos Atlas"
+  seoTitle="Étude de cas Dataikos Atlas, ERP local pour PME · Gemula"
   description="Étude de cas complète du projet phare de Gemula : un ERP local pour PME camerounaises, avec analytique prédictive et narration IA."
   eyebrow="Projet phare"
   breadcrumb={[
@@ -44,7 +47,7 @@ const jsonLd = {
   <!-- Intro -->
   <section class="container-g pb-16 md:pb-20">
     <div class="max-w-3xl">
-      <p class="text-lg md:text-xl text-gemula-grey leading-relaxed">
+      <p class="text-lg md:text-xl text-muted leading-relaxed">
         {atlas.data.tagline}
       </p>
     </div>
@@ -52,7 +55,7 @@ const jsonLd = {
 
   <!-- Visuel principal -->
   <section class="container-g pb-16">
-    <div class="rounded-xl overflow-hidden border border-gemula-silver bg-white aspect-[16/9]">
+    <div class="rounded-xl overflow-hidden border border-line bg-surface aspect-[16/9]">
       {atlas.data.cover ? (
         <img
           src={atlas.data.cover}
@@ -61,7 +64,7 @@ const jsonLd = {
           loading="eager"
         />
       ) : (
-        <div class="w-full h-full flex items-center justify-center bg-gemula-sand">
+        <div class="w-full h-full flex items-center justify-center bg-surface">
           <Flag size="lg" />
         </div>
       )}
@@ -69,7 +72,7 @@ const jsonLd = {
   </section>
 
   <!-- Problème / Contexte / Solution -->
-  <section class="container-g py-16 md:py-20 border-t border-gemula-silver">
+  <section class="container-g py-16 md:py-20 border-t border-line">
     <div class="grid lg:grid-cols-12 gap-12 lg:gap-16">
       <div class="lg:col-span-4">
         <span class="eyebrow block mb-6">Le projet</span>
@@ -81,21 +84,21 @@ const jsonLd = {
       <div class="lg:col-span-8 space-y-12">
         <div class="reveal">
           <h3 class="font-display text-xl font-semibold mb-3">Problème</h3>
-          <p class="text-base text-gemula-grey leading-relaxed">
+          <p class="text-base text-muted leading-relaxed">
             {atlas.data.problem}
           </p>
         </div>
 
         <div class="reveal">
           <h3 class="font-display text-xl font-semibold mb-3">Contexte</h3>
-          <p class="text-base text-gemula-grey leading-relaxed">
+          <p class="text-base text-muted leading-relaxed">
             {atlas.data.context}
           </p>
         </div>
 
         <div class="reveal">
           <h3 class="font-display text-xl font-semibold mb-3">Solution</h3>
-          <p class="text-base text-gemula-grey leading-relaxed">
+          <p class="text-base text-muted leading-relaxed">
             {atlas.data.solution}
           </p>
         </div>
@@ -105,7 +108,7 @@ const jsonLd = {
 
   <!-- Fonctionnalités -->
   {atlas.data.features.length > 0 && (
-    <section class="container-g py-16 md:py-20 border-t border-gemula-silver">
+    <section class="container-g py-16 md:py-20 border-t border-line">
       <SectionHeading
         eyebrow="Fonctionnalités"
         title="Ce que fait Atlas."
@@ -114,10 +117,8 @@ const jsonLd = {
       <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
         {atlas.data.features.map((feature) => (
           <div class="card">
-            <span class="material-symbols-outlined text-2xl text-gemula-accent mb-4" aria-hidden="true">
-              check_circle
-            </span>
-            <p class="text-sm text-gemula-black leading-relaxed">
+            <Icon name="check_circle" class="text-2xl text-accent-text mb-4" />
+            <p class="text-sm text-fg leading-relaxed">
               {feature}
             </p>
           </div>
@@ -128,7 +129,7 @@ const jsonLd = {
 
   <!-- Galerie -->
   {atlas.data.gallery.length > 0 && (
-    <section class="container-g py-16 md:py-20 border-t border-gemula-silver">
+    <section class="container-g py-16 md:py-20 border-t border-line">
       <SectionHeading
         eyebrow="Aperçus"
         title="Quelques écrans d'Atlas."
@@ -136,10 +137,10 @@ const jsonLd = {
 
       <div class="grid grid-cols-1 md:grid-cols-2 gap-5">
         {atlas.data.gallery.map((img, i) => (
-          <div class="rounded-xl overflow-hidden border border-gemula-silver bg-white aspect-[4/3]">
+          <div class="rounded-xl overflow-hidden border border-line bg-surface aspect-[4/3]">
             <img
               src={img}
-              alt={`Aperçu ${i + 1} de ${atlas.data.title}`}
+              alt={galleryAlt(img, atlas.data.title, i)}
               class="w-full h-full object-cover"
               loading="lazy"
             />
@@ -150,7 +151,7 @@ const jsonLd = {
   )}
 
   <!-- Stack + Rôle + Résultats -->
-  <section class="container-g py-16 md:py-20 border-t border-gemula-silver">
+  <section class="container-g py-16 md:py-20 border-t border-line">
     <div class="grid lg:grid-cols-12 gap-12">
       <div class="lg:col-span-5 space-y-10">
         <div class="reveal">
@@ -165,7 +166,7 @@ const jsonLd = {
         {atlas.data.role && (
           <div class="reveal">
             <span class="eyebrow block mb-4">Rôle de Gemula</span>
-            <p class="text-sm text-gemula-grey leading-relaxed">
+            <p class="text-sm text-muted leading-relaxed">
               {atlas.data.role}
             </p>
           </div>
@@ -174,7 +175,7 @@ const jsonLd = {
         {atlas.data.results && (
           <div class="reveal">
             <span class="eyebrow block mb-4">Résultats</span>
-            <p class="text-sm text-gemula-grey leading-relaxed">
+            <p class="text-sm text-muted leading-relaxed">
               {atlas.data.results}
             </p>
           </div>
@@ -194,7 +195,7 @@ const jsonLd = {
 
   <!-- Autres projets -->
   {autres.length > 0 && (
-    <section id="autres" class="container-g py-16 md:py-20 border-t border-gemula-silver">
+    <section id="autres" class="container-g py-16 md:py-20 border-t border-line">
       <SectionHeading
         eyebrow="Autres réalisations"
         title="Ce que nous construisons aussi."

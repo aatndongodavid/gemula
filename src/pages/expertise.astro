@@ -23,6 +23,7 @@ const jsonLd = {
 ---
 <PageLayout
   title="Expertise"
+  seoTitle="Solutions data, IA et logiciel sur mesure · Gemula"
   description="Formation des équipes, data science et IA, développement logiciel, data engineering, design et automatisation : les six domaines de Gemula."
   eyebrow="Ce que nous maîtrisons"
   breadcrumb={[
@@ -34,7 +35,7 @@ const jsonLd = {
   <!-- Introduction -->
   <section class="container-g pb-16 md:pb-20">
     <div class="max-w-3xl">
-      <p class="text-lg md:text-xl text-gemula-grey leading-relaxed">
+      <p class="text-lg md:text-xl text-muted leading-relaxed">
         Gemula rassemble des compétences complémentaires qui couvrent l'ensemble du cycle d'un projet numérique : de la donnée brute à l'interface utilisateur, du prototype à la mise en production.
       </p>
     </div>
@@ -42,6 +43,7 @@ const jsonLd = {
 
   <!-- Grille principale -->
   <section class="container-g pb-20 md:pb-28">
+    <h2 class="sr-only">Nos domaines d'expertise</h2>
     <div class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-5">
       {expertiseData.domains.map((domain) => (
         <ExpertiseCard domain={domain} />
@@ -50,7 +52,7 @@ const jsonLd = {
   </section>
 
   <!-- Approche -->
-  <section class="container-g py-20 md:py-28 border-t border-gemula-silver">
+  <section class="container-g py-20 md:py-28 border-t border-line">
     <SectionHeading
       eyebrow="Notre approche"
       title="Comment nous travaillons."
@@ -76,13 +78,13 @@ const jsonLd = {
         }
       ].map((step) => (
         <div class="reveal">
-          <span class="text-xs font-semibold tracking-kicker text-gemula-accent">
+          <span class="text-xs font-semibold tracking-kicker text-accent-text">
             {step.number}
           </span>
           <h3 class="font-display text-xl font-semibold mt-3 mb-3">
             {step.title}
           </h3>
-          <p class="text-sm text-gemula-grey leading-relaxed">
+          <p class="text-sm text-muted leading-relaxed">
             {step.desc}
           </p>
         </div>

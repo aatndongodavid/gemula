@@ -12,5 +12,5 @@ linkedin: ""
 portfolio: ""
 github: ""
 location: "Douala, Cameroun"
-photo: "/images/talents/lydia.jpeg"
+photo: "/images/talents/lydia.webp"
 ---

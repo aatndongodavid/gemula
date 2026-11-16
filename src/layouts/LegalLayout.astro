@@ -1,0 +1,56 @@
+---
+import BaseLayout from './BaseLayout.astro';
+import Breadcrumb from '@components/Breadcrumb.astro';
+import site from '@data/site.json';
+
+interface Props {
+  title: string;
+  description: string;
+  toc?: { id: string; label: string }[];
+}
+
+const { title, description, toc = [] } = Astro.props;
+const others = [
+  { href: '/confidentialite', label: 'Politique de confidentialité' },
+  { href: '/conditions', label: "Conditions générales d'utilisation" },
+  { href: '/mentions-legales', label: 'Mentions légales' }
+].filter((l) => l.href !== Astro.url.pathname.replace(/\/$/, ''));
+---
+<BaseLayout title={`${title} · Gemula`} description={description}>
+  <section class="container-g pt-10 pb-24 md:pt-14">
+    <Breadcrumb items={[{ href: '/', label: 'Accueil' }, { label: title }]} class="mb-10" />
+    <div class="grid gap-12 lg:grid-cols-12">
+      <div class="lg:col-span-3">
+        <div class="lg:sticky lg:top-24">
+          <p class="text-sm text-muted">Dernière mise à jour : {site.legal.miseAJour}</p>
+          {toc.length > 0 && (
+            <nav aria-label="Sommaire" class="mt-6 hidden lg:block">
+              <ul class="space-y-2 border-l border-line text-sm">
+                {toc.map((t) => <li><a href={`#${t.id}`} class="-ml-px block border-l border-transparent pl-4 text-muted hover:border-accent hover:text-fg">{t.label}</a></li>)}
+              </ul>
+            </nav>
+          )}
+        </div>
+      </div>
+      <article class="lg:col-span-8">
+        <h1 class="text-display-md text-gradient">{title}</h1>
+        <div class="prose-gemula mt-10 legal">
+          <slot />
+        </div>
+        <nav class="mt-16 border-t border-line pt-8" aria-label="Autres documents">
+          <ul class="flex flex-wrap gap-3">
+            {others.map((o) => <li><a href={o.href} class="pill hover:text-fg">{o.label}</a></li>)}
+          </ul>
+        </nav>
+      </article>
+    </div>
+  </section>
+</BaseLayout>
+
+<style is:global>
+  .legal h2 { scroll-margin-top: 6rem; margin-top: 2.75rem; font-size: 1.35rem; }
+  .legal h3 { font-size: 1.05rem; }
+  .legal table { font-size: 0.875rem; }
+  .legal th { color: #F7F8F8; }
+  .legal td, .legal th { border-color: #212226; }
+</style>

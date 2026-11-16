@@ -19,6 +19,6 @@ status: realise
 links:
   demo: ""
   github: ""
-cover: "/images/projets/gemula-mailer.png"
+cover: "/images/projets/gemula-mailer.webp"
 gallery: []
 ---

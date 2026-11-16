@@ -1,4 +1,5 @@
 ---
+import Icon from '@components/Icon.astro';
 import type { CollectionEntry } from 'astro:content';
 
 interface Props {
@@ -28,9 +29,9 @@ const statusLabel: Record<string, string> = {
 };
 
 const statusColor: Record<string, string> = {
-  'a-venir': 'text-gemula-accent',
-  'en-cours': 'text-emerald-600',
-  'passe': 'text-gemula-grey'
+  'a-venir': 'text-accent-text',
+  'en-cours': 'text-success',
+  'passe': 'text-muted'
 };
 
 const start = dateFormatter.format(data.startDate);
@@ -44,7 +45,7 @@ const isCompact = variant === 'compact';
     <span class={`text-[0.7rem] font-semibold uppercase tracking-kicker ${statusColor[data.status]}`}>
       {statusLabel[data.status]}
     </span>
-    <span class="text-[0.7rem] uppercase tracking-kicker text-gemula-grey">
+    <span class="text-[0.7rem] uppercase tracking-kicker text-muted">
       {formatLabel[data.format] ?? data.format}
     </span>
   </div>
@@ -54,18 +55,18 @@ const isCompact = variant === 'compact';
   </h3>
 
   {data.subtitle && !isCompact && (
-    <p class="text-sm text-gemula-grey leading-relaxed mb-4">
+    <p class="text-sm text-muted leading-relaxed mb-4">
       {data.subtitle}
     </p>
   )}
 
-  <div class="text-sm text-gemula-grey space-y-1.5 mb-5 flex-grow">
+  <div class="text-sm text-muted space-y-1.5 mb-5 flex-grow">
     <div class="flex items-center gap-2">
-      <span class="material-symbols-outlined text-[1.1em] text-gemula-accent" aria-hidden="true">calendar_today</span>
+      <Icon name="calendar_today" class="text-[1.1em] text-accent-text" />
       <span>{dateDisplay}</span>
     </div>
     <div class="flex items-center gap-2">
-      <span class="material-symbols-outlined text-[1.1em] text-gemula-accent" aria-hidden="true">location_on</span>
+      <Icon name="location_on" class="text-[1.1em] text-accent-text" />
       <span>{data.city}</span>
     </div>
   </div>
@@ -80,9 +81,9 @@ const isCompact = variant === 'compact';
 
   <a
     href={`/evenements/${slug}`}
-    class="inline-flex items-center gap-2 text-sm font-medium text-gemula-black hover:text-gemula-black transition-colors mt-auto"
+    class="inline-flex items-center gap-2 text-sm font-medium text-fg hover:text-fg transition-colors mt-auto"
   >
     {isCompact ? 'Détails' : 'Voir les détails'}
-    <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">arrow_forward</span>
+    <Icon name="arrow_forward" class="text-[1.1em]" />
   </a>
 </article>

@@ -8,8 +8,8 @@ interface Props {
 const { tags, variant = 'default', class: className = '' } = Astro.props;
 
 const styles = {
-  default: 'inline-flex items-center rounded-full border border-gemula-black/10 bg-white px-3 py-1 text-xs font-medium text-gemula-asphalt',
-  minimal: 'inline-flex items-center rounded-full bg-gemula-black/[0.04] px-2.5 py-1 text-[0.7rem] font-medium text-gemula-grey'
+  default: 'inline-flex items-center rounded-full border border-line bg-surface px-3 py-1 text-xs font-medium text-muted',
+  minimal: 'inline-flex items-center rounded-full bg-surface-2/[0.04] px-2.5 py-1 text-[0.7rem] font-medium text-muted'
 };
 ---
 {tags.length > 0 && (

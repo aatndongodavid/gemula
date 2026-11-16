@@ -5,7 +5,7 @@ category: competitions
 publishedAt: 2026-09-01
 author: "David Aat"
 tags: ["MTN Yamo", "Orange Summer Challenge", "ODC", "Pitch"]
-cover: "/images/journal/article-01.jpeg"
+cover: "/images/journal/article-01.webp"
 ---
 
 Deux de nos membres ont fièrement représenté Gemula lors de plusieurs événements prestigieux de notre écosystème.

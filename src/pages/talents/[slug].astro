@@ -1,4 +1,5 @@
 ---
+import Icon from '@components/Icon.astro';
 import { getCollection, type CollectionEntry } from 'astro:content';
 import PageLayout from '@layouts/PageLayout.astro';
 import SectionHeading from '@components/SectionHeading.astro';
@@ -48,7 +49,7 @@ const jsonLd = {
 ---
 <PageLayout
   title={data.name}
-  description={`${data.name}, ${data.role} au sein du collectif Gemula.`}
+  description={`${data.name}, ${data.role} chez Gemula à Douala. Compétences : ${data.expertise.slice(0, 4).join(', ') || 'data et IA'}. Projets et parcours.`.slice(0, 158)}
   eyebrow={data.role}
   breadcrumb={[
     { href: '/', label: 'Accueil' },
@@ -63,9 +64,9 @@ const jsonLd = {
       <!-- Avatar + liens -->
       <div class="lg:col-span-4">
         {data.photo ? (
-          <img src={data.photo} alt={`Portrait de ${data.name}`} class="w-32 h-32 rounded-full object-cover mb-6 bg-gemula-sand" />
+          <img src={data.photo} alt={`Portrait de ${data.name}`} class="w-32 h-32 rounded-full object-cover mb-6 bg-surface" />
         ) : (
-          <div class="w-32 h-32 rounded-full bg-gemula-black text-white flex items-center justify-center font-display font-semibold text-3xl mb-6" aria-hidden="true">
+          <div class="w-32 h-32 rounded-full bg-surface-2 text-white flex items-center justify-center font-display font-semibold text-3xl mb-6" aria-hidden="true">
             {data.initials}
           </div>
         )}
@@ -73,13 +74,11 @@ const jsonLd = {
         <h2 class="font-display text-2xl font-semibold tracking-tightest mb-2">
           {data.name}
         </h2>
-        <p class="text-gemula-grey font-medium mb-6">{data.role}</p>
+        <p class="text-muted font-medium mb-6">{data.role}</p>
 
         {data.location && (
-          <div class="flex items-center gap-2 text-sm text-gemula-grey mb-6">
-            <span class="material-symbols-outlined text-[1.1em] text-gemula-accent" aria-hidden="true">
-              location_on
-            </span>
+          <div class="flex items-center gap-2 text-sm text-muted mb-6">
+            <Icon name="location_on" class="text-[1.1em] text-accent-text" />
             {data.location}
           </div>
         )}
@@ -88,19 +87,19 @@ const jsonLd = {
           {data.linkedin && (
             <a href={data.linkedin} target="_blank" rel="noopener" class="btn-ghost text-sm py-2.5 px-5">
               LinkedIn
-              <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">open_in_new</span>
+              <Icon name="open_in_new" class="text-[1.1em]" />
             </a>
           )}
           {data.github && (
             <a href={data.github} target="_blank" rel="noopener" class="btn-ghost text-sm py-2.5 px-5">
               GitHub
-              <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">open_in_new</span>
+              <Icon name="open_in_new" class="text-[1.1em]" />
             </a>
           )}
           {data.portfolio && (
             <a href={data.portfolio} target="_blank" rel="noopener" class="btn-ghost text-sm py-2.5 px-5">
               Portfolio
-              <span class="material-symbols-outlined text-[1.1em]" aria-hidden="true">open_in_new</span>
+              <Icon name="open_in_new" class="text-[1.1em]" />
             </a>
           )}
         </div>
@@ -128,7 +127,7 @@ const jsonLd = {
 
   <!-- Projets liés -->
   {projetsLies.length > 0 && (
-    <section class="container-g py-16 border-t border-gemula-silver">
+    <section class="container-g py-16 border-t border-line">
       <SectionHeading
         eyebrow="Contributions"
         title="Projets auxquels ce talent participe."
@@ -143,7 +142,7 @@ const jsonLd = {
 
   <!-- Autres talents -->
   {autres.length > 0 && (
-    <section class="container-g py-16 border-t border-gemula-silver">
+    <section class="container-g py-16 border-t border-line">
       <SectionHeading
         eyebrow="Le collectif"
         title="D'autres talents."

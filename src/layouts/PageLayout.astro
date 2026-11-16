@@ -10,6 +10,9 @@ interface BreadcrumbItem {
 interface Props {
   title: string;
   description?: string;
+  /** Titre et description pour les moteurs de recherche, si différents de ceux affichés */
+  seoTitle?: string;
+  seoDescription?: string;
   eyebrow?: string;
   breadcrumb?: BreadcrumbItem[];
   jsonLd?: object | object[];
@@ -19,28 +22,35 @@ interface Props {
 const {
   title,
   description,
+  seoTitle,
+  seoDescription,
   eyebrow,
   breadcrumb,
   jsonLd,
   image
 } = Astro.props;
 ---
-<BaseLayout title={`${title} · Gemula`} description={description} image={image} jsonLd={jsonLd}>
-  <section class="container-g pt-10 md:pt-14 pb-10 md:pb-14">
-    {breadcrumb && breadcrumb.length > 0 && (
-      <Breadcrumb items={breadcrumb} class="mb-10" />
-    )}
-
-    <div class="max-w-3xl">
-      {eyebrow && <p class="eyebrow mb-5">{eyebrow}</p>}
-      <h1 class="font-display text-display-md md:text-display-lg font-semibold tracking-tightest text-balance">
-        {title}
-      </h1>
-      {description && (
-        <p class="mt-6 text-lg text-gemula-grey leading-relaxed max-w-2xl">
-          {description}
-        </p>
+<BaseLayout title={seoTitle ?? `${title} · Gemula`} description={seoDescription ?? description} image={image} jsonLd={jsonLd}>
+  <section class="relative isolate overflow-hidden">
+    <div class="glow-top absolute inset-0 -z-10 opacity-80" aria-hidden="true"></div>
+    <div class="grid-bg absolute inset-0 -z-10" aria-hidden="true"></div>
+    <div class="container-g pt-10 md:pt-14 pb-14 md:pb-20">
+      {breadcrumb && breadcrumb.length > 0 && (
+        <Breadcrumb items={breadcrumb} class="mb-10" />
       )}
+
+      <div class="max-w-3xl">
+        {eyebrow && <p class="eyebrow mb-5">{eyebrow}</p>}
+        <h1 class="text-display-md md:text-display-lg font-semibold text-gradient text-balance">
+          {title}
+        </h1>
+        {description && (
+          <p class="mt-6 text-lg text-muted leading-relaxed max-w-2xl">
+            {description}
+          </p>
+        )}
+        <slot name="hero-actions" />
+      </div>
     </div>
   </section>
 
