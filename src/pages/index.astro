@@ -2,7 +2,7 @@
 import { getCollection } from 'astro:content';
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Icon from '@components/Icon.astro';
-import FlagMark from '@components/FlagMark.astro';
+import Logo from '@components/Logo.astro';
 import PostCard from '@components/PostCard.astro';
 
 import site from '@data/site.json';
@@ -277,7 +277,7 @@ const homeJsonLd = {
     <div class="glow-top absolute inset-0 -z-10 opacity-70" aria-hidden="true"></div>
     <div class="container-g section">
       <div class="mx-auto max-w-3xl text-center" data-reveal>
-        <FlagMark class="mx-auto h-10" />
+        <Logo size="lg" alt="" class="mx-auto" />
         <p class="eyebrow mt-6">Gemula Community</p>
         <h2 class="mt-3 text-display-md text-gradient text-balance">Un espace ouvert pour apprendre la tech ensemble.</h2>
         <p class="mt-5 text-lg text-muted">Étudiants, passionnés, profils techniques ou non : participez aux activités de Gemula, profitez de formations gratuites et développez vos compétences, sans avoir à intégrer l'équipe.</p>

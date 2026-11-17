@@ -5,7 +5,7 @@ import PageLayout from '@layouts/PageLayout.astro';
 import SectionHeading from '@components/SectionHeading.astro';
 import ProjectCard from '@components/ProjectCard.astro';
 import CTA from '@components/CTA.astro';
-import Flag from '@components/Flag.astro';
+import Logo from '@components/Logo.astro';
 
 const projets = await getCollection('projets');
 const atlas = projets.find((p) => p.slug === 'atlas');
@@ -65,7 +65,7 @@ import { galleryAlt } from '@lib/alt';
         />
       ) : (
         <div class="w-full h-full flex items-center justify-center bg-surface">
-          <Flag size="lg" />
+          <Logo size="xl" alt="" class="opacity-90" />
         </div>
       )}
     </div>
