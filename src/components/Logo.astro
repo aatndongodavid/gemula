@@ -1,16 +1,27 @@
 ---
-import FlagMark from './FlagMark.astro';
-
+// Logo officiel de Gemula (image fournie, fond transparent). Ne pas redessiner : utiliser ce fichier.
 interface Props {
   class?: string;
-  size?: 'sm' | 'md' | 'lg';
+  size?: 'sm' | 'md' | 'lg' | 'xl';
+  /** Texte alternatif ; laisser vide si un lien parent porte déjà un libellé. */
+  alt?: string;
+  eager?: boolean;
 }
 
-const { class: className = '', size = 'md' } = Astro.props;
-const flag = { sm: 'h-5', md: 'h-7', lg: 'h-10' }[size];
-const text = { sm: 'text-lg', md: 'text-[1.3rem]', lg: 'text-3xl' }[size];
+const { class: className = '', size = 'md', alt = 'Gemula', eager = false } = Astro.props;
+// Proportions du logo recadré : 1480 x 950
+const height = { sm: 32, md: 44, lg: 64, xl: 96 }[size];
+const width = Math.round((height * 1480) / 950);
+const src = size === 'xl' ? '/images/brand/gemula-logo.webp' : '/images/brand/gemula-logo-sm.webp';
 ---
-<span class={`inline-flex items-center gap-2 ${className}`}>
-  <FlagMark class={flag} />
-  <span class={`font-brand font-semibold tracking-[-0.02em] text-fg ${text}`}>Gemula</span>
-</span>
+<img
+  src={src}
+  alt={alt}
+  width={width}
+  height={height}
+  class={`block w-auto select-none ${className}`}
+  style={`height:${height}px`}
+  loading={eager ? 'eager' : 'lazy'}
+  decoding="async"
+  draggable="false"
+/>

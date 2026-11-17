@@ -2,7 +2,6 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
 import Icon from '@components/Icon.astro';
-import FlagMark from '@components/FlagMark.astro';
 import site from '@data/site.json';
 
 const whatsappUrl = site.community?.whatsappUrl ?? '';
@@ -55,7 +54,7 @@ const jsonLd = {
       <Breadcrumb items={[{ href: '/', label: 'Accueil' }, { label: 'Communauté' }]} class="mb-12" />
       <div class="grid items-center gap-12 lg:grid-cols-12">
         <div class="lg:col-span-7">
-          <span class="pill"><FlagMark class="h-3.5" /> Gemula Community</span>
+          <span class="pill"><span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true"></span> Gemula Community</span>
           <h1 class="mt-6 text-display-lg text-gradient text-balance">Apprenons, partageons et construisons ensemble.</h1>
           <p class="mt-6 max-w-xl text-lg leading-relaxed text-muted">
             Un espace ouvert d'apprentissage, de partage et de collaboration autour de la data science, de l'intelligence artificielle et des technologies. Pour les étudiants, les passionnés et les talents de tous horizons, profils techniques ou non.

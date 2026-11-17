@@ -189,10 +189,18 @@
 @keyframes intro-out {
   to { opacity: 0; transform: translateY(-2%); visibility: hidden; pointer-events: none; }
 }
-#intro .intro-cell { opacity: 0; transform-box: fill-box; transform-origin: center; animation: cell-in 0.5s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-@keyframes cell-in { from { opacity: 0; transform: scale(0.4); } to { opacity: 1; transform: none; } }
-#intro .intro-word span { display: inline-block; opacity: 0; transform: translateY(60%); animation: word-in 0.6s cubic-bezier(0.16, 1, 0.3, 1) forwards; }
-@keyframes word-in { to { opacity: 1; transform: none; } }
+/* Logo officiel en deux parties superposées : le drapeau se déploie, puis le nom apparaît */
+#intro .intro-logo { display: flex; flex-direction: column; align-items: center; width: min(260px, 60vw); animation: logo-settle 0.9s cubic-bezier(0.16, 1, 0.3, 1) 1.3s both; }
+#intro .intro-logo img { display: block; width: 100%; height: auto; }
+#intro .intro-flag { clip-path: inset(0 100% 0 0); animation: flag-unfurl 0.9s cubic-bezier(0.65, 0, 0.35, 1) 0.15s forwards; }
+#intro .intro-name { opacity: 0; transform: translateY(14px); filter: blur(6px); animation: name-in 0.7s cubic-bezier(0.16, 1, 0.3, 1) 0.8s forwards; }
+@keyframes flag-unfurl {
+  0%   { clip-path: inset(0 100% 0 0); transform: skewY(4deg); }
+  70%  { transform: skewY(-1.5deg); }
+  100% { clip-path: inset(0 0 0 0); transform: none; }
+}
+@keyframes name-in { to { opacity: 1; transform: none; filter: none; } }
+@keyframes logo-settle { from { transform: scale(1.04); } to { transform: none; } }
 
 /* =========================================================
    PROSE (articles Markdown)

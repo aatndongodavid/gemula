@@ -1,6 +1,6 @@
 ---
 import BaseLayout from '@layouts/BaseLayout.astro';
-import FlagMark from '@components/FlagMark.astro';
+import Logo from '@components/Logo.astro';
 import Icon from '@components/Icon.astro';
 
 const pistes = [
@@ -20,7 +20,7 @@ const pistes = [
     <div class="grid-bg absolute inset-0 -z-10" aria-hidden="true"></div>
     <div class="container-g py-20 md:py-32 text-center">
       <div class="flex justify-center" aria-hidden="true">
-        <FlagMark class="h-20 md:h-24 lost-flag" />
+        <Logo size="xl" alt="" class="lost-logo" />
       </div>
       <p class="mt-8 font-mono text-sm text-accent-text">Erreur 404</p>
       <h1 class="mx-auto mt-3 max-w-2xl text-display-md text-gradient text-balance">Cette page s'est perdue en route.</h1>
@@ -50,18 +50,12 @@ const pistes = [
   </section>
 </BaseLayout>
 
-<script>
-  import { flagCells } from '@lib/flag';
-  // Le drapeau flotte doucement, sauf si l'utilisateur limite les animations
-  const svg = document.querySelector('.lost-flag');
-  if (svg && !matchMedia('(prefers-reduced-motion: reduce)').matches) {
-    const paths = Array.from(svg.querySelectorAll('path'));
-    const t0 = performance.now();
-    const tick = (t: number) => {
-      const cells = flagCells(1.2 + ((t - t0) / 1000) * 2.4, 1);
-      paths.forEach((p, i) => p.setAttribute('d', cells[i]));
-      requestAnimationFrame(tick);
-    };
-    requestAnimationFrame(tick);
+<style is:global>
+  /* Le logo flotte doucement, comme un drapeau égaré */
+  .lost-logo { animation: lost-float 4s ease-in-out infinite; transform-origin: 50% 80%; }
+  @keyframes lost-float {
+    0%, 100% { transform: translateY(0) rotate(-1.5deg); }
+    50% { transform: translateY(-10px) rotate(1.5deg); }
   }
-</script>
+  @media (prefers-reduced-motion: reduce) { .lost-logo { animation: none; } }
+</style>
