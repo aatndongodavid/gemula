@@ -29,6 +29,7 @@ projects:
   - "Projet de bases de données NoSQL avec MongoDB"
   - "Projet de stockage et d'analyse de données sur Azure"
 linkedin: "https://www.linkedin.com/in/kpoumie-amza-28138928a"
+portfolio: "https://porte-folior.vercel.app"
 github: "https://github.com/KpoumieAmza"
 location: "Douala, Cameroun"
 ---
