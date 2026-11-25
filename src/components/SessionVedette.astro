@@ -26,20 +26,20 @@ const ouverte = s.statut === 'ouverte';
       <h3 class="mt-5 text-2xl md:text-3xl tracking-tighter2 text-balance">{s.titre}</h3>
       {s.accroche && <p class="mt-3 text-lg text-muted">{s.accroche}</p>}
 
-      <dl class="mt-6 grid gap-3 text-sm sm:grid-cols-2">
+      <ul class="mt-6 grid gap-3 text-sm sm:grid-cols-2" aria-label="Informations pratiques">
         {s.debut && (
-          <div class="flex items-start gap-2.5"><Icon name="calendar_today" class="mt-0.5 text-accent-text" /><div><dt class="sr-only">Début</dt><dd class="text-fg">À partir du {dateLongue(s.debut)}</dd></div></div>
+          <li class="flex items-start gap-2.5"><Icon name="calendar_today" class="mt-0.5 text-accent-text" /><span class="text-fg"><span class="sr-only">Début : </span>À partir du {dateLongue(s.debut)}</span></li>
         )}
         {s.duree && (
-          <div class="flex items-start gap-2.5"><Icon name="school" class="mt-0.5 text-accent-text" /><div><dt class="sr-only">Durée</dt><dd class="text-fg">{s.duree}</dd></div></div>
+          <li class="flex items-start gap-2.5"><Icon name="school" class="mt-0.5 text-accent-text" /><span class="text-fg"><span class="sr-only">Durée : </span>{s.duree}</span></li>
         )}
         {s.format && (
-          <div class="flex items-start gap-2.5"><Icon name="explore" class="mt-0.5 text-accent-text" /><div><dt class="sr-only">Format</dt><dd class="text-fg">{s.format}</dd></div></div>
+          <li class="flex items-start gap-2.5"><Icon name="explore" class="mt-0.5 text-accent-text" /><span class="text-fg"><span class="sr-only">Format : </span>{s.format}</span></li>
         )}
         {formateur && (
-          <div class="flex items-start gap-2.5"><Icon name="users" class="mt-0.5 text-accent-text" /><div><dt class="sr-only">Formateur</dt><dd class="text-fg">Avec <a href={`/talents/${formateur.slug}`} class="underline decoration-accent underline-offset-4">{formateur.data.name}</a></dd></div></div>
+          <li class="flex items-start gap-2.5"><Icon name="users" class="mt-0.5 text-accent-text" /><span class="text-fg"><span class="sr-only">Formateur : </span>Avec <a href={`/talents/${formateur.slug}`} class="underline decoration-accent underline-offset-4">{formateur.data.name}</a></span></li>
         )}
-      </dl>
+      </ul>
 
       {variante === 'complet' && s.programme && (
         <ol class="mt-8 grid gap-px overflow-hidden rounded-2xl border border-line bg-line sm:grid-cols-2">
