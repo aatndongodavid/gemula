@@ -1,0 +1,46 @@
+{
+  "_note": "Formations de Gemula Community. Pour annoncer une session : ajouter un objet dans « sessions » avec une date de début (AAAA-MM-JJ) et un nombre de jours. Le statut (inscriptions ouvertes, en cours, terminée) se calcule tout seul à partir des dates. Sans date, la session apparaît « en préparation ».",
+  "sessions": [
+    {
+      "id": "ml-no-code-2026",
+      "titre": "Machine Learning No Code avec Orange Data Mining",
+      "accroche": "Maîtrisez le Machine Learning en 4 jours, sans écrire une ligne de code.",
+      "description": "Une initiation complète au Machine Learning avec Orange Data Mining, un outil visuel et gratuit. Vous apprenez trois algorithmes, puis vous construisez votre premier modèle de détection des SMS indésirables.",
+      "debut": "2026-11-30",
+      "jours": 4,
+      "duree": "4 jours · 2 h 30 maximum par séance",
+      "format": "100 % en ligne sur Google Meet",
+      "acces": "Gratuit · Ouvert à tous · Places limitées",
+      "formateur": "mbonjo-etia-patrick-thomas",
+      "programme": [
+        { "titre": "kNN", "detail": "Classer par proximité" },
+        { "titre": "Random Forest", "detail": "La force des arbres de décision" },
+        { "titre": "Régression logistique", "detail": "Prédire une probabilité" },
+        { "titre": "Projet : SMS indésirables", "detail": "Détecter automatiquement les messages de spam" }
+      ],
+      "objectifs": ["Initiation au Machine Learning", "Découverte de Pineapple OS", "Cooptation dans Gemula Community"],
+      "prerequis": "Un ordinateur connecté à Internet.",
+      "inscription": "https://wa.me/237682375573?text=Bonjour%20Gemula%2C%20je%20souhaite%20m%27inscrire%20%C3%A0%20la%20formation%20Machine%20Learning%20No%20Code%20du%2030%20novembre.",
+      "affiches": [
+        { "src": "/images/communaute/ml-no-code-programme.webp", "alt": "Affiche : Maîtrisez le Machine Learning en 4 jours, 100 % No Code avec Orange Data Mining, début des séances le 30 novembre 2026" },
+        { "src": "/images/communaute/ml-no-code-affiche.webp", "alt": "Affiche : formation Machine Learning No Code à partir du 30 novembre 2026, quatre modules, 100 % en ligne sur Google Meet" },
+        { "src": "/images/communaute/ml-no-code-formateur.webp", "alt": "Affiche : masterclass Machine Learning No Code animée par Patrick Mbonjo Etia, lauréat de l'Orange Summer Challenge 2026" }
+      ],
+      "article": "/journal/formation-machine-learning-no-code-novembre-2026"
+    },
+    {
+      "id": "github-equipe",
+      "titre": "GitHub en équipe",
+      "description": "Git, GitHub, branches, commits, pull requests, revue de code, releases et déploiement en environnement collaboratif.",
+      "duree": "42 h · 14 séances · 7 semaines",
+      "acces": "Sur inscription"
+    },
+    {
+      "id": "automatisation-ia",
+      "titre": "Automatisation des tâches avec l'IA",
+      "description": "IA générative, Make, n8n, Power Automate : construire des agents et des workflows automatisés.",
+      "duree": "38 h · 13 séances · 7 semaines",
+      "acces": "Sur inscription"
+    }
+  ]
+}

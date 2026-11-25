@@ -1,4 +1,5 @@
 ---
+import { statutEvenement } from '@lib/evenements';
 import { getCollection } from 'astro:content';
 import PageLayout from '@layouts/PageLayout.astro';
 import SectionHeading from '@components/SectionHeading.astro';
@@ -13,19 +14,10 @@ const sorted = evenements.sort(
   (a, b) => a.data.startDate.getTime() - b.data.startDate.getTime()
 );
 
-const aVenir = sorted.filter((e) => e.data.startDate > now);
-const enCours = sorted.filter(
-  (e) =>
-    e.data.startDate <= now &&
-    e.data.endDate &&
-    e.data.endDate >= now
-);
-const passes = sorted
-  .filter((e) => {
-    const end = e.data.endDate ?? e.data.startDate;
-    return end < now;
-  })
-  .reverse();
+// Statut calculé à partir des dates (src/lib/evenements.ts) ; annulés et reportés restent visibles parmi les prochains
+const aVenir = sorted.filter((e) => ['a-venir', 'annule', 'reporte'].includes(statutEvenement(e.data, now)));
+const enCours = sorted.filter((e) => statutEvenement(e.data, now) === 'en-cours');
+const passes = sorted.filter((e) => statutEvenement(e.data, now) === 'passe').reverse();
 
 const total = evenements.length;
 const totalAVenir = aVenir.length + enCours.length;

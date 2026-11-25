@@ -2,7 +2,9 @@
 import BaseLayout from '@layouts/BaseLayout.astro';
 import Breadcrumb from '@components/Breadcrumb.astro';
 import Icon from '@components/Icon.astro';
+import SessionVedette from '@components/SessionVedette.astro';
 import site from '@data/site.json';
+import { sessions } from '@lib/sessions';
 
 const whatsappUrl = site.community?.whatsappUrl ?? '';
 
@@ -13,10 +15,8 @@ const espaces = [
   { key: 'Connect', fr: 'Réseauter', icon: 'groups', desc: 'Rencontres, présentation des membres, partage de compétences et entraide professionnelle.' }
 ];
 
-const programmes = [
-  { titre: 'GitHub en équipe', duree: '42 h · 14 séances · 7 semaines', desc: 'Git, GitHub, branches, commits, pull requests, revue de code, releases et déploiement en environnement collaboratif.', acces: 'Sur inscription' },
-  { titre: "Automatisation des tâches avec l'IA", duree: '38 h · 13 séances · 7 semaines', desc: 'IA générative, Make, n8n, Power Automate : construire des agents et des workflows automatisés.', acces: 'Sur inscription' }
-];
+// Sessions : src/data/communaute.json (statut calculé à partir des dates)
+const { vedette, preparation: programmes } = sessions();
 
 const roles = [
   { titre: 'Membre de la communauté', desc: 'Participe aux échanges, aux activités ouvertes et aux formations selon leurs conditions.' },
@@ -121,6 +121,13 @@ const jsonLd = {
         </div>
       </div>
 
+      {vedette && (
+        <div class="mt-14">
+          <h3 class="mb-4 text-sm font-medium text-fg">Prochaine session</h3>
+          <SessionVedette session={vedette} />
+        </div>
+      )}
+
       <h3 class="mt-16 text-sm font-medium text-fg" data-reveal>Programmes en préparation</h3>
       <div class="mt-4 grid gap-4 md:grid-cols-2">
         {programmes.map((p) => (
@@ -131,7 +138,7 @@ const jsonLd = {
             </div>
             <h4 class="mt-4 text-xl font-semibold text-fg">{p.titre}</h4>
             <p class="mt-1 text-sm text-accent-text">{p.duree}</p>
-            <p class="mt-3 flex-grow text-[0.9375rem] leading-relaxed text-muted">{p.desc}</p>
+            <p class="mt-3 flex-grow text-[0.9375rem] leading-relaxed text-muted">{p.description}</p>
             <a href="#rejoindre" class="mt-6 inline-flex items-center gap-1.5 text-sm font-medium text-fg">Être prévenu de l'ouverture <Icon name="arrow_forward" /></a>
           </article>
         ))}
