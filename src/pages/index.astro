@@ -4,6 +4,8 @@ import BaseLayout from '@layouts/BaseLayout.astro';
 import Icon from '@components/Icon.astro';
 import Logo from '@components/Logo.astro';
 import PostCard from '@components/PostCard.astro';
+import SessionVedette from '@components/SessionVedette.astro';
+import { sessions, dateLongue } from '@lib/sessions';
 
 import site from '@data/site.json';
 import formations from '@data/formations.json';
@@ -45,10 +47,11 @@ const espaces = [
   { key: 'Connect', fr: 'Réseauter', icon: 'groups', desc: 'Rencontres, présentation des membres et partage de compétences.' }
 ];
 
-const programmes = [
-  { titre: 'GitHub en équipe', duree: '42 h · 14 séances · 7 semaines', desc: 'Git, branches, pull requests, revue de code, releases et déploiement en environnement collaboratif.' },
-  { titre: "Automatiser ses tâches avec l'IA", duree: '38 h · 13 séances · 7 semaines', desc: 'IA générative, Make, n8n et Power Automate pour construire des agents et des workflows.' }
-];
+// Formations de la communauté : src/data/communaute.json
+const { vedette, preparation: programmes } = sessions();
+const annonce = vedette?.statut === 'ouverte'
+  ? { href: '/communaute#formations', texte: `Formation gratuite : ${vedette.titre.split(' avec ')[0]}, dès le ${dateLongue(vedette.debut!).replace(/ \d{4}$/, '')}` }
+  : { href: '/diagnostic', texte: 'Nouveau : testez le niveau de votre équipe en 5 minutes' };
 
 const homeJsonLd = {
   '@context': 'https://schema.org',
@@ -72,9 +75,9 @@ const homeJsonLd = {
     <div class="grid-bg absolute inset-0 -z-10" aria-hidden="true"></div>
 
     <div class="container-g pt-16 pb-12 md:pt-24 md:pb-16 text-center">
-      <a href="/diagnostic" class="pill hover:border-line-strong hover:text-fg transition-colors animate-fade-up">
+      <a href={annonce.href} class="pill hover:border-line-strong hover:text-fg transition-colors animate-fade-up">
         <span class="h-1.5 w-1.5 rounded-full bg-accent" aria-hidden="true"></span>
-        Nouveau : testez le niveau de votre équipe en 5 minutes
+        {annonce.texte}
         <Icon name="arrow_forward" class="text-[0.9em]" />
       </a>
 
@@ -293,6 +296,8 @@ const homeJsonLd = {
         ))}
       </div>
 
+      {vedette && <div class="mt-4"><SessionVedette session={vedette} variante="compact" /></div>}
+
       <div class="mt-4 grid gap-4 lg:grid-cols-2">
         {programmes.map((p) => (
           <div class="card flex flex-col gap-3 sm:flex-row sm:items-start sm:justify-between" data-reveal>
@@ -300,7 +305,7 @@ const homeJsonLd = {
               <span class="tag">En préparation</span>
               <h3 class="mt-3 text-lg">{p.titre}</h3>
               <p class="mt-1 text-sm text-accent-text">{p.duree}</p>
-              <p class="mt-3 text-sm leading-relaxed text-muted">{p.desc}</p>
+              <p class="mt-3 text-sm leading-relaxed text-muted">{p.description}</p>
             </div>
           </div>
         ))}
