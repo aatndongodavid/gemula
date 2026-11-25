@@ -1,4 +1,5 @@
 ---
+import { statutEvenement, libelleStatutEvenement, couleurStatutEvenement } from '@lib/evenements';
 import Icon from '@components/Icon.astro';
 import type { CollectionEntry } from 'astro:content';
 
@@ -22,17 +23,7 @@ const formatLabel: Record<string, string> = {
   hybride: 'Hybride'
 };
 
-const statusLabel: Record<string, string> = {
-  'a-venir': 'À venir',
-  'en-cours': 'En cours',
-  'passe': 'Passé'
-};
-
-const statusColor: Record<string, string> = {
-  'a-venir': 'text-accent-text',
-  'en-cours': 'text-success',
-  'passe': 'text-muted'
-};
+const statut = statutEvenement(data);
 
 const start = dateFormatter.format(data.startDate);
 const end = data.endDate ? dateFormatter.format(data.endDate) : null;
@@ -42,8 +33,8 @@ const isCompact = variant === 'compact';
 ---
 <article class={`card card-hover h-full flex flex-col ${isCompact ? 'p-5' : ''}`}>
   <div class="flex items-center justify-between gap-3 mb-4">
-    <span class={`text-[0.7rem] font-semibold uppercase tracking-kicker ${statusColor[data.status]}`}>
-      {statusLabel[data.status]}
+    <span class={`text-[0.7rem] font-semibold uppercase tracking-kicker ${couleurStatutEvenement[statut]}`}>
+      {libelleStatutEvenement[statut]}
     </span>
     <span class="text-[0.7rem] uppercase tracking-kicker text-muted">
       {formatLabel[data.format] ?? data.format}

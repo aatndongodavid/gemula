@@ -40,7 +40,8 @@ const evenements = defineCollection({
     organizer: z.string(),
     url: z.string().url(),
     registrationDeadline: z.coerce.date().optional(),
-    status: z.enum(['a-venir', 'en-cours', 'passe']).default('a-venir'),
+    // Calculé à partir des dates ; renseigner seulement « annule » ou « reporte » si besoin
+    status: z.enum(['a-venir', 'en-cours', 'passe', 'annule', 'reporte']).default('a-venir'),
     source: z.string(),
     verifiedAt: z.coerce.date(),
     featured: z.boolean().default(false),
