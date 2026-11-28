@@ -1,0 +1,72 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Flyer 1 · Bon mois de décembre</title>
+<link rel="stylesheet" href="commun.css">
+<style>
+  body { background: #0A0A0B; color: #F7F8F8; }
+  /* Projecteur venu d'en haut, comme sur un sol de studio */
+  .spot { inset: 0; background:
+      radial-gradient(70% 55% at 50% 8%, rgba(255,255,255,.16), transparent 70%),
+      radial-gradient(60% 45% at 50% 78%, rgba(255,80,0,.28), transparent 70%),
+      linear-gradient(180deg, #151517 0%, #0A0A0B 60%, #060607 100%); }
+  .sol { inset: 0; opacity: .5;
+    background-image: radial-gradient(rgba(255,255,255,.05) 1px, transparent 1.4px); background-size: 6px 6px;
+    mask-image: radial-gradient(80% 70% at 50% 40%, #000 30%, transparent 85%); }
+
+  .top { left: 64px; right: 64px; top: 56px; display: flex; justify-content: space-between; align-items: center; }
+  .top img { height: 96px; }
+  .mois { text-align: right; font-family: Poppins; font-weight: 600; font-size: 22px; letter-spacing: .32em; text-transform: uppercase; color: #9A9FA8; line-height: 1.5; }
+  .mois b { display: block; color: #FF8547; letter-spacing: .32em; }
+
+  .titre { left: 64px; top: 190px; font-family: Poppins; font-weight: 700; line-height: .95; letter-spacing: -.03em; }
+  .titre .l1 { font-size: 58px; color: #C9CCD1; }
+  .titre .l2 { font-size: 96px; background: linear-gradient(90deg, #FF5000, #FF9A3C); -webkit-background-clip: text; background-clip: text; color: transparent; }
+
+  /* Le grand « 12 » : métal brossé, liseré orange */
+  .douze { left: 0; right: 0; top: 360px; text-align: center; font-family: Poppins; font-weight: 700; font-size: 880px; line-height: .82; letter-spacing: -.07em;
+    background:
+      repeating-linear-gradient(90deg, rgba(255,255,255,.05) 0 1px, transparent 1px 4px),
+      linear-gradient(155deg, rgba(255,255,255,.45) 0%, transparent 30%),
+      linear-gradient(180deg, #ECEEF1 0%, #B4B8BF 45%, #4C5056 100%);
+    -webkit-background-clip: text; background-clip: text; color: transparent;
+    -webkit-text-stroke: 2px rgba(255,120,40,.55);
+    filter: drop-shadow(0 30px 60px rgba(0,0,0,.65)); }
+
+  .equipe { right: -6px; bottom: -8px; width: 1100px; filter: drop-shadow(0 0 14px rgba(255,90,10,.28)) drop-shadow(0 30px 40px rgba(0,0,0,.6)) saturate(1.06) contrast(1.05); }
+  /* Fondu du bas de la photo dans le sol */
+  .fondu { left: 0; right: 0; bottom: 0; height: 420px; background: linear-gradient(180deg, transparent 0%, rgba(10,10,11,.78) 42%, rgba(10,10,11,.96) 72%); }
+
+  .bas { left: 64px; right: 64px; bottom: 56px; display: flex; justify-content: space-between; align-items: flex-end; gap: 40px; }
+  .bas p { font-size: 30px; line-height: 1.3; color: #F7F8F8; font-weight: 600; max-width: 640px; }
+  .bas p span { display: block; margin-top: 6px; font-size: 24px; }
+  .bas p span { color: #9A9FA8; font-weight: 400; }
+  .bas .site { text-align: right; font-size: 20px; color: #9A9FA8; line-height: 1.5; white-space: nowrap; }
+  .bas .site b { color: #FF8547; font-weight: 700; font-size: 26px; }
+  .hashtag { left: 64px; bottom: 168px; font-family: Poppins; font-weight: 600; font-size: 20px; letter-spacing: .2em; color: #FF8547; }
+</style>
+</head>
+<body class="grain">
+  <div class="abs spot"></div>
+  <div class="abs sol"></div>
+
+  <div class="abs top">
+    <img src="assets/gemula-logo.webp" alt="Gemula">
+    <div class="mois">Nouveau mois<b>Décembre 2026</b></div>
+  </div>
+
+  <div class="abs titre"><div class="l1">Bon mois de</div><div class="l2">décembre</div></div>
+
+  <div class="abs douze">12</div>
+
+  <img class="abs equipe" src="assets/equipe.webp" alt="">
+  <div class="abs fondu"></div>
+
+  <div class="abs hashtag">#GEMULA · #DÉCEMBRE2026</div>
+  <div class="abs bas">
+    <p>Le dernier sprint de 2026 commence.<span>Merci d'avoir avancé avec nous cette année.</span></p>
+    <div class="site"><b>gemula.org</b><br>Là où le talent devient un impact.</div>
+  </div>
+</body>
+</html>

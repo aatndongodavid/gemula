@@ -1,0 +1,100 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Flyer 3 · Démarrez 2027 avec une équipe prête</title>
+<link rel="stylesheet" href="commun.css">
+<style>
+  body { background: #FFC21F; color: #121212; }
+  .fond { inset: 0; background:
+      radial-gradient(45% 35% at 68% 62%, rgba(255,255,255,.55), transparent 70%),
+      radial-gradient(60% 50% at 15% 10%, rgba(255,236,150,.8), transparent 70%),
+      radial-gradient(70% 60% at 100% 100%, rgba(255,120,0,.45), transparent 70%),
+      linear-gradient(160deg, #FFD54A 0%, #FFC21F 45%, #FFA51F 100%); }
+
+  .logo { left: 50%; top: 56px; transform: translateX(-50%); height: 92px; }
+  .titre { left: 70px; right: 70px; top: 190px; text-align: center; font-family: Poppins; font-weight: 700; font-size: 76px; line-height: 1.02; letter-spacing: -.035em; color: #121212; }
+  .titre span { color: #E04400; }
+  .sous { left: 140px; right: 140px; top: 372px; text-align: center; font-size: 27px; line-height: 1.42; color: #2A2A2A; }
+  .sous b { color: #121212; }
+
+  /* Drapeaux flottants, flous de profondeur, comme des objets au premier et à l'arrière-plan */
+  .drapeau1 { right: -70px; top: 520px; width: 330px; filter: blur(7px) drop-shadow(0 30px 30px rgba(150,60,0,.35)); transform: rotate(-18deg); opacity: .95; }
+  .drapeau2 { left: 40px; top: 560px; width: 120px; filter: blur(1.5px) drop-shadow(0 12px 14px rgba(150,60,0,.3)); transform: rotate(14deg); }
+
+  .lydia { right: 30px; bottom: 0; height: 830px; filter: drop-shadow(0 30px 40px rgba(140,60,0,.35)) saturate(1.05) contrast(1.03); }
+
+  /* Carte « résultat du diagnostic » */
+  .carte { left: 96px; top: 700px; width: 430px; padding: 28px; border-radius: 32px; background: rgba(255,255,255,.9); box-shadow: 0 40px 70px -20px rgba(120,50,0,.45), 0 0 0 1px rgba(255,255,255,.7) inset; transform: rotate(-4deg); }
+  .carte .entete { display: flex; align-items: center; justify-content: space-between; font-size: 18px; color: #6B6B6B; }
+  .carte .entete b { color: #121212; font-size: 20px; }
+  .score { margin-top: 18px; display: flex; align-items: center; gap: 22px; }
+  .score svg { width: 132px; height: 132px; }
+  .score .val { font-family: Poppins; font-weight: 700; font-size: 34px; color: #121212; }
+  .score .niv { margin-top: 4px; display: inline-block; padding: 6px 14px; border-radius: 999px; background: #FFE7D6; color: #C23A00; font-weight: 700; font-size: 18px; }
+  .lignes { margin-top: 20px; display: grid; gap: 12px; }
+  .ligne { display: flex; align-items: center; justify-content: space-between; font-size: 19px; color: #2A2A2A; }
+  .ligne i { font-style: normal; font-weight: 700; font-size: 16px; padding: 5px 12px; border-radius: 999px; }
+  .ok { background: #DDF5E7; color: #1D7A45; }
+  .moy { background: #FFF1CC; color: #9A6300; }
+  .bas-n { background: #FFE0DB; color: #B3261E; }
+  .barre { height: 8px; border-radius: 8px; background: #EFEFEF; overflow: hidden; margin-top: 6px; }
+  .barre span { display: block; height: 100%; border-radius: 8px; background: linear-gradient(90deg, #FF5000, #FF9A3C); }
+
+  .legende { right: 56px; bottom: -16px; padding: 16px 20px 34px; border-radius: 14px; background: #141414; color: #fff; font-size: 18px; line-height: 1.35; box-shadow: 0 14px 30px rgba(120,50,0,.35); }
+  .legende b { display: block; font-size: 19px; }
+
+  .cta { left: 70px; bottom: 64px; }
+  .cta .url { font-family: Poppins; font-weight: 700; font-size: 34px; color: #121212; letter-spacing: -.01em; }
+  .badges { margin-top: 14px; display: flex; gap: 14px; }
+  .badge { display: flex; align-items: center; gap: 12px; padding: 12px 20px; border-radius: 14px; background: #121212; color: #fff; }
+  .badge svg { width: 30px; height: 30px; }
+  .badge small { display: block; font-size: 14px; color: #BDBDBD; line-height: 1.1; }
+  .badge strong { display: block; font-size: 22px; line-height: 1.15; font-weight: 700; }
+</style>
+</head>
+<body class="grain">
+  <div class="abs fond"></div>
+
+  <img class="abs drapeau1" src="assets/gemula-logo-drapeau.webp" alt="">
+  <img class="abs drapeau2" src="assets/gemula-logo-drapeau.webp" alt="">
+
+  <img class="abs logo" src="assets/gemula-logo.webp" alt="Gemula">
+  <div class="abs titre">Démarrez 2027 avec une <span>équipe prête.</span></div>
+  <div class="abs sous">Testez gratuitement le niveau de votre équipe sur <b>Excel, Microsoft 365, l'IA et Power BI</b>, et recevez un programme de formation sur mesure.</div>
+
+  <img class="abs lydia" src="assets/lydia.webp" alt="">
+  <div class="abs legende"><b>Lydia Kwarissa</b>Formatrice Excel avancé et reporting</div>
+
+  <div class="abs carte">
+    <div class="entete"><b>Diagnostic Gemula</b><span>15 questions</span></div>
+    <div class="score">
+      <svg viewBox="0 0 120 120" aria-hidden="true">
+        <circle cx="60" cy="60" r="50" fill="none" stroke="#F1F1F1" stroke-width="12"/>
+        <circle cx="60" cy="60" r="50" fill="none" stroke="#FF5000" stroke-width="12" stroke-linecap="round" stroke-dasharray="314.16" stroke-dashoffset="69" transform="rotate(-90 60 60)"/>
+        <text x="60" y="68" text-anchor="middle" font-family="Poppins" font-weight="700" font-size="30" fill="#121212">78</text>
+      </svg>
+      <div><div class="val">78 / 100</div><span class="niv">Niveau confirmé</span></div>
+    </div>
+    <div class="lignes">
+      <div><div class="ligne">Excel pour la gestion <i class="ok">Maîtrisé</i></div><div class="barre"><span style="width:92%"></span></div></div>
+      <div><div class="ligne">Microsoft 365 et Teams <i class="moy">À consolider</i></div><div class="barre"><span style="width:68%"></span></div></div>
+      <div><div class="ligne">Power BI <i class="bas-n">À travailler</i></div><div class="barre"><span style="width:38%"></span></div></div>
+    </div>
+  </div>
+
+  <div class="abs cta">
+    <div class="url">gemula.org/diagnostic</div>
+    <div class="badges">
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF8547" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="12" r="9"/><path d="m8.5 12 2.5 2.5 4.5-5"/></svg>
+        <div><small>100 % gratuit</small><strong>Sans inscription</strong></div>
+      </div>
+      <div class="badge">
+        <svg viewBox="0 0 24 24" fill="none" stroke="#FF8547" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="8"/><path d="M12 9v4l2.5 2M9 2h6"/></svg>
+        <div><small>Environ 5 minutes</small><strong>Résultat immédiat</strong></div>
+      </div>
+    </div>
+  </div>
+</body>
+</html>

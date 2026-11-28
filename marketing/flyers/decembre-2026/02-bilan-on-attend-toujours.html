@@ -1,0 +1,104 @@
+<!doctype html>
+<html lang="fr">
+<head>
+<meta charset="utf-8">
+<title>Flyer 2 · Le bilan, on attend toujours</title>
+<link rel="stylesheet" href="commun.css">
+<style>
+  body { background: #C81E0A; color: #fff; }
+  /* Studio : mur rouge profond, sol plus clair, lumière venant de la droite */
+  .mur { inset: 0; background:
+      radial-gradient(55% 45% at 72% 38%, rgba(255,140,60,.45), transparent 70%),
+      linear-gradient(180deg, #B3160A 0%, #D3250C 56%, #E4391A 66%, #F25A26 100%); }
+  .vignette { inset: 0; background: radial-gradient(120% 90% at 60% 45%, transparent 55%, rgba(60,0,0,.55) 100%); }
+
+  .logo { left: 60px; top: 60px; width: 132px; height: 132px; border-radius: 30px; background: #0B0B0C; display: flex; align-items: center; justify-content: center; box-shadow: 0 14px 30px rgba(80,0,0,.35); }
+  .logo img { width: 106px; }
+  .tags { right: 60px; top: 74px; font-family: Poppins; font-weight: 600; font-size: 23px; letter-spacing: .01em; }
+
+  .titre { left: 60px; top: 262px; width: 540px; }
+  .titre .l1 { font-family: Inter; font-weight: 400; font-size: 44px; line-height: 1.15; opacity: .95; }
+  .titre .l2 { margin-top: 12px; font-family: Poppins; font-weight: 700; font-size: 60px; line-height: 1.04; letter-spacing: -.025em; text-shadow: 0 6px 30px rgba(90,0,0,.45); }
+
+  .fleche { left: 84px; top: 690px; width: 150px; }
+  .bulle { left: 170px; top: 820px; white-space: nowrap; padding: 22px 34px; border-radius: 18px; background: rgba(140,10,0,.55); border: 2px solid rgba(255,255,255,.75); backdrop-filter: blur(6px);
+    font-family: Poppins; font-weight: 700; font-size: 38px; box-shadow: 0 18px 40px rgba(70,0,0,.35); }
+
+  .david { right: -60px; bottom: 0; height: 800px; -webkit-mask-image: linear-gradient(90deg, transparent 0%, #000 16%); mask-image: linear-gradient(90deg, transparent 0%, #000 16%); filter: drop-shadow(-30px 20px 40px rgba(70,0,0,.45)) contrast(1.04) saturate(1.02); }
+  /* Ombre de contact au sol */
+  .ombre { right: 40px; bottom: -40px; width: 640px; height: 120px; background: radial-gradient(50% 50% at 50% 50%, rgba(60,0,0,.5), transparent 70%); }
+
+  .reveil { left: -80px; bottom: -150px; width: 330px; filter: blur(4px); transform: rotate(-14deg); }
+
+  .solution { left: 60px; bottom: 120px; width: 470px; padding: 22px 26px; border-radius: 20px; background: rgba(11,11,12,.86); box-shadow: 0 20px 40px rgba(60,0,0,.35); }
+  .solution p { font-size: 22px; line-height: 1.38; color: #E7E8EA; }
+  .solution b { color: #fff; }
+  .solution .cta { margin-top: 12px; font-family: Poppins; font-weight: 700; font-size: 24px; color: #FF8547; }
+
+  .bas { left: 270px; bottom: 46px; display: flex; align-items: center; gap: 26px; text-shadow: 0 2px 10px rgba(80,0,0,.4); }
+  .bas .compte { font-family: Inter; font-weight: 600; font-size: 24px; display: inline-flex; align-items: center; gap: 10px; }
+  .bas .compte svg { width: 26px; height: 26px; }
+  .bas .icones { display: flex; gap: 20px; }
+  .bas .icones svg { width: 30px; height: 30px; }
+</style>
+</head>
+<body class="grain">
+  <div class="abs mur"></div>
+  <div class="abs vignette"></div>
+  <div class="abs ombre"></div>
+  <img class="abs david" src="assets/david.webp" alt="">
+
+  <div class="abs logo"><img src="assets/gemula-logo.webp" alt="Gemula"></div>
+  <div class="abs tags">#Formez || #Automatisez || #Décidez</div>
+
+  <div class="abs titre">
+    <div class="l1">31 décembre approche…</div>
+    <div class="l2">et le bilan est encore éparpillé dans 14 fichiers Excel.</div>
+  </div>
+
+  <!-- Flèche dessinée à la main -->
+  <svg class="abs fleche" viewBox="0 0 210 210" fill="none" stroke="#fff" stroke-width="5" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+    <path d="M70 8C35 40 30 95 62 112c28 15 52-18 30-36-24-20-66 8-62 56 4 42 52 70 120 64"/>
+    <path d="M146 178l36 18-22 32"/>
+  </svg>
+
+  <div class="abs bulle">On attend toujours…</div>
+
+
+  <!-- Réveil au premier plan, flou de profondeur -->
+  <svg class="abs reveil" viewBox="0 0 420 460" aria-hidden="true">
+    <defs>
+      <radialGradient id="jaune" cx="40%" cy="35%" r="70%"><stop offset="0" stop-color="#FFE45C"/><stop offset="1" stop-color="#E9B400"/></radialGradient>
+      <radialGradient id="cadran" cx="45%" cy="40%" r="65%"><stop offset="0" stop-color="#FFFFFF"/><stop offset="1" stop-color="#DADADA"/></radialGradient>
+    </defs>
+    <ellipse cx="110" cy="70" rx="80" ry="58" fill="url(#jaune)" transform="rotate(-28 110 70)"/>
+    <ellipse cx="310" cy="70" rx="80" ry="58" fill="url(#jaune)" transform="rotate(28 310 70)"/>
+    <rect x="198" y="40" width="24" height="40" rx="6" fill="#C99700"/>
+    <circle cx="210" cy="250" r="190" fill="url(#jaune)"/>
+    <circle cx="210" cy="250" r="160" fill="url(#cadran)"/>
+    <g fill="#222" font-family="Inter" font-size="34" font-weight="600" text-anchor="middle">
+      <text x="210" y="128">12</text><text x="300" y="160">1</text><text x="345" y="228">2</text><text x="350" y="300">3</text>
+      <text x="120" y="160">11</text><text x="80" y="228">10</text><text x="72" y="300">9</text><text x="210" y="392">6</text>
+    </g>
+    <line x1="210" y1="250" x2="210" y2="135" stroke="#222" stroke-width="9" stroke-linecap="round"/>
+    <line x1="210" y1="250" x2="285" y2="200" stroke="#222" stroke-width="12" stroke-linecap="round"/>
+    <circle cx="210" cy="250" r="12" fill="#222"/>
+  </svg>
+
+  <div class="abs solution">
+    <p><b>La solution :</b> former vos équipes à Excel et Power BI. Des tableaux de bord qui se mettent à jour en un clic.</p>
+    <p class="cta">Testez votre équipe : gemula.org/diagnostic</p>
+  </div>
+
+  <div class="abs bas">
+    <div class="compte">@gemula
+      <svg viewBox="0 0 24 24" aria-hidden="true"><circle cx="12" cy="12" r="11" fill="#FF5000"/><path d="m7 12.5 3.2 3L17 9" fill="none" stroke="#fff" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round"/></svg>
+      </div>
+    <div class="icones" aria-hidden="true">
+      <svg viewBox="0 0 24 24"><path d="M12 21s-7.5-4.6-9.6-9.2C.8 8.2 3 4.5 6.7 4.5c2.1 0 3.6 1.2 4.3 2.6.7-1.4 2.2-2.6 4.3-2.6 3.7 0 5.9 3.7 4.3 7.3C17.5 16.4 12 21 12 21Z" fill="#fff"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2"><path d="M20 11.5a8 8 0 0 1-11.8 7L4 20l1.4-4A8 8 0 1 1 20 11.5Z"/></svg>
+      <svg viewBox="0 0 24 24" fill="none" stroke="#fff" stroke-width="2" stroke-linejoin="round"><path d="M21 3 3 10.5l7 2.5 2.5 7Z"/><path d="m10 13 4-4"/></svg>
+    </div>
+  </div>
+</body>
+</html>
